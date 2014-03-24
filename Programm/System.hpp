@@ -10,6 +10,13 @@
 
 #include <vector>
 
+/**
+  Models a one particle system.
+
+  Basically, this will be able to compute the action for a given trajectory.
+  All that is needed is an action_step() function that will give an
+  integration step of the lagrangian, yielding the action for one time step.
+  */
 class System {
     public:
         /**
