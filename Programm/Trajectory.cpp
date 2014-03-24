@@ -6,7 +6,6 @@
 #include <iostream>
 
 Trajectory::Trajectory(int time_sites, System system) : x(std::vector<double>(time_sites)) {
-
 }
 
 void Trajectory::print() {

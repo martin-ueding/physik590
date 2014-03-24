@@ -8,7 +8,7 @@
 
 int main() {
     System s;
-    Trajectory t(100, s);
+    Trajectory t(10, s);
 
     t.print();
 
