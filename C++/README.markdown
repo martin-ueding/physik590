@@ -1,3 +1,5 @@
+\mainpage Bachelorarbeit
+
 # Dependencies
 
 These Debian packages are needed to complile the prorgrams:
