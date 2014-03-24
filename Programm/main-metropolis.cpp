@@ -1,14 +1,18 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#include "System.hpp"
+/**
+  @file
+  */
+
+#include "HarmonicOszillator.hpp"
 #include "Trajectory.hpp"
 
 #include <iostream>
 
 int main() {
-    System s;
-    Trajectory t(10, s);
+    HarmonicOszillator ho;
+    Trajectory t(10, ho);
 
     t.print();
     t.set_to_random(40.);

@@ -10,5 +10,5 @@ set(CMAKE_CXX_COMPILER "/usr/bin/g++")
 add_executable(hello main-hello.cpp)
 target_link_libraries(hello boost_program_options)
 
-add_executable(metropolis main-metropolis.cpp Trajectory.cpp)
+add_executable(metropolis main-metropolis.cpp Trajectory.cpp HarmonicOszillator.cpp)
 target_link_libraries(metropolis boost_program_options)

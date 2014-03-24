@@ -7,11 +7,12 @@
 #include <iostream>
 #include <random>
 
-Trajectory::Trajectory(int time_sites, System system) : x(std::vector<double>(time_sites)) {
+Trajectory::Trajectory(int time_sites, System &s)
+    : x(std::vector<double>(time_sites)), system(s) {
 }
 
 void Trajectory::print() {
-    for (double &x_j : x) {
+    for (double & x_j : x) {
         std::cout << x_j << std::endl;
     }
 }
@@ -21,7 +22,7 @@ void Trajectory::set_to_random(double bound) {
     std::mt19937 engine;
     auto generator = std::bind(distribution, engine);
 
-    for (double &x_j : x) {
+    for (double & x_j : x) {
         x_j = generator();
     }
 }

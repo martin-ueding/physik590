@@ -2,7 +2,7 @@
 // Licensed under The GNU Public License Version 2 (or later)
 
 /**
-  \file
+  @file
   */
 
 #ifndef TRAJECTORY_H
@@ -14,13 +14,13 @@
 
 class Trajectory {
     public:
-        Trajectory(int time_sites, System system);
-        void interation();
+        Trajectory(int time_sites, System &s);
+        void iteration();
         void print();
         void set_to_random(double bound);
 
     private:
-        System system;
+        System &system;
         std::vector<double> x;
 };
 
