@@ -20,7 +20,7 @@ class System {
           @param x Trajectory @f$ \{x_j\} @f$
           @returns Action @f$ S @f$
           */
-        double action(std::vector<double> x);
+        double action(std::vector<double> &x);
 
         /**
           Gives the action for the trajectory between two points.

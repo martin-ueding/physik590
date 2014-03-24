@@ -9,9 +9,10 @@
 
 Trajectory::Trajectory(int time_sites, System &s)
     : x(std::vector<double>(time_sites)), system(s) {
+}
 
 double Trajectory::action() {
-    return system->action(x);
+    return system.action(x);
 }
 
 void Trajectory::print() {

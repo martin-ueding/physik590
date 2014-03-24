@@ -3,7 +3,7 @@
 
 #include "System.hpp"
 
-double System::action(std::vector<double> x) {
+double System::action(std::vector<double> &x) {
     double sum = 0.0;
 
     for (int i = 0; i < x.size() - 1; i++) {

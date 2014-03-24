@@ -12,7 +12,7 @@
 
 int main() {
     HarmonicOszillator ho;
-    Trajectory t(10, &ho);
+    Trajectory t(10, ho);
 
     t.print();
     t.set_to_random(40.);
