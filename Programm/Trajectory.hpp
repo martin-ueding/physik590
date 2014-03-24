@@ -17,6 +17,7 @@ class Trajectory {
         Trajectory(int time_sites, System system);
         void interation();
         void print();
+        void set_to_random(double bound);
 
     private:
         System system;
