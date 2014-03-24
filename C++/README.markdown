@@ -1,4 +1,4 @@
-\mainpage Bachelorarbeit
+\mainpage Documentation of programming part
 
 # Dependencies
 
