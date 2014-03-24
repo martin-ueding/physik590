@@ -1,3 +1,6 @@
+# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+# Licensed under The GNU Public License Version 2 (or later)
+
 cmake_minimum_required(VERSION 2.6)
 project(Bachelorarbeit)
 
@@ -6,3 +9,6 @@ set(CMAKE_CXX_COMPILER "/usr/bin/g++")
 
 add_executable(hello main-hello.cpp)
 target_link_libraries(hello boost_program_options)
+
+add_executable(metropolis main-metropolis.cpp Trajectory.cpp)
+target_link_libraries(metropolis boost_program_options)
