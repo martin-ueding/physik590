@@ -19,6 +19,8 @@ class Trajectory {
         void print();
         void set_to_random(double bound);
 
+        double action();
+
     private:
         System &system;
         std::vector<double> x;

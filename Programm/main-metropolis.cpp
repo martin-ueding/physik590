@@ -12,11 +12,13 @@
 
 int main() {
     HarmonicOszillator ho;
-    Trajectory t(10, ho);
+    Trajectory t(10, &ho);
 
     t.print();
     t.set_to_random(40.);
     t.print();
+
+    std::cout << "S: " << t.action() << std::endl;
 
     return 0;
 }
