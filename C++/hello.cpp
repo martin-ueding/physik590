@@ -1,9 +1,22 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 
+/**
+  @file
+
+  Test for build environment.
+  */
+
 #include <boost/program_options.hpp>
 
 #include <iostream>
 
+/**
+  Simple hello program to the the build environment.
+
+  @param argc Command line argument count
+  @param argv Command line argument values
+  @returns Exit status
+  */
 int main(int argc, char **argv) {
     boost::program_options::options_description description("");
     description.add_options()
