@@ -4,5 +4,7 @@
 #include "HarmonicOszillator.hpp"
 
 double HarmonicOszillator::action_step(double cur, double next) {
-    return 0;
+    double difference = next - cur;
+    double difference_squared = difference * difference;
+    return 0.5 * mass * difference_squared / a + a * potential(cur);
 }
