@@ -3,6 +3,7 @@
 
 #include "Trajectory.hpp"
 
+#include <fstream>
 #include <functional>
 #include <iostream>
 #include <random>
@@ -19,6 +20,14 @@ void Trajectory::print() {
     for (double & x_j : x) {
         std::cout << x_j << std::endl;
     }
+}
+
+void Trajectory::save_plot_file(std::string filename) {
+    std::ofstream outfile(filename);
+    for (unsigned int i = 0; i < x.size(); i++) {
+        outfile << i << "\t" << x[i] << std::endl;
+    }
+    outfile.close();
 }
 
 void Trajectory::set_to_random(double bound) {

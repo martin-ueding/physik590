@@ -10,6 +10,7 @@
 
 #include "System.hpp"
 
+#include <string>
 #include <vector>
 
 /**
@@ -36,6 +37,13 @@ class Trajectory {
         void print();
 
         /**
+          Save the current trajectory into a text file for plotting.
+
+          @param filename Name of the output file
+          */
+        void save_plot_file(std::string filename);
+
+        /**
           Fills the trajectory with purely random numbers.
 
           @param bound Upper and lower bound for random numbers.
@@ -49,14 +57,14 @@ class Trajectory {
 
     private:
         /**
-          System to work with.
-          */
-        System &system;
-
-        /**
           Positions @f$ \{ x_j \} @f$.
           */
         std::vector<double> x;
+
+        /**
+          System to work with.
+          */
+        System &system;
 };
 
 #endif /* end of include guard: TRAJECTORY_H */
