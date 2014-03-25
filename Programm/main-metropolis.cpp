@@ -21,14 +21,14 @@ int main(int argc, char **argv) {
     ("help,h", "Print usage and exit")
     ;
 
-    int time_bins;
+    int time_sites;
     double mass;
     double time_step;
     double omega_squared;
 
     boost::program_options::options_description oszillator_options("Oszillator options");
     oszillator_options.add_options()
-    ("time-bins,t",  boost::program_options::value<int>(&time_bins)->default_value(1000), "Number of bins in the time lattice")
+    ("time-bins,t",  boost::program_options::value<int>(&time_sites)->default_value(1000), "Number of sites in the time lattice")
     ("mass,m",  boost::program_options::value<double>(&mass)->default_value(1), "Mass")
     ("time-step,t",  boost::program_options::value<double>(&time_step)->default_value(0.1), "Time step")
     ("omega-squared,o",  boost::program_options::value<double>(&omega_squared)->default_value(1), "ω²")
@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
     }
 
     HarmonicOszillator ho(time_step, mass, omega_squared);
-    Trajectory t(time_bins, ho);
+    Trajectory t(time_sites, ho);
 
     t.save_plot_file("trajectory-01-init.csv");
 
@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
     }
     t.save_plot_file("trajectory-04-more_iterations.csv");
 
-    Histogram histogram(hist_bins, (time_bins-1)*iterations);
+    Histogram histogram(hist_bins, (time_sites-1)*iterations);
 
     for (int i = 0; i < 50; i++) {
         std::cout << "-";
