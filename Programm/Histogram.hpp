@@ -12,7 +12,7 @@
 #include <boost/accumulators/statistics/moment.hpp>
 #include <boost/accumulators/statistics/stats.hpp>
 
-#include <iostream>
+#include <string>
 
 using namespace boost::accumulators;
 
@@ -20,12 +20,9 @@ class Histogram {
     public:
         Histogram(int bins);
 
-        void print() {
-            auto hist = density(acc);
-            for (unsigned int i = 0; i < hist.size(); i++) {
-                std::cout << hist[i].first << "\t" << hist[i].second << std::endl;
-            }
-        }
+        void print();
+
+        void save(std::string filename);
 
         accumulator_set<double, features<tag::density>> acc;
 };
