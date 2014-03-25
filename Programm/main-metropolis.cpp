@@ -14,9 +14,9 @@ int main() {
     HarmonicOszillator ho;
     Trajectory t(10, ho);
 
-    t.print();
+    t.save_plot_file("plot-01-init.csv");
     t.set_to_random(40.);
-    t.print();
+    t.save_plot_file("plot-02-random.csv");
 
     std::cout << "S: " << t.action() << std::endl;
 
