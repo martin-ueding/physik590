@@ -40,7 +40,7 @@ int main() {
         t.binning_snapshot(histogram);
     }
 
-    histogram.print();
+    histogram.save("histogram-1000.csv");
 
     return 0;
 }

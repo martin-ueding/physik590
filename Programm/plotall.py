@@ -12,9 +12,23 @@ def main():
     options = _parse_args()
 
     for csv_file in glob.glob('trajectory-*.csv'):
-        auto_plot_file(csv_file)
+        auto_plot_trajectory(csv_file)
 
-def auto_plot_file(filename):
+    for csv_file in glob.glob('histogram-*.csv'):
+        auto_plot_histogram(csv_file)
+
+def auto_plot_histogram(filename):
+    data = np.genfromtxt(filename)
+
+    fig = pl.figure()
+    ax = fig.add_subplot(1, 1, 1)
+    ax.plot(data[:, 0], data[:, 1], marker='o')
+    ax.set_xlabel(r'relative Häufigkeit')
+    ax.set_ylabel(r'Position $x$')
+    ax.grid(True)
+    fig.savefig(filename.replace('.csv', '.pdf'))
+
+def auto_plot_trajectory(filename):
     data = np.genfromtxt(filename)
 
     fig = pl.figure()
