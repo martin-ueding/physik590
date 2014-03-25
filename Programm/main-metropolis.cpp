@@ -27,14 +27,18 @@ int main(int argc, char **argv) {
     boost::program_options::options_description description("");
     description.add_options()
     ("help,h", "Print usage and exit")
+
     ("time-bins,t",  boost::program_options::value<int>(&time_bins)->default_value(100), "Number of bins in the time lattice")
-    ("hist-bins,b",  boost::program_options::value<int>(&hist_bins)->default_value(100), "Number of bins in the histogram")
     ("irw",  boost::program_options::value<double>(&initial_random_width)->default_value(40), "Initial random width")
+
     ("margin,m",  boost::program_options::value<double>(&margin)->default_value(40), "Random margin, Δ")
-    ("iterations,i",  boost::program_options::value<int>(&iterations)->default_value(10000), "Iterations for the histogram")
-    ("rounds,r",  boost::program_options::value<int>(&rounds)->default_value(5), "Rounds for a single x_j")
     ("pre-iterations",  boost::program_options::value<int>(&pre_iterations)->default_value(1000), "Iterations to relax the system")
     ("pre-rounds",  boost::program_options::value<int>(&pre_rounds)->default_value(5), "Rounds for a single x_j during relaxation")
+
+    ("iterations,i",  boost::program_options::value<int>(&iterations)->default_value(10000), "Iterations for the histogram")
+    ("rounds,r",  boost::program_options::value<int>(&rounds)->default_value(5), "Rounds for a single x_j")
+
+    ("hist-bins,b",  boost::program_options::value<int>(&hist_bins)->default_value(100), "Number of bins in the histogram")
     ;
 
     boost::program_options::variables_map vm;
