@@ -4,8 +4,8 @@
 #ifndef HISTOGRAM_H
 #define HISTOGRAM_H
 
-
 #include <boost/accumulators/accumulators.hpp>
+#include <boost/accumulators/statistics/density.hpp>
 #include <boost/accumulators/statistics/max.hpp>
 #include <boost/accumulators/statistics/mean.hpp>
 #include <boost/accumulators/statistics/min.hpp>
@@ -20,12 +20,14 @@ class Histogram {
     public:
         Histogram(int bins);
 
-        accumulator_set<double, features<tag::min, tag::max>> acc;
-
         void print() {
-            std::cout << '(' << min( acc ) << ", " << max( acc ) << ")\n";
+            auto hist = density(acc);
+            for (unsigned int i = 0; i < hist.size(); i++) {
+                std::cout << hist[i].first << "\t" << hist[i].second << std::endl;
+            }
         }
-};
 
+        accumulator_set<double, features<tag::density>> acc;
+};
 
 #endif /* end of include guard: HISTOGRAM_H */
