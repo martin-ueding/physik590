@@ -25,6 +25,9 @@ class Histogram {
         void save(std::string filename);
 
         accumulator_set<double, features<tag::density>> acc;
+
+    private:
+        void write_histogram(std::ostream &outfile);
 };
 
 #endif /* end of include guard: HISTOGRAM_H */
