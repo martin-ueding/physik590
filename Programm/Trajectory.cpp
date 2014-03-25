@@ -33,7 +33,7 @@ void Trajectory::iteration(int rounds, double margin) {
             double new_x = distribution(mt_engine);
             //std::cout << "x'\t" << new_x << std::endl;
 
-            double action_difference = system.action_difference(x[j-1], x[j], new_x, x[j+1]);
+            double action_difference = system.action_difference(x[j - 1], x[j], new_x, x[j + 1]);
             //std::cout << "ΔS \t" << action_difference << std::endl;
 
             if (accept_action_difference(action_difference)) {
@@ -44,13 +44,13 @@ void Trajectory::iteration(int rounds, double margin) {
 }
 
 void Trajectory::print() {
-    for (double &x_j : x) {
+    for (double & x_j : x) {
         std::cout << x_j << std::endl;
     }
 }
 
 void Trajectory::binning_snapshot(Histogram &histogram) {
-    for (double &x_j : x) {
+    for (double & x_j : x) {
         histogram.acc(x_j);
     }
 }
