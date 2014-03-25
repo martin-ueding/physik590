@@ -3,8 +3,10 @@
 
 #include "HarmonicOszillator.hpp"
 
-double HarmonicOszillator::action_step(double cur, double next) {
-    double difference = next - cur;
-    double difference_squared = difference * difference;
-    return 0.5 * mass * difference_squared / a + a * potential(cur);
+HarmonicOszillator::HarmonicOszillator(double time_step, double mass, double omega_squared) :
+    System(time_step, mass), omega_squared(omega_squared) {
+    }
+
+double HarmonicOszillator::potential(double x) {
+    return 0.5 * mass * omega_squared * x * x;
 }

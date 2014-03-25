@@ -14,11 +14,13 @@
   Models a one particle system.
 
   Basically, this will be able to compute the action for a given trajectory.
-  All that is needed is an action_step() function that will give an
-  integration step of the lagrangian, yielding the action for one time step.
+  All that is needed is an potential() function that will give a potential
+  energy.
   */
 class System {
     public:
+        System(double time_step, double mass);
+
         /**
           Computes the total action for the given trajectory.
 
@@ -36,7 +38,7 @@ class System {
           @param next Next: @f$ x_{j+1} @f$
           @returns Action of single step @f$ S @f$
           */
-        virtual double action_step(double cur, double next) = 0;
+        double action_step(double cur, double next);
 
         /**
           Computes the difference in action when one @f$ x_j @f$ is varied.
@@ -54,9 +56,16 @@ class System {
                                  double next);
 
         /**
+          Potential @f$ \phi(x) @f$.
+
+          @param x Position @f$ x @f$
+          */
+        virtual double potential(double x) = 0;
+
+        /**
           Time step @f$ a @f$.
           */
-        double a = 1.0;
+        double time_step = 1.0;
 
         /**
           Mass @f$ m @f$.

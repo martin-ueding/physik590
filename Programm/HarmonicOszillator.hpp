@@ -17,22 +17,15 @@
   */
 class HarmonicOszillator : public System {
     public:
-        virtual double action_step(double cur, double next);
+        HarmonicOszillator(double time_step, double mass, double omega_squared);
 
-        /**
-          Potential @f$ \phi(x) @f$.
-
-          @param x Position @f$ x @f$
-          */
-        virtual double potential(double x) {
-            return 0.5 * k * x * x;
-        }
+        virtual double potential(double x);
 
     private:
         /**
           Sping constant @f$ k @f$ or @f$ \omega^2 @f$.
           */
-        double k = 1.0;
+        double omega_squared;
 };
 
 #endif /* end of include guard: HARMONICOSZILLATOR_H */

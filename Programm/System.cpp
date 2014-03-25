@@ -3,6 +3,9 @@
 
 #include "System.hpp"
 
+System::System(double time_step, double mass) : time_step(time_step), mass(mass) {
+}
+
 double System::action(std::vector<double> &x) {
     double sum = 0.0;
 
@@ -19,4 +22,10 @@ double System::action_difference(double prev, double cur, double alt,
     double action_alt = action_step(prev, alt) + action_step(cur, alt);
 
     return action_alt - action_cur;
+}
+
+double System::action_step(double cur, double next) {
+    double difference = next - cur;
+    double difference_squared = difference * difference;
+    return 0.5 * mass * difference_squared / time_step + time_step * potential(cur);
 }
