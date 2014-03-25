@@ -27,11 +27,23 @@ def auto_plot_histogram(filename):
     bins = data[:, 0]
     counts = data[:, 1]
     width = bins[3] - bins[2]
-    ax.bar(bins, counts, width)
+
+    counts /= width
+
+    selection = abs(bins) < 9
+
+    ax.plot(bins[selection], counts[selection], marker='+', linestyle='none')
     ax.set_title(filename)
     ax.set_xlabel(r'relative Häufigkeit')
     ax.set_ylabel(r'Position $x$')
     ax.grid(True)
+
+    x = np.linspace(np.min(bins[selection]), np.max(bins[selection]), 1000)
+    y = 0.59 * np.exp(- 1.1 * x**2)
+
+    ax.plot(x, y)
+
+
     fig.savefig(filename.replace('.csv', '.pdf'))
 
 def auto_plot_trajectory(filename):
