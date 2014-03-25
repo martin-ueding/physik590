@@ -12,9 +12,11 @@ def main():
     options = _parse_args()
 
     for csv_file in glob.glob('trajectory-*.csv'):
+        print('Plotting', csv_file)
         auto_plot_trajectory(csv_file)
 
     for csv_file in glob.glob('histogram-*.csv'):
+        print('Plotting', csv_file)
         auto_plot_histogram(csv_file)
 
 def auto_plot_histogram(filename):

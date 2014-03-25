@@ -13,7 +13,7 @@
 
 int main() {
     HarmonicOszillator ho;
-    Trajectory t(50, ho);
+    Trajectory t(100, ho);
 
 
     t.save_plot_file("trajectory-01-init.csv");
@@ -35,7 +35,7 @@ int main() {
 
     Histogram histogram(100, 49*1000);
 
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 10000; i++) {
         t.iteration(5, 40.);
         t.binning_snapshot(histogram);
     }
