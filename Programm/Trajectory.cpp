@@ -24,6 +24,7 @@ void Trajectory::print() {
 
 void Trajectory::save_plot_file(std::string filename) {
     std::ofstream outfile(filename);
+    outfile << "# j \t x_j" << std::endl;
     for (unsigned int i = 0; i < x.size(); i++) {
         outfile << i << "\t" << x[i] << std::endl;
     }
