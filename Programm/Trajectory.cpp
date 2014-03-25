@@ -3,13 +3,22 @@
 
 #include "Trajectory.hpp"
 
+#include <cmath>
 #include <fstream>
 #include <functional>
 #include <iostream>
-#include <random>
 
-Trajectory::Trajectory(int time_sites, System &s)
-    : x(std::vector<double>(time_sites)), system(s) {
+Trajectory::Trajectory(int time_sites, System &s) :
+    x(std::vector<double>(time_sites)), system(s),
+    zero_one_dist(std::uniform_real_distribution<double>(0, 1)) {
+}
+
+bool Trajectory::accept_action_difference(double action_difference) {
+    if (action_difference < 0) {
+        return true;
+    }
+
+    return std::exp(- action_difference) > zero_one_dist(mt_engine);
 }
 
 double Trajectory::action() {
