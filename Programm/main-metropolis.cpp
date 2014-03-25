@@ -9,12 +9,30 @@
 #include "Histogram.hpp"
 #include "Trajectory.hpp"
 
+#include <boost/program_options.hpp>
+
 #include <iostream>
 
-int main() {
-    HarmonicOszillator ho;
-    Trajectory t(100, ho);
+int main(int argc, char **argv) {
+    int bins;
 
+    boost::program_options::options_description description("");
+    description.add_options()
+    ("help,h", "Print usage and exit")
+    ("bins",  boost::program_options::value<int>(&bins)->default_value(100), "Number of bins in the histogram")
+    ;
+
+    boost::program_options::variables_map vm;
+    boost::program_options::store(boost::program_options::parse_command_line(argc, argv, description), vm);
+    boost::program_options::notify(vm);
+
+    if (vm.count("help") > 0) {
+        std::cout << description << std::endl;
+        return 0;
+    }
+
+    HarmonicOszillator ho;
+    Trajectory t(bins, ho);
 
     t.save_plot_file("trajectory-01-init.csv");
     std::cout << "Action after init: " << t.action() << std::endl;
