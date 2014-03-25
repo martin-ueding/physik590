@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
     }
     t.save_plot_file("trajectory-04-more_iterations.csv");
 
-    Histogram histogram(hist_bins, (time_sites-1)*iterations);
+    Histogram histogram(hist_bins, (time_sites-1-10)*iterations);
 
     for (int i = 0; i < 50; i++) {
         std::cout << "-";
@@ -115,6 +115,7 @@ int main(int argc, char **argv) {
 
     std::cout << std::endl;
 
+    t.save_plot_file("trajectory-05-end.csv");
     histogram.save("histogram-1000.csv");
 
     return 0;

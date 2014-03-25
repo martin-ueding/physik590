@@ -50,7 +50,7 @@ void Trajectory::print() {
 }
 
 void Trajectory::binning_snapshot(Histogram &histogram) {
-    for (unsigned int i = 1; i < x.size(); i++) {
+    for (unsigned int i = 1; i < x.size() - 10; i++) {
         histogram.acc(x[i]);
     }
 }
