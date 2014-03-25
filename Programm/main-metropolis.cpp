@@ -6,6 +6,7 @@
   */
 
 #include "HarmonicOszillator.hpp"
+#include "Histogram.hpp"
 #include "Trajectory.hpp"
 
 #include <iostream>
@@ -27,10 +28,19 @@ int main() {
     std::cout << "Action after iteration: " << t.action() << std::endl;
 
     for (int i = 0; i < 1000; i++) {
-        t.iteration(1, 40.);
+        t.iteration(5, 40.);
     }
     t.save_plot_file("trajectory-04-more_iterations.csv");
     std::cout << "Action after more iterations: " << t.action() << std::endl;
+
+    Histogram histogram(200);
+
+    for (int i = 0; i < 1000; i++) {
+        t.iteration(5, 40.);
+        t.binning_snapshot(histogram);
+    }
+
+    histogram.print();
 
     return 0;
 }

@@ -8,6 +8,7 @@
 #ifndef TRAJECTORY_H
 #define TRAJECTORY_H
 
+#include "Histogram.hpp"
 #include "System.hpp"
 
 #include <random>
@@ -55,6 +56,11 @@ class Trajectory {
           Gives the action of the system for the current trajectory.
           */
         double action();
+
+        /**
+          Appends the current trajectory to the histogram.
+          */
+        void binning_snapshot(Histogram &histogram);
 
     private:
         /**

@@ -6,7 +6,7 @@
 double System::action(std::vector<double> &x) {
     double sum = 0.0;
 
-    for (int i = 0; i < x.size() - 1; i++) {
+    for (unsigned int i = 0; i < x.size() - 1; i++) {
         sum += action_step(x[i], x[i + 1]);
     }
 
