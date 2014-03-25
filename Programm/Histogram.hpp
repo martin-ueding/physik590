@@ -18,7 +18,7 @@ using namespace boost::accumulators;
 
 class Histogram {
     public:
-        Histogram(int bins);
+        Histogram(int bins, int cache);
 
         void print();
 

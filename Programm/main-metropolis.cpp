@@ -33,7 +33,7 @@ int main() {
     t.save_plot_file("trajectory-04-more_iterations.csv");
     std::cout << "Action after more iterations: " << t.action() << std::endl;
 
-    Histogram histogram(200);
+    Histogram histogram(100, 49*1000);
 
     for (int i = 0; i < 1000; i++) {
         t.iteration(5, 40.);

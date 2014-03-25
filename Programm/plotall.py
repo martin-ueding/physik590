@@ -22,7 +22,11 @@ def auto_plot_histogram(filename):
 
     fig = pl.figure()
     ax = fig.add_subplot(1, 1, 1)
-    ax.plot(data[:, 0], data[:, 1], marker='o')
+    bins = data[:, 0]
+    counts = data[:, 1]
+    width = bins[3] - bins[2]
+    ax.bar(bins, counts, width)
+    ax.set_title(filename)
     ax.set_xlabel(r'relative Häufigkeit')
     ax.set_ylabel(r'Position $x$')
     ax.grid(True)
@@ -34,6 +38,7 @@ def auto_plot_trajectory(filename):
     fig = pl.figure()
     ax = fig.add_subplot(1, 1, 1)
     ax.plot(data[:, 0], data[:, 1], marker='o')
+    ax.set_title(filename)
     ax.set_xlabel(r'Zeit $j$')
     ax.set_ylabel(r'Position $x_j$')
     ax.grid(True)
