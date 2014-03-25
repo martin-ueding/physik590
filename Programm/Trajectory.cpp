@@ -30,10 +30,10 @@ void Trajectory::iteration(int rounds, double margin) {
         std::uniform_real_distribution<double> distribution(x[j] - margin, x[j] + margin);
 
         double new_x = distribution(mt_engine);
-        std::cout << "x'\t" << new_x << std::endl;
+        //std::cout << "x'\t" << new_x << std::endl;
 
         double action_difference = system.action_difference(x[j-1], x[j], new_x, x[j+1]);
-        std::cout << "ΔS \t" << action_difference << std::endl;
+        //std::cout << "ΔS \t" << action_difference << std::endl;
 
         if (accept_action_difference(action_difference)) {
             x[j] = new_x;
