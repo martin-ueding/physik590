@@ -3,10 +3,10 @@
 
 #include "HarmonicOszillator.hpp"
 
-HarmonicOszillator::HarmonicOszillator(double time_step, double mass, double omega_squared) :
-    System(time_step, mass), omega_squared(omega_squared) {
+HarmonicOszillator::HarmonicOszillator(double time_step, double mass, double mu_squared) :
+    System(time_step, mass), mu_squared(mu_squared) {
     }
 
 double HarmonicOszillator::potential(double x) {
-    return 0.5 * mass * omega_squared * x * x;
+    return 0.5 * mu_squared * x * x;
 }

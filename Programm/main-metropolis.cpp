@@ -24,14 +24,14 @@ int main(int argc, char **argv) {
     int time_sites;
     double mass;
     double time_step;
-    double omega_squared;
+    double mu_squared;
 
     boost::program_options::options_description oszillator_options("Oszillator options");
     oszillator_options.add_options()
     ("time-bins,t",  boost::program_options::value<int>(&time_sites)->default_value(1000), "Number of sites in the time lattice")
     ("mass,m",  boost::program_options::value<double>(&mass)->default_value(1), "Mass")
-    ("time-step,t",  boost::program_options::value<double>(&time_step)->default_value(0.1), "Time step")
-    ("omega-squared,o",  boost::program_options::value<double>(&omega_squared)->default_value(1), "ω²")
+    ("time-step,t",  boost::program_options::value<double>(&time_step)->default_value(0.1), "Spacing of time lattice")
+    ("mu-squared,o",  boost::program_options::value<double>(&mu_squared)->default_value(1), "μ²")
     ;
     options.add(oszillator_options);
 
@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    HarmonicOszillator ho(time_step, mass, omega_squared);
+    HarmonicOszillator ho(time_step, mass, mu_squared);
     Trajectory t(time_sites, ho);
 
     t.save_plot_file("trajectory-01-init.csv");
