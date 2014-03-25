@@ -13,9 +13,13 @@
 
 #include <iostream>
 
+/**
+  Entry point for the metropolis program.
+
+  @param argc Argument count
+  @param argv Arguments
+  */
 int main(int argc, char **argv) {
-
-
     boost::program_options::options_description options("Program options");
     options.add_options()
     ("help,h", "Print usage and exit")

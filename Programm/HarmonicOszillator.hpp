@@ -17,6 +17,15 @@
   */
 class HarmonicOszillator : public System {
     public:
+        /**
+          Creates a new harmonic oscillator.
+
+          The first two parameters are passed off to the System constructor.
+
+          @param time_step Time lattice spacing @f$ a @f$
+          @param mass Mass @f$ m @f$
+          @param mu_squared Spring constant @f$ \mu^2 @f$
+          */
         HarmonicOszillator(double time_step, double mass, double mu_squared);
 
         virtual double potential(double x);

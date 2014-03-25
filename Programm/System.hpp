@@ -19,6 +19,12 @@
   */
 class System {
     public:
+        /**
+          Creates a new one particle system.
+
+          @param time_step Time lattice spacing @f$ a @f$
+          @param mass Mass @f$ m @f$
+          */
         System(double time_step, double mass);
 
         /**
