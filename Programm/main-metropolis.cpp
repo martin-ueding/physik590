@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
 
     boost::program_options::options_description hist_options("Histogram options");
     hist_options.add_options()
-    ("hist-bins,b",  boost::program_options::value<int>(&hist_bins)->default_value(100), "Number of bins in the histogram")
+    ("hist-bins,b",  boost::program_options::value<int>(&hist_bins)->default_value(1000), "Number of bins in the histogram")
     ;
     options.add(hist_options);
 

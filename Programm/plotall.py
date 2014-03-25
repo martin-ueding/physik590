@@ -27,10 +27,9 @@ def auto_plot_histogram(filename):
     bins = data[:, 0]
     counts = data[:, 1]
     width = bins[3] - bins[2]
+    selection = abs(bins) < 9
 
     counts /= width
-
-    selection = abs(bins) < 9
 
     ax.plot(bins[selection], counts[selection], marker='+', linestyle='none')
     ax.set_title(filename)
