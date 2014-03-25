@@ -14,11 +14,13 @@ int main() {
     HarmonicOszillator ho;
     Trajectory t(50, ho);
 
+    std::cout << "Action after init: " << t.action() << std::endl;
+
     t.save_plot_file("trajectory-01-init.csv");
     t.set_to_random(40.);
     t.save_plot_file("trajectory-02-random.csv");
 
-    std::cout << "S: " << t.action() << std::endl;
+    std::cout << "Action after random: " << t.action() << std::endl;
 
     return 0;
 }
