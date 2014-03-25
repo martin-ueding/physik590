@@ -30,7 +30,7 @@ class Trajectory {
         /**
           Does a single iteration.
           */
-        void iteration();
+        void iteration(int rounds, double margin);
 
         /**
           Prints the current trajectory to standard output.
