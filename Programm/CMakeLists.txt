@@ -17,6 +17,7 @@ add_executable(metropolis
     Histogram.cpp
     ListQuantity.cpp
     Periodic.cpp
+    SizePrinter.cpp
     System.cpp
     Trajectory.cpp
     )

@@ -50,7 +50,7 @@ class Histogram {
           */
         accumulator_set<double, features<tag::density>> acc;
 
-        const int MAX_CACHE = 1024 * 1024 * 1024 / sizeof(double);
+        const int MAX_CACHE_ENTRIES = 2 * 1024 * 1024 * 1024 / sizeof(double);
 
     private:
         /**
