@@ -87,18 +87,18 @@ int main(int argc, char **argv) {
     HarmonicOszillator ho(time_step, mass, mu_squared);
     Trajectory t(time_sites, ho);
 
-    t.save_plot_file("out/trajectory-01-init.csv");
+    t.x.save_plot_file("out/trajectory-01-init.csv");
 
-    t.set_to_random(initial_random_width);
-    t.save_plot_file("out/trajectory-02-random.csv");
+    t.x.set_to_random(initial_random_width);
+    t.x.save_plot_file("out/trajectory-02-random.csv");
 
     t.iteration(pre_rounds, margin);
-    t.save_plot_file("out/trajectory-03-iteration.csv");
+    t.x.save_plot_file("out/trajectory-03-iteration.csv");
 
     for (int i = 0; i < pre_iterations - iterations_between; i++) {
         t.iteration(pre_rounds, margin);
     }
-    t.save_plot_file("out/trajectory-04-more_iterations.csv");
+    t.x.save_plot_file("out/trajectory-04-more_iterations.csv");
 
     Histogram position_histogram(position_hist_bins, time_sites*iterations);
     Histogram action_histogram(action_hist_bins, iterations);
@@ -113,7 +113,7 @@ int main(int argc, char **argv) {
             t.iteration(rounds, margin);
         }
         t.iteration(rounds, margin);
-        t.binning_snapshot(position_histogram);
+        t.x.binning_snapshot(position_histogram);
         action_histogram.acc(t.action());
 
         if (i * 50 % iterations == 0) {
@@ -123,7 +123,7 @@ int main(int argc, char **argv) {
 
     std::cout << std::endl;
 
-    t.save_plot_file("out/trajectory-05-end.csv");
+    t.x.save_plot_file("out/trajectory-05-end.csv");
     position_histogram.save("out/histogram-position-1000.csv");
     action_histogram.save("out/histogram-action-1000.csv");
 

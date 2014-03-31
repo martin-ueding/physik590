@@ -15,6 +15,7 @@ add_executable(metropolis
 
     HarmonicOszillator.cpp
     Histogram.cpp
+    ListQuantity.cpp
     Periodic.cpp
     System.cpp
     Trajectory.cpp

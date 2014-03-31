@@ -6,12 +6,10 @@
 #include "Periodic.hpp"
 
 #include <cmath>
-#include <fstream>
 #include <functional>
-#include <iostream>
 
 Trajectory::Trajectory(int time_sites, System &s) :
-    x(std::vector<double>(time_sites)), system(s),
+    x(ListQuantity(time_sites)), system(s),
     zero_one_dist(std::uniform_real_distribution<double>(0, 1)) {
 }
 
@@ -24,57 +22,25 @@ bool Trajectory::accept_action_difference(double action_difference) {
 }
 
 double Trajectory::action() {
-    return system.action(x);
+    return system.action(x.list);
 }
 
 void Trajectory::iteration(int rounds, double margin) {
-    for (unsigned int j = 1; j < x.size(); j++) {
-        std::uniform_real_distribution<double> distribution(x[j] - margin, x[j] + margin);
+    for (unsigned int j = 1; j < x.list.size(); j++) {
+        std::uniform_real_distribution<double> distribution(x.list[j] - margin, x.list[j] + margin);
 
         // Wrap j around to create periodic boundary conditions.
-        unsigned int j_plus_one = Periodic::wrap(j + 1, x.size());
-        unsigned int j_minus_one = Periodic::wrap(j - 1, x.size());
+        unsigned int j_plus_one = Periodic::wrap(j + 1, x.list.size());
+        unsigned int j_minus_one = Periodic::wrap(j - 1, x.list.size());
 
         for (int round = 0; round < rounds; round++) {
             double new_x = distribution(mt_engine);
-            //std::cout << "x'\t" << new_x << std::endl;
 
-            double action_difference = system.action_difference(x[j_minus_one], x[j], new_x, x[j_plus_one]);
-            //std::cout << "ΔS \t" << action_difference << std::endl;
+            double action_difference = system.action_difference(x.list[j_minus_one], x.list[j], new_x, x.list[j_plus_one]);
 
             if (accept_action_difference(action_difference)) {
-                x[j] = new_x;
+                x.list[j] = new_x;
             }
         }
-    }
-}
-
-void Trajectory::print() {
-    for (double & x_j : x) {
-        std::cout << x_j << std::endl;
-    }
-}
-
-void Trajectory::binning_snapshot(Histogram &histogram) {
-    for (unsigned int i = 0; i < x.size(); i++) {
-        histogram.acc(x[i]);
-    }
-}
-
-void Trajectory::save_plot_file(std::string filename) {
-    std::ofstream outfile(filename);
-    outfile << "# j \t x_j" << std::endl;
-    for (unsigned int i = 0; i < x.size(); i++) {
-        outfile << i << "\t" << x[i] << std::endl;
-    }
-    outfile.close();
-}
-
-void Trajectory::set_to_random(double bound) {
-    std::uniform_real_distribution<double> distribution(-bound, bound);
-    auto generator = std::bind(distribution, mt_engine);
-
-    for (unsigned int i = 1; i < x.size() - 1; i++) {
-        x[i] = generator();
     }
 }
