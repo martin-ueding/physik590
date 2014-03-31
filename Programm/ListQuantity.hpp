@@ -14,7 +14,7 @@
 
 class ListQuantity {
     public:
-        ListQuantity(int sites);
+        ListQuantity(size_t sites);
 
         std::vector<double> list;
 

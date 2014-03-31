@@ -5,7 +5,7 @@
 
 #include <fstream>
 
-ListQuantity::ListQuantity(int sites) : list(std::vector<double>(sites)) {
+ListQuantity::ListQuantity(size_t sites) : list(std::vector<double>(sites)) {
 }
 
 void ListQuantity::print() {

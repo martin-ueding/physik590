@@ -31,7 +31,7 @@ class Histogram {
           @param bins Number of bins.
           @param cache Cache entries
           */
-        Histogram(int bins, int cache);
+        Histogram(int bins, size_t cache);
 
         /**
           Prints the current histogram contents to the standard output.
@@ -50,7 +50,7 @@ class Histogram {
           */
         accumulator_set<double, features<tag::density>> acc;
 
-        const int MAX_CACHE_ENTRIES = 2 * 1024 * 1024 * 1024 / sizeof(double);
+        const size_t MAX_CACHE_ENTRIES = 2L * 1024 * 1024 * 1024 / sizeof(double);
 
     private:
         /**

@@ -10,7 +10,7 @@
 #include <iostream>
 
 
-Histogram::Histogram(int bins, int cache) : acc(accumulator_set<double, features<tag::density>>(tag::density::num_bins = bins, tag::density::cache_size = std::min(cache, MAX_CACHE_ENTRIES))) {
+Histogram::Histogram(int bins, size_t cache) : acc(accumulator_set<double, features<tag::density>>(tag::density::num_bins = bins, tag::density::cache_size = std::min(cache, MAX_CACHE_ENTRIES))) {
     SizePrinter sp;
     if (cache > MAX_CACHE_ENTRIES) {
         std::cout << "Warning: " << sp.format(cache * sizeof(double)) << " is exeeding " << sp.format(MAX_CACHE_ENTRIES * sizeof(double)) << std::endl;
