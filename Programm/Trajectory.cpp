@@ -28,7 +28,7 @@ double Trajectory::action() {
 }
 
 void Trajectory::iteration(int rounds, double margin) {
-    for (unsigned int j = 0; j < x.size(); j++) {
+    for (unsigned int j = 1; j < x.size(); j++) {
         std::uniform_real_distribution<double> distribution(x[j] - margin, x[j] + margin);
 
         // Wrap j around to create periodic boundary conditions.
