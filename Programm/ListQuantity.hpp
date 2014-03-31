@@ -12,10 +12,25 @@
 
 #include <vector>
 
+/**
+  Wrapper for lists.
+
+  During the simulation, there are certain quantities that should be kept track
+  of. The individual values can be stored in the \ref list. Besides pretty
+  printing methods, a snapshot can be taken into an existing Histogram.
+  */
 class ListQuantity {
     public:
+        /**
+          Generates a new list.
+
+          @param sites Number of entries to store.
+          */
         ListQuantity(size_t sites);
 
+        /**
+          Stores the actual data.
+          */
         std::vector<double> list;
 
         /**
