@@ -33,8 +33,8 @@ def auto_plot_histogram(filename):
 
     ax.plot(bins[selection], counts[selection], marker='+', linestyle='none')
     ax.set_title(filename)
-    ax.set_xlabel(r'relative Häufigkeit')
-    ax.set_ylabel(r'Position $x$')
+    ax.set_xlabel(r'Position $x$')
+    ax.set_ylabel(r'relative Häufigkeit')
     ax.grid(True)
 
     x = np.linspace(np.min(bins[selection]), np.max(bins[selection]), 1000)
