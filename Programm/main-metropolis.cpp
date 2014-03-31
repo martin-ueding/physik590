@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
     }
     t.save_plot_file("trajectory-04-more_iterations.csv");
 
-    Histogram histogram(hist_bins, (time_sites-1-10)*iterations);
+    Histogram histogram(hist_bins, time_sites*iterations);
 
     for (int i = 0; i < 50; i++) {
         std::cout << "-";
