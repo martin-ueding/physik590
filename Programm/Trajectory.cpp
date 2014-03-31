@@ -3,6 +3,8 @@
 
 #include "Trajectory.hpp"
 
+#include "Periodic.hpp"
+
 #include <cmath>
 #include <fstream>
 #include <functional>
@@ -30,8 +32,8 @@ void Trajectory::iteration(int rounds, double margin) {
         std::uniform_real_distribution<double> distribution(x[j] - margin, x[j] + margin);
 
         // Wrap j around to create periodic boundary conditions.
-        unsigned int j_plus_one = (j + 1) % x.size();
-        unsigned int j_minus_one = (j - 1) % x.size();
+        unsigned int j_plus_one = Periodic::wrap(j + 1, x.size());
+        unsigned int j_minus_one = Periodic::wrap(j - 1, x.size());
 
         for (int round = 0; round < rounds; round++) {
             double new_x = distribution(mt_engine);
