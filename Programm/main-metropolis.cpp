@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
     }
     t.save_plot_file("trajectory-04-more_iterations.csv");
 
-    Histogram histogram(hist_bins, time_sites*iterations);
+    Histogram position_histogram(hist_bins, time_sites*iterations);
 
     for (int i = 0; i < 50; i++) {
         std::cout << "-";
@@ -110,7 +110,7 @@ int main(int argc, char **argv) {
             t.iteration(rounds, margin);
         }
         t.iteration(rounds, margin);
-        t.binning_snapshot(histogram);
+        t.binning_snapshot(position_histogram);
 
         if (i * 50 % iterations == 0) {
             std::cout << "=" << std::flush;
@@ -120,7 +120,7 @@ int main(int argc, char **argv) {
     std::cout << std::endl;
 
     t.save_plot_file("trajectory-05-end.csv");
-    histogram.save("histogram-1000.csv");
+    position_histogram.save("histogram-1000.csv");
 
     return 0;
 }
