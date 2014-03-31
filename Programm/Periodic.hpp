@@ -6,7 +6,7 @@
 
 class Periodic {
     public:
-        static inline unsigned int wrap(unsigned int number, unsigned int max);
+        static unsigned int wrap(int number, unsigned int max);
 };
 
 #endif /* end of include guard: PERIODIC_H */

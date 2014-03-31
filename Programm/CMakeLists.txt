@@ -23,10 +23,7 @@ target_link_libraries(metropolis boost_program_options)
 add_executable(metropolis-test
     main-metropolis-test.cpp
 
-    HarmonicOszillator.cpp
-    Histogram.cpp
-    System.cpp
-    Trajectory.cpp
-    test-periodic.cpp
+    Periodic.cpp
+    PeriodicTest.cpp
     )
 target_link_libraries(metropolis-test cppunit)

@@ -1,10 +1,22 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-/**
-  @file
-  */
+#include "Periodic.hpp"
 
-inline unsigned int Periodic::wrap(unsigned int number, unsigned int max) {
-    return number % max;
+#include <iostream>
+
+unsigned int Periodic::wrap(int number, unsigned int max) {
+    unsigned int result;
+
+    if (number < 0) {
+        result = number + max;
+    }
+    else if ((unsigned int) number >= max) {
+        result = number % max;
+    }
+    else {
+        result = number;
+    }
+
+    return result;
 }
