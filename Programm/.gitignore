@@ -1,7 +1,4 @@
 hello
 html
 metropolis
-trajectory-*.csv
-trajectory-*.pdf
-histogram-*.csv
-histogram-*.pdf
+out*/
