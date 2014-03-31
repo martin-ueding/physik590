@@ -6,7 +6,7 @@
 #include <iostream>
 #include <sstream>
 
-std::string SizePrinter::format(unsigned int size) {
+std::string SizePrinter::format(size_t size) {
     int level = find_level(size);
     double mantissa = size;
 
@@ -20,11 +20,11 @@ std::string SizePrinter::format(unsigned int size) {
     return oss.str();
 }
 
-void SizePrinter::print(unsigned int size) {
+void SizePrinter::print(size_t size) {
     std::cout << format(size) << std::endl;
 }
 
-int SizePrinter::find_level(unsigned int size) {
+int SizePrinter::find_level(size_t size) {
     int level = 0;
     while (size > 1024) {
         size /= 1024;

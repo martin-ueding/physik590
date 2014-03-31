@@ -50,6 +50,11 @@ class Histogram {
           */
         accumulator_set<double, features<tag::density>> acc;
 
+        /**
+          Maximum size for a single histogram.
+
+          Currently, this is limited to 2 GiB.
+          */
         const size_t MAX_CACHE_ENTRIES = 2L * 1024 * 1024 * 1024 / sizeof(double);
 
     private:
