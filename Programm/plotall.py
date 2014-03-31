@@ -11,15 +11,15 @@ import glob
 def main():
     options = _parse_args()
 
-    for csv_file in glob.glob('trajectory-*.csv'):
+    for csv_file in glob.glob('out/trajectory-*.csv'):
         print('Plotting', csv_file)
         auto_plot_trajectory(csv_file)
 
-    for csv_file in glob.glob('histogram-*.csv'):
+    for csv_file in glob.glob('out/histogram-*.csv'):
         print('Plotting', csv_file)
         auto_plot_histogram(csv_file)
 
-def auto_plot_histogram(filename):
+def plot_histogram(filename):
     data = np.genfromtxt(filename)
 
     fig = pl.figure()
@@ -42,6 +42,24 @@ def auto_plot_histogram(filename):
 
     ax.plot(x, y)
 
+
+    fig.savefig(filename.replace('.csv', '.pdf'))
+
+def auto_plot_histogram(filename):
+    data = np.genfromtxt(filename)
+
+    fig = pl.figure()
+    ax = fig.add_subplot(1, 1, 1)
+    bins = data[:, 0]
+    counts = data[:, 1]
+    width = bins[3] - bins[2]
+    counts /= width
+
+    ax.plot(bins, counts, marker='+', linestyle='none')
+    ax.set_title(filename)
+    ax.set_xlabel(r'Messgröße')
+    ax.set_ylabel(r'relative Häufigkeit')
+    ax.grid(True)
 
     fig.savefig(filename.replace('.csv', '.pdf'))
 
