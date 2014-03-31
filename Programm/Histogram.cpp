@@ -3,11 +3,15 @@
 
 #include "Histogram.hpp"
 
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 
 
-Histogram::Histogram(int bins, int cache) : acc(accumulator_set<double, features<tag::density>>(tag::density::num_bins = bins, tag::density::cache_size = cache)) {
+Histogram::Histogram(int bins, int cache) : acc(accumulator_set<double, features<tag::density>>(tag::density::num_bins = bins, tag::density::cache_size = std::min(cache, MAX_CACHE))) {
+    if (cache > MAX_CACHE) {
+        std::cout << "Warning: " << cache << " is exeeding " << MAX_CACHE << std::endl;
+    }
 }
 
 void Histogram::print() {

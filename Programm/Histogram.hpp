@@ -50,6 +50,8 @@ class Histogram {
           */
         accumulator_set<double, features<tag::density>> acc;
 
+        const int MAX_CACHE = 1024 * 1024 * 1024 / sizeof(double);
+
     private:
         /**
           Writes the current histogram into the given stream.
