@@ -65,11 +65,13 @@ int main(int argc, char **argv) {
     ;
     options.add(iter_options);
 
-    int hist_bins;
+    int position_hist_bins;
+    int action_hist_bins;
 
     boost::program_options::options_description hist_options("Histogram options");
     hist_options.add_options()
-    ("hist-bins,b",  boost::program_options::value<int>(&hist_bins)->default_value(1000), "Number of bins in the histogram")
+    ("position-hist-bins,b",  boost::program_options::value<int>(&position_hist_bins)->default_value(1000), "Number of bins in the position histogram")
+    ("action-hist-bins,b",  boost::program_options::value<int>(&action_hist_bins)->default_value(100), "Number of bins in the action histogram")
     ;
     options.add(hist_options);
 
@@ -85,20 +87,21 @@ int main(int argc, char **argv) {
     HarmonicOszillator ho(time_step, mass, mu_squared);
     Trajectory t(time_sites, ho);
 
-    t.save_plot_file("trajectory-01-init.csv");
+    t.save_plot_file("out/trajectory-01-init.csv");
 
     t.set_to_random(initial_random_width);
-    t.save_plot_file("trajectory-02-random.csv");
+    t.save_plot_file("out/trajectory-02-random.csv");
 
     t.iteration(pre_rounds, margin);
-    t.save_plot_file("trajectory-03-iteration.csv");
+    t.save_plot_file("out/trajectory-03-iteration.csv");
 
     for (int i = 0; i < pre_iterations - iterations_between; i++) {
         t.iteration(pre_rounds, margin);
     }
-    t.save_plot_file("trajectory-04-more_iterations.csv");
+    t.save_plot_file("out/trajectory-04-more_iterations.csv");
 
-    Histogram position_histogram(hist_bins, time_sites*iterations);
+    Histogram position_histogram(position_hist_bins, time_sites*iterations);
+    Histogram action_histogram(action_hist_bins, iterations);
 
     for (int i = 0; i < 50; i++) {
         std::cout << "-";
@@ -111,6 +114,7 @@ int main(int argc, char **argv) {
         }
         t.iteration(rounds, margin);
         t.binning_snapshot(position_histogram);
+        action_histogram.acc(t.action());
 
         if (i * 50 % iterations == 0) {
             std::cout << "=" << std::flush;
@@ -119,8 +123,9 @@ int main(int argc, char **argv) {
 
     std::cout << std::endl;
 
-    t.save_plot_file("trajectory-05-end.csv");
-    position_histogram.save("histogram-1000.csv");
+    t.save_plot_file("out/trajectory-05-end.csv");
+    position_histogram.save("out/histogram-position-1000.csv");
+    action_histogram.save("out/histogram-action-1000.csv");
 
     return 0;
 }
