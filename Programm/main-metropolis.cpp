@@ -103,6 +103,8 @@ int main(int argc, char **argv) {
     Histogram position_histogram(position_hist_bins, time_sites*iterations);
     Histogram action_histogram(action_hist_bins, iterations);
 
+    ListQuantity action_list(iterations);
+
     for (int i = 0; i < 50; i++) {
         std::cout << "-";
     }
@@ -114,7 +116,7 @@ int main(int argc, char **argv) {
         }
         t.iteration(rounds, margin);
         t.x.binning_snapshot(position_histogram);
-        action_histogram.acc(t.action());
+        action_list.list[i] = t.action();
 
         if (i * 50 % iterations == 0) {
             std::cout << "=" << std::flush;
@@ -125,6 +127,9 @@ int main(int argc, char **argv) {
 
     t.x.save_plot_file("out/trajectory-05-end.csv");
     position_histogram.save("out/histogram-position-1000.csv");
+
+    action_list.binning_snapshot(action_histogram);
+    action_list.save_plot_file("out/trajectory-action.csv");
     action_histogram.save("out/histogram-action-1000.csv");
 
     return 0;
