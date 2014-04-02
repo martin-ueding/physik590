@@ -6,7 +6,6 @@
 #include "Periodic.hpp"
 
 #include <cmath>
-#include <functional>
 
 MetropolisAlgorithm::MetropolisAlgorithm(ListQuantity &trajectory, System &s) :
     x(trajectory), system(s) {
