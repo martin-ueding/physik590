@@ -19,6 +19,7 @@ class Settings {
         int iterations;
         int rounds;
         int iterations_between;
+        bool fix_zeroth_coordinate;
 
         int position_hist_bins;
         int action_hist_bins;

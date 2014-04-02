@@ -19,8 +19,8 @@ bool MetropolisAlgorithm::accept_action_difference(double action_difference) {
     return std::exp(- action_difference) > zero_one_dist(mt_engine);
 }
 
-void MetropolisAlgorithm::iteration(int rounds, double margin) {
-    for (unsigned int j = 1; j < x.list.size(); j++) {
+void MetropolisAlgorithm::iteration(int rounds, double margin, bool fix_zeroth_coordinate) {
+    for (unsigned int j = fix_zeroth_coordinate ? 1 : 0; j < x.list.size(); j++) {
         std::uniform_real_distribution<double> distribution(x.list[j] - margin, x.list[j] + margin);
 
         // Wrap j around to create periodic boundary conditions.

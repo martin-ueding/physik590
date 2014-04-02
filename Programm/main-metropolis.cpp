@@ -30,7 +30,7 @@ void do_init(Settings &settings, ListQuantity &trajectory) {
 void do_pre_iterations(Settings &settings, ListQuantity &trajectory,
                        MetropolisAlgorithm &ma) {
     for (int i = 0; i < settings.pre_iterations - settings.iterations_between; i++) {
-        ma.iteration(settings.pre_rounds, settings.margin);
+        ma.iteration(settings.pre_rounds, settings.margin, settings.fix_zeroth_coordinate);
     }
     trajectory.save_plot_file("out/trajectory-04-more_iterations.csv");
 }
@@ -49,9 +49,9 @@ void do_iterations(Settings &settings, ListQuantity &trajectory,
 
     for (int i = 0; i < settings.iterations; i++) {
         for (int j = 0; j < settings.iterations_between; j++) {
-            ma.iteration(settings.rounds, settings.margin);
+            ma.iteration(settings.rounds, settings.margin, settings.fix_zeroth_coordinate);
         }
-        ma.iteration(settings.rounds, settings.margin);
+        ma.iteration(settings.rounds, settings.margin, settings.fix_zeroth_coordinate);
         trajectory.binning_snapshot(position_histogram);
         action_list.list[i] = system.action(trajectory.list);
 
@@ -107,6 +107,7 @@ int main(int argc, char **argv) {
     ("iterations,i",  boost::program_options::value<int>(&settings.iterations)->default_value(10000), "Iterations for the histogram")
     ("rounds,r",  boost::program_options::value<int>(&settings.rounds)->default_value(5), "Rounds for a single x_j")
     ("iterations-between",  boost::program_options::value<int>(&settings.iterations_between)->default_value(2), "Extra iterations between measurements")
+    ("fix-zeroth-coordinate", "Fix x₀")
     ;
     options.add(iter_options);
 
@@ -124,6 +125,10 @@ int main(int argc, char **argv) {
     if (vm.count("help") > 0) {
         std::cout << options << std::endl;
         return 0;
+    }
+
+    if (vm.count("fix-zeroth-coordinate") > 0) {
+        settings.fix_zeroth_coordinate = true;
     }
 
     HarmonicOszillator ho(settings.time_step, settings.mass, settings.mu_squared);
