@@ -8,35 +8,16 @@
 #include "HarmonicOszillator.hpp"
 #include "Histogram.hpp"
 #include "MetropolisAlgorithm.hpp"
+#include "Settings.hpp"
 
 #include <boost/program_options.hpp>
 
 #include <iostream>
 
-class Settings {
-    public:
-        int time_sites;
-        double mass;
-        double time_step;
-        double mu_squared;
-
-        double initial_random_width;
-        double margin;
-        int pre_iterations;
-        int pre_rounds;
-
-        int iterations;
-        int rounds;
-        int iterations_between;
-
-        int position_hist_bins;
-        int action_hist_bins;
-};
-
 /**
   Initializes the trajectory to random.
 
-  @param[in] initial_random_width Initial random width
+  @param[in] settings Command line options
   @param[in,out] trajectory List with @f$ x @f$ values
   */
 void do_init(Settings &settings, ListQuantity &trajectory) {
