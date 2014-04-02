@@ -9,8 +9,7 @@
 #include <functional>
 
 Trajectory::Trajectory(int time_sites, System &s) :
-    x(ListQuantity(time_sites)), system(s),
-    zero_one_dist(std::uniform_real_distribution<double>(0, 1)) {
+    x(ListQuantity(time_sites)), system(s) {
 }
 
 bool Trajectory::accept_action_difference(double action_difference) {

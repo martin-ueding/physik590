@@ -61,7 +61,7 @@ class Trajectory {
           */
         bool accept_action_difference(double action_difference);
 
-        std::uniform_real_distribution<double> zero_one_dist;
+        std::uniform_real_distribution<double> zero_one_dist{0, 1};
         std::mt19937 mt_engine;
 };
 
