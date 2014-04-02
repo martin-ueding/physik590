@@ -4,7 +4,7 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include <cstddef>
+#include <string>
 
 class Settings {
     public:
@@ -25,6 +25,10 @@ class Settings {
 
         int position_hist_bins;
         int action_hist_bins;
+
+        std::string generate_filename(std::string prefix, std::string suffix);
+
+        const std::string separator{"-"};
 };
 
 #endif /* end of include guard: SETTINGS_H */

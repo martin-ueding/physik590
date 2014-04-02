@@ -20,10 +20,10 @@
   @param[in,out] trajectory List with @f$ x @f$ values
   */
 void do_init(Settings &settings, ListQuantity &trajectory) {
-    trajectory.save_plot_file("out/trajectory-01-init.csv");
+    trajectory.save_plot_file(settings.generate_filename("out/trajectory-01-init-", ".csv"));
 
     trajectory.set_to_random(settings.initial_random_width);
-    trajectory.save_plot_file("out/trajectory-02-random.csv");
+    trajectory.save_plot_file(settings.generate_filename("out/trajectory-02-random-", ".csv"));
 }
 
 void do_pre_iterations(Settings &settings, ListQuantity &trajectory,
@@ -31,7 +31,7 @@ void do_pre_iterations(Settings &settings, ListQuantity &trajectory,
     for (int i = 0; i < settings.pre_iterations - settings.iterations_between; i++) {
         ma.iteration(settings.pre_rounds, settings.margin, settings.fix_zeroth_coordinate);
     }
-    trajectory.save_plot_file("out/trajectory-04-more_iterations.csv");
+    trajectory.save_plot_file(settings.generate_filename("out/trajectory-04-more_iterations-", ".csv"));
 }
 
 void do_iterations(Settings &settings, ListQuantity &trajectory,
@@ -61,11 +61,11 @@ void do_iterations(Settings &settings, ListQuantity &trajectory,
 
     std::cout << std::endl;
 
-    trajectory.save_plot_file("out/trajectory-05-end.csv");
-    position_histogram.save("out/histogram-position-1000.csv");
+    trajectory.save_plot_file(settings.generate_filename("out/trajectory-05-end-", ".csv"));
+    position_histogram.save(settings.generate_filename("out/histogram-position-", ".csv"));
 
     //action_list.binning_snapshot(action_histogram);
-    action_list.save_plot_file("out/trajectory-action.csv");
+    action_list.save_plot_file(settings.generate_filename("out/trajectory-action-", ".csv"));
     //action_histogram.save("out/histogram-action-1000.csv");
 }
 
