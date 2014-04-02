@@ -4,6 +4,7 @@
 #include "ListQuantity.hpp"
 
 #include <fstream>
+#include <iostream>
 
 ListQuantity::ListQuantity(size_t sites) : list(std::vector<double>(sites)) {
 }

@@ -71,14 +71,17 @@ void do_iterations(Settings &settings, ListQuantity &trajectory,
 }
 
 /**
-  Entry point for the metropolis program.
+  Parses the command line arguments.
 
-  @param argc Argument count
-  @param argv Arguments
+  The return value determines whether the program needs to be halted after this
+  function. That will be needed after printing the options.
+
+  @param[in] argc Argument count
+  @param[int] argv Argument values
+  @param[out] settings Settings instance
+  @return Whether program should be halted
   */
-int main(int argc, char **argv) {
-    Settings settings;
-
+bool parse_arguments(int argc, char **argv, Settings &settings) {
     boost::program_options::options_description options("Program options");
     options.add_options()
     ("help,h", "Print usage and exit")
@@ -124,11 +127,27 @@ int main(int argc, char **argv) {
 
     if (vm.count("help") > 0) {
         std::cout << options << std::endl;
-        return 0;
+        return true;
     }
 
     if (vm.count("fix-zeroth-coordinate") > 0) {
         settings.fix_zeroth_coordinate = true;
+    }
+
+    return false;
+}
+
+/**
+  Entry point for the metropolis program.
+
+  @param argc Argument count
+  @param argv Arguments
+  */
+int main(int argc, char **argv) {
+    Settings settings;
+
+    if (parse_arguments(argc, argv, settings)) {
+        return 0;
     }
 
     HarmonicOszillator ho(settings.time_step, settings.mass, settings.mu_squared);
@@ -141,4 +160,3 @@ int main(int argc, char **argv) {
 
     return 0;
 }
-
