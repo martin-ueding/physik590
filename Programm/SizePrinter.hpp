@@ -35,7 +35,7 @@ class SizePrinter {
         /**
           List of binary suffixes.
           */
-        std::vector<std::string> suffixes{"", "kiB", "MiB", "GiB", "TiB"};
+        std::vector<std::string> suffixes {"", "kiB", "MiB", "GiB", "TiB"};
 
         /**
           Finds the suffix level.

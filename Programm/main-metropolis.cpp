@@ -15,23 +15,22 @@
 
 class Settings {
     public:
+        int time_sites;
+        double mass;
+        double time_step;
+        double mu_squared;
 
-    int time_sites;
-    double mass;
-    double time_step;
-    double mu_squared;
+        double initial_random_width;
+        double margin;
+        int pre_iterations;
+        int pre_rounds;
 
-    double initial_random_width;
-    double margin;
-    int pre_iterations;
-    int pre_rounds;
+        int iterations;
+        int rounds;
+        int iterations_between;
 
-    int iterations;
-    int rounds;
-    int iterations_between;
-
-    int position_hist_bins;
-    int action_hist_bins;
+        int position_hist_bins;
+        int action_hist_bins;
 };
 
 /**
@@ -48,7 +47,7 @@ void do_init(Settings &settings, ListQuantity &trajectory) {
 }
 
 void do_pre_iterations(Settings &settings, ListQuantity &trajectory,
-        MetropolisAlgorithm &ma) {
+                       MetropolisAlgorithm &ma) {
     for (int i = 0; i < settings.pre_iterations - settings.iterations_between; i++) {
         ma.iteration(settings.pre_rounds, settings.margin);
     }
@@ -56,8 +55,8 @@ void do_pre_iterations(Settings &settings, ListQuantity &trajectory,
 }
 
 void do_iterations(Settings &settings, ListQuantity &trajectory,
-        MetropolisAlgorithm &ma, System &system) {
-    Histogram position_histogram(settings.position_hist_bins, settings.time_sites*settings.iterations);
+                   MetropolisAlgorithm &ma, System &system) {
+    Histogram position_histogram(settings.position_hist_bins, settings.time_sites * settings.iterations);
     Histogram action_histogram(settings.action_hist_bins, settings.iterations);
 
     ListQuantity action_list(settings.iterations);
