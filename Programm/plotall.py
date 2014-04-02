@@ -43,7 +43,7 @@ def plot_histogram(filename):
     bins = data[:, 0]
     counts = data[:, 1]
     width = bins[3] - bins[2]
-    selection = abs(bins) < 9
+    selection = abs(bins) < 4
 
     counts /= width
 
