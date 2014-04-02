@@ -35,7 +35,7 @@ class MetropolisAlgorithm {
         /**
           Positions @f$ \{ x_j \} @f$.
           */
-        ListQuantity x;
+        ListQuantity &x;
 
     private:
         /**
