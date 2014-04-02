@@ -76,7 +76,7 @@ class System {
         /**
           Mass @f$ m @f$.
           */
-        double mass = 1e-3;
+        double mass = 1.0;
 };
 
 #endif /* end of include guard: SYSTEM_H */
