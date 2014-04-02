@@ -141,7 +141,8 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
   Entry point for the metropolis program.
 
   @param argc Argument count
-  @param argv Arguments
+  @param argv Argument values
+  @return Return code
   */
 int main(int argc, char **argv) {
     Settings settings;
