@@ -12,11 +12,22 @@ import glob
 def main():
     options = _parse_args()
 
+    plotted = []
+
+    plotted.append('out/histogram-position-1000.csv')
+    plot_histogram('out/histogram-position-1000.csv')
+
     for csv_file in glob.glob('out/trajectory-*.csv'):
+        if csv_file in plotted:
+            continue
+        plotted.append(csv_file)
         print('Plotting', csv_file)
         auto_plot_trajectory(csv_file)
 
     for csv_file in glob.glob('out/histogram-*.csv'):
+        if csv_file in plotted:
+            continue
+        plotted.append(csv_file)
         print('Plotting', csv_file)
         auto_plot_histogram(csv_file)
 
@@ -32,7 +43,7 @@ def plot_histogram(filename):
 
     counts /= width
 
-    ax.plot(bins[selection], counts[selection], marker='+', linestyle='none')
+    ax.plot(bins[selection], counts[selection], marker='+', linestyle='none', label='Metropolis')
     ax.set_title(filename)
     ax.set_xlabel(r'Position $x$')
     ax.set_ylabel(r'relative Häufigkeit')
@@ -41,7 +52,9 @@ def plot_histogram(filename):
     x = np.linspace(np.min(bins[selection]), np.max(bins[selection]), 1000)
     y = 0.59 * np.exp(- 1.1 * x**2)
 
-    ax.plot(x, y)
+    ax.plot(x, y, label='Theorie')
+
+    ax.legend(loc='best')
 
 
     fig.savefig(filename.replace('.csv', '.pdf'))
