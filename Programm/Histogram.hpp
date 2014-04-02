@@ -20,6 +20,7 @@ using namespace boost::accumulators;
   Wrapper for Boost histogram.
   */
 class Histogram {
+
     public:
         /**
           New Histogram.
@@ -48,7 +49,7 @@ class Histogram {
 
           This stores the data, add your data here.
           */
-        accumulator_set<double, features<tag::density>> acc;
+        accumulator_set<double, features<tag::min, tag::max, tag::mean, tag::density>> acc;
 
         /**
           Maximum size for a single histogram.
