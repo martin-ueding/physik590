@@ -1,18 +1,18 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#include "Trajectory.hpp"
+#include "MetropolisAlgorithm.hpp"
 
 #include "Periodic.hpp"
 
 #include <cmath>
 #include <functional>
 
-Trajectory::Trajectory(int time_sites, System &s) :
-    x(ListQuantity(time_sites)), system(s) {
+MetropolisAlgorithm::MetropolisAlgorithm(ListQuantity &trajectory, System &s) :
+    x(trajectory), system(s) {
 }
 
-bool Trajectory::accept_action_difference(double action_difference) {
+bool MetropolisAlgorithm::accept_action_difference(double action_difference) {
     if (action_difference < 0) {
         return true;
     }
@@ -20,11 +20,7 @@ bool Trajectory::accept_action_difference(double action_difference) {
     return std::exp(- action_difference) > zero_one_dist(mt_engine);
 }
 
-double Trajectory::action() {
-    return system.action(x.list);
-}
-
-void Trajectory::iteration(int rounds, double margin) {
+void MetropolisAlgorithm::iteration(int rounds, double margin) {
     for (unsigned int j = 1; j < x.list.size(); j++) {
         std::uniform_real_distribution<double> distribution(x.list[j] - margin, x.list[j] + margin);
 

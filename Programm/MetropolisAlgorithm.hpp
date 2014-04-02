@@ -17,25 +17,20 @@
 /**
   Class that holds the Metropolis algorithm.
   */
-class Trajectory {
+class MetropolisAlgorithm {
     public:
         /**
           Constructs a lattice with given sites and will use given System.
 
-          @param time_sites Number of time lattice parts @f$ N @f$
+          @param trajectory Trajectory of the particle
           @param s System to work with
           */
-        Trajectory(int time_sites, System &s);
+        MetropolisAlgorithm(ListQuantity &trajectory, System &s);
 
         /**
           Does a single iteration.
           */
         void iteration(int rounds, double margin);
-
-        /**
-          Gives the action of the system for the current trajectory.
-          */
-        double action();
 
         /**
           Positions @f$ \{ x_j \} @f$.

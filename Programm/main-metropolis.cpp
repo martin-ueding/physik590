@@ -7,7 +7,7 @@
 
 #include "HarmonicOszillator.hpp"
 #include "Histogram.hpp"
-#include "Trajectory.hpp"
+#include "MetropolisAlgorithm.hpp"
 
 #include <boost/program_options.hpp>
 
@@ -85,20 +85,21 @@ int main(int argc, char **argv) {
     }
 
     HarmonicOszillator ho(time_step, mass, mu_squared);
-    Trajectory t(time_sites, ho);
+    ListQuantity trajectory(time_sites);
+    MetropolisAlgorithm ma(trajectory, ho);
 
-    t.x.save_plot_file("out/trajectory-01-init.csv");
+    trajectory.save_plot_file("out/trajectory-01-init.csv");
 
-    t.x.set_to_random(initial_random_width);
-    t.x.save_plot_file("out/trajectory-02-random.csv");
+    trajectory.set_to_random(initial_random_width);
+    trajectory.save_plot_file("out/trajectory-02-random.csv");
 
-    t.iteration(pre_rounds, margin);
-    t.x.save_plot_file("out/trajectory-03-iteration.csv");
+    ma.iteration(pre_rounds, margin);
+    trajectory.save_plot_file("out/trajectory-03-iteration.csv");
 
     for (int i = 0; i < pre_iterations - iterations_between; i++) {
-        t.iteration(pre_rounds, margin);
+        ma.iteration(pre_rounds, margin);
     }
-    t.x.save_plot_file("out/trajectory-04-more_iterations.csv");
+    trajectory.save_plot_file("out/trajectory-04-more_iterations.csv");
 
     Histogram position_histogram(position_hist_bins, time_sites*iterations);
     Histogram action_histogram(action_hist_bins, iterations);
@@ -112,11 +113,11 @@ int main(int argc, char **argv) {
 
     for (int i = 0; i < iterations; i++) {
         for (int j = 0; j < iterations_between; j++) {
-            t.iteration(rounds, margin);
+            ma.iteration(rounds, margin);
         }
-        t.iteration(rounds, margin);
-        t.x.binning_snapshot(position_histogram);
-        action_list.list[i] = t.action();
+        ma.iteration(rounds, margin);
+        trajectory.binning_snapshot(position_histogram);
+        action_list.list[i] = ho.action(trajectory.list);
 
         if (i * 50 % iterations == 0) {
             std::cout << "=" << std::flush;
@@ -125,7 +126,7 @@ int main(int argc, char **argv) {
 
     std::cout << std::endl;
 
-    t.x.save_plot_file("out/trajectory-05-end.csv");
+    trajectory.save_plot_file("out/trajectory-05-end.csv");
     position_histogram.save("out/histogram-position-1000.csv");
 
     action_list.binning_snapshot(action_histogram);

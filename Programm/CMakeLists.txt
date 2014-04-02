@@ -16,10 +16,10 @@ add_executable(metropolis
     HarmonicOszillator.cpp
     Histogram.cpp
     ListQuantity.cpp
+    MetropolisAlgorithm.cpp
     Periodic.cpp
     SizePrinter.cpp
     System.cpp
-    Trajectory.cpp
     )
 target_link_libraries(metropolis boost_program_options)
 
