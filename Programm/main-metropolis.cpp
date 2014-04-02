@@ -38,9 +38,9 @@ void do_pre_iterations(Settings &settings, ListQuantity &trajectory,
 void do_iterations(Settings &settings, ListQuantity &trajectory,
                    MetropolisAlgorithm &ma, System &system) {
     Histogram position_histogram(settings.position_hist_bins, settings.time_sites * settings.iterations);
-    Histogram action_histogram(settings.action_hist_bins, settings.iterations);
+    //Histogram action_histogram(settings.action_hist_bins, settings.iterations);
 
-    ListQuantity action_list(settings.iterations);
+    //ListQuantity action_list(settings.iterations);
 
     for (int i = 0; i < 50; i++) {
         std::cout << "-";
@@ -53,7 +53,7 @@ void do_iterations(Settings &settings, ListQuantity &trajectory,
         }
         ma.iteration(settings.rounds, settings.margin, settings.fix_zeroth_coordinate);
         trajectory.binning_snapshot(position_histogram);
-        action_list.list[i] = system.action(trajectory.list);
+        //action_list.list[i] = system.action(trajectory.list);
 
         if (i * 50 % settings.iterations == 0) {
             std::cout << "=" << std::flush;
@@ -65,9 +65,9 @@ void do_iterations(Settings &settings, ListQuantity &trajectory,
     trajectory.save_plot_file("out/trajectory-05-end.csv");
     position_histogram.save("out/histogram-position-1000.csv");
 
-    action_list.binning_snapshot(action_histogram);
-    action_list.save_plot_file("out/trajectory-action.csv");
-    action_histogram.save("out/histogram-action-1000.csv");
+    //action_list.binning_snapshot(action_histogram);
+    //action_list.save_plot_file("out/trajectory-action.csv");
+    //action_histogram.save("out/histogram-action-1000.csv");
 }
 
 /**

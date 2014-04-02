@@ -5,6 +5,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <iostream>
 
 ListQuantity::ListQuantity(size_t sites) : list(std::vector<double>(sites)) {
 }
@@ -17,6 +18,7 @@ void ListQuantity::print() {
 
 void ListQuantity::binning_snapshot(Histogram &histogram) {
     for (unsigned int i = 0; i < list.size(); i++) {
+        std::cout << list[i] << std::endl;
         histogram.acc(list[i]);
     }
 }
