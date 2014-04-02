@@ -14,8 +14,12 @@ def main():
 
     plotted = []
 
-    plotted.append('out/histogram-position-1000.csv')
-    plot_histogram('out/histogram-position-1000.csv')
+    for csv_file in glob.glob('out/histogram-position-*.csv'):
+        if csv_file in plotted:
+            continue
+        plotted.append(csv_file)
+        print('Plotting', csv_file)
+        plot_histogram(csv_file)
 
     for csv_file in glob.glob('out/trajectory-*.csv'):
         if csv_file in plotted:
