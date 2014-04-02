@@ -65,7 +65,7 @@ void do_iterations(Settings &settings, ListQuantity &trajectory,
     position_histogram.save("out/histogram-position-1000.csv");
 
     //action_list.binning_snapshot(action_histogram);
-    //action_list.save_plot_file("out/trajectory-action.csv");
+    action_list.save_plot_file("out/trajectory-action.csv");
     //action_histogram.save("out/histogram-action-1000.csv");
 }
 
