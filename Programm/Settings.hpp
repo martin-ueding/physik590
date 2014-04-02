@@ -18,7 +18,7 @@ class Settings {
         int pre_iterations;
         int pre_rounds;
 
-        int iterations;
+        size_t iterations;
         int rounds;
         int iterations_between;
         bool fix_zeroth_coordinate;

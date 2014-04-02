@@ -37,7 +37,7 @@ void do_pre_iterations(Settings &settings, ListQuantity &trajectory,
 void do_iterations(Settings &settings, ListQuantity &trajectory,
                    MetropolisAlgorithm &ma, System &system) {
     Histogram position_histogram{settings.position_hist_bins, settings.time_sites * settings.iterations};
-    //Histogram action_histogram{settings.action_hist_bins, settings.iterations};
+    Histogram action_histogram{settings.action_hist_bins, settings.iterations};
 
     ListQuantity action_list(settings.iterations);
 
@@ -46,7 +46,7 @@ void do_iterations(Settings &settings, ListQuantity &trajectory,
     }
     std::cout << std::endl;
 
-    for (int i = 0; i < settings.iterations; i++) {
+    for (size_t i = 0; i < settings.iterations; i++) {
         for (int j = 0; j < settings.iterations_between; j++) {
             ma.iteration(settings.rounds, settings.margin, settings.fix_zeroth_coordinate);
         }

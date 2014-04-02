@@ -33,7 +33,7 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
 
     boost::program_options::options_description iter_options("Iteration options");
     iter_options.add_options()
-    ("iterations,i",  boost::program_options::value<int>(&settings.iterations)->default_value(10000), "Iterations for the histogram")
+    ("iterations,i",  boost::program_options::value<size_t>(&settings.iterations)->default_value(10000), "Iterations for the histogram")
     ("rounds,r",  boost::program_options::value<int>(&settings.rounds)->default_value(5), "Rounds for a single x_j")
     ("iterations-between",  boost::program_options::value<int>(&settings.iterations_between)->default_value(2), "Extra iterations between measurements")
     ("fix-zeroth-coordinate", "Fix x₀")
