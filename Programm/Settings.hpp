@@ -4,9 +4,11 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+#include <cstddef>
+
 class Settings {
     public:
-        int time_sites;
+        size_t time_sites;
         double mass;
         double time_step;
         double mu_squared;

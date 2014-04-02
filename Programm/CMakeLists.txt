@@ -17,6 +17,7 @@ add_executable(metropolis
     Histogram.cpp
     ListQuantity.cpp
     MetropolisAlgorithm.cpp
+    parse_arguments.cpp
     Periodic.cpp
     SizePrinter.cpp
     System.cpp
