@@ -42,8 +42,8 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
 
     boost::program_options::options_description hist_options("Histogram options");
     hist_options.add_options()
-    ("position-hist-bins,b",  boost::program_options::value<int>(&settings.position_hist_bins)->default_value(1000), "Number of bins in the position histogram")
-    ("action-hist-bins",  boost::program_options::value<int>(&settings.action_hist_bins)->default_value(100), "Number of bins in the action histogram")
+    ("position-hist-bins,b",  boost::program_options::value<size_t>(&settings.position_hist_bins)->default_value(1000), "Number of bins in the position histogram")
+    ("action-hist-bins",  boost::program_options::value<size_t>(&settings.action_hist_bins)->default_value(100), "Number of bins in the action histogram")
     ;
     options.add(hist_options);
 

@@ -3,7 +3,9 @@
 
 #include "VectorHistogram.hpp"
 
-VectorHistogram::VectorHistogram(size_t bins, size_t cache) : data(std::vector<double>(bins)) {
+#include <iostream>
+
+VectorHistogram::VectorHistogram(size_t bins, size_t cache) : bins(std::vector<double>(bins)) {
 }
 
 void VectorHistogram::push(double value) {
@@ -16,8 +18,12 @@ void VectorHistogram::write_histogram(std::ostream &outfile) {
         into_bins();
     }
 
+    double width = (max - min) / bins.size();
+    double x;
+
     for (size_t i = 0; i < bins.size(); i++) {
-        outfile << i << "\t" << bins[i] << std::endl;
+        x = min + width/2 + i * width;
+        outfile << x << "\t" << bins[i] << std::endl;
     }
 }
 
@@ -35,8 +41,10 @@ void VectorHistogram::into_bins() {
         }
     }
 
+    size_t bin;
     for (double &i : data) {
-        bins[map_bin(i)]++;
+        bin = map_bin(i);
+        bins[bin]++;
     }
 }
 

@@ -23,8 +23,8 @@ class Settings {
         int iterations_between;
         bool fix_zeroth_coordinate;
 
-        int position_hist_bins;
-        int action_hist_bins;
+        size_t position_hist_bins;
+        size_t action_hist_bins;
 
         std::string generate_filename(std::string prefix, std::string suffix);
 
