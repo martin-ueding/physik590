@@ -20,10 +20,12 @@ void VectorHistogram::write_histogram(std::ostream &outfile) {
 
     double width = (max - min) / bins.size();
     double x;
+    double y;
 
     for (size_t i = 0; i < bins.size(); i++) {
         x = min + width/2 + i * width;
-        outfile << x << "\t" << bins[i] << std::endl;
+        y = (double) bins[i] / data.size();
+        outfile << x << "\t" << y << std::endl;
     }
 }
 
