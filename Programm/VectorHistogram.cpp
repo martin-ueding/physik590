@@ -41,5 +41,5 @@ void VectorHistogram::into_bins() {
 }
 
 size_t VectorHistogram::map_bin(double value) {
-    return bins.size() * (value - min) / (max - min);
+    return (bins.size()-1) * (value - min) / (max - min);
 }
