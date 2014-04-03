@@ -20,6 +20,7 @@ add_executable(metropolis
     MetropolisAlgorithm.cpp
     parse_arguments.cpp
     Periodic.cpp
+    VectorHistogram.cpp
     Settings.cpp
     SizePrinter.cpp
     System.cpp
