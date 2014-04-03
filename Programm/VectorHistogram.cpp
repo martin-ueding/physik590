@@ -23,7 +23,7 @@ void VectorHistogram::write_histogram(std::ostream &outfile) {
     double y;
 
     for (size_t i = 0; i < bins.size(); i++) {
-        x = min + width/2 + i * width;
+        x = min + width / 2 + i * width;
         y = (double) bins[i] / data.size();
         outfile << x << "\t" << y << std::endl;
     }
@@ -34,7 +34,7 @@ void VectorHistogram::into_bins() {
     max = data[0];
 
     // Find the limits of the histogram.
-    for (double &i : data) {
+    for (double & i : data) {
         if (i < min) {
             min = i;
         }
@@ -44,12 +44,12 @@ void VectorHistogram::into_bins() {
     }
 
     size_t bin;
-    for (double &i : data) {
+    for (double & i : data) {
         bin = map_bin(i);
         bins[bin]++;
     }
 }
 
 size_t VectorHistogram::map_bin(double value) {
-    return (bins.size()-1) * (value - min) / (max - min);
+    return (bins.size() - 1) * (value - min) / (max - min);
 }

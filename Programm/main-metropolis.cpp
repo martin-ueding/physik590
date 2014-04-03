@@ -37,8 +37,8 @@ void do_pre_iterations(Settings &settings, ListQuantity &trajectory,
 
 void do_iterations(Settings &settings, ListQuantity &trajectory,
                    MetropolisAlgorithm &ma, System &system) {
-    VectorHistogram position_histogram{settings.position_hist_bins, settings.time_sites * settings.iterations};
-    VectorHistogram action_histogram{settings.action_hist_bins, settings.iterations};
+    VectorHistogram position_histogram {settings.position_hist_bins, settings.time_sites * settings.iterations};
+    VectorHistogram action_histogram {settings.action_hist_bins, settings.iterations};
 
     ListQuantity action_list(settings.iterations);
 

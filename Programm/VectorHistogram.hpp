@@ -31,7 +31,7 @@ class VectorHistogram : public Histogram {
         std::vector<double> data;
         std::vector<double> bins;
         void into_bins();
-        bool has_changed{false};
+        bool has_changed {false};
         double min;
         double max;
 };

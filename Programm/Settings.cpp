@@ -9,7 +9,7 @@ std::string Settings::generate_filename(std::string prefix, std::string suffix) 
     std::ostringstream oss;
 
     oss << prefix;
-    
+
     oss << iterations;
     oss << separator;
 
