@@ -13,6 +13,7 @@ target_link_libraries(hello boost_program_options)
 add_executable(metropolis
     main-metropolis.cpp
 
+    BoostHistogram.cpp
     HarmonicOszillator.cpp
     Histogram.cpp
     ListQuantity.cpp

@@ -5,8 +5,8 @@
   @file
   */
 
+#include "BoostHistogram.hpp"
 #include "HarmonicOszillator.hpp"
-#include "Histogram.hpp"
 #include "MetropolisAlgorithm.hpp"
 #include "parse_arguments.hpp"
 #include "Settings.hpp"
@@ -36,8 +36,8 @@ void do_pre_iterations(Settings &settings, ListQuantity &trajectory,
 
 void do_iterations(Settings &settings, ListQuantity &trajectory,
                    MetropolisAlgorithm &ma, System &system) {
-    Histogram position_histogram{settings.position_hist_bins, settings.time_sites * settings.iterations};
-    //Histogram action_histogram{settings.action_hist_bins, settings.iterations};
+    BoostHistogram position_histogram{settings.position_hist_bins, settings.time_sites * settings.iterations};
+    BoostHistogram action_histogram{settings.action_hist_bins, settings.iterations};
 
     ListQuantity action_list(settings.iterations);
 

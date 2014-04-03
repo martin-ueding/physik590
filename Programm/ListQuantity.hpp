@@ -10,6 +10,7 @@
 
 #include "Histogram.hpp"
 
+#include <random>
 #include <vector>
 
 /**

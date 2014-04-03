@@ -4,36 +4,10 @@
 #ifndef HISTOGRAM_H
 #define HISTOGRAM_H
 
-#include <boost/accumulators/accumulators.hpp>
-#include <boost/accumulators/statistics/density.hpp>
-#include <boost/accumulators/statistics/max.hpp>
-#include <boost/accumulators/statistics/mean.hpp>
-#include <boost/accumulators/statistics/min.hpp>
-#include <boost/accumulators/statistics/moment.hpp>
-#include <boost/accumulators/statistics/stats.hpp>
-
 #include <string>
 
-using namespace boost::accumulators;
-
-/**
-  Wrapper for Boost histogram.
-  */
 class Histogram {
-
     public:
-        /**
-          New Histogram.
-
-          The Boost histogram will take @c cache amounts of data points before
-          it starts with the binning. Based on this number of elements, the
-          minimum and maximum are set. The bins are spaced evenly between.
-
-          @param bins Number of bins.
-          @param cache Cache entries
-          */
-        Histogram(int bins, size_t cache);
-
         /**
           Prints the current histogram contents to the standard output.
           */
@@ -45,26 +19,23 @@ class Histogram {
         void save(std::string filename);
 
         /**
-          Boost accumulator.
-
-          This stores the data, add your data here.
-          */
-        accumulator_set<double, features<tag::min, tag::max, tag::mean, tag::density>> acc;
-
-        /**
           Maximum size for a single histogram.
 
           Currently, this is limited to 2 GiB.
           */
         const size_t MAX_CACHE_ENTRIES = 2L * 1024 * 1024 * 1024 / sizeof(double);
 
-    private:
+        /**
+          Push a new value into the histogram.
+          **/
+        virtual void push(double value) = 0;
+
         /**
           Writes the current histogram into the given stream.
 
           @param outfile Stream to write to
           */
-        void write_histogram(std::ostream &outfile);
+        virtual void write_histogram(std::ostream &outfile) = 0;
 };
 
 #endif /* end of include guard: HISTOGRAM_H */
