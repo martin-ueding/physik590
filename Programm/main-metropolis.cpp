@@ -37,10 +37,10 @@ void do_pre_iterations(Settings &settings, ListQuantity &trajectory,
 
 void do_iterations(Settings &settings, ListQuantity &trajectory,
                    MetropolisAlgorithm &ma, System &system) {
-    VectorHistogram position_histogram {settings.position_hist_bins, settings.time_sites * settings.iterations};
-    VectorHistogram action_histogram {settings.action_hist_bins, settings.iterations};
+    VectorHistogram position_histogram{settings.position_hist_bins, settings.time_sites * settings.iterations};
+    VectorHistogram action_histogram{settings.action_hist_bins, settings.iterations};
 
-    ListQuantity action_list(settings.iterations);
+    ListQuantity action_list{settings.iterations};
 
     for (int i = 0; i < 50; i++) {
         std::cout << "-";
@@ -84,9 +84,9 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    HarmonicOszillator ho(settings.time_step, settings.mass, settings.mu_squared);
-    ListQuantity trajectory(settings.time_sites);
-    MetropolisAlgorithm ma(trajectory, ho);
+    HarmonicOszillator ho{settings.time_step, settings.mass, settings.mu_squared};
+    ListQuantity trajectory{settings.time_sites};
+    MetropolisAlgorithm ma{trajectory, ho};
 
     do_init(settings, trajectory);
     do_pre_iterations(settings, trajectory, ma);
