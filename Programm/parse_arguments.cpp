@@ -36,7 +36,7 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
     ("iterations,i",  boost::program_options::value<size_t>(&settings.iterations)->default_value(10000), "Iterations for the histogram")
     ("rounds,r",  boost::program_options::value<int>(&settings.rounds)->default_value(5), "Rounds for a single x_j")
     ("iterations-between",  boost::program_options::value<int>(&settings.iterations_between)->default_value(2), "Extra iterations between measurements")
-    ("fix-zeroth-coordinate", "Fix x₀")
+    ("fix-zero", "Fix x₀")
     ;
     options.add(iter_options);
 
@@ -56,7 +56,7 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
         return true;
     }
 
-    if (vm.count("fix-zeroth-coordinate") > 0) {
+    if (vm.count("fix-zero") > 0) {
         settings.fix_zeroth_coordinate = true;
     }
 
