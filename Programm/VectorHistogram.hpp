@@ -4,9 +4,12 @@
 #ifndef VECTORHISTOGRAM_H
 #define VECTORHISTOGRAM_H
 
-#include <string>
+#include "Histogram.hpp"
 
-class VectorHistogram {
+#include <fstream>
+#include <vector>
+
+class VectorHistogram : public Histogram {
     public:
         VectorHistogram(size_t bins);
 
@@ -21,6 +24,16 @@ class VectorHistogram {
           @param outfile Stream to write to
           */
         void write_histogram(std::ostream &outfile);
+
+        size_t map_bin(double value);
+
+    private:
+        std::vector<double> data;
+        std::vector<double> bins;
+        void into_bins();
+        bool has_changed{false};
+        double min;
+        double max;
 };
 
 #endif /* end of include guard: VECTORHISTOGRAM_H */
