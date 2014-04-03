@@ -11,7 +11,7 @@
 
 class VectorHistogram : public Histogram {
     public:
-        VectorHistogram(size_t bins);
+        VectorHistogram(size_t bins, size_t cache);
 
         /**
           Push a new value into the histogram.

@@ -3,7 +3,7 @@
 
 #include "VectorHistogram.hpp"
 
-VectorHistogram::VectorHistogram(size_t bins) : data(std::vector<double>(bins)) {
+VectorHistogram::VectorHistogram(size_t bins, size_t cache) : data(std::vector<double>(bins)) {
 }
 
 void VectorHistogram::push(double value) {
