@@ -21,16 +21,16 @@ bool MetropolisAlgorithm::accept_action_difference(double action_difference) {
 
 void MetropolisAlgorithm::iteration(int rounds, double margin) {
     for (unsigned int j {0}; j < x.list.size(); j++) {
-        std::uniform_real_distribution<double> distribution(x.list[j] - margin, x.list[j] + margin);
+        std::uniform_real_distribution<double> distribution {x.list[j] - margin, x.list[j] + margin};
 
         // Wrap j around to create periodic boundary conditions.
         unsigned int j_plus_one {Periodic::wrap(j + 1, x.list.size())};
         unsigned int j_minus_one {Periodic::wrap(j - 1, x.list.size())};
 
-        for (int round = 0; round < rounds; round++) {
-            double new_x = distribution(mt_engine);
+        for (int round {0}; round < rounds; round++) {
+            double new_x {distribution(mt_engine)};
 
-            double action_difference = system.action_difference(x.list[j_minus_one], x.list[j], new_x, x.list[j_plus_one]);
+            double action_difference {system.action_difference(x.list[j_minus_one], x.list[j], new_x, x.list[j_plus_one])};
 
             if (accept_action_difference(action_difference)) {
                 x.list[j] = new_x;
