@@ -24,8 +24,8 @@ void MetropolisAlgorithm::iteration(int rounds, double margin) {
         std::uniform_real_distribution<double> distribution(x.list[j] - margin, x.list[j] + margin);
 
         // Wrap j around to create periodic boundary conditions.
-        unsigned int j_plus_one = Periodic::wrap(j + 1, x.list.size());
-        unsigned int j_minus_one = Periodic::wrap(j - 1, x.list.size());
+        unsigned int j_plus_one {Periodic::wrap(j + 1, x.list.size())};
+        unsigned int j_minus_one {Periodic::wrap(j - 1, x.list.size())};
 
         for (int round = 0; round < rounds; round++) {
             double new_x = distribution(mt_engine);
