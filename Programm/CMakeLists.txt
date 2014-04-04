@@ -30,7 +30,10 @@ target_link_libraries(metropolis boost_program_options)
 add_executable(metropolis-test
     main-metropolis-test.cpp
 
+    MetropolisAlgorithm.cpp
+    MetropolisAlgorithmTest.cpp
     Periodic.cpp
     PeriodicTest.cpp
+    System.cpp
     )
 target_link_libraries(metropolis-test cppunit)
