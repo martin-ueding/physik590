@@ -3,13 +3,15 @@
 
 #include "System.hpp"
 
+#include <cstddef>
+
 System::System(double time_step, double mass) : time_step(time_step), mass(mass) {
 }
 
 double System::action(std::vector<double> &x) {
-    double sum = 0.0;
+    double sum {0.0};
 
-    for (unsigned int i = 0; i < x.size() - 1; i++) {
+    for (size_t i {0}; i < x.size() - 1; i++) {
         sum += action_step(x[i], x[i + 1]);
     }
 
@@ -18,8 +20,8 @@ double System::action(std::vector<double> &x) {
 
 double System::action_difference(double prev, double cur, double alt,
                                  double next) {
-    double action_cur = action_step(prev, cur) + action_step(cur, next);
-    double action_alt = action_step(prev, alt) + action_step(cur, alt);
+    double action_cur {action_step(prev, cur) + action_step(cur, next)};
+    double action_alt {action_step(prev, alt) + action_step(cur, alt)};
 
     return action_alt - action_cur;
 }
