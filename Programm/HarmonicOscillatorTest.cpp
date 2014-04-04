@@ -4,7 +4,7 @@
 #include "HarmonicOscillatorTest.hpp"
 
 void HarmonicOscillatorTest::test_sign() {
-    HarmonicOscillator ho{0.1, 1.0, 1.0};
+    HarmonicOscillator ho {0.1, 1.0, 1.0};
 
     // Check that the action increases when the trajectory gets a kink.
     CPPUNIT_ASSERT(ho.action_difference(0.0, 0.0, 1.0, 0.0) > 0);
