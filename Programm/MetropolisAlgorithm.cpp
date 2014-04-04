@@ -20,7 +20,7 @@ bool MetropolisAlgorithm::accept_action_difference(double action_difference) {
 }
 
 void MetropolisAlgorithm::iteration(int rounds, double margin) {
-    for (unsigned int j{0}; j < x.list.size(); j++) {
+    for (unsigned int j {0}; j < x.list.size(); j++) {
         std::uniform_real_distribution<double> distribution(x.list[j] - margin, x.list[j] + margin);
 
         // Wrap j around to create periodic boundary conditions.

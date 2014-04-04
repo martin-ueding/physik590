@@ -27,7 +27,9 @@ class Settings {
 
         std::string generate_filename(std::string prefix, std::string suffix);
 
-        const std::string separator{"-"};
+        const std::string separator {
+            "-"
+        };
 };
 
 #endif /* end of include guard: SETTINGS_H */
