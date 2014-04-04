@@ -25,7 +25,6 @@ double System::action_difference(double prev, double cur, double alt,
 }
 
 double System::action_step(double cur, double next) {
-    double difference = next - cur;
-    double difference_squared = difference * difference;
-    return 0.5 * mass * difference_squared / (time_step * time_step) + potential(cur);
+    double difference {next - cur};
+    return 0.5 * mass * (difference * difference) / (time_step * time_step) + potential(cur);
 }
