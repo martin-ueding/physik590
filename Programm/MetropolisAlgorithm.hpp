@@ -30,7 +30,7 @@ class MetropolisAlgorithm {
         /**
           Does a single iteration.
           */
-        void iteration(int rounds, double margin, bool fix_zeroth_coordinate);
+        void iteration(int rounds, double margin);
 
         /**
           Positions @f$ \{ x_j \} @f$.

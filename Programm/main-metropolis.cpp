@@ -30,7 +30,7 @@ void do_init(Settings &settings, ListQuantity &trajectory) {
 void do_pre_iterations(Settings &settings, ListQuantity &trajectory,
                        MetropolisAlgorithm &ma) {
     for (int i = 0; i < settings.pre_iterations - settings.iterations_between; i++) {
-        ma.iteration(settings.pre_rounds, settings.margin, settings.fix_zeroth_coordinate);
+        ma.iteration(settings.pre_rounds, settings.margin);
     }
     trajectory.save_plot_file(settings.generate_filename("out/trajectory-04-more_iterations-", ".csv"));
 }
@@ -49,9 +49,9 @@ void do_iterations(Settings &settings, ListQuantity &trajectory,
 
     for (size_t i = 0; i < settings.iterations; i++) {
         for (int j = 0; j < settings.iterations_between; j++) {
-            ma.iteration(settings.rounds, settings.margin, settings.fix_zeroth_coordinate);
+            ma.iteration(settings.rounds, settings.margin);
         }
-        ma.iteration(settings.rounds, settings.margin, settings.fix_zeroth_coordinate);
+        ma.iteration(settings.rounds, settings.margin);
         trajectory.binning_snapshot(position_histogram);
         action_list.list[i] = system.action(trajectory.list);
 

@@ -11,9 +11,6 @@ std::string Settings::generate_filename(std::string prefix, std::string suffix) 
     oss << prefix;
 
     oss << iterations;
-    oss << separator;
-
-    oss << (fix_zeroth_coordinate ? "fix" : "nofix");
 
     oss << suffix;
 

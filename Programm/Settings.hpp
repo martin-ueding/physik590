@@ -21,7 +21,6 @@ class Settings {
         size_t iterations;
         int rounds;
         int iterations_between;
-        bool fix_zeroth_coordinate;
 
         size_t position_hist_bins;
         size_t action_hist_bins;
