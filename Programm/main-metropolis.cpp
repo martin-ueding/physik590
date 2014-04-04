@@ -6,7 +6,7 @@
   */
 
 #include "BoostHistogram.hpp"
-#include "HarmonicOszillator.hpp"
+#include "HarmonicOscillator.hpp"
 #include "MetropolisAlgorithm.hpp"
 #include "parse_arguments.hpp"
 #include "Settings.hpp"
@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    HarmonicOszillator ho {settings.time_step, settings.mass, settings.mu_squared};
+    HarmonicOscillator ho {settings.time_step, settings.mass, settings.mu_squared};
     ListQuantity trajectory {settings.time_sites};
     MetropolisAlgorithm ma {trajectory, ho};
 

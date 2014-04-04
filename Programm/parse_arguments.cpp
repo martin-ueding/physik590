@@ -13,7 +13,7 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
     ("help,h", "Print usage and exit")
     ;
 
-    boost::program_options::options_description oszillator_options {"Oszillator options"};
+    boost::program_options::options_description oszillator_options {"Oscillator options"};
     oszillator_options.add_options()
     ("time-bins,t", boost::program_options::value<size_t>(&settings.time_sites)->default_value(1000), "Number of sites in the time lattice")
     ("mass,m", boost::program_options::value<double>(&settings.mass)->default_value(1), "Mass")

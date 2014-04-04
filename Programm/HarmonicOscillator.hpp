@@ -15,7 +15,7 @@
 /**
   Harmonic oscillator.
   */
-class HarmonicOszillator : public System {
+class HarmonicOscillator : public System {
     public:
         /**
           Creates a new harmonic oscillator.
@@ -26,7 +26,7 @@ class HarmonicOszillator : public System {
           @param mass Mass @f$ m @f$
           @param mu_squared Spring constant @f$ \mu^2 @f$
           */
-        HarmonicOszillator(double time_step, double mass, double mu_squared);
+        HarmonicOscillator(double time_step, double mass, double mu_squared);
 
         virtual double potential(double x);
 

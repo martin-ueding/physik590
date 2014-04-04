@@ -14,7 +14,7 @@ add_executable(metropolis
     main-metropolis.cpp
 
     BoostHistogram.cpp
-    HarmonicOszillator.cpp
+    HarmonicOscillator.cpp
     Histogram.cpp
     ListQuantity.cpp
     MetropolisAlgorithm.cpp
@@ -30,8 +30,8 @@ target_link_libraries(metropolis boost_program_options)
 add_executable(metropolis-test
     main-metropolis-test.cpp
 
-    HarmonicOszillator.cpp
-    HarmonicOszillatorTest.cpp
+    HarmonicOscillator.cpp
+    HarmonicOscillatorTest.cpp
     MetropolisAlgorithm.cpp
     MetropolisAlgorithmTest.cpp
     Periodic.cpp

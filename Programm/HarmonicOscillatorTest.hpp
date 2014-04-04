@@ -10,10 +10,10 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-#include "HarmonicOszillator.hpp"
+#include "HarmonicOscillator.hpp"
 
-class HarmonicOszillatorTest : public CppUnit::TestFixture {
-        CPPUNIT_TEST_SUITE(HarmonicOszillatorTest);
+class HarmonicOscillatorTest : public CppUnit::TestFixture {
+        CPPUNIT_TEST_SUITE(HarmonicOscillatorTest);
         CPPUNIT_TEST(test_sign);
         CPPUNIT_TEST_SUITE_END();
 
