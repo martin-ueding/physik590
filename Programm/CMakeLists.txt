@@ -30,6 +30,8 @@ target_link_libraries(metropolis boost_program_options)
 add_executable(metropolis-test
     main-metropolis-test.cpp
 
+    HarmonicOszillator.cpp
+    HarmonicOszillatorTest.cpp
     MetropolisAlgorithm.cpp
     MetropolisAlgorithmTest.cpp
     Periodic.cpp
