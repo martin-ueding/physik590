@@ -51,6 +51,10 @@ def needs_plotting(filename):
     pdf_time = datetime.datetime.fromtimestamp(os.path.getmtime(pdf_file))
     return csv_time > pdf_time
 
+def insert_theory(ax):
+    x = np.linspace(-4, 4, 1000)
+    y = 0.59 * np.exp(- 1.1 * x**2)
+    ax.plot(x, y, label='Theorie', linestyle='dashed')
 
 def plot_combined_histogram(wildcard):
     print('Plotting', wildcard)
@@ -65,7 +69,10 @@ def plot_combined_histogram(wildcard):
         counts = data[:, 1]
         width = bins[3] - bins[2]
         counts /= width
-        ax.plot(bins, counts, label=filename)
+        selection = abs(bins) < 4
+        ax.plot(bins[selection], counts[selection], label=filename)
+
+    insert_theory(ax)
 
     ax.set_title(wildcard)
     ax.set_xlabel(r'Messgröße')
@@ -94,10 +101,7 @@ def plot_histogram(filename):
     ax.set_ylabel(r'relative Häufigkeit')
     ax.grid(True)
 
-    x = np.linspace(np.min(bins[selection]), np.max(bins[selection]), 1000)
-    y = 0.59 * np.exp(- 1.1 * x**2)
-
-    ax.plot(x, y, label='Theorie')
+    insert_theory(ax)
 
     ax.legend(loc='best')
 
