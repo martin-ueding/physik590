@@ -8,6 +8,8 @@ import argparse
 import matplotlib.pyplot as pl
 import numpy as np
 import glob
+import os.path
+import datetime
 
 def main():
     options = _parse_args()
@@ -18,22 +20,61 @@ def main():
         if csv_file in plotted:
             continue
         plotted.append(csv_file)
-        print('Plotting', csv_file)
-        plot_histogram(csv_file)
+        if needs_plotting(csv_file):
+            print('Plotting', csv_file)
+            plot_histogram(csv_file)
 
     for csv_file in glob.glob('out/trajectory-*.csv'):
         if csv_file in plotted:
             continue
         plotted.append(csv_file)
-        print('Plotting', csv_file)
-        auto_plot_trajectory(csv_file)
+        if needs_plotting(csv_file):
+            print('Plotting', csv_file)
+            auto_plot_trajectory(csv_file)
 
     for csv_file in glob.glob('out/histogram-*.csv'):
         if csv_file in plotted:
             continue
         plotted.append(csv_file)
-        print('Plotting', csv_file)
-        auto_plot_histogram(csv_file)
+        if needs_plotting(csv_file):
+            print('Plotting', csv_file)
+            auto_plot_histogram(csv_file)
+
+    plot_combined_histogram('out/histogram-position-*.csv')
+    plot_combined_histogram('out/histogram-action-*.csv')
+
+def needs_plotting(filename):
+    csv_time = datetime.datetime.fromtimestamp(os.path.getmtime(filename))
+    pdf_file = filename.replace('.csv', '.pdf')
+    if not os.path.isfile(pdf_file):
+        return True
+    pdf_time = datetime.datetime.fromtimestamp(os.path.getmtime(pdf_file))
+    return csv_time > pdf_time
+
+
+def plot_combined_histogram(wildcard):
+    print('Plotting', wildcard)
+    filenames = glob.glob(wildcard)
+
+    fig = pl.figure()
+    ax = fig.add_subplot(1, 1, 1)
+
+    for filename in filenames:
+        data = np.genfromtxt(filename)
+        bins = data[:, 0]
+        counts = data[:, 1]
+        width = bins[3] - bins[2]
+        counts /= width
+        ax.plot(bins, counts, label=filename)
+
+    ax.set_title(wildcard)
+    ax.set_xlabel(r'Messgröße')
+    ax.set_ylabel(r'relative Häufigkeit')
+    ax.grid(True)
+    ax.legend(loc='best', prop={'size': 6})
+
+    fig.savefig(wildcard.replace('.csv', '.pdf'))
+
 
 def plot_histogram(filename):
     data = np.genfromtxt(filename)
