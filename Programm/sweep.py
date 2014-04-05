@@ -11,21 +11,20 @@ import subprocess
 def main():
     with concurrent.futures.ProcessPoolExecutor(4) as executor:
         futures = []
-        for mu in [1, 1e10, 1e20]:
-            for a in [1, 0.1, 0.01]:
-                for iterations in [1000, 10000]:
-                    futures.append(executor.submit(run, mu, a, iterations))
+        for a in [1, 2, 3]:
+            mods = ['-c', str(a)]
+            futures.append(executor.submit(run, mods[:]))
+
+        for s in [1, 2, 3]:
+            mods = ['-s', str(s)]
+            futures.append(executor.submit(run, mods[:]))
 
         for future in futures:
-            print(future.result())
+            future.result()
 
-def run(mu, a, iterations):
-    command = [
-        './metropolis',
-        '--mu-squared', str(mu),
-        '--time-step', str(a),
-        '--iterations', str(iterations),
-    ]
+def run(mods):
+    command = ['./metropolis'] + mods
+    print(' '.join(command))
     output = subprocess.check_output(command).decode()
     return output
 

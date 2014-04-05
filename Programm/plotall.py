@@ -58,7 +58,7 @@ def insert_theory(ax):
 
 def plot_combined_histogram(wildcard):
     print('Plotting', wildcard)
-    filenames = glob.glob(wildcard)
+    filenames = sorted(glob.glob(wildcard))
 
     fig = pl.figure()
     ax = fig.add_subplot(1, 1, 1)
