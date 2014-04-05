@@ -13,6 +13,8 @@ std::string Settings::generate_filename(std::string prefix, std::string suffix) 
     oss << "i{" << iterations << "}";
     oss << separator;
     oss << "o{" << mu_squared << "}";
+    oss << separator;
+    oss << "a{" << time_step << "}";
 
     oss << suffix;
 
