@@ -15,6 +15,8 @@ std::string Settings::generate_filename(std::string prefix, std::string suffix) 
     oss << "o{" << mu_squared << "}";
     oss << separator;
     oss << "a{" << time_step << "}";
+    oss << separator;
+    oss << "s{" << position_seed << "}";
 
     oss << suffix;
 

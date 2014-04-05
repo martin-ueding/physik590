@@ -7,8 +7,8 @@
 
 #include <cmath>
 
-MetropolisAlgorithm::MetropolisAlgorithm(ListQuantity &trajectory, System &s) :
-    x(trajectory), system(s) {
+MetropolisAlgorithm::MetropolisAlgorithm(ListQuantity &trajectory, System &s, int seed) :
+    x(trajectory), system(s), position_engine(std::mt19937{seed})  {
 }
 
 bool MetropolisAlgorithm::accept_action_difference(double action_difference) {

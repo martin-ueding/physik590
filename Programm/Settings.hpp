@@ -21,6 +21,7 @@ class Settings {
         size_t iterations;
         int rounds;
         int iterations_between;
+        int position_seed;
 
         size_t position_hist_bins;
         size_t action_hist_bins;

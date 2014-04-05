@@ -36,6 +36,7 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
     ("iterations,i", boost::program_options::value<size_t>(&settings.iterations)->default_value(10000), "Iterations for the histogram")
     ("rounds,r", boost::program_options::value<int>(&settings.rounds)->default_value(5), "Rounds for a single x_j")
     ("iterations-between", boost::program_options::value<int>(&settings.iterations_between)->default_value(2), "Extra iterations between measurements")
+    ("position-seed,s", boost::program_options::value<int>(&settings.position_seed)->default_value(0), "Seed for the random number generator used for positions")
     ;
     options.add(iter_options);
 
