@@ -11,31 +11,22 @@ import subprocess
 def main():
     with concurrent.futures.ProcessPoolExecutor(4) as executor:
         futures = []
-        for mass in [0.2, 1.0, 4.0]:
-            for mu in [0.2, 1.0, 4.0]:
-                for a in [0.02, 0.1, 0.4]:
-                    for rounds in [5, 10]:
-                        futures.append(executor.submit(run, mass, mu, a, rounds))
+        for mu in [1, 1e10, 1e20]:
+            for a in [1, 0.1, 0.01]:
+                for iterations in [1000, 10000]:
+                    futures.append(executor.submit(run, mu, a, iterations))
 
         for future in futures:
             print(future.result())
 
-def run(mass, mu, a, rounds):
-    dirname = 'sweep/{}_{}_{}_{}'.format(mass, mu, a, rounds)
-    os.makedirs(dirname, exist_ok=True)
-    os.chdir(dirname)
+def run(mu, a, iterations):
     command = [
-        '../../metropolis',
-        '--mass', str(mass),
+        './metropolis',
         '--mu-squared', str(mu),
         '--time-step', str(a),
-        '--rounds', str(rounds),
+        '--iterations', str(iterations),
     ]
     output = subprocess.check_output(command).decode()
-    output += '\n'
-    output += subprocess.check_output(['../../plotall.py']).decode()
-    os.chdir('../..')
-
     return output
 
 if __name__ == '__main__':
