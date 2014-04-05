@@ -27,7 +27,7 @@ add_executable(metropolis
     )
 target_link_libraries(metropolis boost_program_options)
 
-add_executable(metropolis-test
+add_executable(test-metropolis
     main-metropolis-test.cpp
 
     HarmonicOscillator.cpp
@@ -38,4 +38,13 @@ add_executable(metropolis-test
     PeriodicTest.cpp
     System.cpp
     )
-target_link_libraries(metropolis-test cppunit)
+target_link_libraries(test-metropolis cppunit)
+
+add_executable(test-distribution
+    main-test-distribution.cpp
+
+    BoostHistogram.cpp
+    Histogram.cpp
+    SizePrinter.cpp
+    VectorHistogram.cpp
+    )
