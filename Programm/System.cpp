@@ -4,6 +4,7 @@
 #include "System.hpp"
 
 #include <cstddef>
+#include <iostream>
 
 System::System(double time_step, double mass) : time_step(time_step), mass(mass) {
 }
@@ -28,5 +29,7 @@ double System::action_difference(double prev, double cur, double alt,
 
 double System::action_step(double cur, double next) {
     double difference {next - cur};
-    return 0.5 * mass * (difference * difference) / (time_step * time_step) + potential(cur);
+    double kinetic_part {0.5 * mass * (difference * difference) / (time_step * time_step)};
+    double potential_part {potential(cur)};
+    return kinetic_part - potential_part;
 }
