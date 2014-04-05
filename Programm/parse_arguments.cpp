@@ -17,7 +17,7 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
     oszillator_options.add_options()
     ("time-bins,t", boost::program_options::value<size_t>(&settings.time_sites)->default_value(1000), "Number of sites in the time lattice")
     ("mass,m", boost::program_options::value<double>(&settings.mass)->default_value(1), "Mass")
-    ("time-step,t", boost::program_options::value<double>(&settings.time_step)->default_value(0.1), "Spacing of time lattice")
+    ("time-step,a", boost::program_options::value<double>(&settings.time_step)->default_value(0.1), "Spacing of time lattice")
     ("mu-squared,o", boost::program_options::value<double>(&settings.mu_squared)->default_value(1), "μ²")
     ;
     options.add(oszillator_options);
