@@ -32,8 +32,13 @@ class VectorHistogram : public Histogram {
         std::vector<double> bins;
         void into_bins();
         bool has_changed {false};
+        void set_bounds();
         double min;
         double max;
+        bool bins_fixed {false};
+        size_t cache;
+        size_t points_pushed {0};
+
 };
 
 #endif /* end of include guard: VECTORHISTOGRAM_H */

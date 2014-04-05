@@ -23,7 +23,7 @@ def main():
             future.result()
 
 def run(mods):
-    command = ['./metropolis'] + mods
+    command = ['./metropolis', '-i', '1000000'] + mods
     print(' '.join(command))
     output = subprocess.check_output(command).decode()
     return output

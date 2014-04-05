@@ -4,13 +4,29 @@
 #include "VectorHistogram.hpp"
 
 #include <iostream>
+#include <stdexcept>
 
-VectorHistogram::VectorHistogram(size_t bins, size_t cache) : bins(std::vector<double>(bins)) {
+VectorHistogram::VectorHistogram(size_t bins, size_t cache) : bins(std::vector<double>(bins)), cache(std::min(cache, MAX_CACHE_ENTRIES)) {
 }
 
 void VectorHistogram::push(double value) {
-    data.push_back(value);
-    has_changed = true;
+    if (bins_fixed) {
+        unsigned int bin = map_bin(value);
+        if (0 <= bin && bin < bins.size()) {
+            bins[bin]++;
+        }
+    }
+    else {
+        data.push_back(value);
+        has_changed = true;
+
+        if (data.size() >= cache) {
+            std::cout << "*";
+            set_bounds();
+            into_bins();
+        }
+    }
+    points_pushed++;
 }
 
 void VectorHistogram::write_histogram(std::ostream &outfile) {
@@ -24,12 +40,17 @@ void VectorHistogram::write_histogram(std::ostream &outfile) {
 
     for (size_t i = 0; i < bins.size(); i++) {
         x = min + width / 2 + i * width;
-        y = (double) bins[i] / data.size();
+        y = (double) bins[i] / points_pushed;
         outfile << x << "\t" << y << std::endl;
     }
 }
 
-void VectorHistogram::into_bins() {
+void VectorHistogram::set_bounds() {
+    if (bins_fixed) {
+        throw std::runtime_error("Bounds can only be set once!");
+    }
+
+
     min = data[0];
     max = data[0];
 
@@ -43,11 +64,23 @@ void VectorHistogram::into_bins() {
         }
     }
 
+    bins_fixed = true;
+}
+
+void VectorHistogram::into_bins() {
+    if (!bins_fixed) {
+        set_bounds();
+    }
+
     size_t bin;
-    for (double & i : data) {
+    double i;
+    while (!data.empty()) {
+        i = data.back();
+        data.pop_back();
         bin = map_bin(i);
         bins[bin]++;
     }
+    data.shrink_to_fit();
 }
 
 size_t VectorHistogram::map_bin(double value) {
