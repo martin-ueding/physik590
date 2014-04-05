@@ -25,7 +25,8 @@ class MetropolisAlgorithm {
           @param trajectory Trajectory of the particle
           @param s System to work with
           */
-        MetropolisAlgorithm(ListQuantity &trajectory, System &s, int seed);
+        MetropolisAlgorithm(ListQuantity &trajectory, System &s, int
+                position_seed, int accept_seed);
 
         /**
           Does a single iteration.

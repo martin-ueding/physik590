@@ -86,7 +86,7 @@ int main(int argc, char **argv) {
 
     HarmonicOscillator ho {settings.time_step, settings.mass, settings.mu_squared};
     ListQuantity trajectory {settings.time_sites};
-    MetropolisAlgorithm ma {trajectory, ho, settings.position_seed};
+    MetropolisAlgorithm ma {trajectory, ho, settings.position_seed, settings.accept_seed};
 
     do_init(settings, trajectory);
     do_pre_iterations(settings, trajectory, ma);

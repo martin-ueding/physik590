@@ -7,8 +7,10 @@
 
 #include <cmath>
 
-MetropolisAlgorithm::MetropolisAlgorithm(ListQuantity &trajectory, System &s, int seed) :
-    x(trajectory), system(s), position_engine(std::mt19937{seed})  {
+MetropolisAlgorithm::MetropolisAlgorithm(ListQuantity &trajectory, System &s,
+        int position_seed, int accept_seed) : x(trajectory), system(s),
+    position_engine(std::mt19937{position_seed}),
+    accept_engine(std::mt19937{accept_seed}) {
 }
 
 bool MetropolisAlgorithm::accept_action_difference(double action_difference) {
