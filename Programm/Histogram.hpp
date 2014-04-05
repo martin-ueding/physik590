@@ -20,10 +20,8 @@ class Histogram {
 
         /**
           Maximum size for a single histogram.
-
-          Currently, this is limited to 1.5 GiB.
           */
-        const size_t MAX_CACHE_ENTRIES = 1500L * 1024 * 1024 / sizeof(double);
+        const size_t MAX_CACHE_ENTRIES = 1024L * 1024 * 1024 / sizeof(double);
 
         /**
           Push a new value into the histogram.
