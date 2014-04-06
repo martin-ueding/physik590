@@ -21,7 +21,7 @@ void VectorHistogram::push(double value) {
         has_changed = true;
 
         if (data.size() >= cache) {
-            std::cout << "*";
+            std::cout << "Binning …" << std::endl;
             set_bounds();
             into_bins();
         }
@@ -49,7 +49,6 @@ void VectorHistogram::set_bounds() {
     if (bins_fixed) {
         throw std::runtime_error("Bounds can only be set once!");
     }
-
 
     min = data[0];
     max = data[0];

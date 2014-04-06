@@ -22,7 +22,7 @@ def main():
         plotted.append(csv_file)
         if needs_plotting(csv_file):
             print('Plotting', csv_file)
-            plot_histogram(csv_file)
+            auto_plot_histogram(csv_file)
 
     for csv_file in glob.glob('out/trajectory-*.csv'):
         if csv_file in plotted:

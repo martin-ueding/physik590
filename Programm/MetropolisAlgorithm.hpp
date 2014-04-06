@@ -44,6 +44,8 @@ class MetropolisAlgorithm {
         ListQuantity &x;
 
         double get_accept_rate();
+        double get_accept_rate_negative();
+        double get_accept_rate_exponential();
 
         void reset_accept_rate();
 
@@ -71,7 +73,8 @@ class MetropolisAlgorithm {
         std::mt19937 accept_engine;
 
         unsigned int samples {0};
-        unsigned int accepted {0};
+        unsigned int accepted_negative {0};
+        unsigned int accepted_exponential {0};
 };
 
 #endif /* end of include guard: TRAJECTORY_H */
