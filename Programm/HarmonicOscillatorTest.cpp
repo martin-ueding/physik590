@@ -10,7 +10,7 @@ void HarmonicOscillatorTest::test_sign() {
     CPPUNIT_ASSERT(ho.action_difference(0.0, 0.0, 1.0, 0.0) > 0);
 
     // Check that the action decreases when the trajectory is flattened.
-    CPPUNIT_ASSERT(ho.action_difference(0.0, 1.0, 0.0, 0.0) > 0);
+    CPPUNIT_ASSERT(ho.action_difference(0.0, 1.0, 0.0, 0.0) < 0);
 
     // Check that the action does not change when the trajectory does not
     // change either.
