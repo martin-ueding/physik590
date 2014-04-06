@@ -3,6 +3,7 @@
 
 #include "VectorHistogram.hpp"
 
+#include <cmath>
 #include <iostream>
 #include <stdexcept>
 
@@ -34,14 +35,18 @@ void VectorHistogram::write_histogram(std::ostream &outfile) {
         into_bins();
     }
 
+    outfile << "# Points: " << points_pushed << std::endl;
+
     double width = (max - min) / bins.size();
     double x;
     double y;
+    double err;
 
     for (size_t i = 0; i < bins.size(); i++) {
         x = min + width / 2 + i * width;
         y = (double) bins[i] / points_pushed;
-        outfile << x << "\t" << y << std::endl;
+        err = std::sqrt(bins[i]) / points_pushed;
+        outfile << x << "\t" << y << "\t" << err << std::endl;
     }
 }
 

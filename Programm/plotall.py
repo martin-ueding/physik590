@@ -54,7 +54,9 @@ def needs_plotting(filename):
 def insert_theory(ax):
     x = np.linspace(-4, 4, 1000)
     y = 0.59 * np.exp(- 1.1 * x**2)
-    ax.plot(x, y, label='Theorie', linestyle='dashed')
+    ax.plot(x, y, label='Theorie diskret', linestyle='dashed', color='gray')
+    y = 1/np.sqrt(np.pi) * np.exp(- x**2)
+    ax.plot(x, y, label='Theorie kontinuierlich', linestyle='dotted', color='gray')
 
 def plot_combined_histogram(wildcard):
     print('Plotting', wildcard)
@@ -68,9 +70,10 @@ def plot_combined_histogram(wildcard):
         bins = data[:, 0]
         counts = data[:, 1]
         width = bins[3] - bins[2]
+        errors = data[:, 2] / width
         counts /= width
         selection = abs(bins) < 4
-        ax.plot(bins[selection], counts[selection], label=filename)
+        ax.errorbar(bins[selection], counts[selection], yerr=errors[selection], label=filename, marker='|', linestyle='none')
 
     insert_theory(ax)
 
