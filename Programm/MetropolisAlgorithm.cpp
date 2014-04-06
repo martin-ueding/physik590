@@ -9,16 +9,24 @@
 
 MetropolisAlgorithm::MetropolisAlgorithm(ListQuantity &trajectory, System &s,
         int position_seed, int accept_seed) : x(trajectory), system(s),
-    position_engine(std::mt19937{position_seed}),
-    accept_engine(std::mt19937{accept_seed}) {
+    position_engine(std::mt19937 {position_seed}),
+accept_engine(std::mt19937 {accept_seed}) {
 }
 
 bool MetropolisAlgorithm::accept_action_difference(double action_difference) {
+    bool rval;
     if (action_difference < 0) {
-        return true;
+        rval = true;
     }
 
-    return std::exp(- action_difference) > zero_one_dist(accept_engine);
+    rval = std::exp(- action_difference) > zero_one_dist(accept_engine);
+
+    samples++;
+    if (rval) {
+        accepted++;
+    }
+
+    return rval;
 }
 
 void MetropolisAlgorithm::iteration(int rounds, double margin) {
@@ -39,4 +47,13 @@ void MetropolisAlgorithm::iteration(int rounds, double margin) {
             }
         }
     }
+}
+
+void MetropolisAlgorithm::reset_accept_rate() {
+    samples = 0;
+    accepted = 0;
+}
+
+double MetropolisAlgorithm::get_accept_rate() {
+    return (double) accepted / samples;
 }

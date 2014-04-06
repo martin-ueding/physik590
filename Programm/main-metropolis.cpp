@@ -37,7 +37,7 @@ void do_pre_iterations(Settings &settings, ListQuantity &trajectory,
 
 void do_iterations(Settings &settings, ListQuantity &trajectory,
                    MetropolisAlgorithm &ma, System &system) {
-    VectorHistogram position_histogram {settings.position_hist_bins, settings.time_sites * settings.iterations / 2};
+    VectorHistogram position_histogram {settings.position_hist_bins, settings.time_sites *settings.iterations / 2};
     VectorHistogram action_histogram {settings.action_hist_bins, settings.iterations};
 
     ListQuantity action_list {settings.iterations};
@@ -46,6 +46,8 @@ void do_iterations(Settings &settings, ListQuantity &trajectory,
         std::cout << "-";
     }
     std::cout << std::endl;
+
+    ma.reset_accept_rate();
 
     for (size_t i = 0; i < settings.iterations; i++) {
         for (int j = 0; j < settings.iterations_between; j++) {
@@ -68,6 +70,8 @@ void do_iterations(Settings &settings, ListQuantity &trajectory,
     action_list.binning_snapshot(action_histogram);
     //action_list.save_plot_file(settings.generate_filename("out/trajectory-action-", ".csv"));
     action_histogram.save(settings.generate_filename("out/histogram-action-", ".csv"));
+
+    std::cout << "Accept Rate: " << ma.get_accept_rate() << std::endl;
 }
 
 /**

@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
     std::uniform_real_distribution<double> zero_one_dist {0, 1};
     std::mt19937 engine;
 
-    for (unsigned int i {0}; i < 100*1000*1000; i++) {
+    for (unsigned int i {0}; i < 100 * 1000 * 1000; i++) {
         hist.push(zero_one_dist(engine));
     }
 

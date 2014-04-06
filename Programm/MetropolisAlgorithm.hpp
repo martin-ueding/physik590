@@ -22,11 +22,16 @@ class MetropolisAlgorithm {
         /**
           Constructs a lattice with given sites and will use given System.
 
+          To change the initial seeds of the random generators, specify a
+          value.
+
           @param trajectory Trajectory of the particle
           @param s System to work with
+          @param position_seed Seed for position generator
+          @param accept_seed Seed for accept generator
           */
         MetropolisAlgorithm(ListQuantity &trajectory, System &s, int
-                position_seed, int accept_seed);
+                            position_seed, int accept_seed);
 
         /**
           Does a single iteration.
@@ -37,6 +42,10 @@ class MetropolisAlgorithm {
           Positions @f$ \{ x_j \} @f$.
           */
         ListQuantity &x;
+
+        double get_accept_rate();
+
+        void reset_accept_rate();
 
     private:
         /**
@@ -60,6 +69,9 @@ class MetropolisAlgorithm {
         std::uniform_real_distribution<double> zero_one_dist {0, 1};
         std::mt19937 position_engine;
         std::mt19937 accept_engine;
+
+        unsigned int samples {0};
+        unsigned int accepted {0};
 };
 
 #endif /* end of include guard: TRAJECTORY_H */
