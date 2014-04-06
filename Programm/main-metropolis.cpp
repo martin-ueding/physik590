@@ -52,12 +52,12 @@ void do_iterations(Settings &settings, ListQuantity &trajectory,
         trajectory.binning_snapshot(position_histogram);
         action_list.list[i] = system.action(trajectory.list);
 
-        if (i % 499 == 0) {
+        if (i % 999 == 0) {
             std::cout << i * 100 / settings.iterations << "%" << std::endl;
         }
     }
 
-    //trajectory.save_plot_file(settings.generate_filename("out/trajectory-05-end-", ".csv"));
+    trajectory.save_plot_file(settings.generate_filename("out/trajectory-05-end-", ".csv"));
     position_histogram.save(settings.generate_filename("out/histogram-position-", ".csv"));
 
     action_list.binning_snapshot(action_histogram);
