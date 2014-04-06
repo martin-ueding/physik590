@@ -52,7 +52,7 @@ void do_iterations(Settings &settings, ListQuantity &trajectory,
         trajectory.binning_snapshot(position_histogram);
         action_list.list[i] = system.action(trajectory.list);
 
-        if (i % 500 == 0) {
+        if (i % 499 == 0) {
             std::cout << i * 100 / settings.iterations << "%" << std::endl;
         }
     }
