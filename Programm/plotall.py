@@ -54,9 +54,9 @@ def needs_plotting(filename):
 def insert_theory(ax):
     x = np.linspace(-4, 4, 1000)
     y = 0.59 * np.exp(- 1.1 * x**2)
-    ax.plot(x, y, label='Theorie diskret', linestyle='dashed', color='gray')
+    ax.plot(x, y, label='Theorie diskret', linestyle='dashed', color='black')
     y = 1/np.sqrt(np.pi) * np.exp(- x**2)
-    ax.plot(x, y, label='Theorie kontinuierlich', linestyle='dotted', color='gray')
+    ax.plot(x, y, label='Theorie kontinuierlich', linestyle='dotted', color='black')
 
 def plot_combined_histogram(wildcard):
     print('Plotting', wildcard)
