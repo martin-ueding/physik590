@@ -22,7 +22,7 @@ double System::action(std::vector<double> &x) {
 double System::action_difference(double prev, double cur, double alt,
                                  double next) {
     double action_cur {action_step(prev, cur) + action_step(cur, next)};
-    double action_alt {action_step(prev, alt) + action_step(cur, alt)};
+    double action_alt {action_step(prev, alt) + action_step(alt, next)};
 
     return action_alt - action_cur;
 }
