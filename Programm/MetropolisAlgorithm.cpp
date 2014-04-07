@@ -36,9 +36,9 @@ void MetropolisAlgorithm::iteration(int rounds, double margin) {
         unsigned int j_minus_one {Periodic::wrap(j - 1, x.list.size())};
 
         for (int round {0}; round < rounds; round++) {
-            // Create a random number generator that will draw x_j' from the
-            // interval [x_j - margin, x_j + margin].
-            std::uniform_real_distribution<double> distribution {x.list[j] - margin, x.list[j] + margin};
+            // Create a random number generator that will draw x_j' from a
+            // normal distribution with mean = x_j and stddev = margin.
+            std::normal_distribution<double> distribution {x.list[j], margin};
 
             // Generate a new random x_j'.
             double new_x {distribution(position_engine)};
