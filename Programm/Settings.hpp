@@ -65,7 +65,7 @@ class Settings {
         /**
           @f$ N_E @f$ in [CF80].
           */
-        size_t iterations {10000};
+        size_t iterations {300};
 
         /**
           @f$ \bar n @f$ in [CF80].
