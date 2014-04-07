@@ -19,6 +19,8 @@ std::string Settings::generate_filename(std::string prefix, std::string suffix) 
     oss << "s{" << position_seed << "}";
     oss << separator;
     oss << "c{" << accept_seed << "}";
+    oss << separator;
+    oss << "margin{" << margin << "}";
 
     oss << suffix;
 

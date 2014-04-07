@@ -16,6 +16,7 @@ def main():
 
     plotted = []
 
+    """
     for csv_file in glob.glob('out/histogram-position-*.csv'):
         if csv_file in plotted:
             continue
@@ -39,13 +40,14 @@ def main():
         if needs_plotting(csv_file):
             print('Plotting', csv_file)
             auto_plot_histogram(csv_file)
+    """
 
     plot_combined_histogram('out/histogram-position-*.csv')
     plot_combined_histogram('out/histogram-action-*.csv')
 
 def needs_plotting(filename):
     csv_time = datetime.datetime.fromtimestamp(os.path.getmtime(filename))
-    pdf_file = filename.replace('.csv', '.pdf')
+    pdf_file = filename.replace('.csv', '.png')
     if not os.path.isfile(pdf_file):
         return True
     pdf_time = datetime.datetime.fromtimestamp(os.path.getmtime(pdf_file))
@@ -81,9 +83,9 @@ def plot_combined_histogram(wildcard):
     ax.set_xlabel(r'Messgröße')
     ax.set_ylabel(r'relative Häufigkeit')
     ax.grid(True)
-    ax.legend(loc='best', prop={'size': 6})
+    #ax.legend(loc='best', prop={'size': 6})
 
-    fig.savefig(wildcard.replace('.csv', '.pdf'))
+    fig.savefig(wildcard.replace('.csv', '.png'))
 
 
 def plot_histogram(filename):
@@ -109,7 +111,7 @@ def plot_histogram(filename):
     ax.legend(loc='best')
 
 
-    fig.savefig(filename.replace('.csv', '.pdf'))
+    fig.savefig(filename.replace('.csv', '.png'))
 
 def auto_plot_histogram(filename):
     data = np.genfromtxt(filename)
@@ -127,7 +129,7 @@ def auto_plot_histogram(filename):
     ax.set_ylabel(r'relative Häufigkeit')
     ax.grid(True)
 
-    fig.savefig(filename.replace('.csv', '.pdf'))
+    fig.savefig(filename.replace('.csv', '.png'))
 
 def auto_plot_trajectory(filename):
     data = np.genfromtxt(filename)
@@ -139,7 +141,7 @@ def auto_plot_trajectory(filename):
     ax.set_xlabel(r'Zeit $j$')
     ax.set_ylabel(r'Position $x_j$')
     ax.grid(True)
-    fig.savefig(filename.replace('.csv', '.pdf'))
+    fig.savefig(filename.replace('.csv', '.png'))
 
 def _parse_args():
     """
