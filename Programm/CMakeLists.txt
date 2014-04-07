@@ -48,3 +48,11 @@ add_executable(test-distribution
     SizePrinter.cpp
     VectorHistogram.cpp
     )
+
+add_executable(action-difference
+    main-action-difference.cpp
+
+    HarmonicOscillator.cpp
+    Settings.cpp
+    System.cpp
+    )
