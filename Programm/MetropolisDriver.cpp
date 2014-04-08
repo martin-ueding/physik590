@@ -7,9 +7,9 @@
 
 MetropolisDriver::MetropolisDriver(Settings &settings) :
     settings(settings),
-    ho(HarmonicOscillator {settings.time_step, settings.mass, settings.mu_squared}),
+    system(HarmonicOscillator {settings.time_step, settings.mass, settings.mu_squared}),
     trajectory(ListQuantity {settings.time_sites}),
-    ma(MetropolisAlgorithm {trajectory, ho, settings.position_seed, settings.accept_seed}) {
+    ma(MetropolisAlgorithm {trajectory, system, settings.position_seed, settings.accept_seed}) {
 }
 
 void MetropolisDriver::run() {

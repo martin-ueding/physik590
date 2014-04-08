@@ -19,9 +19,9 @@ class MetropolisDriver {
 
     protected:
         Settings &settings;
-        System &ho;
-        ListQuantity &trajectory;
-        MetropolisAlgorithm &ma;
+        HarmonicOscillator system;
+        ListQuantity trajectory;
+        MetropolisAlgorithm ma;
 
         /**
           Initializes the trajectory to random.
