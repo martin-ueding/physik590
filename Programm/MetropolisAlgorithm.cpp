@@ -61,7 +61,7 @@ void MetropolisAlgorithm::reset_accept_rate() {
 }
 
 double MetropolisAlgorithm::get_accept_rate() {
-    return (double) (accepted_negative + accepted_exponential) / samples;
+    return (double)(accepted_negative + accepted_exponential) / samples;
 }
 
 double MetropolisAlgorithm::get_accept_rate_negative() {
