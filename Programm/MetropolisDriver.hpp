@@ -38,7 +38,7 @@ class MetropolisDriver {
         HarmonicOscillator system;
         ListQuantity trajectory;
         MetropolisAlgorithm ma;
-        DistributionMoments moments {6};
+        DistributionMoments moments {2};
 
         /**
           Initializes the trajectory to random.
