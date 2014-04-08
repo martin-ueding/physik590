@@ -30,6 +30,8 @@ class HarmonicOscillator : public System {
 
         virtual double potential(double x);
 
+        virtual double ground_energy(DistributionMoments &moments);
+
     private:
         /**
           Sping constant @f$ k @f$ or @f$ \mu^2 @f$.

@@ -3,10 +3,16 @@
 
 #include "HarmonicOscillator.hpp"
 
+#include <cmath>
+
 HarmonicOscillator::HarmonicOscillator(double time_step, double mass, double mu_squared) :
     System(time_step, mass), mu_squared(mu_squared) {
 }
 
 double HarmonicOscillator::potential(double x) {
     return 0.5 * mu_squared * x * x;
+}
+
+double HarmonicOscillator::ground_energy(DistributionMoments &moments) {
+    return std::pow(mu_squared, 2) * moments[2];
 }

@@ -77,4 +77,6 @@ void MetropolisDriver::do_iterations() {
 
     std::cout << "σ\t" << moments.sigma() << std::endl;
     std::cout << "σ Theo\t" << moments.sigma_theory << std::endl;
+
+    std::cout << "E₀\t" << system.ground_energy(moments) << std::endl;
 }
