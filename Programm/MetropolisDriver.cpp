@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-MetropolisDriver::MetropolisDriver(Settings &settings) :
+MetropolisDriver::MetropolisDriver(Settings settings) :
     settings(settings),
     system(HarmonicOscillator {settings.time_step, settings.mass, settings.mu_squared}),
     trajectory(ListQuantity {settings.time_sites}),
