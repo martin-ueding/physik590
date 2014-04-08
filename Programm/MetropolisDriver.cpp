@@ -55,18 +55,12 @@ void MetropolisDriver::run(ResultSet &results) {
     action_histogram.save(settings.generate_filename("out/histogram-action-", ".csv"));
 
     std::cout << "Accept Rate Total:       " << ma.get_accept_rate() << std::endl;
-    std::cout << "Accept Rate Negative:    " << ma.get_accept_rate_negative() << std::endl;
-    std::cout << "Accept Rate Exponential: " << ma.get_accept_rate_exponential() << std::endl;
-
-    std::cout << std::endl;
-
-    for (size_t i{0}; i < moments.size(); i++) {
-        std::cout << i << "\t" << moments[i] << std::endl;
-    }
-
-
     std::cout << "σ\t" << moments.sigma() << std::endl;
     std::cout << "σ Theo\t" << moments.sigma_theory << std::endl;
-
     std::cout << "E₀\t" << system.ground_energy(moments) << std::endl;
+
+    results.accept_rate.append(ma.get_accept_rate());
+    results.first_moment.append(moments[1]);
+    results.second_moment.append(moments[2]);
+    results.energy0.append(system.ground_energy(moments));
 }
