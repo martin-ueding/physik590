@@ -3,8 +3,6 @@
 
 #include "DistributionMoments.hpp"
 
-#include <cmath>
-
 DistributionMoments::DistributionMoments(size_t moment_count) :
     moments(std::vector<double>(moment_count + 1)) {
 }
@@ -21,4 +19,10 @@ double DistributionMoments::operator[](int i) {
 
 size_t DistributionMoments::size() {
     return moments.size();
+}
+
+double DistributionMoments::sigma() {
+    double sigma {std::sqrt(this->operator[](2))};
+
+    return sigma;
 }
