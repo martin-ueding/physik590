@@ -4,6 +4,7 @@
 #ifndef DISTRIBUTIONMOMENTS_H
 #define DISTRIBUTIONMOMENTS_H
 
+#include <cstddef>
 #include <vector>
 
 class DistributionMoments {
@@ -13,7 +14,7 @@ class DistributionMoments {
 
           @param[in] moment_count Maximum order of moments to calculate.
           */
-        DistributionMoments(const unsigned int moment_count);
+        DistributionMoments(size_t moment_count);
 
         /**
           Add a new value, incremental calculation.
@@ -23,6 +24,8 @@ class DistributionMoments {
         void push(const double val);
 
         double operator[](int i);
+
+        size_t size();
 
     protected:
         std::vector<double> moments;

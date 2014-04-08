@@ -48,6 +48,10 @@ void MetropolisDriver::do_iterations() {
         trajectory.binning_snapshot(position_histogram);
         action_list.list[i] = system.action(trajectory.list);
 
+        for (auto &x : trajectory.list) {
+            moments.push(x);
+        }
+
         if (i % 999 == 0) {
             std::cout << i * 100 / settings.iterations << "%" << std::endl;
         }
@@ -63,4 +67,10 @@ void MetropolisDriver::do_iterations() {
     std::cout << "Accept Rate Total:       " << ma.get_accept_rate() << std::endl;
     std::cout << "Accept Rate Negative:    " << ma.get_accept_rate_negative() << std::endl;
     std::cout << "Accept Rate Exponential: " << ma.get_accept_rate_exponential() << std::endl;
+
+    std::cout << std::endl;
+
+    for (size_t i{0}; i < moments.size(); i++) {
+        std::cout << i << "\t" << moments[i] << std::endl;
+    }
 }

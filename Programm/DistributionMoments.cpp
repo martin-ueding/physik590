@@ -5,8 +5,8 @@
 
 #include <cmath>
 
-DistributionMoments::DistributionMoments(const unsigned int moment_count) :
-    moments(std::vector<double>(moments)) {
+DistributionMoments::DistributionMoments(size_t moment_count) :
+    moments(std::vector<double>(moment_count + 1)) {
 }
 
 void DistributionMoments::push(const double val) {
@@ -17,4 +17,8 @@ void DistributionMoments::push(const double val) {
 
 double DistributionMoments::operator[](int i) {
     return moments[i] / moments[0];
+}
+
+size_t DistributionMoments::size() {
+    return moments.size();
 }

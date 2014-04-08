@@ -5,6 +5,7 @@
 #define METROPOLISDRIVER_H
 
 #include "BoostHistogram.hpp"
+#include "DistributionMoments.hpp"
 #include "HarmonicOscillator.hpp"
 #include "ListQuantity.hpp"
 #include "MetropolisAlgorithm.hpp"
@@ -37,6 +38,7 @@ class MetropolisDriver {
         HarmonicOscillator system;
         ListQuantity trajectory;
         MetropolisAlgorithm ma;
+        DistributionMoments moments {6};
 
         /**
           Initializes the trajectory to random.
