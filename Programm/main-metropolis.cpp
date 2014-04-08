@@ -5,7 +5,7 @@
   @file
   */
 
-#include "MetropolisDriver.hpp"
+#include "BootstrapDriver.hpp"
 #include "parse_arguments.hpp"
 #include "Settings.hpp"
 
@@ -26,8 +26,8 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    MetropolisDriver driver {settings};
-    driver.run();
+    BootstrapDriver driver;
+    driver.run(settings);
 
     return 0;
 }

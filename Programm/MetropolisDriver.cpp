@@ -10,29 +10,19 @@ MetropolisDriver::MetropolisDriver(Settings settings) :
     system(HarmonicOscillator {settings.time_step, settings.mass, settings.mu_squared}),
        trajectory(ListQuantity {settings.time_sites}),
 ma(MetropolisAlgorithm {trajectory, system, settings.position_seed, settings.accept_seed}) {
-    do_init();
-    do_pre_iterations();
-}
 
-void MetropolisDriver::run() {
-    do_iterations();
-}
-
-void MetropolisDriver::do_init() {
     trajectory.save_plot_file(settings.generate_filename("out/trajectory-01-init-", ".csv"));
 
     trajectory.set_to_random(settings.initial_random_width);
     trajectory.save_plot_file(settings.generate_filename("out/trajectory-02-random-", ".csv"));
-}
 
-void MetropolisDriver::do_pre_iterations() {
     for (int i = 0; i < settings.pre_iterations - settings.iterations_between; i++) {
         ma.iteration(settings.pre_rounds, settings.margin);
     }
     trajectory.save_plot_file(settings.generate_filename("out/trajectory-04-more_iterations-", ".csv"));
 }
 
-void MetropolisDriver::do_iterations() {
+void MetropolisDriver::run(ResultSet &results) {
     VectorHistogram position_histogram {settings.position_hist_bins, settings.time_sites * settings.iterations};
     VectorHistogram action_histogram {settings.action_hist_bins, settings.iterations};
 

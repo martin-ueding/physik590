@@ -9,6 +9,7 @@
 #include "HarmonicOscillator.hpp"
 #include "ListQuantity.hpp"
 #include "MetropolisAlgorithm.hpp"
+#include "ResultSet.hpp"
 #include "Settings.hpp"
 #include "VectorHistogram.hpp"
 
@@ -31,7 +32,7 @@ class MetropolisDriver {
           */
         MetropolisDriver(Settings settings);
 
-        void run();
+        void run(ResultSet &results);
 
     protected:
         Settings settings;
@@ -39,16 +40,6 @@ class MetropolisDriver {
         ListQuantity trajectory;
         MetropolisAlgorithm ma;
         DistributionMoments moments {2};
-
-        /**
-          Initializes the trajectory to random.
-
-          @param[in] settings Command line options
-          @param[in,out] trajectory List with @f$ x @f$ values
-          */
-        void do_init();
-        void do_pre_iterations();
-        void do_iterations();
 };
 
 #endif /* end of include guard: METROPOLISDRIVER_H */

@@ -4,6 +4,8 @@
 #ifndef RESULTSET_H
 #define RESULTSET_H
 
+#include "BootstrappedQuantity.hpp"
+
 class ResultSet {
     public:
         BootstrappedQuantity first_moment;
