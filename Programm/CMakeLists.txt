@@ -14,6 +14,7 @@ add_executable(metropolis
     main-metropolis.cpp
 
     BoostHistogram.cpp
+    DistributionMoments.cpp
     HarmonicOscillator.cpp
     Histogram.cpp
     ListQuantity.cpp
@@ -21,10 +22,11 @@ add_executable(metropolis
     MetropolisDriver.cpp
     parse_arguments.cpp
     Periodic.cpp
-    VectorHistogram.cpp
     Settings.cpp
     SizePrinter.cpp
     System.cpp
+    VectorHistogram.cpp
+
     )
 target_link_libraries(metropolis boost_program_options)
 
