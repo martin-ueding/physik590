@@ -12,6 +12,7 @@ class ResultSet {
         BootstrappedQuantity second_moment;
         BootstrappedQuantity energy0;
         BootstrappedQuantity accept_rate;
+        BootstrappedQuantity sigma;
 };
 
 #endif /* end of include guard: RESULTSET_H */

@@ -25,8 +25,10 @@ ma(MetropolisAlgorithm {trajectory, system, settings.position_seed, settings.acc
 void MetropolisDriver::run(ResultSet &results) {
     VectorHistogram position_histogram {settings.position_hist_bins, settings.time_sites * settings.iterations};
     VectorHistogram action_histogram {settings.action_hist_bins, settings.iterations};
-
+    DistributionMoments moments {2};
     ListQuantity action_list {settings.iterations};
+
+    std::cout << "x[0]\t" << trajectory.list[0] << std::endl;
 
     ma.reset_accept_rate();
 
@@ -63,4 +65,5 @@ void MetropolisDriver::run(ResultSet &results) {
     results.first_moment.append(moments[1]);
     results.second_moment.append(moments[2]);
     results.energy0.append(system.ground_energy(moments));
+    results.sigma.append(moments.sigma());
 }

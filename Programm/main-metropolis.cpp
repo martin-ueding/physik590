@@ -27,7 +27,9 @@ int main(int argc, char **argv) {
     }
 
     BootstrapDriver driver;
-    driver.run(settings);
+    driver.run(settings, 100);
+    std::cout << std::endl;
+    driver.print_results();
 
     return 0;
 }

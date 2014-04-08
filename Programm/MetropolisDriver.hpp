@@ -39,7 +39,6 @@ class MetropolisDriver {
         HarmonicOscillator system;
         ListQuantity trajectory;
         MetropolisAlgorithm ma;
-        DistributionMoments moments {2};
 };
 
 #endif /* end of include guard: METROPOLISDRIVER_H */
