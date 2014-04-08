@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <iostream>
 #include <numeric>
 
 void BootstrappedQuantity::append(double point) {
@@ -24,4 +25,9 @@ std::pair<double, double> BootstrappedQuantity::mean_and_stddev() {
     double stddev = std::sqrt(sq_sum / data.size());
 
     return std::pair<double, double> {mean, stddev};
+}
+
+void BootstrappedQuantity::print() {
+    auto ms = mean_and_stddev();
+    std::cout << ms.first << " ± " << ms.second << std::endl;
 }
