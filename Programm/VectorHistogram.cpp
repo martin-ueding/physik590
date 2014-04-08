@@ -7,7 +7,9 @@
 #include <iostream>
 #include <stdexcept>
 
-VectorHistogram::VectorHistogram(size_t bins, size_t cache) : bins(std::vector<double>(bins)), cache(std::min(cache, MAX_CACHE_ENTRIES)) {
+VectorHistogram::VectorHistogram(size_t bins, size_t cache) :
+    bins(std::vector<double>(bins)),
+    cache(std::min(cache, MAX_CACHE_ENTRIES)) {
 }
 
 void VectorHistogram::push(double value) {

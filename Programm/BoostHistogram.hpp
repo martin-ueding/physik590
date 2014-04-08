@@ -44,7 +44,8 @@ class BoostHistogram : public Histogram {
 
           This stores the data, add your data here.
           */
-        accumulator_set<double, features<tag::min, tag::max, tag::mean, tag::density>> acc;
+        accumulator_set < double,
+                        features<tag::min, tag::max, tag::mean, tag::density >> acc;
 };
 
 #endif /* end of include guard: BOOSTHISTOGRAM_H */

@@ -6,7 +6,8 @@
 #include <cstddef>
 #include <iostream>
 
-System::System(double time_step, double mass) : time_step(time_step), mass(mass) {
+System::System(double time_step, double mass)
+    : time_step(time_step), mass(mass) {
 }
 
 double System::action(std::vector<double> &x) {
@@ -29,7 +30,9 @@ double System::action_difference(double prev, double cur, double alt,
 
 double System::action_step(double cur, double next) {
     double difference {next - cur};
-    double kinetic_part {0.5 * mass *(difference * difference) / (time_step * time_step)};
+    double kinetic_part {
+        0.5 * mass *(difference * difference) / (time_step * time_step)
+    };
     double potential_part {potential(cur)};
     return time_step * (kinetic_part + potential_part);
 }

@@ -13,7 +13,7 @@
   */
 class BootstrapDriver {
     public:
-        void run(Settings &s, int iterations);
+        void run(Settings &s, int iteration);
         void print_results();
     protected:
         ResultSet results;

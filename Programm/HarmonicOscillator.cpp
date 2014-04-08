@@ -5,8 +5,8 @@
 
 #include <cmath>
 
-HarmonicOscillator::HarmonicOscillator(double time_step, double mass, double mu_squared) :
-    System(time_step, mass), mu_squared(mu_squared) {
+HarmonicOscillator::HarmonicOscillator(double time_step, double mass,
+                                       double mu_squared) : System(time_step, mass), mu_squared(mu_squared) {
 }
 
 double HarmonicOscillator::potential(double x) {

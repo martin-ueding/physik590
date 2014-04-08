@@ -8,7 +8,8 @@
 #include <cmath>
 
 MetropolisAlgorithm::MetropolisAlgorithm(ListQuantity &trajectory, System &s,
-        int position_seed, int accept_seed) : x(trajectory), system(s),
+        int position_seed, int accept_seed) :
+    x(trajectory), system(s),
     position_engine(std::mt19937 {position_seed}),
 accept_engine(std::mt19937 {accept_seed}) {
 }
@@ -45,7 +46,10 @@ void MetropolisAlgorithm::iteration(int rounds, double margin) {
 
             // Compute the difference in action (ΔS) that will result from the
             // exchange x_j → x_j'.
-            double action_difference {system.action_difference(x.list[j_minus_one], x.list[j], new_x, x.list[j_plus_one])};
+            double action_difference {
+                system.action_difference(x.list[j_minus_one], x.list[j], new_x,
+                x.list[j_plus_one])
+            };
 
             if (accept_action_difference(action_difference)) {
                 x.list[j] = new_x;

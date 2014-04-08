@@ -20,8 +20,10 @@ std::pair<double, double> BootstrappedQuantity::mean_and_stddev() {
     //double stddev {std::sqrt(squared_sum / data.size() - mean * mean)};
 
     std::vector<double> diff(data.size());
-    std::transform(data.begin(), data.end(), diff.begin(), std::bind2nd(std::minus<double>(), mean));
-    double sq_sum = std::inner_product(diff.begin(), diff.end(), diff.begin(), 0.0);
+    std::transform(data.begin(), data.end(), diff.begin(),
+                   std::bind2nd(std::minus<double>(), mean));
+    double sq_sum = std::inner_product(diff.begin(), diff.end(),
+                                       diff.begin(), 0.0);
     double stddev = std::sqrt(sq_sum / data.size());
 
     return std::pair<double, double> {mean, stddev};

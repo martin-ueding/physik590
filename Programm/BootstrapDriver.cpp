@@ -9,7 +9,7 @@ void BootstrapDriver::run(Settings &s, int iterations) {
     MetropolisDriver m_driver {s};
 
     for (int i {0}; i < iterations; i++) {
-    m_driver.run(results);
+        m_driver.run(results);
     }
 }
 
