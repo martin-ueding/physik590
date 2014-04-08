@@ -3,6 +3,7 @@
 
 #include "MetropolisDriver.hpp"
 
+#include <cmath>
 #include <iostream>
 
 MetropolisDriver::MetropolisDriver(Settings settings) :
@@ -73,4 +74,11 @@ void MetropolisDriver::do_iterations() {
     for (size_t i{0}; i < moments.size(); i++) {
         std::cout << i << "\t" << moments[i] << std::endl;
     }
+
+    double sigma {std::sqrt(moments[2])};
+    constexpr double pi {4 * std::atan(1)};
+    constexpr double sigma_theory {1 / (0.59 * std::sqrt(2 * pi))};
+
+    std::cout << "σ\t" << sigma << std::endl;
+    std::cout << "σ Theo\t" << sigma_theory << std::endl;
 }
