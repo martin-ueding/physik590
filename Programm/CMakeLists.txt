@@ -18,6 +18,7 @@ add_executable(metropolis
     Histogram.cpp
     ListQuantity.cpp
     MetropolisAlgorithm.cpp
+    MetropolisDriver.cpp
     parse_arguments.cpp
     Periodic.cpp
     VectorHistogram.cpp
