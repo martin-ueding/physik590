@@ -16,5 +16,5 @@ void DistributionMoments::push(const double val) {
 }
 
 double DistributionMoments::operator[](int i) {
-    return moments[i];
+    return moments[i] / moments[0];
 }
