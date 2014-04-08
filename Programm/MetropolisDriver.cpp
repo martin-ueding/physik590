@@ -10,11 +10,11 @@ MetropolisDriver::MetropolisDriver(Settings settings) :
     system(HarmonicOscillator {settings.time_step, settings.mass, settings.mu_squared}),
        trajectory(ListQuantity {settings.time_sites}),
 ma(MetropolisAlgorithm {trajectory, system, settings.position_seed, settings.accept_seed}) {
+    do_init();
+    do_pre_iterations();
 }
 
 void MetropolisDriver::run() {
-    do_init();
-    do_pre_iterations();
     do_iterations();
 }
 
