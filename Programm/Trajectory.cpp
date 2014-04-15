@@ -5,6 +5,5 @@
 
 Trajectory::Trajectory(ListQuantity l)
     :
-        ListQuantity(l)
-{
+    ListQuantity(l) {
 }

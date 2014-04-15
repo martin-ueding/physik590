@@ -11,8 +11,9 @@
 
 class BootstrapPool {
     public:
-        BootstrapPool(MetropolisDriver driver);
+        BootstrapPool(MetropolisDriver driver, size_t iterations);
 
     protected:
         std::vector<Trajectory> pool;
+        size_t iterations;
 };

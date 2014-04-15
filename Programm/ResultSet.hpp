@@ -9,5 +9,5 @@
 class ResultSet {
     public:
         Moment mean {1};
-        std::vector<ScalarComputable*> computables;
+        std::vector<ScalarComputable *> computables;
 };

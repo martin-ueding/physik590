@@ -5,6 +5,8 @@
   @file
   */
 
+#include "BootstrapPool.hpp"
+#include "MetropolisDriver.hpp"
 #include "parse_arguments.hpp"
 #include "Settings.hpp"
 
@@ -24,6 +26,9 @@ int main(int argc, char **argv) {
     if (parse_arguments(argc, argv, settings)) {
         return 0;
     }
+
+    MetropolisDriver m_driver {settings};
+    BootstrapPool pool {m_driver, settings.iterations};
 
     return 0;
 }

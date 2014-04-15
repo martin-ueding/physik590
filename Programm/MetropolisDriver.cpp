@@ -7,10 +7,10 @@
 
 MetropolisDriver::MetropolisDriver(Settings settings)
     :
-        settings(settings),
-        system(HarmonicOscillator {settings.time_step, settings.mass, settings.mu_squared}),
-        trajectory(ListQuantity {settings.time_sites}),
-        ma(MetropolisAlgorithm {trajectory, system, settings.position_seed, settings.accept_seed}) {
+    settings(settings),
+    system(HarmonicOscillator {settings.time_step, settings.mass, settings.mu_squared}),
+       trajectory(ListQuantity {settings.time_sites}),
+ma(MetropolisAlgorithm {trajectory, system, settings.position_seed, settings.accept_seed}) {
 
     trajectory.save_plot_file(settings.generate_filename("out/trajectory-01-init-", ".csv"));
 
@@ -31,5 +31,5 @@ Trajectory MetropolisDriver::next() {
     }
     ma.iteration(settings.rounds, settings.margin);
 
-    return Trajectory{ma.x};
+    return Trajectory {ma.x};
 }
