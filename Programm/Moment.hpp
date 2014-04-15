@@ -24,8 +24,6 @@ class Moment : public ScalarComputable {
         //static constexpr double sigma_theory {1 / (0.59 * std::sqrt(2 * pi))};
 
     protected:
-        std::vector<double> moments;
-
         /**
           Add a new value, incremental calculation.
 

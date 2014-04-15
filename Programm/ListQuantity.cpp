@@ -7,6 +7,8 @@
 #include <functional>
 #include <iostream>
 
+//ListQuantity::ListQuantity() { }
+
 ListQuantity::ListQuantity(size_t sites) : list(std::vector<double>(sites)) {
 }
 
