@@ -5,9 +5,15 @@
 
 #include "Moment.hpp"
 #include "ScalarComputable.hpp"
+#include "BootstrapPool.hpp"
 
 class ResultSet {
     public:
+        ResultSet(BootstrapPool pool);
+
         Moment mean {1};
         std::vector<ScalarComputable *> computables;
+
+    protected:
+        void compute_using_pool(BootstrapPool pool);
 };

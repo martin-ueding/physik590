@@ -15,17 +15,18 @@ add_executable(metropolis
 
     BoostHistogram.cpp
     BootstrappedQuantity.cpp
-    Computable.cpp
     BootstrapPool.cpp
     BootstrapSample.cpp
-    Moment.cpp
+    Computable.cpp
     HarmonicOscillator.cpp
     Histogram.cpp
     ListQuantity.cpp
     MetropolisAlgorithm.cpp
     MetropolisDriver.cpp
+    Moment.cpp
     parse_arguments.cpp
     Periodic.cpp
+    ResultSet.cpp
     Settings.cpp
     SizePrinter.cpp
     System.cpp

@@ -3,42 +3,37 @@
 
 #pragma once
 
+#include "ScalarComputable.hpp"
+
 #include <cmath>
 #include <cstddef>
 #include <vector>
 
-class Moment {
+class Moment : public ScalarComputable {
     public:
         /**
           Creates a new moment calculator.
 
-          @param[in] moment_count Maximum order of moments to calculate.
+          @param[in] power Order of the moment
           */
-        Moment(size_t moment_count);
+        Moment(int power);
+
+        void add_sample(BootstrapSample &sample);
+
+        //static constexpr double pi {4 * std::atan(1)};
+        //static constexpr double sigma_theory {1 / (0.59 * std::sqrt(2 * pi))};
+
+    protected:
+        std::vector<double> moments;
 
         /**
           Add a new value, incremental calculation.
 
           @param[in] val New value
           */
-        void push(const double val);
+        void push(const double new_val);
 
-        double operator[](int i);
-
-        size_t size();
-
-        /**
-          Gives the standard deviation @f$ \sigma @f$.
-
-          This assumes that the distribution is a normal distribution where @f$
-          \sigma = \sqrt{\langle x^2 \rangle} @f$ holds. That assumtion is not
-          checked by this function.
-          */
-        double sigma();
-
-        static constexpr double pi {4 * std::atan(1)};
-        static constexpr double sigma_theory {1 / (0.59 * std::sqrt(2 * pi))};
-
-    protected:
-        std::vector<double> moments;
+        size_t count {0};
+        double value {0.0};
+        int power;
 };

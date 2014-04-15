@@ -3,26 +3,18 @@
 
 #include "Moment.hpp"
 
-Moment::Moment(size_t moment_count) :
-    moments(std::vector<double>(moment_count + 1)) {
+Moment::Moment(int power) : power(power) {
 }
 
-void Moment::push(const double val) {
-    for (unsigned int i {0}; i < moments.size(); i++) {
-        moments[i] += std::pow(val, i);
+void Moment::push(const double new_val) {
+    value += std::pow(new_val, power);
+    count++;
+}
+
+void Moment::add_sample(BootstrapSample &sample) {
+    for (auto trajectory : sample.trajectories) {
+        for (auto x : trajectory->list) {
+            push(x);
+        }
     }
-}
-
-double Moment::operator[](int i) {
-    return moments[i] / moments[0];
-}
-
-size_t Moment::size() {
-    return moments.size();
-}
-
-double Moment::sigma() {
-    double sigma {std::sqrt(this->operator[](2))};
-
-    return sigma;
 }

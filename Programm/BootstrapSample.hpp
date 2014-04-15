@@ -15,7 +15,6 @@ class BootstrapSample {
           */
         BootstrapSample(BootstrapPool pool);
 
-    protected:
         /**
           Container with pointers to the trajectory in the pool.
 

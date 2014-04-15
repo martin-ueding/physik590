@@ -8,6 +8,7 @@
 #include "BootstrapPool.hpp"
 #include "MetropolisDriver.hpp"
 #include "parse_arguments.hpp"
+#include "ResultSet.hpp"
 #include "Settings.hpp"
 
 #include <iostream>
@@ -29,6 +30,7 @@ int main(int argc, char **argv) {
 
     MetropolisDriver m_driver {settings};
     BootstrapPool pool {m_driver, settings.iterations};
+    ResultSet results {pool};
 
     return 0;
 }
