@@ -1,11 +1,9 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#ifndef METROPOLISDRIVER_H
-#define METROPOLISDRIVER_H
+#pragma once
 
 #include "BoostHistogram.hpp"
-#include "DistributionMoments.hpp"
 #include "HarmonicOscillator.hpp"
 #include "ListQuantity.hpp"
 #include "Trajectory.hpp"
@@ -41,5 +39,3 @@ class MetropolisDriver {
         ListQuantity trajectory;
         MetropolisAlgorithm ma;
 };
-
-#endif /* end of include guard: METROPOLISDRIVER_H */

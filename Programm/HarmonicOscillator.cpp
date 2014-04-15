@@ -13,6 +13,6 @@ double HarmonicOscillator::potential(double x) {
     return 0.5 * mu_squared * x * x;
 }
 
-double HarmonicOscillator::ground_energy(DistributionMoments &moments) {
-    return std::pow(mu_squared, 2) * moments[2];
+double HarmonicOscillator::ground_energy(double moment_2) {
+    return std::pow(mu_squared, 2) * moment_2;
 }

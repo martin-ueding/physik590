@@ -4,8 +4,6 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
-#include "DistributionMoments.hpp"
-
 #include <vector>
 
 /**
@@ -65,12 +63,6 @@ class System {
           @param x Position @f$ x @f$
           */
         virtual double potential(double x) = 0;
-
-        /**
-          Calculates the ground energy based on the moments of the
-          probability density.
-          */
-        virtual double ground_energy(DistributionMoments &moments) = 0;
 
         /**
           Time step @f$ a @f$.

@@ -1,21 +1,20 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#ifndef DISTRIBUTIONMOMENTS_H
-#define DISTRIBUTIONMOMENTS_H
+#pragma once
 
 #include <cmath>
 #include <cstddef>
 #include <vector>
 
-class DistributionMoments {
+class Moment {
     public:
         /**
           Creates a new moment calculator.
 
           @param[in] moment_count Maximum order of moments to calculate.
           */
-        DistributionMoments(size_t moment_count);
+        Moment(size_t moment_count);
 
         /**
           Add a new value, incremental calculation.
@@ -43,5 +42,3 @@ class DistributionMoments {
     protected:
         std::vector<double> moments;
 };
-
-#endif /* end of include guard: DISTRIBUTIONMOMENTS_H */

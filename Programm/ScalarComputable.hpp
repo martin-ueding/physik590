@@ -3,5 +3,8 @@
 
 #pragma once
 
+#include "BootstrappedQuantity.hpp"
+#include "Computable.hpp"
+
 class ScalarComputable : public Computable, public BootstrappedQuantity {
 };

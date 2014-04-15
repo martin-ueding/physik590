@@ -26,7 +26,7 @@ class HarmonicOscillator : public System {
 
         virtual double potential(double x);
 
-        virtual double ground_energy(DistributionMoments &moments);
+        virtual double ground_energy(double moment_2);
 
     private:
         /**

@@ -1,18 +1,13 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#ifndef RESULTSET_H
-#define RESULTSET_H
+#pragma once
 
-#include "BootstrappedQuantity.hpp"
+#include "Moment.hpp"
+#include "ScalarComputable.hpp"
 
 class ResultSet {
     public:
-        BootstrappedQuantity first_moment;
-        BootstrappedQuantity second_moment;
-        BootstrappedQuantity energy0;
-        BootstrappedQuantity accept_rate;
-        BootstrappedQuantity sigma;
+        Moment mean {1};
+        std::vector<ScalarComputable*> computables;
 };
-
-#endif /* end of include guard: RESULTSET_H */
