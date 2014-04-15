@@ -8,7 +8,6 @@
 #include "ListQuantity.hpp"
 #include "Trajectory.hpp"
 #include "MetropolisAlgorithm.hpp"
-#include "ResultSet.hpp"
 #include "Settings.hpp"
 #include "VectorHistogram.hpp"
 

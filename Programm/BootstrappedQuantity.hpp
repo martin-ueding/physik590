@@ -1,8 +1,7 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#ifndef BOOTSTRAPPEDQUANTITY_H
-#define BOOTSTRAPPEDQUANTITY_H
+#pragma once
 
 #include <utility>
 #include <vector>
@@ -35,5 +34,3 @@ class BootstrappedQuantity {
     protected:
         std::vector<double> data;
 };
-
-#endif /* end of include guard: BOOTSTRAPPEDQUANTITY_H */
