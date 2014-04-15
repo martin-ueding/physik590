@@ -15,6 +15,7 @@ add_executable(metropolis
 
     BoostHistogram.cpp
     BootstrappedQuantity.cpp
+    BootstrapPool.cpp
     DistributionMoments.cpp
     HarmonicOscillator.cpp
     Histogram.cpp
