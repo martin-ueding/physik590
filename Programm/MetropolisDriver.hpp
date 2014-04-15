@@ -8,6 +8,7 @@
 #include "DistributionMoments.hpp"
 #include "HarmonicOscillator.hpp"
 #include "ListQuantity.hpp"
+#include "Trajectory.hpp"
 #include "MetropolisAlgorithm.hpp"
 #include "ResultSet.hpp"
 #include "Settings.hpp"
@@ -32,7 +33,7 @@ class MetropolisDriver {
           */
         MetropolisDriver(Settings settings);
 
-        void run(ResultSet &results);
+        Trajectory next();
 
     protected:
         Settings settings;

@@ -5,7 +5,6 @@
   @file
   */
 
-#include "BootstrapDriver.hpp"
 #include "parse_arguments.hpp"
 #include "Settings.hpp"
 
@@ -25,11 +24,6 @@ int main(int argc, char **argv) {
     if (parse_arguments(argc, argv, settings)) {
         return 0;
     }
-
-    BootstrapDriver driver;
-    driver.run(settings, 100);
-    std::cout << std::endl;
-    driver.print_results();
 
     return 0;
 }

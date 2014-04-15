@@ -14,7 +14,6 @@ add_executable(metropolis
     main-metropolis.cpp
 
     BoostHistogram.cpp
-    BootstrapDriver.cpp
     BootstrappedQuantity.cpp
     DistributionMoments.cpp
     HarmonicOscillator.cpp
@@ -27,6 +26,7 @@ add_executable(metropolis
     Settings.cpp
     SizePrinter.cpp
     System.cpp
+    Trajectory.cpp
     VectorHistogram.cpp
 
     )

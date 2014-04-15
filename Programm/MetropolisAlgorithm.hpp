@@ -1,8 +1,7 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#ifndef TRAJECTORY_H
-#define TRAJECTORY_H
+#pragma once
 
 #include "System.hpp"
 #include "ListQuantity.hpp"
@@ -72,5 +71,3 @@ class MetropolisAlgorithm {
         unsigned int accepted_negative {0};
         unsigned int accepted_exponential {0};
 };
-
-#endif /* end of include guard: TRAJECTORY_H */
