@@ -6,20 +6,22 @@
 #include <iostream>
 #include <random>
 
-BootstrapSample::BootstrapSample(BootstrapPool pool) {
+BootstrapSample::BootstrapSample(BootstrapPool &pool) : pool(pool) {
     std::mt19937 engine;
     std::uniform_int_distribution<size_t> dist {0, pool.size()-1};
 
-    std::cout << &pool[0] << " " << &pool[pool.size()-1] << std::endl;
-    
     // Fill the sample with as many elements as the pool has.
     for (size_t i {0}; i < pool.size(); ++i) {
-        Trajectory *next = &pool[dist(engine)];
-        std::cout << "Putting " << next << " into this sample." << std::endl;
-        std::cout << next->list.size() << std::endl;
-        trajectories.push_back(next);
+        indices.push_back(dist(engine));
     }
 
     std::cout << "Bootstrap sample contains " << pool.size() << " elements now." << std::endl;
+}
 
+ListQuantity& BootstrapSample::operator[](size_t i) {
+    return pool[indices[i]];
+}
+
+size_t BootstrapSample::size() {
+    return indices.size();
 }

@@ -23,7 +23,7 @@ ma(MetropolisAlgorithm {trajectory, system, settings.position_seed, settings.acc
     trajectory.save_plot_file(settings.generate_filename("out/trajectory-04-more_iterations-", ".csv"));
 }
 
-Trajectory MetropolisDriver::next() {
+ListQuantity MetropolisDriver::next() {
     ma.reset_accept_rate();
 
     for (int j = 0; j < settings.iterations_between; j++) {
@@ -31,5 +31,5 @@ Trajectory MetropolisDriver::next() {
     }
     ma.iteration(settings.rounds, settings.margin);
 
-    return Trajectory {ma.x};
+    return ListQuantity {trajectory};
 }

@@ -6,7 +6,7 @@
 #include "BoostHistogram.hpp"
 #include "HarmonicOscillator.hpp"
 #include "ListQuantity.hpp"
-#include "Trajectory.hpp"
+#include "ListQuantity.hpp"
 #include "MetropolisAlgorithm.hpp"
 #include "Settings.hpp"
 #include "VectorHistogram.hpp"
@@ -30,7 +30,7 @@ class MetropolisDriver {
           */
         MetropolisDriver(Settings settings);
 
-        Trajectory next();
+        ListQuantity next();
 
     protected:
         Settings settings;

@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "Trajectory.hpp"
+#include "ListQuantity.hpp"
 
 #include "MetropolisDriver.hpp"
 
@@ -17,11 +17,11 @@ class BootstrapPool {
             return pool.size();
         }
 
-        Trajectory& operator[](size_t i) {
+        ListQuantity& operator[](size_t i) {
             return pool[i];
         }
 
     protected:
-        std::vector<Trajectory> pool;
+        std::vector<ListQuantity> pool;
         size_t iterations;
 };

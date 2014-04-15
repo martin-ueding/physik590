@@ -4,7 +4,7 @@
 #pragma once
 
 #include "BootstrapPool.hpp"
-#include "Trajectory.hpp"
+#include "ListQuantity.hpp"
 
 #include <vector>
 
@@ -13,7 +13,7 @@ class BootstrapSample {
         /**
           Creates a a new sample from the given pool.
           */
-        BootstrapSample(BootstrapPool pool);
+        BootstrapSample(BootstrapPool &pool);
 
         /**
           Container with pointers to the trajectory in the pool.
@@ -22,5 +22,12 @@ class BootstrapSample {
           Trajectories do not have to be copied, this should save a lot of
           memory.
           */
-        std::vector<Trajectory*> trajectories;
+        std::vector<size_t> indices;
+
+        ListQuantity& operator[](size_t i);
+
+        size_t size();
+
+    private:
+        BootstrapPool &pool;
 };

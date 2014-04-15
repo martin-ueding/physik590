@@ -5,9 +5,7 @@
 
 #include <iostream>
 
-Trajectory::Trajectory(ListQuantity l)
-    :
-        ListQuantity{l}
+Trajectory::Trajectory(ListQuantity l) : ListQuantity(l)
      {
          //std::cout << "Created: " << list[0] << std::endl;
 }
