@@ -9,7 +9,6 @@ Moment::Moment(int power) : power(power) {
 }
 
 void Moment::push(const double new_val) {
-    std::cout << new_val << std::endl;
     value += std::pow(new_val, power);
     count++;
 }
@@ -22,4 +21,8 @@ void Moment::add_sample(BootstrapSample &sample) {
             push(x);
         }
     }
+
+    append(value / count);
+    value = 0;
+    count = 0;
 }

@@ -14,6 +14,8 @@ class ResultSet {
         Moment mean {1};
         std::vector<ScalarComputable *> computables;
 
+        void print_results();
+
     protected:
         void compute_using_pool(BootstrapPool pool);
 };

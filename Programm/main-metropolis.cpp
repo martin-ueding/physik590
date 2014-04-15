@@ -34,5 +34,7 @@ int main(int argc, char **argv) {
     std::cout << "Creating ResultSet" << std::endl;
     ResultSet results {pool};
 
+    results.print_results();
+
     return 0;
 }
