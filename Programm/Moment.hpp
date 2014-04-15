@@ -7,6 +7,7 @@
 
 #include <cmath>
 #include <cstddef>
+#include <string>
 #include <vector>
 
 class Moment : public ScalarComputable {
@@ -22,6 +23,8 @@ class Moment : public ScalarComputable {
 
         //static constexpr double pi {4 * std::atan(1)};
         //static constexpr double sigma_theory {1 / (0.59 * std::sqrt(2 * pi))};
+
+        std::string get_name();
 
     protected:
         /**

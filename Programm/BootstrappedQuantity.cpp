@@ -7,6 +7,7 @@
 #include <cmath>
 #include <iostream>
 #include <numeric>
+#include <sstream>
 
 void BootstrappedQuantity::append(double point) {
     data.push_back(point);
@@ -27,7 +28,9 @@ std::pair<double, double> BootstrappedQuantity::mean_and_stddev() {
     return std::pair<double, double> {mean, stddev};
 }
 
-void BootstrappedQuantity::print() {
+std::string BootstrappedQuantity::format() {
     auto ms = mean_and_stddev();
-    std::cout << ms.first << " ± " << ms.second << std::endl;
+    std::ostringstream oss;
+    oss << ms.first << " ± " << ms.second;
+    return oss.str();
 }

@@ -4,6 +4,7 @@
 #include "Moment.hpp"
 
 #include <iostream>
+#include <sstream>
 
 Moment::Moment(int power) : power(power) {
 }
@@ -25,4 +26,18 @@ void Moment::add_sample(BootstrapSample &sample) {
     append(value / count);
     value = 0;
     count = 0;
+}
+
+std::string Moment::get_name() {
+    if (power == 1) {
+        return "Mean";
+    }
+    else if (power == 2) {
+        return "Variance";
+    }
+    else {
+        std::ostringstream oss;
+        oss << "Moment Order " << power;
+        return oss.str();
+    }
 }

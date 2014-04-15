@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -29,7 +30,7 @@ class BootstrappedQuantity {
         /**
           Prints a representation of the value and error.
           */
-        void print();
+        std::string format();
 
     protected:
         std::vector<double> data;
