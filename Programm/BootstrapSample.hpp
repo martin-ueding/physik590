@@ -13,5 +13,5 @@ class BootstrapSample {
         BootstrapSample(BootstrapPool pool);
 
     protected:
-        std::vector<Trajectory> trajectories;
+        std::vector<Trajectory*> trajectories;
 };

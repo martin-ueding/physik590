@@ -13,6 +13,14 @@ class BootstrapPool {
     public:
         BootstrapPool(MetropolisDriver driver, size_t iterations);
 
+        size_t size() {
+            return pool.size();
+        }
+
+        Trajectory& operator[](size_t i) {
+            return pool[i];
+        }
+
     protected:
         std::vector<Trajectory> pool;
         size_t iterations;
