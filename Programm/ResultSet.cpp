@@ -7,12 +7,13 @@
 
 ResultSet::ResultSet(BootstrapPool pool) {
     computables.push_back(&mean);
+    computables.push_back(&moment_2);
 
     compute_using_pool(pool);
 }
 
 void ResultSet::compute_using_pool(BootstrapPool pool) {
-    for (size_t sample_id {0}; sample_id < 3; ++sample_id) {
+    for (size_t sample_id {0}; sample_id < 10; ++sample_id) {
         BootstrapSample sample {pool};
 
         for (auto computable : computables) {
