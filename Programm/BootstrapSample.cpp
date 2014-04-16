@@ -3,10 +3,7 @@
 
 #include "BootstrapSample.hpp"
 
-#include <random>
-
-BootstrapSample::BootstrapSample(BootstrapPool &pool) : pool(pool) {
-    std::mt19937 engine;
+BootstrapSample::BootstrapSample(BootstrapPool &pool, std::mt19937 &engine) : pool(pool) {
     std::uniform_int_distribution<size_t> dist {0, pool.size() - 1};
 
     // Fill the sample with as many elements as the pool has.

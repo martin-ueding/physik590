@@ -7,13 +7,14 @@
 #include "ListQuantity.hpp"
 
 #include <vector>
+#include <random>
 
 class BootstrapSample {
     public:
         /**
           Creates a a new sample from the given pool.
           */
-        BootstrapSample(BootstrapPool &pool);
+        BootstrapSample(BootstrapPool &pool, std::mt19937 &engine);
 
         /**
           Container with pointers to the trajectory in the pool.

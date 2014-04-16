@@ -4,6 +4,7 @@
 #include "ResultSet.hpp"
 
 #include <iostream>
+#include <random>
 
 ResultSet::ResultSet(BootstrapPool pool) {
     computables.push_back(&mean);
@@ -13,9 +14,11 @@ ResultSet::ResultSet(BootstrapPool pool) {
 }
 
 void ResultSet::compute_using_pool(BootstrapPool pool) {
-    for (size_t sample_id {0}; sample_id < 1000; ++sample_id) {
+    std::mt19937 engine;
+
+    for (size_t sample_id {0}; sample_id < 100; ++sample_id) {
         std::cout << "Creating BoostrapSample " << sample_id << std::endl;
-        BootstrapSample sample {pool};
+        BootstrapSample sample {pool, engine};
 
         for (auto computable : computables) {
             computable->add_sample(sample);
