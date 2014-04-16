@@ -45,7 +45,7 @@ def main():
 
 def needs_plotting(filename):
     csv_time = datetime.datetime.fromtimestamp(os.path.getmtime(filename))
-    pdf_file = filename.replace('.csv', '.png')
+    pdf_file = filename.replace('.csv', '.pdf')
     if not os.path.isfile(pdf_file):
         return True
     pdf_time = datetime.datetime.fromtimestamp(os.path.getmtime(pdf_file))
@@ -83,7 +83,7 @@ def plot_combined_histogram(wildcard):
     ax.grid(True)
     #ax.legend(loc='best', prop={'size': 6})
 
-    fig.savefig(wildcard.replace('.csv', '.png'))
+    fig.savefig(wildcard.replace('.csv', '.pdf'))
 
 
 def plot_histogram(filename):
@@ -109,7 +109,7 @@ def plot_histogram(filename):
     ax.legend(loc='best')
 
 
-    fig.savefig(filename.replace('.csv', '.png'))
+    fig.savefig(filename.replace('.csv', '.pdf'))
 
 def auto_plot_histogram(filename):
     data = np.genfromtxt(filename)
@@ -127,7 +127,7 @@ def auto_plot_histogram(filename):
     ax.set_ylabel(r'relative Häufigkeit')
     ax.grid(True)
 
-    fig.savefig(filename.replace('.csv', '.png'))
+    fig.savefig(filename.replace('.csv', '.pdf'))
 
 def auto_plot_trajectory(filename):
     data = np.genfromtxt(filename)
@@ -139,7 +139,7 @@ def auto_plot_trajectory(filename):
     ax.set_xlabel(r'Zeit $j$')
     ax.set_ylabel(r'Position $x_j$')
     ax.grid(True)
-    fig.savefig(filename.replace('.csv', '.png'))
+    fig.savefig(filename.replace('.csv', '.pdf'))
 
 def _parse_args():
     """

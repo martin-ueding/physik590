@@ -9,22 +9,19 @@
 Moment::Moment(int power) : power(power) {
 }
 
-void Moment::push(const double new_val) {
-    value += std::pow(new_val, power);
-    count++;
-}
-
 void Moment::add_sample(BootstrapSample &sample) {
+        size_t count {0};
+        double value {0.0};
+
     for (size_t trajectory_id {0}; trajectory_id < sample.size(); trajectory_id++) {
         ListQuantity &cur = sample[trajectory_id];
         for (double x : cur.list) {
-            push(x);
+    value += std::pow(x, power);
+    count++;
         }
     }
 
     append(value / count);
-    value = 0;
-    count = 0;
 }
 
 std::string Moment::get_name() {

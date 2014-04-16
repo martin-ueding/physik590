@@ -27,14 +27,5 @@ class Moment : public ScalarComputable {
         std::string get_name();
 
     protected:
-        /**
-          Add a new value, incremental calculation.
-
-          @param[in] val New value
-          */
-        void push(const double new_val);
-
-        size_t count {0};
-        double value {0.0};
         int power;
 };

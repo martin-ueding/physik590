@@ -33,11 +33,11 @@ void ResultSet::operator()() {
 
 void ResultSet::compute_using_pool() {
     unsigned int cpu_count = std::thread::hardware_concurrency();
-    cpu_count = 1;
+    //cpu_count = 1;
 
     std::vector<std::thread> workers;
     for (unsigned int i = 0; i < cpu_count; i++) {
-        workers.emplace_back(std::thread {std::ref(*this)});
+        workers.emplace_back(std::ref(*this));
     }
 
     for (auto &worker : workers) {
