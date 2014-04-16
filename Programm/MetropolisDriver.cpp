@@ -31,5 +31,7 @@ ListQuantity MetropolisDriver::next() {
     }
     ma.iteration(settings.rounds, settings.margin);
 
+    std::cout << "Going to return with x[0]: " << trajectory.list[0] << std::endl;
+
     return ListQuantity {trajectory};
 }

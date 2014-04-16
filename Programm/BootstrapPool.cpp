@@ -11,5 +11,9 @@ BootstrapPool::BootstrapPool(MetropolisDriver driver, size_t iterations)
         pool.push_back(driver.next());
     }
 
+    for (ListQuantity& x : pool) {
+        std::cout << "Pool contains x[0] with: " << x.list[0] << std::endl;
+    }
+
     std::cout << "Bootstrap pool contains " << pool.size() << " elements now." << std::endl;
 }
