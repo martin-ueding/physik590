@@ -8,7 +8,7 @@ ConcurrentCounter::ConcurrentCounter(int max) : max {max} {
 
 int ConcurrentCounter::operator()() {
     std::unique_lock<std::mutex> lock {mutex};
-    int rval = max;
-    max++;
+    int rval = value;
+    value++;
     return rval;
 }
