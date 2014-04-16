@@ -10,11 +10,11 @@ PositionDensity::PositionDensity(double min, double max, size_t bins)
 }
 
 void PositionDensity::add_sample(BootstrapSample &sample) {
+    FixedHistogram hist {min, max, bin_count()};
     for (size_t tr_id {0}; tr_id < sample.size(); ++tr_id) {
-        FixedHistogram hist {min, max, bin_count()};
         sample[tr_id].binning_snapshot(hist);
-        insert_histogram(hist);
     }
+    insert_histogram(hist);
 }
 
 std::string PositionDensity::get_name() {
