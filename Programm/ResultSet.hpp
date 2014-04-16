@@ -3,9 +3,10 @@
 
 #pragma once
 
-#include "Moment.hpp"
-#include "ScalarComputable.hpp"
 #include "BootstrapPool.hpp"
+#include "Moment.hpp"
+#include "PositionDensity.hpp"
+#include "ScalarComputable.hpp"
 
 class ResultSet {
     public:
@@ -13,6 +14,8 @@ class ResultSet {
 
         Moment mean {1};
         Moment moment_2 {2};
+        PositionDensity dens {-5, 5, 1000};
+
         std::vector<ScalarComputable *> computables;
 
         void print_results();

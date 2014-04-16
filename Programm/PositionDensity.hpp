@@ -6,6 +6,9 @@
 #include "HistogramComputable.hpp"
 
 class PositionDensity : public HistogramComputable {
+    public:
+        PositionDensity(double min, double max, size_t bins);
+
         virtual void add_sample(BootstrapSample &sample);
         std::string get_name();
 };

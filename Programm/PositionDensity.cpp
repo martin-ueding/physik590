@@ -3,6 +3,12 @@
 
 #include "PositionDensity.hpp"
 
+PositionDensity::PositionDensity(double min, double max, size_t bins)
+:
+    HistogramComputable{min, max, bins}
+{
+}
+
 void PositionDensity::add_sample(BootstrapSample &sample) {
     for (size_t tr_id {0}; tr_id < sample.size(); ++tr_id) {
         FixedHistogram hist {min, max, bin_count()};

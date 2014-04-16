@@ -22,6 +22,7 @@ add_executable(metropolis
     FixedHistogram.cpp
     HarmonicOscillator.cpp
     Histogram.cpp
+    HistogramComputable.cpp
     ListQuantity.cpp
     MetropolisAlgorithm.cpp
     MetropolisDriver.cpp

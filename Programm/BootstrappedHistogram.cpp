@@ -5,7 +5,7 @@
 
 #include <ostream>
 
-BootstrappedHistogram::BootstrappedHistogram(double min, double max, int bins)
+BootstrappedHistogram::BootstrappedHistogram(double min, double max, size_t bins)
     :
     min {min}, max {max},
 bins {std::vector<BootstrappedQuantity>(bins)} {
