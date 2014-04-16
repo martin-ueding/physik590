@@ -11,7 +11,7 @@
 
 class BootstrapPool {
     public:
-        BootstrapPool(MetropolisDriver driver, size_t iterations);
+        BootstrapPool(MetropolisDriver &driver, size_t iterations);
 
         size_t size() {
             return pool.size();

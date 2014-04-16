@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-BootstrapPool::BootstrapPool(MetropolisDriver driver, size_t iterations)
+BootstrapPool::BootstrapPool(MetropolisDriver &driver, size_t iterations)
     : iterations(iterations) {
     for (size_t i {0}; i < iterations; ++i) {
         pool.push_back(driver.next());

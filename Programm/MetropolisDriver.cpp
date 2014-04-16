@@ -3,13 +3,11 @@
 
 #include "MetropolisDriver.hpp"
 
-#include <iostream>
-
 MetropolisDriver::MetropolisDriver(Settings settings)
     :
     settings(settings),
     system(HarmonicOscillator {settings.time_step, settings.mass, settings.mu_squared}),
-       trajectory(ListQuantity {settings.time_sites}),
+       trajectory{ListQuantity {settings.time_sites}},
 ma(MetropolisAlgorithm {trajectory, system, settings.position_seed, settings.accept_seed}) {
 
     trajectory.save_plot_file(settings.generate_filename("out/trajectory-01-init-", ".csv"));
@@ -24,14 +22,12 @@ ma(MetropolisAlgorithm {trajectory, system, settings.position_seed, settings.acc
 }
 
 ListQuantity MetropolisDriver::next() {
-    ma.reset_accept_rate();
+    //ma.reset_accept_rate();
 
     for (int j = 0; j < settings.iterations_between; j++) {
         ma.iteration(settings.rounds, settings.margin);
     }
     ma.iteration(settings.rounds, settings.margin);
-
-    std::cout << "Going to return with x[0]: " << trajectory.list[0] << std::endl;
 
     return ListQuantity {trajectory};
 }
