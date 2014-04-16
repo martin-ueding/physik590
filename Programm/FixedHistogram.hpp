@@ -28,7 +28,7 @@ class FixedHistogram : public Histogram {
         }
 
         double operator[](size_t i) {
-            return (double) bins[i] / points_pushed;
+            return static_cast<double>(bins[i]) / points_pushed;
         }
 
     protected:
