@@ -16,7 +16,6 @@ def main():
 
     plotted = []
 
-    """
     for csv_file in glob.glob('out/histogram-position-*.csv'):
         if csv_file in plotted:
             continue
@@ -40,7 +39,6 @@ def main():
         if needs_plotting(csv_file):
             print('Plotting', csv_file)
             auto_plot_histogram(csv_file)
-    """
 
     plot_combined_histogram('out/histogram-position-*.csv')
     plot_combined_histogram('out/histogram-action-*.csv')

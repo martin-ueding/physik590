@@ -3,7 +3,6 @@
 
 #include "BootstrapSample.hpp"
 
-#include <iostream>
 #include <random>
 
 BootstrapSample::BootstrapSample(BootstrapPool &pool) : pool(pool) {
@@ -14,8 +13,6 @@ BootstrapSample::BootstrapSample(BootstrapPool &pool) : pool(pool) {
     for (size_t i {0}; i < pool.size(); ++i) {
         indices.push_back(dist(engine));
     }
-
-    std::cout << "Bootstrap sample contains " << pool.size() << " elements now." << std::endl;
 }
 
 ListQuantity &BootstrapSample::operator[](size_t i) {

@@ -13,7 +13,8 @@ ResultSet::ResultSet(BootstrapPool pool) {
 }
 
 void ResultSet::compute_using_pool(BootstrapPool pool) {
-    for (size_t sample_id {0}; sample_id < 10; ++sample_id) {
+    for (size_t sample_id {0}; sample_id < 1000; ++sample_id) {
+        std::cout << "Creating BoostrapSample " << sample_id << std::endl;
         BootstrapSample sample {pool};
 
         for (auto computable : computables) {
@@ -29,7 +30,7 @@ void ResultSet::print_results() {
         std::cout << computable->get_name() << ": " << computable->format() << std::endl;
     }
 
-    std::ofstream of {"out/hist.csv"};
+    std::ofstream of {"out/histogram-position-resultset.csv"};
     dens.write_histogram(of);
     of.close();
 }
