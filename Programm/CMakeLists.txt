@@ -2,13 +2,15 @@
 # Licensed under The GNU Public License Version 2 (or later)
 
 cmake_minimum_required(VERSION 2.6)
-project(Bachelorarbeit)
+project(Bachelorarbeit C CXX)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -pthread -std=c++11 -Wall -Wextra -Wpedantic")
 set(CMAKE_CXX_COMPILER "/usr/bin/g++")
 
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -pthread -std=c++11 -Wall")
-#set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -pthread -std=c++11 -Wall")
+set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
+
+find_package(Threads)
 
 add_executable(metropolis
     main-metropolis.cpp
@@ -40,7 +42,8 @@ add_executable(metropolis
 
     )
 target_link_libraries(metropolis boost_program_options)
-target_link_libraries(metropolis pthread)
+#target_link_libraries(metropolis pthread)
+target_link_libraries (metropolis ${CMAKE_THREAD_LIBS_INIT})
 
 add_executable(hello EXCLUDE_FROM_ALL main-hello.cpp)
 target_link_libraries(hello boost_program_options)
