@@ -29,5 +29,7 @@ void ResultSet::print_results() {
         std::cout << computable->get_name() << ": " << computable->format() << std::endl;
     }
 
-    dens.write_histogram(std::cout);
+    std::ofstream of {"out/hist.csv"};
+    dens.write_histogram(of);
+    of.close();
 }
