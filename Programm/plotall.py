@@ -73,7 +73,7 @@ def plot_combined_histogram(wildcard):
         errors = data[:, 2] / width
         counts /= width
         selection = abs(bins) < 4
-        ax.errorbar(bins[selection], counts[selection], yerr=errors[selection], label=filename, marker='|', linestyle='none')
+        ax.errorbar(bins[selection], counts[selection], yerr=errors[selection], label=filename, marker='None', linestyle='none')
 
     insert_theory(ax)
 

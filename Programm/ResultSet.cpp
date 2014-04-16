@@ -17,6 +17,7 @@ ResultSet::ResultSet(BootstrapPool &pool) : pool(pool) {
 
 void ResultSet::operator()() {
     int sample_id;
+    // TODO Put this into the Settings.
     while ((sample_id = counter()) < 1000) {
         if (sample_id % 20 == 0) {
             std::cout << "Creating BoostrapSample " << sample_id << std::endl;
