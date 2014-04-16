@@ -22,4 +22,7 @@ void BootstrappedHistogram::write_histogram(std::ostream &outfile) {
 }
 
 void BootstrappedHistogram::insert_histogram(FixedHistogram &hist) {
+    for (size_t bin {0}; bin < hist.size(); bin++) {
+        bins[bin].append(hist[bin]);
+    }
 }
