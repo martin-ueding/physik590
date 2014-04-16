@@ -11,16 +11,16 @@ ResultSet::ResultSet(BootstrapPool &pool) : pool(pool) {
     computables.push_back(&mean);
     computables.push_back(&moment_2);
 
+
     compute_using_pool();
 }
 
 void ResultSet::operator()() {
-    std::cout << counter() << std::endl;
     int sample_id;
-    while ((sample_id = counter()) < 100) {
-        //if (sample_id % 20 == 0) {
+    while ((sample_id = counter()) < 1000) {
+        if (sample_id % 20 == 0) {
             std::cout << "Creating BoostrapSample " << sample_id << std::endl;
-        //}
+        }
         BootstrapSample sample {pool, engine};
 
         for (auto computable : computables) {
@@ -32,9 +32,17 @@ void ResultSet::operator()() {
 }
 
 void ResultSet::compute_using_pool() {
-    std::thread worker1 {std::ref(*this)};
+    unsigned int cpu_count = std::thread::hardware_concurrency();
+    cpu_count = 1;
 
-    worker1.join();
+    std::vector<std::thread> workers;
+    for (unsigned int i = 0; i < cpu_count; i++) {
+        workers.emplace_back(std::thread {std::ref(*this)});
+    }
+
+    for (auto &worker : workers) {
+        worker.join();
+    }
 }
 
 void ResultSet::print_results() {
