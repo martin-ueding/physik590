@@ -29,7 +29,7 @@ void ResultSet::operator()() {
 }
 
 void ResultSet::compute_using_pool() {
-    std::thread worker1 {this};
+    std::thread worker1 {std::ref(*this)};
 
     worker1.join();
 }
