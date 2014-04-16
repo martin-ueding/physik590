@@ -4,22 +4,29 @@
 #pragma once
 
 #include "BootstrapPool.hpp"
+#include "ConcurrentCounter.hpp"
 #include "Moment.hpp"
 #include "PositionDensity.hpp"
 #include "ScalarComputable.hpp"
 
 class ResultSet {
     public:
-        ResultSet(BootstrapPool pool);
+        ResultSet(BootstrapPool &pool);
 
         Moment mean {1};
         Moment moment_2 {2};
-        PositionDensity dens {-5, 5, 1000};
+        PositionDensity dens { -5, 5, 1000};
 
         std::vector<ScalarComputable *> computables;
 
         void print_results();
 
+        void operator()();
+
     protected:
-        void compute_using_pool(BootstrapPool pool);
+        ConcurrentCounter counter {1000};
+        BootstrapPool &pool;
+        std::mt19937 engine;
+
+        void compute_using_pool();
 };
