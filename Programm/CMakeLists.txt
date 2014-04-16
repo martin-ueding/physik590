@@ -4,10 +4,10 @@
 cmake_minimum_required(VERSION 2.6)
 project(Bachelorarbeit)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -pedantic -pthread -std=c++11 -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -pthread -std=c++11 -Wall -Wextra -Wpedantic")
 set(CMAKE_CXX_COMPILER "/usr/bin/g++")
 
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -std=c++11 -Wall")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -pthread -std=c++11 -Wall")
 #set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 
 add_executable(metropolis
@@ -40,6 +40,7 @@ add_executable(metropolis
 
     )
 target_link_libraries(metropolis boost_program_options)
+target_link_libraries(metropolis pthread)
 
 add_executable(hello EXCLUDE_FROM_ALL main-hello.cpp)
 target_link_libraries(hello boost_program_options)
