@@ -28,6 +28,7 @@ add_executable(metropolis
     Moment.cpp
     parse_arguments.cpp
     Periodic.cpp
+    PositionDensity.cpp
     ResultSet.cpp
     Settings.cpp
     SizePrinter.cpp
