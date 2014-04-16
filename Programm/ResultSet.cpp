@@ -19,6 +19,8 @@ void ResultSet::compute_using_pool(BootstrapPool pool) {
         for (auto computable : computables) {
             computable->add_sample(sample);
         }
+
+        dens.add_sample(sample);
     }
 }
 
@@ -26,4 +28,6 @@ void ResultSet::print_results() {
     for (auto computable : computables) {
         std::cout << computable->get_name() << ": " << computable->format() << std::endl;
     }
+
+    dens.write_histogram(std::cout);
 }
