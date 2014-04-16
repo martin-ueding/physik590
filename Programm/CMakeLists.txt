@@ -14,6 +14,7 @@ add_executable(metropolis
     main-metropolis.cpp
 
     BoostHistogram.cpp
+    BootstrappedHistogram.cpp
     BootstrappedQuantity.cpp
     BootstrapPool.cpp
     BootstrapSample.cpp

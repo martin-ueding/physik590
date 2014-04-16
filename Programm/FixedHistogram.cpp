@@ -8,14 +8,13 @@
 FixedHistogram::FixedHistogram(double min, double max, int bins) :
     min {min},
     max {max},
-    bins {std::vector<int>(bins)}
-{
+bins {std::vector<int>(bins)} {
 }
 
 void FixedHistogram::push(double value) {
     size_t bin = map_bin(value);
     if (0 <= bin && bin < bins.size()) {
-        bins[]++;
+        bins[bin]++;
         points_pushed++;
     }
 }

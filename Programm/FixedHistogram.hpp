@@ -15,6 +15,14 @@ class FixedHistogram : public Histogram {
 
         void write_histogram(std::ostream &outfile);
 
+        double get_min() {
+            return min;
+        }
+
+        double get_max() {
+            return max;
+        }
+
     protected:
         double min;
         double max;
