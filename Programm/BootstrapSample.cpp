@@ -8,7 +8,7 @@
 
 BootstrapSample::BootstrapSample(BootstrapPool &pool) : pool(pool) {
     std::mt19937 engine;
-    std::uniform_int_distribution<size_t> dist {0, pool.size()-1};
+    std::uniform_int_distribution<size_t> dist {0, pool.size() - 1};
 
     // Fill the sample with as many elements as the pool has.
     for (size_t i {0}; i < pool.size(); ++i) {
@@ -18,7 +18,7 @@ BootstrapSample::BootstrapSample(BootstrapPool &pool) : pool(pool) {
     std::cout << "Bootstrap sample contains " << pool.size() << " elements now." << std::endl;
 }
 
-ListQuantity& BootstrapSample::operator[](size_t i) {
+ListQuantity &BootstrapSample::operator[](size_t i) {
     return pool[indices[i]];
 }
 

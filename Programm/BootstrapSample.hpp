@@ -24,7 +24,7 @@ class BootstrapSample {
           */
         std::vector<size_t> indices;
 
-        ListQuantity& operator[](size_t i);
+        ListQuantity &operator[](size_t i);
 
         size_t size();
 

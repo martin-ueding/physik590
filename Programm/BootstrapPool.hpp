@@ -17,7 +17,7 @@ class BootstrapPool {
             return pool.size();
         }
 
-        ListQuantity& operator[](size_t i) {
+        ListQuantity &operator[](size_t i) {
             return pool[i];
         }
 
