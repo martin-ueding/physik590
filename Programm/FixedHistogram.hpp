@@ -9,7 +9,7 @@
 
 class FixedHistogram : public Histogram {
     public:
-        FixedHistogram(double min, double max, int bins);
+        FixedHistogram(double min, double max, size_t bins);
 
         void push(double value);
 

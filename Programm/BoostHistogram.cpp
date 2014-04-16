@@ -9,6 +9,8 @@
 #include <fstream>
 #include <iostream>
 
+using namespace boost::accumulators;
+
 BoostHistogram::BoostHistogram(int bins, size_t cache) : acc(accumulator_set<double, features<tag::min, tag::max, tag::mean, tag::density>>(tag::density::num_bins = bins, tag::density::cache_size = std::min(cache, MAX_CACHE_ENTRIES))) {
     SizePrinter sp;
     if (cache > MAX_CACHE_ENTRIES) {

@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-FixedHistogram::FixedHistogram(double min, double max, int bins) :
+FixedHistogram::FixedHistogram(double min, double max, size_t bins) :
     min {min},
     max {max},
 bins {std::vector<int>(bins)} {

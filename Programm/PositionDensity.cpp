@@ -3,7 +3,12 @@
 
 #include "PositionDensity.hpp"
 
-void add_sample(BootstrapSample &sample) {
+void PositionDensity::add_sample(BootstrapSample &sample) {
+    for (size_t tr_id {0}; tr_id < sample.size(); ++tr_id) {
+        FixedHistogram hist {min, max, bin_count()};
+        sample[tr_id].binning_snapshot(hist);
+        insert_histogram(hist);
+    }
 }
 
 std::string PositionDensity::get_name() {

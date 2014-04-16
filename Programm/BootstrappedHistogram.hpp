@@ -14,6 +14,10 @@ class BootstrappedHistogram {
 
         void insert_histogram(FixedHistogram &hist);
 
+        size_t bin_count() {
+            return bins.size();
+        }
+
     protected:
         double min;
         double max;

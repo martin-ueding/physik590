@@ -16,8 +16,6 @@
 
 #include <string>
 
-using namespace boost::accumulators;
-
 /**
   Wrapper for Boost histogram.
   */
@@ -44,8 +42,16 @@ class BoostHistogram : public Histogram {
 
           This stores the data, add your data here.
           */
-        accumulator_set < double,
-                        features<tag::min, tag::max, tag::mean, tag::density >> acc;
+        boost::accumulators::accumulator_set <
+        double,
+        boost::accumulators::features <
+        boost::accumulators::tag::min,
+        boost::accumulators::tag::max,
+        boost::accumulators::tag::mean,
+        boost::accumulators::tag::density
+        >
+        >
+        acc;
 };
 
 #endif /* end of include guard: BOOSTHISTOGRAM_H */

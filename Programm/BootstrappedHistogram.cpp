@@ -7,8 +7,8 @@
 
 BootstrappedHistogram::BootstrappedHistogram(double min, double max, int bins)
     :
-        min {min}, max{max},
-    bins {std::vector<BootstrappedQuantity>(bins)} {
+    min {min}, max {max},
+bins {std::vector<BootstrappedQuantity>(bins)} {
 }
 
 void BootstrappedHistogram::write_histogram(std::ostream &outfile) {
