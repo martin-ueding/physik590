@@ -6,7 +6,6 @@
 #include "Periodic.hpp"
 
 #include <cmath>
-#include <iostream>
 
 MetropolisAlgorithm::MetropolisAlgorithm(ListQuantity &trajectory, System &s,
         int position_seed, int accept_seed) :
@@ -57,8 +56,6 @@ void MetropolisAlgorithm::iteration(int rounds, double margin) {
             }
         }
     }
-
-    std::cout << "After running, x[0]: " << x.list[0] << std::endl;
 }
 
 void MetropolisAlgorithm::reset_accept_rate() {

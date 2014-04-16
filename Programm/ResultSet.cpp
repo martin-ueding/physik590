@@ -16,8 +16,10 @@ ResultSet::ResultSet(BootstrapPool pool) {
 void ResultSet::compute_using_pool(BootstrapPool pool) {
     std::mt19937 engine;
 
-    for (size_t sample_id {0}; sample_id < 100; ++sample_id) {
+    for (size_t sample_id {0}; sample_id < 1000; ++sample_id) {
+        if (sample_id % 20 == 0) {
         std::cout << "Creating BoostrapSample " << sample_id << std::endl;
+        }
         BootstrapSample sample {pool, engine};
 
         for (auto computable : computables) {

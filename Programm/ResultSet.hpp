@@ -14,7 +14,7 @@ class ResultSet {
 
         Moment mean {1};
         Moment moment_2 {2};
-        PositionDensity dens {-5, 5, 100};
+        PositionDensity dens {-5, 5, 1000};
 
         std::vector<ScalarComputable *> computables;
 

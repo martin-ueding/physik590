@@ -3,6 +3,7 @@
 
 #include "FixedHistogram.hpp"
 
+#include <cmath>
 #include <iostream>
 
 FixedHistogram::FixedHistogram(double min, double max, size_t bins) :
