@@ -39,9 +39,7 @@ add_executable(metropolis
     )
 target_link_libraries(metropolis boost_program_options)
 
-add_executable(hello EXCLUDE_FROM_ALL
-
-    main-hello.cpp)
+add_executable(hello EXCLUDE_FROM_ALL main-hello.cpp)
 target_link_libraries(hello boost_program_options)
 
 add_executable(test-metropolis EXCLUDE_FROM_ALL
