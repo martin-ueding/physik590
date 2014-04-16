@@ -10,6 +10,7 @@
 #include <sstream>
 
 void BootstrappedQuantity::append(double point) {
+    std::unique_lock<std::mutex> lock {append_mutex};
     data.push_back(point);
 }
 

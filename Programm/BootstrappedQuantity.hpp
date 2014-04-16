@@ -6,6 +6,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <mutex>
 
 /**
   A quantity that is calculated multiple times using bootstrapped data sets.
@@ -17,6 +18,8 @@ class BootstrappedQuantity {
     public:
         /**
           Appends a new value to the list.
+
+          The function uses a mutex internally is should be thread-safe.
           */
         void append(double point);
 
@@ -34,4 +37,6 @@ class BootstrappedQuantity {
 
     protected:
         std::vector<double> data;
+
+        std::mutex append_mutex;
 };
