@@ -23,6 +23,14 @@ class FixedHistogram : public Histogram {
             return max;
         }
 
+        double size() {
+            return bins.size();
+        }
+
+        double operator[](size_t i) {
+            return (double) bins[i] / points_pushed;
+        }
+
     protected:
         double min;
         double max;

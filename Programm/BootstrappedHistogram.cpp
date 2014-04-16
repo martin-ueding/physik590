@@ -7,13 +7,11 @@
 
 BootstrappedHistogram::BootstrappedHistogram(double min, double max, int bins)
     :
-    hist {FixedHistogram{min, max, bins}},
+        min {min}, max{max},
     bins {std::vector<BootstrappedQuantity>(bins)} {
 }
 
 void BootstrappedHistogram::write_histogram(std::ostream &outfile) {
-    double min = hist.get_min();
-    double max = hist.get_max();
     double width = (max - min) / bins.size();
 
     for (size_t i = 0; i < bins.size(); i++) {
@@ -21,4 +19,7 @@ void BootstrappedHistogram::write_histogram(std::ostream &outfile) {
         auto y_and_err = bins[i].mean_and_stddev();
         outfile << x << "\t" << y_and_err.first << "\t" << y_and_err.second << std::endl;
     }
+}
+
+void BootstrappedHistogram::insert_histogram(FixedHistogram &hist) {
 }

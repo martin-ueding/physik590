@@ -10,11 +10,13 @@ class BootstrappedHistogram {
     public:
         BootstrappedHistogram(double min, double max, int bins);
 
-        void push(double value);
-
         void write_histogram(std::ostream &outfile);
 
+        void insert_histogram(FixedHistogram &hist);
+
     protected:
-        FixedHistogram hist;
+        double min;
+        double max;
+
         std::vector<BootstrappedQuantity> bins;
 };
