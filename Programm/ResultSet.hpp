@@ -5,6 +5,7 @@
 
 #include "BootstrapPool.hpp"
 #include "ConcurrentCounter.hpp"
+#include "Correlation.hpp"
 #include "Moment.hpp"
 #include "PositionDensity.hpp"
 #include "ScalarComputable.hpp"
@@ -15,6 +16,9 @@ class ResultSet {
 
         Moment mean {1};
         Moment moment_2 {2};
+        Correlation corr_10 {10};
+        Correlation corr_100 {100};
+        Correlation corr_999 {999};
         PositionDensity dens { -5, 5, 1000};
 
         std::vector<ScalarComputable *> computables;

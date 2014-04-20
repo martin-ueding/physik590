@@ -10,7 +10,9 @@
 ResultSet::ResultSet(BootstrapPool &pool) : pool(pool) {
     computables.push_back(&mean);
     computables.push_back(&moment_2);
-
+    computables.push_back(&corr_10);
+    computables.push_back(&corr_100);
+    computables.push_back(&corr_999);
 
     compute_using_pool();
 }
