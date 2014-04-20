@@ -14,7 +14,7 @@ bins {std::vector<int>(bins)} {
 
 void FixedHistogram::push(double value) {
     size_t bin = map_bin(value);
-    if (0 <= bin && bin < bins.size()) {
+    if (bin < bins.size()) {
         bins[bin]++;
         points_pushed++;
     }

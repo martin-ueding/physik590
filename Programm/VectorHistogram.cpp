@@ -15,7 +15,7 @@ VectorHistogram::VectorHistogram(size_t bins, size_t cache) :
 void VectorHistogram::push(double value) {
     if (bins_fixed) {
         unsigned int bin = map_bin(value);
-        if (0 <= bin && bin < bins.size()) {
+        if (bin < bins.size()) {
             bins[bin]++;
         }
     }
