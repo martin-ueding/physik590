@@ -33,6 +33,7 @@ ResultSet::ResultSet(BootstrapPool &pool) : pool(pool) {
     computables.emplace_back(new Correlation {160});
     computables.emplace_back(new Correlation {320});
     computables.emplace_back(new Correlation {640});
+    computables.emplace_back(new Correlation {998});
 
     compute_using_pool();
 }
