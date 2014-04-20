@@ -8,11 +8,31 @@
 #include <thread>
 
 ResultSet::ResultSet(BootstrapPool &pool) : pool(pool) {
-    computables.push_back(&mean);
-    computables.push_back(&moment_2);
-    computables.push_back(&corr_10);
-    computables.push_back(&corr_100);
-    computables.push_back(&corr_999);
+    computables.emplace_back(new Moment {1});
+    computables.emplace_back(new Moment {2});
+    computables.emplace_back(new Correlation {0});
+    computables.emplace_back(new Correlation {1});
+    computables.emplace_back(new Correlation {2});
+    computables.emplace_back(new Correlation {3});
+    computables.emplace_back(new Correlation {4});
+    computables.emplace_back(new Correlation {5});
+    computables.emplace_back(new Correlation {6});
+    computables.emplace_back(new Correlation {7});
+    computables.emplace_back(new Correlation {8});
+    computables.emplace_back(new Correlation {9});
+    computables.emplace_back(new Correlation {10});
+    computables.emplace_back(new Correlation {11});
+    computables.emplace_back(new Correlation {12});
+    computables.emplace_back(new Correlation {13});
+    computables.emplace_back(new Correlation {14});
+    computables.emplace_back(new Correlation {15});
+    computables.emplace_back(new Correlation {16});
+    computables.emplace_back(new Correlation {20});
+    computables.emplace_back(new Correlation {40});
+    computables.emplace_back(new Correlation {80});
+    computables.emplace_back(new Correlation {160});
+    computables.emplace_back(new Correlation {320});
+    computables.emplace_back(new Correlation {640});
 
     compute_using_pool();
 }

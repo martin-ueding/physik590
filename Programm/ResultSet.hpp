@@ -10,18 +10,14 @@
 #include "PositionDensity.hpp"
 #include "ScalarComputable.hpp"
 
+#include <memory>
+
 class ResultSet {
     public:
         ResultSet(BootstrapPool &pool);
 
-        Moment mean {1};
-        Moment moment_2 {2};
-        Correlation corr_10 {10};
-        Correlation corr_100 {100};
-        Correlation corr_999 {999};
+        std::vector<std::shared_ptr<ScalarComputable>> computables;
         PositionDensity dens { -5, 5, 1000};
-
-        std::vector<ScalarComputable *> computables;
 
         void print_results();
 
