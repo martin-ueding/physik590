@@ -22,6 +22,7 @@ add_executable(metropolis
     BootstrapSample.cpp
     Computable.cpp
     ConcurrentCounter.cpp
+    Correlation.cpp
     FixedHistogram.cpp
     HarmonicOscillator.cpp
     Histogram.cpp
