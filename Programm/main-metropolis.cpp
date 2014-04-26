@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
     BootstrapPool pool {m_driver, settings.iterations};
 
     std::cout << "Creating ResultSet …" << std::endl;
-    ResultSet results {pool};
+    ResultSet results {pool, settings};
 
     std::cout << "Printing results …" << std::endl;
     results.print_results();

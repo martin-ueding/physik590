@@ -2,12 +2,17 @@
 // Licensed under The GNU Public License Version 2 (or later)
 
 #include "ResultSet.hpp"
+#include "Settings.hpp"
 
 #include <iostream>
 #include <random>
 #include <thread>
 
-ResultSet::ResultSet(BootstrapPool &pool) : pool(pool) {
+ResultSet::ResultSet(BootstrapPool &pool, Settings &settings)
+    :
+    dens{PositionDensity{-5, 5, settings.position_hist_bins}},
+        pool(pool)
+{
     computables.emplace_back(new Moment {1});
     computables.emplace_back(new Moment {2});
     computables.emplace_back(new Correlation {0});

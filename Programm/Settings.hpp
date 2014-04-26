@@ -91,7 +91,7 @@ class Settings {
         /**
           Number of bins for the position histogram.
           */
-        size_t position_hist_bins {1000};
+        size_t position_hist_bins {40};
 
         /**
           Number of bins for the action histogram.

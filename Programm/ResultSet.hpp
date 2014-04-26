@@ -14,10 +14,10 @@
 
 class ResultSet {
     public:
-        ResultSet(BootstrapPool &pool);
+        ResultSet(BootstrapPool &pool, Settings &settings);
 
         std::vector<std::shared_ptr<ScalarComputable>> computables;
-        PositionDensity dens { -5, 5, 1000};
+        PositionDensity dens;
 
         void print_results();
 
