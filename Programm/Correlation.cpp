@@ -5,7 +5,7 @@
 
 #include <sstream>
 
-Correlation::Correlation(unsigned int distance) : distance{distance} {
+Correlation::Correlation(unsigned int distance) : distance {distance} {
 }
 
 void Correlation::add_sample(BootstrapSample &sample) {
@@ -19,7 +19,7 @@ void Correlation::add_sample(BootstrapSample &sample) {
         assert(distance + 1 < cur.list.size());
 
         value_0 += cur.list[0] * cur.list[distance];
-        value_1 += cur.list[0] * cur.list[distance+1];
+        value_1 += cur.list[0] * cur.list[distance + 1];
         count++;
     }
 

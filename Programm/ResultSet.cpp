@@ -10,9 +10,8 @@
 
 ResultSet::ResultSet(BootstrapPool &pool, Settings &settings)
     :
-    dens{PositionDensity{-5, 5, settings.position_hist_bins}},
-        pool(pool)
-{
+    dens {PositionDensity{ -5, 5, settings.position_hist_bins}},
+pool(pool) {
     computables.emplace_back(new Moment {1});
     computables.emplace_back(new Moment {2});
     computables.emplace_back(new Correlation {0});
@@ -69,7 +68,7 @@ void ResultSet::compute_using_pool() {
         workers.emplace_back(std::ref(*this));
     }
 
-    for (auto &worker : workers) {
+    for (auto & worker : workers) {
         worker.join();
     }
 }

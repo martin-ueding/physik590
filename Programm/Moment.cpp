@@ -10,14 +10,14 @@ Moment::Moment(int power) : power(power) {
 }
 
 void Moment::add_sample(BootstrapSample &sample) {
-        size_t count {0};
-        double value {0.0};
+    size_t count {0};
+    double value {0.0};
 
     for (size_t trajectory_id {0}; trajectory_id < sample.size(); trajectory_id++) {
         ListQuantity &cur = sample[trajectory_id];
         for (double x : cur.list) {
-    value += std::pow(x, power);
-    count++;
+            value += std::pow(x, power);
+            count++;
         }
     }
 
