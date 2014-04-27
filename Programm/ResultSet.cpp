@@ -17,12 +17,9 @@ pool(pool) {
     computables.emplace_back(new Moment {1});
     computables.emplace_back(new Moment {2});
 
-    add_correlation(0);
-    add_correlation(1);
-    add_correlation(2);
-    add_correlation(3);
-    add_correlation(4);
-    add_correlation(5);
+    for (int i = 0; i < 30; i++) {
+        add_correlation(i);
+    }
 
     compute_using_pool();
 }
@@ -35,6 +32,15 @@ void ResultSet::add_correlation(unsigned int distance) {
     });
 
     computables.push_back(next_correlation);
+}
+
+void ResultSet::save_correlations(std::string outfilename) {
+    std::ofstream handle {outfilename};
+    for (auto &pair: correlations) {
+        auto m_and_s = pair.second->mean_and_stddev();
+        handle << pair.first << "\t" << m_and_s.first << "\t" << m_and_s.second << std::endl;
+    }
+    handle.close();
 }
 
 void ResultSet::operator()() {

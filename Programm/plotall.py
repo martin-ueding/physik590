@@ -9,6 +9,7 @@ import matplotlib.pyplot as pl
 import numpy as np
 import glob
 import os.path
+import scipy.optimize as op
 import datetime
 
 def main():
@@ -42,6 +43,58 @@ def main():
 
     plot_combined_histogram('out/histogram-position-*.csv')
     plot_combined_histogram('out/histogram-action-*.csv')
+
+    plot_correlations()
+
+def decay(x, tau, ampl):
+    return ampl * np.exp(-x / tau)
+
+def plot_correlations():
+    data = np.loadtxt('out/correlations.csv')
+    t = data[:, 0]
+    corr_val = data[:, 1]
+    corr_err = data[:, 2]
+
+    popt, pconv = op.curve_fit(decay, t[:10], corr_val[:10], sigma=corr_err[:10])
+
+    print(popt)
+    print(pconv)
+
+    x = np.linspace(np.min(t), np.max(t), 100)
+    y = decay(x, *popt)
+
+    pl.clf()
+    pl.errorbar(t, corr_val, yerr=corr_err)
+    pl.plot(x, y)
+    pl.yscale('log')
+    pl.savefig('out/correlations.pdf')
+    pl.clf()
+
+
+    quotient = corr_val[1:] / corr_val[:-1]
+    print(quotient)
+    log = np.log(abs(quotient))
+    print(log)
+    E1 = - log / 0.1 + 0.5
+    print(E1)
+
+    print()
+
+    quotient = corr_val[2:] / corr_val[:-2]
+    print(quotient)
+    log = np.log(abs(quotient))
+    print(log)
+    E1 = - log / 0.2 + 0.5
+    print(E1)
+
+    print()
+
+    quotient = corr_val[3:] / corr_val[:-3]
+    print(quotient)
+    log = np.log(abs(quotient))
+    print(log)
+    E1 = - log / 0.3 + 0.5
+    print(E1)
 
 def needs_plotting(filename):
     csv_time = datetime.datetime.fromtimestamp(os.path.getmtime(filename))

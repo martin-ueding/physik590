@@ -38,6 +38,7 @@ int main(int argc, char **argv) {
 
     std::cout << "Printing results …" << std::endl;
     results.print_results();
+    results.save_correlations("out/correlations.csv");
 
     std::cout << "Exiting …" << std::endl;
 

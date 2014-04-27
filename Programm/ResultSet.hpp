@@ -27,6 +27,8 @@ class ResultSet {
 
         void operator()();
 
+        void save_correlations(std::string outfilename);
+
     protected:
         ConcurrentCounter counter {1000};
         BootstrapPool &pool;
