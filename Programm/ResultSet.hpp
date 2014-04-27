@@ -11,12 +11,16 @@
 #include "ScalarComputable.hpp"
 
 #include <memory>
+#include <vector>
+#include <map>
 
 class ResultSet {
     public:
         ResultSet(BootstrapPool &pool, Settings &settings);
 
         std::vector<std::shared_ptr<ScalarComputable>> computables;
+        std::map<unsigned int, std::shared_ptr<Correlation>> correlations;
+
         PositionDensity dens;
 
         void print_results();
@@ -29,4 +33,5 @@ class ResultSet {
         std::mt19937 engine;
 
         void compute_using_pool();
+        void add_correlation(unsigned int distance);
 };

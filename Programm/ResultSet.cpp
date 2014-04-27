@@ -8,38 +8,33 @@
 #include <random>
 #include <thread>
 
+typedef std::pair<const unsigned int, std::shared_ptr<Correlation>> correlation_pair;
+
 ResultSet::ResultSet(BootstrapPool &pool, Settings &settings)
     :
     dens {PositionDensity{ -5, 5, settings.position_hist_bins}},
 pool(pool) {
     computables.emplace_back(new Moment {1});
     computables.emplace_back(new Moment {2});
-    computables.emplace_back(new Correlation {0});
-    computables.emplace_back(new Correlation {1});
-    computables.emplace_back(new Correlation {2});
-    computables.emplace_back(new Correlation {3});
-    computables.emplace_back(new Correlation {4});
-    computables.emplace_back(new Correlation {5});
-    computables.emplace_back(new Correlation {6});
-    computables.emplace_back(new Correlation {7});
-    computables.emplace_back(new Correlation {8});
-    computables.emplace_back(new Correlation {9});
-    computables.emplace_back(new Correlation {10});
-    computables.emplace_back(new Correlation {11});
-    computables.emplace_back(new Correlation {12});
-    computables.emplace_back(new Correlation {13});
-    computables.emplace_back(new Correlation {14});
-    computables.emplace_back(new Correlation {15});
-    computables.emplace_back(new Correlation {16});
-    computables.emplace_back(new Correlation {20});
-    computables.emplace_back(new Correlation {40});
-    computables.emplace_back(new Correlation {80});
-    computables.emplace_back(new Correlation {160});
-    computables.emplace_back(new Correlation {320});
-    computables.emplace_back(new Correlation {640});
-    computables.emplace_back(new Correlation {998});
+
+    add_correlation(0);
+    add_correlation(1);
+    add_correlation(2);
+    add_correlation(3);
+    add_correlation(4);
+    add_correlation(5);
 
     compute_using_pool();
+}
+
+void ResultSet::add_correlation(unsigned int distance) {
+    std::shared_ptr<Correlation> next_correlation { new Correlation {distance}};
+    correlations.insert(correlation_pair {
+        distance,
+        std::shared_ptr<Correlation>{next_correlation}
+    });
+
+    computables.push_back(next_correlation);
 }
 
 void ResultSet::operator()() {

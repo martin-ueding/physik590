@@ -19,11 +19,10 @@ void Correlation::add_sample(BootstrapSample &sample) {
         assert(distance + 1 < cur.list.size());
 
         value_0 += cur.list[0] * cur.list[distance];
-        value_1 += cur.list[0] * cur.list[distance + 1];
         count++;
     }
 
-    append(value_1 / value_0);
+    append(value_0 / count);
 }
 
 std::string Correlation::get_name() {
