@@ -1,8 +1,7 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#ifndef HISTOGRAM_H
-#define HISTOGRAM_H
+#pragma once
 
 #include <string>
 
@@ -35,5 +34,3 @@ class Histogram {
           */
         virtual void write_histogram(std::ostream &outfile) = 0;
 };
-
-#endif /* end of include guard: HISTOGRAM_H */

@@ -1,8 +1,7 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#ifndef VECTORHISTOGRAM_H
-#define VECTORHISTOGRAM_H
+#pragma once
 
 #include "Histogram.hpp"
 
@@ -40,5 +39,3 @@ class VectorHistogram : public Histogram {
         size_t points_pushed {0};
 
 };
-
-#endif /* end of include guard: VECTORHISTOGRAM_H */

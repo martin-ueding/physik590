@@ -1,8 +1,7 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#pragma once
 
 #include <string>
 
@@ -115,5 +114,3 @@ class Settings {
             "-"
         };
 };
-
-#endif /* end of include guard: SETTINGS_H */

@@ -11,7 +11,6 @@ Correlation::Correlation(unsigned int distance) : distance {distance} {
 void Correlation::add_sample(BootstrapSample &sample) {
     size_t count {0};
     double value_0 {0.0};
-    double value_1 {0.0};
 
     for (size_t trajectory_id {0}; trajectory_id < sample.size(); trajectory_id++) {
         ListQuantity &cur = sample[trajectory_id];

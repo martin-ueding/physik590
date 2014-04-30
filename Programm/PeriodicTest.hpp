@@ -1,8 +1,7 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#ifndef PERIODICTEST_H
-#define PERIODICTEST_H
+#pragma once
 
 #include <cppunit/extensions/HelperMacros.h>
 
@@ -18,5 +17,3 @@ class PeriodicTest: public CppUnit::TestFixture {
         void test_periodic_negative();
         void test_prevent_sign_flip();
 };
-
-#endif /* end of include guard: PERIODICTEST_H */

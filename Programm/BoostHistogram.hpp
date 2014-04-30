@@ -1,8 +1,7 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#ifndef BOOSTHISTOGRAM_H
-#define BOOSTHISTOGRAM_H
+#pragma once
 
 #include "Histogram.hpp"
 
@@ -53,5 +52,3 @@ class BoostHistogram : public Histogram {
         >
         acc;
 };
-
-#endif /* end of include guard: BOOSTHISTOGRAM_H */

@@ -1,8 +1,7 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#ifndef LISTQUANTITY_H
-#define LISTQUANTITY_H
+#pragma once
 
 #include "Histogram.hpp"
 
@@ -57,5 +56,3 @@ class ListQuantity {
     private:
         std::mt19937 mt_engine;
 };
-
-#endif /* end of include guard: LISTQUANTITY_H */

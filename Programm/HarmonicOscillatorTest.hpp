@@ -1,8 +1,7 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#ifndef METROPOLISALGORITHMTEST_H
-#define MetropolisAlgorithmTEST_H
+#pragma once
 
 #include <cppunit/extensions/HelperMacros.h>
 
@@ -16,5 +15,3 @@ class HarmonicOscillatorTest : public CppUnit::TestFixture {
     public:
         void test_sign();
 };
-
-#endif /* end of include guard: METROPOLISALGORITHMTEST_H */

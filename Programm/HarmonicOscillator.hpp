@@ -1,8 +1,7 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#ifndef HARMONICOSZILLATOR_H
-#define HARMONICOSZILLATOR_H
+#pragma once
 
 #include "System.hpp"
 
@@ -34,5 +33,3 @@ class HarmonicOscillator : public System {
           */
         double mu_squared;
 };
-
-#endif /* end of include guard: HARMONICOSZILLATOR_H */

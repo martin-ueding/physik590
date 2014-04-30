@@ -1,8 +1,7 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#ifndef SIZEPRINT_H
-#define SIZEPRINT_H
+#pragma once
 
 #include <string>
 #include <vector>
@@ -41,5 +40,3 @@ class SizePrinter {
           */
         int find_level(size_t size);
 };
-
-#endif /* end of include guard: SIZEPRINT_H */

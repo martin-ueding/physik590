@@ -1,8 +1,7 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#ifndef SYSTEM_H
-#define SYSTEM_H
+#pragma once
 
 #include <vector>
 
@@ -74,5 +73,3 @@ class System {
           */
         double mass = 1.0;
 };
-
-#endif /* end of include guard: SYSTEM_H */
