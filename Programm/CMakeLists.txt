@@ -15,6 +15,7 @@ find_package(Threads)
 add_executable(metropolis
     main-metropolis.cpp
 
+    AnharmonicOscillator.cpp
     BoostHistogram.cpp
     BootstrappedHistogram.cpp
     BootstrappedQuantity.cpp

@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <string>
 #include <vector>
 
 /**
@@ -62,6 +63,8 @@ class System {
           @param x Position @f$ x @f$
           */
         virtual double potential(double x) = 0;
+
+        void export_potential(std::string filename);
 
         /**
           Time step @f$ a @f$.

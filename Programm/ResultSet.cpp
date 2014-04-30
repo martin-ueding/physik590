@@ -36,7 +36,7 @@ void ResultSet::add_correlation(unsigned int distance) {
 
 void ResultSet::save_correlations(std::string outfilename) {
     std::ofstream handle {outfilename};
-    for (auto &pair: correlations) {
+    for (auto & pair : correlations) {
         auto m_and_s = pair.second->mean_and_stddev();
         handle << pair.first << "\t" << m_and_s.first << "\t" << m_and_s.second << std::endl;
     }

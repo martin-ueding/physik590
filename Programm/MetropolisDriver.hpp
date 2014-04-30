@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "AnharmonicOscillator.hpp"
 #include "BoostHistogram.hpp"
 #include "HarmonicOscillator.hpp"
 #include "ListQuantity.hpp"
@@ -34,7 +35,7 @@ class MetropolisDriver {
 
     protected:
         Settings settings;
-        HarmonicOscillator system;
+        AnharmonicOscillator system;
         ListQuantity trajectory;
         MetropolisAlgorithm ma;
 };

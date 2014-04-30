@@ -3,12 +3,17 @@
 
 #include "MetropolisDriver.hpp"
 
-MetropolisDriver::MetropolisDriver(Settings settings)
-    :
-    settings(settings),
-    system(HarmonicOscillator {settings.time_step, settings.mass, settings.mu_squared}),
-       trajectory {ListQuantity {settings.time_sites}},
-ma(MetropolisAlgorithm {trajectory, system, settings.position_seed, settings.accept_seed}) {
+MetropolisDriver::MetropolisDriver(Settings settings) :
+        settings(settings),
+        // system(HarmonicOscillator {settings.time_step, settings.mass, settings.mu_squared}),
+        system(AnharmonicOscillator {settings.time_step, settings.mass,
+                settings.mu_squared, settings.gauss_height,
+                settings.gauss_width
+                }),
+        trajectory {ListQuantity {settings.time_sites}},
+        ma(MetropolisAlgorithm {trajectory, system, settings.position_seed, settings.accept_seed}) {
+
+    system.export_potential("out/potential.csv");
 
     trajectory.save_plot_file(settings.generate_filename("out/trajectory-01-init-", ".csv"));
 

@@ -4,6 +4,7 @@
 #include "System.hpp"
 
 #include <cstddef>
+#include <fstream>
 #include <iostream>
 
 System::System(double time_step, double mass)
@@ -35,4 +36,14 @@ double System::action_step(double cur, double next) {
     };
     double potential_part {potential(cur)};
     return time_step * (kinetic_part + potential_part);
+}
+
+void System::export_potential(std::string filename) {
+    std::ofstream handle {filename};
+    int steps = 1000;
+    double bound {5.0};
+    double step {bound / 2 / steps};
+    for (double x {-bound}; x <= bound; x += step) {
+        handle << x << "\t" << potential(x) << std::endl;
+    }
 }

@@ -22,7 +22,7 @@ class AnharmonicOscillator : public System {
           @param mu_squared Spring constant @f$ \mu^2 @f$
           */
         AnharmonicOscillator(double time_step, double mass, double mu_squared,
-                double gauss_height, double gauss_width);
+                             double gauss_height, double gauss_width);
 
         virtual double potential(double x);
 
@@ -34,4 +34,7 @@ class AnharmonicOscillator : public System {
 
         double gauss_height;
         double gauss_width;
+
+    private:
+        double gauss_width_squared;
 };

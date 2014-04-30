@@ -41,6 +41,10 @@ class Settings {
           */
         double mu_squared {1};
 
+        double gauss_height {10.0};
+
+        double gauss_width {1.0};
+
         /**
           Spread of positions in the random initialization.
           */
