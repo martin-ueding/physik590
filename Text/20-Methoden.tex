@@ -80,7 +80,7 @@ Weltlinien auszuführen. Das Integrationsmaß wird bei einer Unterteilung in
 $N+1$ ($0, \ldots, N$)
 Zeitpunkte zu:
 \[
-    [\dif x] \leadsto \prod_{j = 1}^{N-1} \dif x_j.
+    \int [\dif x] \leadsto \prod_{j = 1}^{N-1} \int_{-\infty}^\infty \dif x_j.
 \]
 Der Abstand der diskreten Zeitpunkte ist der Einfachheit halber konstant und
 wird als $a$ definiert. Somit gilt $T = Na$. Durch die Diskretisierung werden
@@ -90,6 +90,32 @@ Zustandssumme einfließen können, fließen mit imaginärer Zeit Weltlinien mit
 großer Geschwindigkeit (und daher großer Wirkung) deutlich weniger stark ein.
 Daher ist die Benutzung eines Zeitgitters in Kombination mit imaginärer Zeit
 legitim. Im Grenzfall $a \to 0$ erhält man den kontinuierlichen Fall zurück.
+
+Durch die diskrete Zeit wird in der Wirkung die Zeitableitung durch einen
+Differenzenquotient ersetzt. Die Lagrangefunktion hängt nur noch von zwei
+aufeinanderfolgenden Koordinaten ab. Die Wirkung einer Weltlinie $\vec x_k$
+wird dann gegeben durch
+\parencite[(3.2)]{Creutz/Statistical_Approach_QM}:
+\[
+    S(\vec x_k) = a \sum_{j = 1}^N L(x_j^{(k)}, x_{j+1}^{(k)}),
+\]
+wobei periodische Randbedingungen mit $x_{N} = x_0$ festgesetzt wurden.
+
+\section{Integration über den Phasenraum}
+
+Der Raum der möglichen diskreten Weltlinien hat $N$ Dimensionen und ist
+unendlich groß. Aufgrund der hohen Dimension sind Monte Carlo Methoden zu
+bevorzugen. Der Bereich der Weltlinien, die einen nennenswerten Beitrag zum
+Integral liefern, ist jedoch aufgrund der exponentiellen Gewichtung recht
+klein. Der Algorithmus von Metropolis wählt die Weltlinien entsprechend dieser
+Gewichtung so aus, dass eine ungewichtete Summe dieser Weltlinien einen
+Schätzwert für die gewünschten Größen gibt
+\parencite[434]{Creutz/Statistical_Approach_QM}. Die Verteilung der
+Trajektorien $\vec x_k$ wird durch
+\[
+    p(\vec x_k) = \frac{\exp(-S(\vec x_k))}{\int [\dif x] \exp(-S(\vec x))}
+\]
+gegeben \parencite[(3.6)]{Creutz/Statistical_Approach_QM}.
 
 %\nocite{Blossier/Eigenvalue}
 %\nocite{Busch/Two_Cold}
