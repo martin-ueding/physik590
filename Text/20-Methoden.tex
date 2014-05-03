@@ -60,12 +60,12 @@ Die Phase mit der Wirkung $S$ wird stark variieren, so dass es ab dieser Stelle
 hilfreich ist, imaginäre Zeit zu betrachten. Dazu wird $\tau := \iup t$
 eingeführt. Schreibt man $\int [\dif x]$ für eine Integration über alle
 Trajektorien $x(\tau)$, die $x(0) = x_\text A$ und $x(T) = x_\text E$ erfüllen,
-so kann dies umgeschrieben werden zu:
+so kann die Summe umgeschrieben werden zu:
 \parencite[(2.1)]{Creutz/Statistical_Approach_QM}:
 \[
     \int [\dif x] \, \exp\del{-\frac{S[x]}\hbar}.
 \]
-Dieser Integrand wir nur in der Nähe der extremalen Wirkung Beiträge liefern.
+Dieser Integrand wir nur in der Nähe der minimalen Wirkung Beiträge liefern.
 Dies reduziert den Bereich des Phasenraums, über den integriert werden muss,
 derart, dass die Integration mit Monte Carlo Methoden gut möglich ist.
 
@@ -74,6 +74,22 @@ Die Wirkung ist auch hier die Zeitintegration der Lagrangefunktion
 \[
     S = \int_0^T \dif \tau \, \del{\frac 12 m \del{\dpd x\tau(\tau)}^2 + V(x)}
 \]
+
+Diskretisiert man die Weltlinien, so wird es möglich, die Integration über alle
+Weltlinien auszuführen. Das Integrationsmaß wird bei einer Unterteilung in
+$N+1$ ($0, \ldots, N$)
+Zeitpunkte zu:
+\[
+    [\dif x] \leadsto \prod_{j = 1}^{N-1} \dif x_j.
+\]
+Der Abstand der diskreten Zeitpunkte ist der Einfachheit halber konstant und
+wird als $a$ definiert. Somit gilt $T = Na$. Durch die Diskretisierung werden
+Weltlinien unterdrückt, die sich zwischen den Zeitpunkten stark ändern. Im
+Gegensatz zur reellen Zeit, in der Weltlinien mit belieber Wirkung in die
+Zustandssumme einfließen können, fließen mit imaginärer Zeit Weltlinien mit
+großer Geschwindigkeit (und daher großer Wirkung) deutlich weniger stark ein.
+Daher ist die Benutzung eines Zeitgitters in Kombination mit imaginärer Zeit
+legitim. Im Grenzfall $a \to 0$ erhält man den kontinuierlichen Fall zurück.
 
 %\nocite{Blossier/Eigenvalue}
 %\nocite{Busch/Two_Cold}
