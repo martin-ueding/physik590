@@ -108,14 +108,21 @@ unendlich groß. Aufgrund der hohen Dimension sind Monte Carlo Methoden zu
 bevorzugen. Der Bereich der Weltlinien, die einen nennenswerten Beitrag zum
 Integral liefern, ist jedoch aufgrund der exponentiellen Gewichtung recht
 klein. Der Algorithmus von Metropolis wählt die Weltlinien entsprechend dieser
-Gewichtung so aus, dass eine ungewichtete Summe dieser Weltlinien einen
-Schätzwert für die gewünschten Größen gibt
+Gewichtung so aus, dass ein ungewichteter Mittelwert dieser Weltlinien einen
+Schätzwert für die gewünschte Größe gibt
 \parencite[434]{Creutz/Statistical_Approach_QM}. Die Verteilung der
 Trajektorien $\vec x_k$ wird durch
 \[
     p(\vec x_k) = \frac{\exp(-S(\vec x_k))}{\int [\dif x] \exp(-S(\vec x))}
 \]
-gegeben \parencite[(3.6)]{Creutz/Statistical_Approach_QM}.
+gegeben \parencite[(3.6)]{Creutz/Statistical_Approach_QM}. Werden $M$
+Weltlinien durch den Metropolisalgorithmus generiert, so ist der Schätzwert
+$\overline A$ für
+eine Größe $\bracket A$
+\parencite[(3.7)]{Creutz/Statistical_Approach_QM}:
+\[
+    \overline A = \frac1M \sum_{k=1}^M A(\vec x_k).
+\]
 
 %\nocite{Blossier/Eigenvalue}
 %\nocite{Busch/Two_Cold}
