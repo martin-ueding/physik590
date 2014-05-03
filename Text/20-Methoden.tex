@@ -9,6 +9,30 @@ durch den Hamiltonoperator
 \[
     \hat H = \frac{1}{2m} \hat p^2 + \frac{m}{2} \omega^2 \hat x^2
 \]
-bestimmt wird \parencite[3.1]{Schwabl/Quantenmechanik}.
+bestimmt wird \parencite[(3.1)]{Schwabl/Quantenmechanik}. Die Energieeigenwerte
+lassen sich durch Operatormethoden am elegantesten berechnen. Dazu führe ich
+die dimensionslose Länge
+\[
+    \xi := \sqrt{\frac{m\omega}{\hbar}} x
+\]
+ein. Im Ortsraum ist $\hat p = - \iup \hbar \pd{}x$. Der dimensionslose Impuls
+ist demnach $\hat \pi^2 = - \hbar\omega m \pd[2]{}\xi$. Somit kann der
+Hamiltonoperator umgeschrieben werden zu:
+\[
+    \hat H = \frac{\hbar\omega}2 \del{\xi^2 - \dpd[2]{}\xi}.
+\]
+
+Mit den Leiteroperatoren
+\[
+    \hat a := \frac1{\sqrt2} \del{\hat \xi + \iup \hat \pi}
+    \quad\text{und}\quad
+    \hat a^\dagger := \frac1{\sqrt2} \del{\hat \xi - \iup \hat \pi}
+\]
+kann der Hamiltonoperator kompakt als
+\[
+    \hat H = \hbar\omega \del{\hat a \hat a^\dagger + \frac12}
+\]
+geschrieben werden \parencite[(3.8)]{Schwabl/Quantenmechanik}. Dabei habe ich
+schon den Kommutator $[\hat a, \hat a^\dagger] = 1$ ausgenutzt.
 
 % vim: ft=tex spell spelllang=de tw=79
