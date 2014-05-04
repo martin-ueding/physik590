@@ -227,24 +227,31 @@ es schwer ist, $x_j'$ entsprechend der Verteilung $\exp(-S(x_j'))$ zu ziehen
 
 Der Algorithmus von Metropolis et al.\@ umgeht dieses Problem, indem er nach
 einer einfach zu implementierenden Vorschrift, die $x_j'$ generiert
-\parencite[439]{Creutz/Statistical_Approach_QM}:
+\parencite[439]{Creutz/Statistical_Approach_QM}, siehe
+Algorithmus~\ref{alg:metropolis}.
 
-\begin{algorithmic}
-    \For{$j \gets 1, \ldots, N$}
-        \State $x_j' \gets$ \Call{Zufallzahl}{$-\infty$, $\infty$}
-        \State $\Deltaup S \gets S(x_0, \ldots, x_{j-1}, x_j',
-        x_{j+1}, \ldots, x_N) - S(\{x_i\})$
+\begin{algorithm}
+    \begin{algorithmic}
+        \For{$j \gets 1, \ldots, N$}
+            \State $x_j' \gets$ \Call{Zufallzahl}{$-\infty$, $\infty$}
+            \State $\Deltaup S \gets S(x_0, \ldots, x_{j-1}, x_j',
+            x_{j+1}, \ldots, x_N) - S(\{x_i\})$
 
-        \If{$\Deltaup S \leq 0$}
-            \State $x_j \gets x_j'$
-        \Else
-            \State $r \gets$ \Call{Zufallszahl}{0, 1}
-            \If{$r < \exp(-\Deltaup S)$}
+            \If{$\Deltaup S \leq 0$}
                 \State $x_j \gets x_j'$
+            \Else
+                \State $r \gets$ \Call{Zufallszahl}{0, 1}
+                \If{$r < \exp(-\Deltaup S)$}
+                    \State $x_j \gets x_j'$
+                \EndIf
             \EndIf
-        \EndIf
-    \EndFor
-\end{algorithmic}
+        \EndFor
+    \end{algorithmic}
+    \caption{%
+        Metropolisalgorithmus.
+    }
+    \label{alg:metropolis}
+\end{algorithm}
 
 Es werden also neue Werte für $x_j$, die $x_j'$, aus einer Verteilung gezogen.
 Ist die Änderung der Wirkung $\Deltaup S$ negativ, so wird der neue Wert
