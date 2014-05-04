@@ -60,7 +60,7 @@ Die Phase mit der Wirkung $S$ wird stark variieren, so dass es ab dieser Stelle
 hilfreich ist, imaginäre Zeit zu betrachten. Dazu wird $\tau := \iup t$
 eingeführt. Schreibt man $\int [\dif x]$ für eine Integration über alle
 Trajektorien $x(\tau)$, die $x(0) = x_\text A$ und $x(T) = x_\text E$ erfüllen,
-so kann die Summe umgeschrieben werden zu:
+so kann die Summe umgeschrieben werden zu
 \parencite[(2.1)]{Creutz/Statistical_Approach_QM}:
 \[
     \int [\dif x] \, \exp\del{-\frac{S[x]}\hbar}.
@@ -189,7 +189,26 @@ Um die Bedingungen zu erfüllen, ist die Wahl von $W$ so, dass
 gilt, möglich \parencite[(3.23)]{Creutz/Statistical_Approach_QM}. In der Quelle
 wird die Relation „detailed balance condition“ genannt.
 
+Im Algorithmus geht nicht die ganze Trajektorie $\vec x$ in einem Schritt auf
+eine neue Trajektorie $\vec x'$ über. Vielmehr werden die $x_j$ einzeln in ein
+$x_j'$ überführt. Nach $N$ dieser Einzelschritte ist eine neue Weltlinie $\vec
+x'$ erzeugt. Einer dieser Einzelschritte führt die Weltlinie $\vec x$ in eine
+Weltlinie $\tilde{\vec x}$ über. Dabei wird nur die Koordinate $x_j$ zu $x_j'$
+geändert. Mit \eqref{eq:p_x_k} kann man daher die Beziehung
+\parencite[(3.25)]{Creutz/Statistical_Approach_QM}
+\[
+    \frac{W(\vec x, \tilde{\vec x})}{W(\tilde{\vec x}, \vec x)}
+    = \frac{\exp(-S(x_j'))}{\exp(-S(x_j))},
+\]
+herleiten, welche durch die Wahl $W(x_j, x_j') \propto \exp(-S(x_j'))$ zu
+erfüllen ist \parencite[(3.27)]{Creutz/Statistical_Approach_QM}. Dieser
+Algorithmus wird „heat bath algorithm“ bezeichnet und hat den Nachteil, dass
+es schwer ist, $x_j'$ entsprechend der Verteilung $\exp(-S(x_j'))$ zu ziehen
+\parencite[438]{Creutz/Statistical_Approach_QM}.
+
 % Metropolis Algorithmus
+
+Der Algorithmus von Metropolis et al.\@ umgeht dieses Problem, 
 
 %\nocite{Blossier/Eigenvalue}
 %\nocite{Busch/Two_Cold}
