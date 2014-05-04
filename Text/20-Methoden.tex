@@ -222,12 +222,30 @@ einer einfach zu implementierenden Vorschrift die $x_j'$ generiert
             \State $x_j \gets x_j'$
         \Else
             \State $r \gets$ \Call{Zufallszahl}{0, 1}
-            \If{$r \leq \exp(-\Deltaup S)$}
+            \If{$r < \exp(-\Deltaup S)$}
                 \State $x_j \gets x_j'$
             \EndIf
         \EndIf
     \EndFor
 \end{algorithmic}
+
+Es werden also neue Werte für $x_j$, die $x_j'$ aus einer Verteilung gezogen.
+Ist die Änderung der Wirkung $\Deltaup S$ negativ, so wird der neue Wert
+übernommen. Andernfalls wird der Wert mit der Wahrscheinlichkeit
+$\exp(-\Deltaup S)$ übernommen.
+
+\citeauthor{Creutz/Statistical_Approach_QM} geben
+\[
+    W(x_j, x_j') = \frac1{N_0} \del{
+        \Theta(-\Deltaup S) + \exp(- \Deltaup S) \Theta(\Deltaup S)
+        + \int \dif x' \, \del{
+            1 - \exp(-\Deltaup S)
+        } \Theta(\Deltaup S) \delta(x_j' - x_j)
+    }
+\]
+als Wahrscheinlichkeitsdichte für diesen Algorithmus an
+\parencite[(3.28)]{Creutz/Statistical_Approach_QM}, wobei ich $\Deltaup S :=
+S(x_j') - S(x_j)$ definiert habe, $\Theta$ ist die Heaviside Stufenfunktion.
 
 %\nocite{Blossier/Eigenvalue}
 %\nocite{Busch/Two_Cold}
