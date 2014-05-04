@@ -97,7 +97,7 @@ aufeinanderfolgenden Koordinaten ab. Die Wirkung einer Weltlinie $\vec x_k$
 wird dann gegeben durch
 \parencite[(3.2)]{Creutz/Statistical_Approach_QM}:
 \[
-    S(\vec x_k) = a \sum_{j = 1}^N L(x_j^{(k)}, x_{j+1}^{(k)}),
+    S(\vec x_k) = a \sum_{j = 1}^N L\del{x_j^{(k)}, x_{j+1}^{(k)}},
 \]
 wobei periodische Randbedingungen mit $x_{N} = x_0$ festgesetzt wurden.
 
@@ -112,9 +112,10 @@ Gewichtung so aus, dass ein ungewichteter Mittelwert dieser Weltlinien einen
 Schätzwert für die gewünschte Größe gibt
 \parencite[434]{Creutz/Statistical_Approach_QM}. Die Verteilung der
 Trajektorien $\vec x_k$ wird durch
-\[
+\begin{equation}
+    \label{eq:p_x_k}
     p(\vec x_k) = \frac{\exp(-S(\vec x_k))}{\int [\dif x] \exp(-S(\vec x))}
-\]
+\end{equation}
 gegeben \parencite[(3.6)]{Creutz/Statistical_Approach_QM}. Werden $M$
 Weltlinien durch den Metropolisalgorithmus generiert, so ist der Schätzwert
 $\overline A$ für
@@ -142,15 +143,51 @@ diskreten Zeit entspricht ein Zeitschritt einem Übergangsschritt.
 
 Die Matrixelemente müssen $W_{ij} \geq 0$, sowie muss $\sum_j W_{ij} = 1$
 gelten, da jeder Zustand in einen nächsten (oder sich selbst) übergehen muss
-\parencite[(3.8)]{Creutz/Statistical_Approach_QM}.
+\parencite[(3.8)]{Creutz/Statistical_Approach_QM}. Da die $x_j$ aus $\R$
+stammen, muss die Übergangsmatrix eine Wahrscheinlichkeitsdichte sein. Die
+analogen Bedingungen sind dann $W(x_i, x_j) \geq 0$ und $\int \dif x_j \,
+W(x_i, x_j) = 1$ für alle $x_i$
+\parencite[(3.9)]{Creutz/Statistical_Approach_QM}.
 
 % Verkettung von Schritten
-
 % Eigenvektor, Wahrscheinlichkeitsdichte
-
 % Forderungen an W
 
+Die Übergangswahrscheinlichkeit über einen Zwischenschritt wird durch
+Integration über die Zwischenposition,
+\[
+    W^{(2)}(x_i, x_k) = \int \dif x_j \, W(x_i, x_j) W(x_j, x_k),
+\]
+ermittelt \parencite[(3.9)]{Creutz/Statistical_Approach_QM}. Daraus lässt die
+Rekursionsformel
+\[
+    W^{(n)}(x_i, x_k) = \int \dif x_j \, W^{(n-1)}(x_i, x_j) W(x_j, x_k),
+\]
+konstruieren \parencite[(3.10)]{Creutz/Statistical_Approach_QM}. Aufgrund der
+Eigenschaften von $W$ lässt sich zeigen\footnote{Siehe
+    \parencite[435]{Creutz/Statistical_Approach_QM} und
+\parencite[Anhang~B]{Creutz/Statistical_Approach_QM}.}, dass es eine
+Zustandsverteilungsdichte $P$ gibt, so dass sie linker Eigenvektor von
+$W^{(\infty)}$ ist. Das $W$, das für die Pfadintegrale benötigt wird, soll gerade
+$p(x)$ aus \eqref{eq:p_x_k} als Eigenvektor haben. Somit sind die
+Anforderungen an $W$ die folgenden \parencite[(3.18)]{Creutz/Statistical_Approach_QM}:
+\begin{itemize}
+    \item
+        $W(x_i, x_j) > 0$ falls $p(x_i) > 0$ und $p(x_j) > 0$,
+    \item
+        $\int \dif x_j \, W(x_i, x_j) = 1$,
+    \item
+        $p(x_j) = \int \dif x_i \, p(x_i) W(x_i, x_j)$.
+\end{itemize}
+
 % Detailed Balance
+
+Um die Bedingungen zu erfüllen, ist die Wahl von $W$ so, dass
+\[
+    \frac{W(x_i, x_j)}{W(x_j, x_i)} = \frac{p(x_j)}{p(x_i)}
+\]
+gilt, möglich \parencite[(3.23)]{Creutz/Statistical_Approach_QM}. In der Quelle
+wird die Relation „detailed balance condition“ genannt.
 
 % Metropolis Algorithmus
 
