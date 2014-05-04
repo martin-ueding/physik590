@@ -209,7 +209,7 @@ es schwer ist, $x_j'$ entsprechend der Verteilung $\exp(-S(x_j'))$ zu ziehen
 % Metropolis Algorithmus
 
 Der Algorithmus von Metropolis et al.\@ umgeht dieses Problem, indem er nach
-einer einfach zu implementierenden Vorschrift die $x_j'$ generiert
+einer einfach zu implementierenden Vorschrift, die $x_j'$ generiert
 \parencite[439]{Creutz/Statistical_Approach_QM}:
 
 \begin{algorithmic}
@@ -232,7 +232,19 @@ einer einfach zu implementierenden Vorschrift die $x_j'$ generiert
 Es werden also neue Werte für $x_j$, die $x_j'$ aus einer Verteilung gezogen.
 Ist die Änderung der Wirkung $\Deltaup S$ negativ, so wird der neue Wert
 übernommen. Andernfalls wird der Wert mit der Wahrscheinlichkeit
-$\exp(-\Deltaup S)$ übernommen.
+$\exp(-\Deltaup S)$ übernommen. Wenn der Abstand zwischen $x_j'$ und $x_j$ groß
+ist, ist die Wahrscheinlichkeit, dass der Wert übernommen wird, sehr gering.
+Daher ist es effizienter, $x_j'$ nicht aus dem Interval $(-\infty, \infty)$ zu
+ziehen, sondern eine Breite $\Delta$ einzufühen
+\parencite[439]{Creutz/Statistical_Approach_QM}. Die Autoren schlagen eine
+Einheitsverteilung im Bereich $[x_j - \Delta, x_j + \Delta]$ vor. Ich benutze
+in meiner Implementierung eine Normalverteilung mit einer Standardabweichung
+$\Delta$. Dies führt zu noch höheren Akzeptanzraten für neue Werte, die die
+Wirkung $S$ erhöhen. Um den Übergang zu einer neuen Konfiguration noch weiter
+zu beschleunigen, kann man das Ziehen eines neuen $x_j'$ mehrfach für das
+gleiche $j$ wiederholen. Dadurch ist es möglich, dass es sich stärker
+verändert, als in einem einzigen Schritt. Die Anzahl dieser Wiederholungen
+möchte ich, wie die Autoren, mit $\bar n$ bezeichnen.
 
 \citeauthor{Creutz/Statistical_Approach_QM} geben
 \[
@@ -245,7 +257,9 @@ $\exp(-\Deltaup S)$ übernommen.
 \]
 als Wahrscheinlichkeitsdichte für diesen Algorithmus an
 \parencite[(3.28)]{Creutz/Statistical_Approach_QM}, wobei ich $\Deltaup S :=
-S(x_j') - S(x_j)$ definiert habe, $\Theta$ ist die Heaviside Stufenfunktion.
+S(x_j') - S(x_j)$ definiert habe, $\Theta$ die Heaviside Stufenfunktion und
+$N_0$ das Volumen des Konfigurationsraumes ist. Mit dieser Gleichung kann
+nachvollzogen werden, dass sie $W$ die geforderten Bedingungen erfüllt.
 
 %\nocite{Blossier/Eigenvalue}
 %\nocite{Busch/Two_Cold}
