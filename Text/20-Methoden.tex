@@ -42,6 +42,8 @@ durch $n$ gegeben, so dass die Energieeigenwerte
 \]
 gegeben sind.
 
+% TODO Funktionen im Ortsraum angeben.
+
 \section{Pfadintegral}
 
 % TODO Quellenangabe.
@@ -260,6 +262,34 @@ als Wahrscheinlichkeitsdichte für diesen Algorithmus an
 S(x_j') - S(x_j)$ definiert habe, $\Theta$ die Heaviside Stufenfunktion und
 $N_0$ das Volumen des Konfigurationsraumes ist. Mit dieser Gleichung kann
 nachvollzogen werden, dass sie $W$ die geforderten Bedingungen erfüllt.
+
+\section{Bootstrap Methode}
+
+% TODO Bootstrap Methode beschreiben.
+
+Der Fehler zu einem statistischen Schätzwert ist in der Regel nicht einfach
+anzugeben. Für Größen wie den Mittelwert ist es unter Annahme einer
+zugrundeliegenden Verteilung möglich, nicht jedoch für komplexere Größen. Eine
+Möglichkeit, eine Fehlerabschätzung zu beliebigen Schätzwerten zu erhalten, ist
+die \emph{Bootstrap Methode}. Bei dieser werden aus der gegebenen Probe neue
+Proben erstellt und eine Metaanalyse durchgeführt.
+
+Sei $X$ eine Zufallsgröße, $\bracket X$ der Erwartungs- und $\overline X$ der
+Schätzwert. Aus einer Stichprobenmenge $\mathbb M$ kann nun die Zufallsgröße
+berechnet werden: $\overline X = X(\mathbb M)$. Im Grenzwert erhält man den
+Erwartungswert, also $\lim_{|\mathbb M| \to \infty} \overline X = \bracket X$.
+
+Aus der wirklich erhobenen Stichprobenmenge erzeugt man nun $N_\text P$ weitere
+Mengen $\mathbb M_i$ durch Ziehen mit Zurücklegen. Für jede dieser Mengen
+errechnet man die Zufallsgröße und erhält die Menge der Schätzwerte
+\[
+    \mathbb X = \{ X(\mathbb M_i) \colon 1 \leq i \leq N_\text P \}.
+\]
+% TODO Quellenangabe für „normalverteilt“.
+Diese Schätzwerte sind annähernd normalverteilt. Somit ist der so errechnete
+Erwartungswert $\overline X$ durch den Mittelwert von $\mathbb X$ gegeben. Der
+Fehler $\Deltaup \overline X$ ist durch die Standardabweichung von $\mathbb X$
+gegeben.
 
 %\nocite{Blossier/Eigenvalue}
 %\nocite{Busch/Two_Cold}
