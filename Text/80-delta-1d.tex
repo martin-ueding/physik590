@@ -30,5 +30,73 @@ Einsetzen, analog zu \br5:
     = 0
 \]
 
+\[
+    \sum_{n=0}^\infty (E_n - E) c_n \phi_n(x)
+    \frac2{a_0} \delta(x)
+    \sum_{n=0}^\infty c_n \phi_n(x)
+    = 0
+\]
+
+Dies wird nun auf $\phi_m^*$ projiziert, i.\,e. Multiplikation von rechts und
+Integration über $x$:
+\[
+    \int_{-\infty}^\infty \dif x \, \sum_{n=0}^\infty
+    (E_n - E) c_n \phi_m^*(x) \phi_n(x)
+    - 
+    \int_{-\infty}^\infty \dif x \,  \frac2{a_0} \phi_m^*(x) \delta(x)
+    \sum_{n=0}^\infty c_n \phi_n(x) = 0
+\]
+
+Mit
+\[
+    \int_{-\infty}^\infty \dif x \phi_m^*(x) \phi_n(x) = \braket{m|n} =
+    \delta_{mn}
+\]
+folgt
+\[
+    (E_m - E) c_m - \frac2{a_0} \phi_m^*(0) \sum_{n=0}^\infty c_n \phi_n(0) =
+    0.
+\]
+
+Daraus folgt der Ansatz
+\[
+    c_m = A \frac{\phi_m^*(0)}{E_m - E}
+\]
+analog zu \br7. Diesen Ansatz setze ich in die Gleichung ein und erhalte:
+\[
+    \sum_{n=0}^\infty \frac{\phi_n^*(0) \phi_n(0)}{E_n - E} = \frac{a_0}2.
+\]
+
+Als nächsten Schritt werden die Eigenfunktionen des harmonischen Oszillators
+$\phi_n$ eingesetzt:
+\[
+    \sum_{n=0}^\infty \frac{1}{2^n n! \sqrt\piup} \frac{H_n^*(0) H_n(0)}{E_n -
+    E} = \frac{a_0}2
+\]
+
+Mit
+\[
+    H_n(0) = \frac{2^n \sqrt\piup}{\Gamma\del{\frac{1-n}2}}
+\]
+folgt:
+\[
+    \sum_{n=0}^\infty \frac{2^n \sqrt\piup}{n!} \frac{1}{E_n -
+    E} \Gamma\del{\frac{1-n}2}^{-2} = \frac{a_0}2
+\]
+
+$E_n$ einsetzen:
+\[
+    \sum_{n=0}^\infty \frac{2^n \sqrt\piup}{n!} \frac{1}{\frac 12 + n -
+    E} \Gamma\del{\frac{1-n}2}^{-2} = \frac{a_0}2
+\]
+
+\subsection{Ohne Vorfaktor}
+
+Ohne den Vorfaktor $2^n$ kann Mathematica die Reihe umformen:
+\[
+    \sum_{n=0}^\infty \frac{\sqrt\pi}{n!} \frac{1}{\frac 12 + n -
+    E} \Gamma\del{\frac{1-n}2}^{-2} = - \frac{2}{(2E-1)\sqrt\piup}
+    {_2F_1}\del{\frac 12, \frac 14(1-2E), \frac 14(5-2E), \frac 14}
+\]
 
 % vim: ft=tex spell spelllang=de tw=79
