@@ -1,0 +1,48 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+
+import argparse
+
+import numpy as np
+import scipy.special
+
+def gamma_data():
+    gamma = scipy.special.gamma
+    def f(E):
+        return 2 * gamma(0.25 * (5 - 2 * E)) / (2 * E - 1) / gamma(0.25 * (3 - 2 * E))
+    E = np.linspace(-1, 9.50001, 1000)
+    a0 = f(E)
+
+    x = 1/a0
+
+    limit = 10
+
+    x[x > limit] = limit
+    x[x < -limit] = limit
+
+    np.savetxt('_build/gamma_data.txt', np.column_stack([x, E]))
+
+def main():
+    options = _parse_args()
+
+    gamma_data()
+
+def _parse_args():
+    """
+    Parses the command line arguments.
+
+    If the logging module is imported, set the level according to the number of
+    ``-v`` given on the command line.
+
+    :return: Namespace with arguments.
+    :rtype: Namespace
+    """
+    parser = argparse.ArgumentParser(description="")
+    options = parser.parse_args()
+
+    return options
+
+if __name__ == "__main__":
+    main()
