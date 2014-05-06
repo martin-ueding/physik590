@@ -1,6 +1,8 @@
 % Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 
-\chapter{Herleitung 1D-Wellenfunktion}
+\chapter{Herleitungen}
+
+\section{Eindimensionale Wellenfunktion mit $\delta$-Störung}
 
 \newcommand\br[1]{\parencite[(#1)]{Busch/Two_Cold}}
 
@@ -114,14 +116,5 @@ $n$ summieren lässt:
     }
     \label{fig:}
 \end{figure}
-
-\subsection{Ohne Vorfaktor}
-
-Ohne den Vorfaktor $2^n$ kann Mathematica die Reihe umformen:
-\[
-    \sum_{n=0}^\infty \frac{\sqrt\pi}{n!} \frac{1}{\frac 12 + n -
-    E} \Gamma\del{\frac{1-n}2}^{-2} = - \frac{2}{(2E-1)\sqrt\piup}
-    {_2F_1}\del{\frac 12, \frac 14(1-2E), \frac 14(5-2E), \frac 14}
-\]
 
 % vim: ft=tex spell spelllang=de tw=79
