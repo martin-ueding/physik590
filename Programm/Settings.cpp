@@ -4,6 +4,7 @@
 #include "Settings.hpp"
 
 #include <crypto++/sha.h>
+#include <crypto++/hex.h>
 
 #include <sstream>
 
@@ -66,5 +67,12 @@ std::string Settings::hash() {
 
     std::string digest_string {reinterpret_cast<const char*>(digest.get())};
 
-    return digest_string;
+    CryptoPP::HexEncoder encoder;
+    std::string output;
+    encoder.Attach(new CryptoPP::StringSink(output));
+    encoder.Put(digest.get(), digest_size);
+    encoder.MessageEnd();
+
+
+    return output;
 }

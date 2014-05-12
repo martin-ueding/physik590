@@ -24,6 +24,8 @@
 int main(int argc, char **argv) {
     Settings settings;
 
+    std::cout << settings.hash() << std::endl;
+
     if (parse_arguments(argc, argv, settings)) {
         return 0;
     }
