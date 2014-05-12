@@ -112,6 +112,8 @@ class Settings {
           */
         std::string generate_filename(std::string prefix, std::string suffix);
 
+        std::string report();
+
     private:
         /**
           Separator for parameters in the file name.
