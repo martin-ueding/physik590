@@ -62,7 +62,7 @@ std::string Settings::hash() {
     std::string reported = report();
     size_t digest_size {CryptoPP::SHA1{}.DigestSize()};
 
-    std::shared_ptr<byte> digest {new byte[digest_size]};
+    std::unique_ptr<byte> digest {new byte[digest_size]};
     CryptoPP::SHA1{}.CalculateDigest(digest.get(), reinterpret_cast<const byte*>(reported.data()), reported.length());
 
     std::string digest_string {reinterpret_cast<const char*>(digest.get())};
