@@ -46,6 +46,7 @@ add_executable(metropolis
 target_link_libraries(metropolis boost_program_options)
 #target_link_libraries(metropolis pthread)
 target_link_libraries (metropolis ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(metropolis crypto++)
 
 add_executable(hello EXCLUDE_FROM_ALL main-hello.cpp)
 target_link_libraries(hello boost_program_options)
