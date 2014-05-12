@@ -114,6 +114,8 @@ class Settings {
 
         std::string report();
 
+        std::string hash();
+
     private:
         /**
           Separator for parameters in the file name.

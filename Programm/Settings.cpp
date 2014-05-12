@@ -3,6 +3,8 @@
 
 #include "Settings.hpp"
 
+#include <crypto++/sha.h>
+
 #include <sstream>
 
 std::string Settings::generate_filename(std::string prefix,
@@ -46,4 +48,23 @@ std::string Settings::report() {
     oss << "iterations" << colon << iterations << std::endl;
     oss << "rounds" << colon << rounds << std::endl;
     oss << "iterations between" << iterations_between << rounds << std::endl;
+    oss << "position seed" << position_seed << rounds << std::endl;
+    oss << "accept seed" << accept_seed << rounds << std::endl;
+    oss << "bootstrap samples" << bootstrap_samples << rounds << std::endl;
+    oss << "position_hist_bins" << position_hist_bins << rounds << std::endl;
+    oss << "action_hist_bins" << action_hist_bins << rounds << std::endl;
+
+    return oss.str();
+}
+
+std::string Settings::hash() {
+    std::string reported = report();
+    size_t digest_size {CryptoPP::SHA1().DigestSize()};
+
+    std::shared_ptr<byte> digest {new byte[digest_size]};
+    CryptoPP::SHA1().CalculateDigest(digest.get(), reinterpret_cast<const byte*>(reported.data()), reported.length());
+
+    std::string digest_string {reinterpret_cast<const char*>(digest.get())};
+
+    return digest_string;
 }
