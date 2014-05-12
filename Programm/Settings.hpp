@@ -91,6 +91,8 @@ class Settings {
           */
         int accept_seed {0};
 
+        int bootstrap_samples {1000};
+
         /**
           Number of bins for the position histogram.
           */

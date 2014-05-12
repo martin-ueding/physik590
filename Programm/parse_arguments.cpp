@@ -29,6 +29,12 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
     ("mu-squared,o",
      boost::program_options::value<double>(&settings.mu_squared)->default_value(settings.mu_squared),
      "μ²")
+    ("gauss-height",
+     boost::program_options::value<double>(&settings.gauss_height)->default_value(settings.gauss_height),
+     "Gauss height")
+    ("gauss-width",
+     boost::program_options::value<double>(&settings.gauss_width)->default_value(settings.gauss_width),
+     "Gauss width")
     ;
     options.add(oszillator_options);
 
@@ -51,7 +57,9 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
     ;
     options.add(init_options);
 
-    boost::program_options::options_description iter_options {"Iteration options"};
+    boost::program_options::options_description iter_options {
+        "Iteration options"
+    };
     iter_options.add_options()
     ("iterations,i",
      boost::program_options::value<size_t>(&settings.iterations)->default_value(settings.iterations),
@@ -68,10 +76,15 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
     ("accept-seed,c",
      boost::program_options::value<int>(&settings.accept_seed)->default_value(settings.accept_seed),
      "Seed for the random number generator used for accepting new positions")
+    ("samples",
+     boost::program_options::value<int>(&settings.bootstrap_samples)->default_value(settings.bootstrap_samples),
+     "Number of bootstrap samples to generate")
     ;
     options.add(iter_options);
 
-    boost::program_options::options_description hist_options {"Histogram options"};
+    boost::program_options::options_description hist_options {
+        "Histogram options"
+    };
     hist_options.add_options()
     ("position-hist-bins,b",
      boost::program_options::value<size_t>(&settings.position_hist_bins)->default_value(settings.position_hist_bins),

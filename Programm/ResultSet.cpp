@@ -10,10 +10,11 @@
 
 typedef std::pair<const unsigned int, std::shared_ptr<Correlation>> correlation_pair;
 
-ResultSet::ResultSet(BootstrapPool &pool, Settings &settings)
-    :
+ResultSet::ResultSet(BootstrapPool &pool, Settings &settings) :
     dens {PositionDensity{ -5, 5, settings.position_hist_bins}},
-pool(pool) {
+pool(pool),
+bootstrap_sample_count {settings.bootstrap_samples}
+{
     computables.emplace_back(new Moment {1});
     computables.emplace_back(new Moment {2});
 
@@ -45,8 +46,7 @@ void ResultSet::save_correlations(std::string outfilename) {
 
 void ResultSet::operator()() {
     int sample_id;
-    // TODO Put this into the Settings.
-    while ((sample_id = counter()) < 1000) {
+    while ((sample_id = counter()) < bootstrap_sample_count) {
         if (sample_id % 20 == 0) {
             std::cout << "Creating BoostrapSample " << sample_id << std::endl;
         }
