@@ -60,16 +60,16 @@ std::string Settings::report() {
 
 std::string Settings::hash() {
     std::string reported = report();
-    size_t digest_size {CryptoPP::SHA1().DigestSize()};
+    size_t digest_size {CryptoPP::SHA1{}.DigestSize()};
 
     std::shared_ptr<byte> digest {new byte[digest_size]};
-    CryptoPP::SHA1().CalculateDigest(digest.get(), reinterpret_cast<const byte*>(reported.data()), reported.length());
+    CryptoPP::SHA1{}.CalculateDigest(digest.get(), reinterpret_cast<const byte*>(reported.data()), reported.length());
 
     std::string digest_string {reinterpret_cast<const char*>(digest.get())};
 
     CryptoPP::HexEncoder encoder;
     std::string output;
-    encoder.Attach(new CryptoPP::StringSink(output));
+    encoder.Attach(new CryptoPP::StringSink{output});
     encoder.Put(digest.get(), digest_size);
     encoder.MessageEnd();
 
