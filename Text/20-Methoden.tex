@@ -106,7 +106,7 @@ Zeitpunkte zu:
 Der Abstand der diskreten Zeitpunkte ist der Einfachheit halber konstant und
 wird als $a$ definiert. Somit gilt $T = Na$. Durch die Diskretisierung werden
 Weltlinien unterdrückt, die sich zwischen den Zeitpunkten stark ändern. Im
-Gegensatz zur reellen Zeit, in der Weltlinien mit belieber Wirkung in die
+Gegensatz zur reellen Zeit, in der Weltlinien mit beliebe Wirkung in die
 Zustandssumme einfließen können, fließen mit imaginärer Zeit Weltlinien mit
 großer Geschwindigkeit (und daher großer Wirkung) deutlich weniger stark ein.
 Daher ist die Benutzung eines Zeitgitters in Kombination mit imaginärer Zeit
@@ -208,7 +208,11 @@ Um die Bedingungen zu erfüllen, ist die Wahl von $W$ so, dass
     \frac{W(x_i, x_j)}{W(x_j, x_i)} = \frac{p(x_j)}{p(x_i)}
 \]
 gilt, möglich \parencite[(3.23)]{Creutz/Statistical_Approach_QM}. In der Quelle
-wird die Relation „detailed balance condition“ genannt.
+wird die Relation „detailed balance condition“ genannt. Dieses
+\emph{detailiertes Gleichgewicht} sagt aus, dass es sich bei $p$ um einen
+Gleichgewichtszustand handelt, da Anzahl der Übergänge von $x_i$ nach $x_j$
+genauso groß sind wie in der Rückrichtung
+\parencite[85]{Schwabl/Quantenmechanik_fuer_Fortgeschrittene}.
 
 Im Algorithmus geht nicht die ganze Trajektorie $\vec x$ in einem Schritt auf
 eine neue Trajektorie $\vec x'$ über. Vielmehr werden die $x_j$ einzeln in ein
@@ -262,8 +266,8 @@ Ist die Änderung der Wirkung $\Deltaup S$ negativ, so wird der neue Wert
 übernommen. Andernfalls wird der Wert mit der Wahrscheinlichkeit
 $\exp(-\Deltaup S)$ übernommen. Wenn der Abstand zwischen $x_j'$ und $x_j$ groß
 ist, ist die Wahrscheinlichkeit, dass der Wert übernommen wird, sehr gering.
-Daher ist es effizienter, $x_j'$ nicht aus dem Interval $(-\infty, \infty)$ zu
-ziehen, sondern eine Breite $\Delta$ einzufühen
+Daher ist es effizienter, $x_j'$ nicht aus dem Intervall $(-\infty, \infty)$ zu
+ziehen, sondern eine Breite $\Delta$ einzuführen
 \parencite[439]{Creutz/Statistical_Approach_QM}. Die Autoren schlagen eine
 Einheitsverteilung im Bereich $[x_j - \Delta, x_j + \Delta]$ vor. Ich benutze
 in meiner Implementierung eine Normalverteilung mit einer Standardabweichung
@@ -287,7 +291,7 @@ als Wahrscheinlichkeitsdichte für diesen Algorithmus an
 \parencite[(3.28)]{Creutz/Statistical_Approach_QM}, wobei ich $\Deltaup S :=
 S(x_j') - S(x_j)$ definiert habe, $\Theta$ die Heaviside Stufenfunktion und
 $N_0$ das Volumen des Konfigurationsraumes ist. Mit dieser Gleichung kann
-nachvollzogen werden, dass sie $W$ die geforderten Bedingungen erfüllt.
+nachvollzogen werden, dass $W$ die geforderten Bedingungen erfüllt.
 
 \section{Bootstrap Methode}
 

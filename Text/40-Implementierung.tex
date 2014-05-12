@@ -1,0 +1,24 @@
+% Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+
+\chapter{Implementierung}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                xlabel={$j = t/a$},
+                ylabel={$x_j = x(t/a)$},
+            ]
+            \addplot[black] table
+            {trajectory-04-more_iterations-i{300}-o{1}-a{0.1}-s{0}-c{0}-margin{0.632456}.csv};
+            
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Weltlinie nach \num{300} Iterationen. Dabei sind die Parameter $a =
+        \num{0.1}$, $\Delta = \num{0.632456}$, und $\mu^2 = \num{1}$.
+    }
+    \label{fig:}
+\end{figure}
+
+% vim: ft=tex spell spelllang=de tw=79
