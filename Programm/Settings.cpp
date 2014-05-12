@@ -13,19 +13,7 @@ std::string Settings::generate_filename(std::string prefix,
     std::ostringstream oss;
 
     oss << prefix;
-
-    oss << "i{" << iterations << "}";
-    oss << separator;
-    oss << "o{" << mu_squared << "}";
-    oss << separator;
-    oss << "a{" << time_step << "}";
-    oss << separator;
-    oss << "s{" << position_seed << "}";
-    oss << separator;
-    oss << "c{" << accept_seed << "}";
-    oss << separator;
-    oss << "margin{" << margin << "}";
-
+    oss << hash();
     oss << suffix;
 
     return oss.str();
@@ -72,7 +60,6 @@ std::string Settings::hash() {
     encoder.Attach(new CryptoPP::StringSink{output});
     encoder.Put(digest.get(), digest_size);
     encoder.MessageEnd();
-
 
     return output;
 }
