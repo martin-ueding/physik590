@@ -24,11 +24,11 @@
 int main(int argc, char **argv) {
     Settings settings;
 
-    std::cout << "ID of this run: " << settings.hash() << std::endl;
-
     if (parse_arguments(argc, argv, settings)) {
         return 0;
     }
+
+    std::cout << "ID of this run: " << settings.hash() << std::endl;
 
     MetropolisDriver m_driver {settings};
 
