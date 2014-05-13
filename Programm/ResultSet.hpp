@@ -37,4 +37,5 @@ class ResultSet {
         void compute_using_pool();
         void add_correlation(unsigned int distance);
         int bootstrap_sample_count;
+        Settings& settings;
 };

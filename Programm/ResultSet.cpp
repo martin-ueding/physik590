@@ -13,7 +13,8 @@ typedef std::pair<const unsigned int, std::shared_ptr<Correlation>> correlation_
 ResultSet::ResultSet(BootstrapPool &pool, Settings &settings) :
     dens {PositionDensity{ -5, 5, settings.position_hist_bins}},
 pool(pool),
-bootstrap_sample_count {settings.bootstrap_samples}
+bootstrap_sample_count {settings.bootstrap_samples},
+settings{settings}
 {
     computables.emplace_back(new Moment {1});
     computables.emplace_back(new Moment {2});
@@ -79,7 +80,8 @@ void ResultSet::print_results() {
         std::cout << computable->get_name() << ": " << computable->format() << std::endl;
     }
 
-    std::ofstream of {"out/histogram-position-resultset.csv"};
+    std::ofstream of {settings.generate_filename("histogram-position-resultset.csv")};
+    of << settings.report();
     dens.write_histogram(of);
     of.close();
 }
