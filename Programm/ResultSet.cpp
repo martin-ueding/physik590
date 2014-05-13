@@ -77,12 +77,12 @@ void ResultSet::compute_using_pool() {
 }
 
 void ResultSet::print_results() {
+    std::ofstream resultfile {settings.generate_filename("results.txt")};
     for (auto computable : computables) {
-        std::cout << computable->get_name() << ": " << computable->format() << std::endl;
+        resultfile << computable->get_name() << ": " << computable->format() << std::endl;
     }
 
     std::ofstream of {settings.generate_filename("histogram-position-resultset.csv")};
     of << settings.report();
     dens.write_histogram(of);
-    of.close();
 }
