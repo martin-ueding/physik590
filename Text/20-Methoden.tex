@@ -98,19 +98,20 @@ Die Wirkung ist auch hier die Zeitintegration der Lagrangefunktion
 
 Diskretisiert man die Weltlinien, so wird es möglich, die Integration über alle
 Weltlinien auszuführen. Das Integrationsmaß wird bei einer Unterteilung in
-$N+1$ ($0, \ldots, N$)
+$\timesites+1$ ($0, \ldots, \timesites$)
 Zeitpunkte zu:
 \[
-    \int [\dif x] \leadsto \prod_{j = 1}^{N-1} \int_{-\infty}^\infty \dif x_j.
+    \int [\dif x] \leadsto \prod_{j = 1}^{\timesites-1} \int_{-\infty}^\infty \dif x_j.
 \]
 Der Abstand der diskreten Zeitpunkte ist der Einfachheit halber konstant und
-wird als $a$ definiert. Somit gilt $T = Na$. Durch die Diskretisierung werden
-Weltlinien unterdrückt, die sich zwischen den Zeitpunkten stark ändern. Im
-Gegensatz zur reellen Zeit, in der Weltlinien mit beliebe Wirkung in die
-Zustandssumme einfließen können, fließen mit imaginärer Zeit Weltlinien mit
-großer Geschwindigkeit (und daher großer Wirkung) deutlich weniger stark ein.
-Daher ist die Benutzung eines Zeitgitters in Kombination mit imaginärer Zeit
-legitim. Im Grenzfall $a \to 0$ erhält man den kontinuierlichen Fall zurück.
+wird als $\timestep$ definiert. Somit gilt $T = \timesites\timestep$. Durch die
+Diskretisierung werden Weltlinien unterdrückt, die sich zwischen den
+Zeitpunkten stark ändern. Im Gegensatz zur reellen Zeit, in der Weltlinien mit
+beliebe Wirkung in die Zustandssumme einfließen können, fließen mit imaginärer
+Zeit Weltlinien mit großer Geschwindigkeit (und daher großer Wirkung) deutlich
+weniger stark ein. Daher ist die Benutzung eines Zeitgitters in Kombination mit
+imaginärer Zeit legitim. Im Grenzfall $\timestep \to 0$ erhält man den
+kontinuierlichen Fall zurück.
 
 Durch die diskrete Zeit wird in der Wirkung die Zeitableitung durch einen
 Differenzenquotient ersetzt. Die Lagrangefunktion hängt nur noch von zwei
@@ -118,14 +119,14 @@ aufeinanderfolgenden Koordinaten ab. Die Wirkung einer Weltlinie $\vec x_k$
 wird dann gegeben durch
 \parencite[(3.2)]{Creutz/Statistical_Approach_QM}:
 \[
-    S(\vec x_k) = a \sum_{j = 1}^N L\del{x_j^{(k)}, x_{j+1}^{(k)}},
+    S(\vec x_k) = \timestep \sum_{j = 1}^\timesites L\del{x_j^{(k)}, x_{j+1}^{(k)}},
 \]
-wobei periodische Randbedingungen mit $x_{N} = x_0$ festgesetzt wurden.
+wobei periodische Randbedingungen mit $x_{\timesites} = x_0$ festgesetzt wurden.
 
 \section{Integration über den Phasenraum}
 
-Der Raum der möglichen diskreten Weltlinien hat $N$ Dimensionen und ist
-unendlich groß. Aufgrund der hohen Dimension sind Monte Carlo Methoden zu
+Der Raum der möglichen diskreten Weltlinien hat $\timesites$ Dimensionen und
+ist unendlich groß. Aufgrund der hohen Dimension sind Monte Carlo Methoden zu
 bevorzugen. Der Bereich der Weltlinien, die einen nennenswerten Beitrag zum
 Integral liefern, ist jedoch aufgrund der exponentiellen Gewichtung recht
 klein. Der Algorithmus von Metropolis wählt die Weltlinien entsprechend dieser
@@ -137,30 +138,31 @@ Trajektorien $\vec x_k$ wird durch
     \label{eq:p_x_k}
     p(\vec x_k) = \frac{\exp(-S(\vec x_k))}{\int [\dif x] \exp(-S(\vec x))}
 \end{equation}
-gegeben \parencite[(3.6)]{Creutz/Statistical_Approach_QM}. Werden $M$
+gegeben \parencite[(3.6)]{Creutz/Statistical_Approach_QM}. Werden $\iterations$
 Weltlinien durch den Metropolisalgorithmus generiert, so ist der Schätzwert
 $\overline A$ für
 eine Größe $\bracket A$
 \parencite[(3.7)]{Creutz/Statistical_Approach_QM}:
 \[
-    \overline A = \frac1M \sum_{k=1}^M A(\vec x_k).
+    \overline A = \frac1\iterations \sum_{k=1}^\iterations A(\vec x_k).
 \]
 
 \subsection{Markovketten}
 
 Um die Weltlinien entsprechend gewichtet generieren zu können, kommt ein
 Markovprozess zum Einsatz, der aus einer Weltlinie die nächste generiert. Für
-$M \to \infty$ nähert sich die Verteilung der Benötigten an.
+$\iterations \to \infty$ nähert sich die Verteilung der Benötigten an.
 \parencite[434]{Creutz/Statistical_Approach_QM}
 
 % Eigenschaften von Markovketten
 
-Die Weltlinien des einen Oszillators, die aus den $N$ Koordinaten $\{x_j\}$
-bestehen, können auch als Koordinaten für $N$ Teilchen interpretiert werden.
-Somit ist eine Trajektorie ein Zustand dieses Vielteilchensystems. Man kann nun
-eine Übergangsmatrix $W_{ij}$ definieren, die die Wahrscheinlichkeit angibt,
-dass das System vom Zustand $i$ in den Zustand $j$ wechselt. Aufgrund der
-diskreten Zeit entspricht ein Zeitschritt einem Übergangsschritt.
+Die Weltlinien des einen Oszillators, die aus den $\timesites$ Koordinaten
+$\{x_j\}$ bestehen, können auch als Koordinaten für $\timesites$ Teilchen
+interpretiert werden. Somit ist eine Trajektorie ein Zustand dieses
+Vielteilchensystems. Man kann nun eine Übergangsmatrix $W_{ij}$ definieren, die
+die Wahrscheinlichkeit angibt, dass das System vom Zustand $i$ in den Zustand
+$j$ wechselt. Aufgrund der diskreten Zeit entspricht ein Zeitschritt einem
+Übergangsschritt.
 
 Die Matrixelemente müssen $W_{ij} \geq 0$, sowie muss $\sum_j W_{ij} = 1$
 gelten, da jeder Zustand in einen nächsten (oder sich selbst) übergehen muss
@@ -240,10 +242,10 @@ Algorithmus~\ref{alg:metropolis}.
 
 \begin{algorithm}
     \begin{algorithmic}
-        \For{$j \gets 1, \ldots, N$}
+        \For{$j \gets 1, \ldots, \timesites$}
             \State $x_j' \gets$ \Call{Zufallzahl}{$-\infty$, $\infty$}
             \State $\Deltaup S \gets S(x_0, \ldots, x_{j-1}, x_j',
-            x_{j+1}, \ldots, x_N) - S(\{x_i\})$
+            x_{j+1}, \ldots, x_\timesites) - S(\{x_i\})$
 
             \If{$\Deltaup S \leq 0$}
                 \State $x_j \gets x_j'$
@@ -269,14 +271,14 @@ ist, ist die Wahrscheinlichkeit, dass der Wert übernommen wird, sehr gering.
 Daher ist es effizienter, $x_j'$ nicht aus dem Intervall $(-\infty, \infty)$ zu
 ziehen, sondern eine Breite $\Delta$ einzuführen
 \parencite[439]{Creutz/Statistical_Approach_QM}. Die Autoren schlagen eine
-Einheitsverteilung im Bereich $[x_j - \Delta, x_j + \Delta]$ vor. Ich benutze
+Einheitsverteilung im Bereich $[x_j - \margin, x_j + \margin]$ vor. Ich benutze
 in meiner Implementierung eine Normalverteilung mit einer Standardabweichung
-$\Delta$. Dies führt zu noch höheren Akzeptanzraten für neue Werte, die die
+$\margin$. Dies führt zu noch höheren Akzeptanzraten für neue Werte, die die
 Wirkung $S$ erhöhen. Um den Übergang zu einer neuen Konfiguration noch weiter
 zu beschleunigen, kann man das Ziehen eines neuen $x_j'$ mehrfach für das
 gleiche $j$ wiederholen. Dadurch ist es möglich, dass es sich stärker
 verändert, als in einem einzigen Schritt. Die Anzahl dieser Wiederholungen
-möchte ich, wie die Autoren, mit $\bar n$ bezeichnen.
+möchte ich mit $\rounds$ bezeichnen.
 
 \citeauthor{Creutz/Statistical_Approach_QM} geben
 \[
@@ -309,9 +311,9 @@ Schätzwert. Aus einer Stichprobenmenge $\mathbb M$ kann nun die Zufallsgröße
 berechnet werden: $\overline X = X(\mathbb M)$. Im Grenzwert erhält man den
 Erwartungswert, also $\lim_{|\mathbb M| \to \infty} \overline X = \bracket X$.
 
-Aus der wirklich erhobenen Stichprobenmenge erzeugt man nun $N_\text P$ weitere
-Mengen $\mathbb M_i$ durch Ziehen mit Zurücklegen. Für jede dieser Mengen
-errechnet man die Zufallsgröße und erhält die Menge der Schätzwerte
+Aus der wirklich erhobenen Stichprobenmenge erzeugt man nun $\bootstrapsamples$
+weitere Mengen $\mathbb M_i$ durch Ziehen mit Zurücklegen. Für jede dieser
+Mengen errechnet man die Zufallsgröße und erhält die Menge der Schätzwerte
 \[
     \mathbb X = \{ X(\mathbb M_i) \colon 1 \leq i \leq N_\text P \}.
 \]
