@@ -24,8 +24,9 @@ void ListQuantity::binning_snapshot(Histogram &histogram) {
     }
 }
 
-void ListQuantity::save_plot_file(std::string filename) {
+void ListQuantity::save_plot_file(std::string filename, std::string preamble) {
     std::ofstream outfile(filename);
+    outfile << preamble;
     outfile << "# j \t x_j" << std::endl;
     for (unsigned int i = 0; i < list.size(); i++) {
         outfile << i << "\t" << list[i] << std::endl;

@@ -21,27 +21,30 @@ std::string Settings::generate_filename(std::string prefix,
 
 std::string Settings::report() {
     std::string colon {": "};
+    std::string prefix {"# "};
 
     std::ostringstream oss;
 
-    oss << "time sites" << colon << time_sites << std::endl;
-    oss << "mass" << colon << mass << std::endl;
-    oss << "time step" << colon << time_step << std::endl;
-    oss << "μ²" << colon << mu_squared << std::endl;
-    oss << "gauss height" << colon << gauss_height << std::endl;
-    oss << "gauss width" << colon << gauss_width << std::endl;
-    oss << "initial random width" << colon << initial_random_width << std::endl;
-    oss << "Δ" << colon << margin << std::endl;
-    oss << "pre iterations" << colon << pre_iterations << std::endl;
-    oss << "pre rounds" << colon << pre_rounds << std::endl;
-    oss << "iterations" << colon << iterations << std::endl;
-    oss << "rounds" << colon << rounds << std::endl;
-    oss << "iterations between" << iterations_between << rounds << std::endl;
-    oss << "position seed" << position_seed << rounds << std::endl;
-    oss << "accept seed" << accept_seed << rounds << std::endl;
-    oss << "bootstrap samples" << bootstrap_samples << rounds << std::endl;
-    oss << "position_hist_bins" << position_hist_bins << rounds << std::endl;
-    oss << "action_hist_bins" << action_hist_bins << rounds << std::endl;
+    oss << prefix << "This run has the following parameters:" << std::endl;
+    oss << prefix << "time sites" << colon << time_sites << std::endl;
+    oss << prefix << "mass" << colon << mass << std::endl;
+    oss << prefix << "time step" << colon << time_step << std::endl;
+    oss << prefix << "μ²" << colon << mu_squared << std::endl;
+    oss << prefix << "gauss height" << colon << gauss_height << std::endl;
+    oss << prefix << "gauss width" << colon << gauss_width << std::endl;
+    oss << prefix << "initial random width" << colon << initial_random_width << std::endl;
+    oss << prefix << "Δ" << colon << margin << std::endl;
+    oss << prefix << "pre iterations" << colon << pre_iterations << std::endl;
+    oss << prefix << "pre rounds" << colon << pre_rounds << std::endl;
+    oss << prefix << "iterations" << colon << iterations << std::endl;
+    oss << prefix << "rounds" << colon << rounds << std::endl;
+    oss << prefix << "iterations between" << colon << iterations_between << std::endl;
+    oss << prefix << "position seed" << colon << position_seed << std::endl;
+    oss << prefix << "accept seed" << colon << accept_seed << std::endl;
+    oss << prefix << "bootstrap samples" << colon << bootstrap_samples << std::endl;
+    oss << prefix << "position_hist_bins" << colon << position_hist_bins << std::endl;
+    oss << prefix << "action_hist_bins" << colon << action_hist_bins  << std::endl;
+    oss << prefix << "----" << std::endl;
 
     return oss.str();
 }

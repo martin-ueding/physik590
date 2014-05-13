@@ -50,8 +50,9 @@ class ListQuantity {
           Save the current trajectory into a text file for plotting.
 
           @param filename Name of the output file
+          @param preamble Preamble documenting settings of this run
           */
-        void save_plot_file(std::string filename);
+        void save_plot_file(std::string filename, std::string preamble);
 
     private:
         std::mt19937 mt_engine;
