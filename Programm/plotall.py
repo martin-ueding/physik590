@@ -42,7 +42,7 @@ def decay(x, tau, ampl):
 
 def plot_correlations(run, filename):
     data = np.loadtxt(os.path.join(run, filename))
-    t = data[:, 0]
+    t = data[:, 0] * 0.1
     corr_val = data[:, 1]
     corr_err = data[:, 2]
 
@@ -61,31 +61,13 @@ def plot_correlations(run, filename):
     pl.savefig(os.path.join(run, 'correlations.pdf'))
     pl.clf()
 
+    for offset in [1, 2, 3]:
+        quotient = corr_val[offset:] / corr_val[:-offset]
+        log = np.log(abs(quotient))
+        E1 = - log / offset + 0.5
+        print('E1:', E1)
 
-    quotient = corr_val[1:] / corr_val[:-1]
-    log = np.log(abs(quotient))
-    E1 = - log / 0.1 + 0.5
-    print('quotient:', quotient)
-    print('log:', log)
-    print('E1:', E1)
-
-    print()
-
-    quotient = corr_val[2:] / corr_val[:-2]
-    log = np.log(abs(quotient))
-    E1 = - log / 0.2 + 0.5
-    print('quotient:', quotient)
-    print('log:', log)
-    print('E1:', E1)
-
-    print()
-
-    quotient = corr_val[3:] / corr_val[:-3]
-    log = np.log(abs(quotient))
-    E1 = - log / 0.3 + 0.5
-    print('quotient:', quotient)
-    print('log:', log)
-    print('E1:', E1)
+        print()
 
 def needs_plotting(filename):
     csv_time = datetime.datetime.fromtimestamp(os.path.getmtime(filename))
