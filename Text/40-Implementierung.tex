@@ -32,14 +32,15 @@
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
-                height=0.6\linewidth,
+                height=0.55\linewidth,
                 xlabel={$x$},
                 ylabel={$|\psi(x)|^2$},
                 grid=major,
                 xmin=-3,
                 xmax=3,
                 legend entries={
-                    Simulation,
+                    {Simulation},
+                    {Theorie},
                     Kontinuum,
                 },
             ]
@@ -50,15 +51,54 @@
                 error bars/.cd,
                 y dir=both,
                 y explicit
-            ] table[y error index=2] {histogram-position-resultset.csv};
-            \addplot[gray] table {_build/histogram_theory_continous.csv};
+            ] table[y error index=2] {histogram-korrigiert.csv};
+            \addplot[black] table {_build/histogram_theory_01.csv};
+            \addplot[black, dashed] table {_build/histogram_theory_continous.csv};
         \end{axis}
     \end{tikzpicture}
     \caption{%
         Aufenthaltswahrscheinlichkeit. $a =
-        \num{0.1}$, $\Delta = \num{0.632456}$, und $\mu^2 = \num{1}$.
+        \num{0.1}$, $\Delta = \num{0.632456}$, $\mu^2 = \num{1}$, $N =
+        \num{1000}$, $M = \num{1000}$, $N_\text P = \num{10000}$.
     }
-    \label{fig:}
+    \label{fig:histogram_01}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.55\linewidth,
+                xlabel={$x$},
+                ylabel={$|\psi(x)|^2$},
+                grid=major,
+                xmin=-3,
+                xmax=3,
+                legend entries={
+                    {Simulation},
+                    {Theorie},
+                    Kontinuum,
+                },
+            ]
+            \addplot[
+                black,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {DC5256-histogram-position-resultset.csv};
+            \addplot[black] table {_build/histogram_theory_1.csv};
+            \addplot[black, dashed] table {_build/histogram_theory_continous.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Aufenthaltswahrscheinlichkeit. $a =
+        \num{1}$, $\Delta = \num{0.632456}$, $\mu^2 = \num{1}$, $N =
+        \num{1000}$, $M = \num{5000}$, $N_\text P = \num{1000}$.
+    }
+    \label{fig:histogram_10}
 \end{figure}
 
 \subsection{Korrelationen}

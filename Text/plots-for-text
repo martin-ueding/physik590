@@ -29,12 +29,26 @@ def histogram_theory_continous():
     y = 1 / np.sqrt(np.pi) * np.exp(-x**2)
     np.savetxt('_build/histogram_theory_continous.csv', np.column_stack([x, y]))
 
+def histogram_theory_01():
+    x = np.linspace(-5, 5, 1000);
+    omega = 1.00125
+    y = np.sqrt(omega / np.pi) * np.exp(- omega * x**2)
+    np.savetxt('_build/histogram_theory_01.csv', np.column_stack([x, y]))
+
+def histogram_theory_1():
+    x = np.linspace(-5, 5, 1000);
+    omega = 1.11803
+    y = np.sqrt(omega / np.pi) * np.exp(- omega * x**2)
+    np.savetxt('_build/histogram_theory_1.csv', np.column_stack([x, y]))
+
 
 def main():
     options = _parse_args()
 
     gamma_data()
     histogram_theory_continous()
+    histogram_theory_01()
+    histogram_theory_1()
 
 def _parse_args():
     """
