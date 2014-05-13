@@ -1,3 +1,10 @@
+*-figure*.pdf
+*.auxlock
+*.dep
+*.dpth
+*.figlist
+*.makefile
+*.toc
 _build
 cmake_install.cmake
 CMakeCache.txt
@@ -7,4 +14,3 @@ Programm/action-difference
 Programm/metropolis-test
 Programm/test-distribution
 Programm/test-metropolis
-Text/Bachelorarbeit.toc
