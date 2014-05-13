@@ -8,6 +8,7 @@
 #include "Correlation.hpp"
 #include "Moment.hpp"
 #include "PositionDensity.hpp"
+#include "ProgressBar.hpp"
 #include "ScalarComputable.hpp"
 
 #include <memory>
@@ -36,6 +37,7 @@ class ResultSet {
 
         void compute_using_pool();
         void add_correlation(unsigned int distance);
-        int bootstrap_sample_count;
+        size_t bootstrap_sample_count;
         Settings& settings;
+        ProgressBar bar;
 };

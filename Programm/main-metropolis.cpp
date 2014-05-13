@@ -32,10 +32,7 @@ int main(int argc, char **argv) {
 
     MetropolisDriver m_driver {settings};
 
-    std::cout << "Creating Pool …" << std::endl;
     BootstrapPool pool {m_driver, settings.iterations};
-
-    std::cout << "Creating ResultSet …" << std::endl;
     ResultSet results {pool, settings};
 
     std::cout << "Printing results …" << std::endl;

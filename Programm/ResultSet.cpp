@@ -15,7 +15,7 @@ ResultSet::ResultSet(BootstrapPool &pool, Settings &settings) :
 pool(pool),
 bootstrap_sample_count {settings.bootstrap_samples},
 settings{settings},
-    bar{ProgressBar{"Creating samples", settings.bootstrap_samples}
+    bar{ProgressBar{"Creating samples", settings.bootstrap_samples}}
 {
     computables.emplace_back(new Moment {1});
     computables.emplace_back(new Moment {2});
@@ -47,11 +47,9 @@ void ResultSet::save_correlations(std::string outfilename) {
 }
 
 void ResultSet::operator()() {
-    int sample_id;
+    size_t sample_id;
     while ((sample_id = counter()) < bootstrap_sample_count) {
-        if (sample_id % 20 == 0) {
-            bar.update(sample_id);
-        }
+        bar.update(sample_id);
         BootstrapSample sample {pool, engine};
 
         for (auto computable : computables) {
@@ -74,6 +72,8 @@ void ResultSet::compute_using_pool() {
     for (auto & worker : workers) {
         worker.join();
     }
+
+    bar.close();
 }
 
 void ResultSet::print_results() {

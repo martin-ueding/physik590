@@ -77,7 +77,7 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
      boost::program_options::value<int>(&settings.accept_seed)->default_value(settings.accept_seed),
      "Seed for the random number generator used for accepting new positions")
     ("samples",
-     boost::program_options::value<int>(&settings.bootstrap_samples)->default_value(settings.bootstrap_samples),
+     boost::program_options::value<size_t>(&settings.bootstrap_samples)->default_value(settings.bootstrap_samples),
      "Number of bootstrap samples to generate")
     ;
     options.add(iter_options);
