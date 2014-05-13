@@ -2,11 +2,11 @@
 
 \chapter{Implementierung}
 
-Die Weltlinie wird anfangs mit zufälligen Werten für die $x_j$ aus dem Interval
-$(-\initialrandomwidth, \initialrandomwidth)$ initialisiert. Bevor Werte
-aufgenommen werden, durchläuft das System \num{50} Monte Carlo Iterationen zur
-Relaxation. Danach sieht die Weltlinie wie in Abbildung~\ref{fig:relaxiert}
-aus.
+Die Weltlinie wird in der Regel anfangs mit zufälligen Werten für die $x_j$ aus
+dem Interval $(-\initialrandomwidth, \initialrandomwidth)$ initialisiert. Bevor
+Werte aufgenommen werden, durchläuft das System $\preiterations = \num{50}$
+Monte Carlo Iterationen zur Relaxation. Danach sieht die Weltlinie wie in
+Abbildung~\ref{fig:relaxiert} aus.
 
 \begin{figure}[htbp]
     \centering
@@ -21,9 +21,9 @@ aus.
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        Weltlinie nach \num{50} Iterationen zur Relaxation. Dabei sind die
-        Parameter $\timestep = \num{0.1}$, $\margin = \num{0.632456}$, und
-        $\mu^2 = \num{1}$.
+        Weltlinie nach $\preiterations = \num{50}$ Iterationen zur Relaxation.
+        Dabei sind die Parameter $\timestep = \num{0.1}$, $\initialrandomwidth
+        = \margin = \num{0.632456}$, und $\mu^2 = \num{1}$.
     }
     \label{fig:relaxiert}
 \end{figure}
