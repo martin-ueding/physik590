@@ -94,8 +94,6 @@ def plot_histogram(filename):
     width = bins[3] - bins[2]
     selection = abs(bins) < 4
 
-    counts /= width
-
     ax.plot(bins[selection], counts[selection], marker='+', linestyle='none', label='Metropolis')
     ax.set_title(filename)
     ax.set_xlabel(r'Position $x$')

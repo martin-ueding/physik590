@@ -17,6 +17,12 @@ void BootstrappedHistogram::write_histogram(std::ostream &outfile) {
     for (size_t i = 0; i < bins.size(); i++) {
         double x = min + width + i * width;
         auto y_and_err = bins[i].mean_and_stddev();
+        double y = y_and_err.first;
+        double y_err = y_and_err.second;
+
+        y /= width;
+        y_err /= width;
+
         outfile << x << "\t" << y_and_err.first << "\t" << y_and_err.second << std::endl;
     }
 }
