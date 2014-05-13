@@ -20,7 +20,7 @@ Abbildung~\ref{fig:relaxiert} aus.
                 xlabel={$j = t/a$},
                 ylabel={$x_j = x(t/a)$},
             ]
-            \addplot[black] table {11EA8F-trajectory-04-more_iterations.csv};
+            \addplot[black] table {CSV/11EA8F-trajectory-04-more_iterations.csv};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -72,7 +72,7 @@ weicht merklich von der Kontinuumslösung ab.
                 error bars/.cd,
                 y dir=both,
                 y explicit
-            ] table[y error index=2] {histogram-korrigiert.csv};
+            ] table[y error index=2] {CSV/histogram-korrigiert.csv};
             \addplot[black] table {_build/histogram_theory_01.csv};
             \addplot[black, dashed] table {_build/histogram_theory_continous.csv};
         \end{axis}
@@ -109,7 +109,7 @@ weicht merklich von der Kontinuumslösung ab.
                 error bars/.cd,
                 y dir=both,
                 y explicit
-            ] table[y error index=2] {DC5256-histogram-position-resultset.csv};
+            ] table[y error index=2] {CSV/DC5256-histogram-position-resultset.csv};
             \addplot[black] table {_build/histogram_theory_1.csv};
             \addplot[black, dashed] table {_build/histogram_theory_continous.csv};
         \end{axis}
@@ -143,7 +143,7 @@ Gesamtpotential gezeigt.
                 ylabel={$V(x)$},
                 grid=major,
             ]
-            \addplot[black] table {FF7AA0-potential.csv};
+            \addplot[black] table {CSV/FF7AA0-potential.csv};
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -174,7 +174,7 @@ Aufenthaltswahrscheinlichkeit.
                 error bars/.cd,
                 y dir=both,
                 y explicit
-            ] table[y error index=2] {FF7AA0-histogram-position-resultset.csv};
+            ] table[y error index=2] {CSV/FF7AA0-histogram-position-resultset.csv};
         \end{axis}
     \end{tikzpicture}
     \caption{%
