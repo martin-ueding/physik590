@@ -34,11 +34,11 @@ std::string Settings::report() {
     oss << prefix << "time sites" << colon << time_sites << std::endl;
     oss << prefix << "mass" << colon << mass << std::endl;
     oss << prefix << "time step" << colon << time_step << std::endl;
-    oss << prefix << "μ²" << colon << mu_squared << std::endl;
+    oss << prefix << "mu_squared" << colon << mu_squared << std::endl;
     oss << prefix << "gauss height" << colon << gauss_height << std::endl;
     oss << prefix << "gauss width" << colon << gauss_width << std::endl;
     oss << prefix << "initial random width" << colon << initial_random_width << std::endl;
-    oss << prefix << "Δ" << colon << margin << std::endl;
+    oss << prefix << "margin" << colon << margin << std::endl;
     oss << prefix << "pre iterations" << colon << pre_iterations << std::endl;
     oss << prefix << "pre rounds" << colon << pre_rounds << std::endl;
     oss << prefix << "iterations" << colon << iterations << std::endl;
