@@ -3,6 +3,7 @@
 
 #include "Correlation.hpp"
 
+#include <cassert>
 #include <sstream>
 
 Correlation::Correlation(unsigned int distance) : distance {distance} {

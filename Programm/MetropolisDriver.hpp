@@ -4,7 +4,6 @@
 #pragma once
 
 #include "AnharmonicOscillator.hpp"
-#include "BoostHistogram.hpp"
 #include "HarmonicOscillator.hpp"
 #include "ListQuantity.hpp"
 #include "ListQuantity.hpp"

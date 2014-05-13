@@ -16,7 +16,6 @@ add_executable(metropolis
     main-metropolis.cpp
 
     AnharmonicOscillator.cpp
-    BoostHistogram.cpp
     BootstrappedHistogram.cpp
     BootstrappedQuantity.cpp
     BootstrapPool.cpp
@@ -48,9 +47,6 @@ target_link_libraries(metropolis boost_program_options)
 target_link_libraries (metropolis ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(metropolis crypto++)
 
-add_executable(hello EXCLUDE_FROM_ALL main-hello.cpp)
-target_link_libraries(hello boost_program_options)
-
 add_executable(test-metropolis EXCLUDE_FROM_ALL
     main-metropolis-test.cpp
 
@@ -63,20 +59,3 @@ add_executable(test-metropolis EXCLUDE_FROM_ALL
     System.cpp
     )
 target_link_libraries(test-metropolis cppunit)
-
-add_executable(test-distribution EXCLUDE_FROM_ALL
-    main-test-distribution.cpp
-
-    BoostHistogram.cpp
-    Histogram.cpp
-    SizePrinter.cpp
-    VectorHistogram.cpp
-    )
-
-add_executable(action-difference EXCLUDE_FROM_ALL
-    main-action-difference.cpp
-
-    HarmonicOscillator.cpp
-    Settings.cpp
-    System.cpp
-    )
