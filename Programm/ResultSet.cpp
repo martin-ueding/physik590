@@ -14,7 +14,8 @@ ResultSet::ResultSet(BootstrapPool &pool, Settings &settings) :
     dens {PositionDensity{ -5, 5, settings.position_hist_bins}},
 pool(pool),
 bootstrap_sample_count {settings.bootstrap_samples},
-settings{settings}
+settings{settings},
+    bar{ProgressBar{"Creating samples", settings.bootstrap_samples}
 {
     computables.emplace_back(new Moment {1});
     computables.emplace_back(new Moment {2});
@@ -49,7 +50,7 @@ void ResultSet::operator()() {
     int sample_id;
     while ((sample_id = counter()) < bootstrap_sample_count) {
         if (sample_id % 20 == 0) {
-            std::cout << "Creating BoostrapSample " << sample_id << std::endl;
+            bar.update(sample_id);
         }
         BootstrapSample sample {pool, engine};
 
