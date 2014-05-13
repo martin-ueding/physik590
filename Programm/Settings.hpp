@@ -106,11 +106,10 @@ class Settings {
         /**
           Generates a filename that contains the most important parameters.
 
-          @param[in] prefix Prefix.
-          @param[in] suffix Suffix.
-          @return Prefix-Parameters-Suffix.
+          @param name Desired basename
+          @return Prefix-Parameters-Suffix
           */
-        std::string generate_filename(std::string prefix, std::string suffix);
+        std::string generate_filename(std::string name);
 
         std::string report();
 

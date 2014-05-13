@@ -43,7 +43,8 @@ add_executable(metropolis
 
     )
 target_link_libraries(metropolis boost_program_options)
-#target_link_libraries(metropolis pthread)
+target_link_libraries(metropolis boost_system)
+target_link_libraries(metropolis boost_filesystem)
 target_link_libraries (metropolis ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(metropolis crypto++)
 

@@ -3,18 +3,23 @@
 
 #include "Settings.hpp"
 
-#include <crypto++/sha.h>
+#include <boost/filesystem.hpp>
 #include <crypto++/hex.h>
+#include <crypto++/sha.h>
 
 #include <sstream>
 
-std::string Settings::generate_filename(std::string prefix,
-                                        std::string suffix) {
+std::string Settings::generate_filename(std::string name) {
     std::ostringstream oss;
 
-    oss << prefix;
+    oss << "out/";
     oss << hash();
-    oss << suffix;
+
+    boost::filesystem::create_directories(oss.str());
+
+    oss << "/";
+    oss << name;
+
 
     return oss.str();
 }

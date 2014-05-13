@@ -15,15 +15,15 @@ MetropolisDriver::MetropolisDriver(Settings settings) :
 
     system.export_potential("out/potential.csv");
 
-    trajectory.save_plot_file(settings.generate_filename("out/trajectory-01-init-", ".csv"), settings.report());
+    trajectory.save_plot_file(settings.generate_filename("trajectory-01-init.csv"), settings.report());
 
     trajectory.set_to_random(settings.initial_random_width);
-    trajectory.save_plot_file(settings.generate_filename("out/trajectory-02-random-", ".csv"), settings.report());
+    trajectory.save_plot_file(settings.generate_filename("trajectory-02-random.csv"), settings.report());
 
     for (int i = 0; i < settings.pre_iterations - settings.iterations_between; i++) {
         ma.iteration(settings.pre_rounds, settings.margin);
     }
-    trajectory.save_plot_file(settings.generate_filename("out/trajectory-04-more_iterations-", ".csv"), settings.report());
+    trajectory.save_plot_file(settings.generate_filename("trajectory-04-more_iterations.csv"), settings.report());
 }
 
 ListQuantity MetropolisDriver::next() {

@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
 
     std::cout << "Printing results …" << std::endl;
     results.print_results();
-    results.save_correlations(settings.generate_filename("out/correlations", ".csv"));
+    results.save_correlations(settings.generate_filename("correlations.csv"));
 
     std::cout << "Exiting …" << std::endl;
 
