@@ -15,42 +15,33 @@ import datetime
 def main():
     options = _parse_args()
 
-    plotted = []
+    runs = glob.glob('out/*/')
 
-    for csv_file in glob.glob('out/histogram-position-*.csv'):
+    for run in runs:
+        print('Run:', run)
+
+        plotted = []
+
+        plot_with(auto_plot_histogram, 'histogram-position-*.csv', run, plotted)
+        plot_with(auto_plot_trajectory, 'trajectory-*.csv', run, plotted)
+        plot_with(auto_plot_histogram, 'histogram-*.csv', run, plotted)
+
+        plot_correlations(run, 'correlations.csv')
+
+def plot_with(function, pattern, run, plotted):
+    for csv_file in glob.glob(os.path.join(run, pattern)):
         if csv_file in plotted:
             continue
         plotted.append(csv_file)
         if needs_plotting(csv_file):
             print('Plotting', csv_file)
-            auto_plot_histogram(csv_file)
-
-    for csv_file in glob.glob('out/trajectory-*.csv'):
-        if csv_file in plotted:
-            continue
-        plotted.append(csv_file)
-        if needs_plotting(csv_file):
-            print('Plotting', csv_file)
-            auto_plot_trajectory(csv_file)
-
-    for csv_file in glob.glob('out/histogram-*.csv'):
-        if csv_file in plotted:
-            continue
-        plotted.append(csv_file)
-        if needs_plotting(csv_file):
-            print('Plotting', csv_file)
-            auto_plot_histogram(csv_file)
-
-    plot_combined_histogram('out/histogram-position-*.csv')
-    plot_combined_histogram('out/histogram-action-*.csv')
-
-    plot_correlations()
+            function(csv_file)
 
 def decay(x, tau, ampl):
     return ampl * np.exp(-x / tau)
 
-def plot_correlations():
-    data = np.loadtxt('out/correlations.csv')
+def plot_correlations(run, filename):
+    data = np.loadtxt(os.path.join(run, filename))
     t = data[:, 0]
     corr_val = data[:, 1]
     corr_err = data[:, 2]
@@ -67,7 +58,7 @@ def plot_correlations():
     pl.errorbar(t, corr_val, yerr=corr_err)
     pl.plot(x, y)
     pl.yscale('log')
-    pl.savefig('out/correlations.pdf')
+    pl.savefig(os.path.join(run, 'correlations.pdf'))
     pl.clf()
 
 
@@ -111,34 +102,6 @@ def insert_theory(ax):
     y = 1/np.sqrt(np.pi) * np.exp(- x**2)
     ax.plot(x, y, label='Theorie kontinuierlich', linestyle='dotted', color='black')
 
-def plot_combined_histogram(wildcard):
-    print('Plotting', wildcard)
-    filenames = sorted(glob.glob(wildcard))
-
-    fig = pl.figure()
-    ax = fig.add_subplot(1, 1, 1)
-
-    for filename in filenames:
-        data = np.genfromtxt(filename)
-        bins = data[:, 0]
-        counts = data[:, 1]
-        width = bins[3] - bins[2]
-        errors = data[:, 2] / width
-        counts /= width
-        selection = abs(bins) < 4
-        ax.errorbar(bins[selection], counts[selection], yerr=errors[selection], label=filename, marker='None', linestyle='none')
-
-    insert_theory(ax)
-
-    ax.set_title(wildcard)
-    ax.set_xlabel(r'Messgröße')
-    ax.set_ylabel(r'relative Häufigkeit')
-    ax.grid(True)
-    #ax.legend(loc='best', prop={'size': 6})
-
-    fig.savefig(wildcard.replace('.csv', '.pdf'))
-
-
 def plot_histogram(filename):
     data = np.genfromtxt(filename)
 
@@ -160,7 +123,6 @@ def plot_histogram(filename):
     insert_theory(ax)
 
     ax.legend(loc='best')
-
 
     fig.savefig(filename.replace('.csv', '.pdf'))
 
