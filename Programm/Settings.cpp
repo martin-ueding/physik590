@@ -11,13 +11,16 @@
 
 std::string Settings::generate_filename(std::string name) {
     std::ostringstream oss;
+    std::string computed_hash {hash()};
 
     oss << "out/";
-    oss << hash();
+    oss << computed_hash;
 
     boost::filesystem::create_directories(oss.str());
 
     oss << "/";
+    oss << computed_hash.substr(0, 6);
+    oss << "-";
     oss << name;
 
 
