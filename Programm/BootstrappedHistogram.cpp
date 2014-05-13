@@ -23,7 +23,7 @@ void BootstrappedHistogram::write_histogram(std::ostream &outfile) {
         y /= width;
         y_err /= width;
 
-        outfile << x << "\t" << y_and_err.first << "\t" << y_and_err.second << std::endl;
+        outfile << x << "\t" << y << "\t" << y_err << std::endl;
     }
 }
 
