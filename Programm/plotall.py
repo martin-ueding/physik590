@@ -48,7 +48,7 @@ def plot_correlations(run, filename):
 
     popt, pconv = op.curve_fit(decay, t[:10], corr_val[:10], sigma=corr_err[:10])
 
-    print(popt)
+    print('popt:', popt)
     print(pconv)
 
     x = np.linspace(np.min(t), np.max(t), 100)
@@ -63,29 +63,29 @@ def plot_correlations(run, filename):
 
 
     quotient = corr_val[1:] / corr_val[:-1]
-    print(quotient)
     log = np.log(abs(quotient))
-    print(log)
     E1 = - log / 0.1 + 0.5
-    print(E1)
+    print('quotient:', quotient)
+    print('log:', log)
+    print('E1:', E1)
 
     print()
 
     quotient = corr_val[2:] / corr_val[:-2]
-    print(quotient)
     log = np.log(abs(quotient))
-    print(log)
     E1 = - log / 0.2 + 0.5
-    print(E1)
+    print('quotient:', quotient)
+    print('log:', log)
+    print('E1:', E1)
 
     print()
 
     quotient = corr_val[3:] / corr_val[:-3]
-    print(quotient)
     log = np.log(abs(quotient))
-    print(log)
     E1 = - log / 0.3 + 0.5
-    print(E1)
+    print('quotient:', quotient)
+    print('log:', log)
+    print('E1:', E1)
 
 def needs_plotting(filename):
     csv_time = datetime.datetime.fromtimestamp(os.path.getmtime(filename))
