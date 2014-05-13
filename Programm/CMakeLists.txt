@@ -34,6 +34,7 @@ add_executable(metropolis
     parse_arguments.cpp
     Periodic.cpp
     PositionDensity.cpp
+    ProgressBar.cpp
     ResultSet.cpp
     Settings.cpp
     SizePrinter.cpp
