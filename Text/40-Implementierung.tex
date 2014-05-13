@@ -9,12 +9,13 @@
     \centering
     \begin{tikzpicture}
         \begin{axis}[
+                width=\linewidth,
+                height=0.5\linewidth,
                 xlabel={$j = t/a$},
                 ylabel={$x_j = x(t/a)$},
             ]
             \addplot[black] table
             {trajectory-04-more_iterations-i{300}-o{1}-a{0.1}-s{0}-c{0}-margin{0.632456}.csv};
-            
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -25,6 +26,40 @@
 \end{figure}
 
 \subsection{Aufenthaltswahrscheinlichkeit}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel={$x$},
+                ylabel={$|\psi(x)|^2$},
+                grid=major,
+                xmin=-3,
+                xmax=3,
+                legend entries={
+                    Simulation,
+                    Kontinuum,
+                },
+            ]
+            \addplot[
+                black,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {histogram-position-resultset.csv};
+            \addplot[gray] table {_build/histogram_theory_continous.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Aufenthaltswahrscheinlichkeit. $a =
+        \num{0.1}$, $\Delta = \num{0.632456}$, und $\mu^2 = \num{1}$.
+    }
+    \label{fig:}
+\end{figure}
 
 \subsection{Korrelationen}
 

@@ -24,10 +24,17 @@ def gamma_data():
 
     np.savetxt('_build/gamma_data.txt', np.column_stack([x, E]))
 
+def histogram_theory_continous():
+    x = np.linspace(-5, 5, 1000);
+    y = 1 / np.sqrt(np.pi) * np.exp(-x**2)
+    np.savetxt('_build/histogram_theory_continous.csv', np.column_stack([x, y]))
+
+
 def main():
     options = _parse_args()
 
     gamma_data()
+    histogram_theory_continous()
 
 def _parse_args():
     """
