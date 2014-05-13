@@ -38,8 +38,9 @@ double System::action_step(double cur, double next) {
     return time_step * (kinetic_part + potential_part);
 }
 
-void System::export_potential(std::string filename) {
+void System::export_potential(std::string filename, std::string preamble) {
     std::ofstream handle {filename};
+    handle << preamble;
     int steps = 1000;
     double bound {5.0};
     double step {bound / 2 / steps};

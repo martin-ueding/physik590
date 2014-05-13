@@ -13,7 +13,7 @@ MetropolisDriver::MetropolisDriver(Settings settings) :
         trajectory {ListQuantity {settings.time_sites}},
         ma(MetropolisAlgorithm {trajectory, system, settings.position_seed, settings.accept_seed}) {
 
-    system.export_potential("out/potential.csv");
+    system.export_potential(settings.generate_filename("potential.csv"), settings.report());
 
     trajectory.save_plot_file(settings.generate_filename("trajectory-01-init.csv"), settings.report());
 

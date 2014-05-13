@@ -64,7 +64,10 @@ class System {
           */
         virtual double potential(double x) = 0;
 
-        void export_potential(std::string filename);
+        /**
+          Exports a X-Y-file for the potential.
+          */
+        void export_potential(std::string filename, std::string preamble);
 
         /**
           Time step @f$ a @f$.
