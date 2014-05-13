@@ -2,6 +2,8 @@
 
 \documentclass[11pt, ngerman, fleqn, DIV=15, headinclude]{scrreprt}
 
+\includeonly{40-Implementierung}
+
 \usepackage{header}
 
 \usepackage{csquotes}
@@ -27,6 +29,10 @@
     }
 }
 
+\newcommand\timestep{a}
+\newcommand\margin{\Delta}
+\newcommand\initialrandomwidth{\Delta}
+
 % Alle Bilder abschalten
 %\usepackage{comment} \excludecomment{figure}
 
@@ -49,16 +55,7 @@
 
 \begin{document}
 
-\maketitle
-
-% TODO Abstract
-
-\newpage
-\tableofcontents
-\newpage
-
-
-
+\include{00-Titel}
 \include{20-Methoden}
 \include{40-Implementierung}
 
