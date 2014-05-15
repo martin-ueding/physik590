@@ -3,20 +3,21 @@
 
 #include "BootstrapSample.hpp"
 
-BootstrapSample::BootstrapSample(BootstrapPool &pool, std::mt19937 &engine) {
-    for (auto &p : pool.even) {
-        boost::numeric::ublas::matrix<double> m {p.second.size1, p.second.size2};
+BootstrapSample::BootstrapSample(BootstrapPool &pool, std::mt19937 &engine) :
+    histogram {pool.histograms[0].get_min(), pool.histograms[0].get_max(), pool.histograms[0].size()} {
+    for (auto &p : pool.even[0]) {
+        boost::numeric::ublas::matrix<double> m {p.second.size1(), p.second.size2()};
         m.clear();
-        even.insert(even.value_type{p.first, m});
+        even.insert(CorrFunc::value_type{p.first, m});
     }
 
-    for (auto &p : pool.odd) {
-        boost::numeric::ublas::matrix<double> m {p.second.size1, p.second.size2};
+    for (auto &p : pool.odd[0]) {
+        boost::numeric::ublas::matrix<double> m {p.second.size1(), p.second.size2()};
         m.clear();
-        odd.insert(even.value_type{p.first, m});
+        odd.insert(CorrFunc::value_type{p.first, m});
     }
 
-    std::uniform_int_distribution<unsigned> dist {0, pool.size() - 1};
+    std::uniform_int_distribution<size_t> dist {0, pool.size() - 1};
 
     for (unsigned index_id {0}; index_id < pool.size(); index_id++) {
         unsigned i = dist(engine);
@@ -31,6 +32,6 @@ BootstrapSample::BootstrapSample(BootstrapPool &pool, std::mt19937 &engine) {
             odd[p.first] += p.second;
         }
 
-        Histogram += pool.histograms[i];
+        histogram += pool.histograms[i];
     }
 }

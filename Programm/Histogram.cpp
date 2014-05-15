@@ -21,6 +21,13 @@ void Histogram::operator()(double value) {
     }
 }
 
+Histogram Histogram::&operator+=(Histogram &other) {
+    for (unsigned i {0}; i < bins.size(); i++) {
+        bins[i] += other.bins[i];
+    }
+    points_pushed += other.points_pushed;
+}
+
 void Histogram::save(std::string &filename) {
     std::ofstream outfile(filename);
     double width = (max - min) / bins.size();

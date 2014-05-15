@@ -27,14 +27,7 @@ int main(int argc, char **argv) {
 
     MetropolisDriver m_driver {settings};
 
-    BootstrapPool pool {m_driver, settings.iterations};
-    ResultSet results {pool, settings};
-
-    std::cout << "Printing results …" << std::endl;
-    results.print_results();
-    results.save_correlations(settings.generate_filename("correlations.csv"));
-
-    std::cout << "Exiting …" << std::endl;
+    BootstrapPool pool {m_driver, settings.iterations, settings.position_hist_bins};
 
     return 0;
 }

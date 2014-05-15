@@ -20,7 +20,7 @@ class Settings {
 
           Number of division of the time lattice.
           */
-        size_t time_sites {1000};
+        unsigned time_sites {1000};
 
         /**
           @f$ M_0 @f$ in [CF80].
@@ -60,50 +60,50 @@ class Settings {
         /**
           @f$ N_t @f$ in [CF80].
           */
-        int pre_iterations {50};
+        unsigned pre_iterations {50};
 
         /**
           Just like \ref rounds, but for the equilibrium phase.
           */
-        int pre_rounds {5};
+        unsigned pre_rounds {5};
 
         /**
           @f$ N_E @f$ in [CF80].
           */
-        size_t iterations {300};
+        unsigned iterations {300};
 
         /**
           @f$ \bar n @f$ in [CF80].
           */
-        int rounds {5};
+        unsigned rounds {5};
 
         /**
           Monte Carlo iterations between measurements.
           */
-        int iterations_between {2};
+        unsigned iterations_between {2};
 
         /**
           Seed for the random generator that generates new positions.
           */
-        int position_seed {0};
+        unsigned position_seed {0};
 
         /**
           Seed for the random generator that is used to decide whether new
           positions should be accepted.
           */
-        int accept_seed {0};
+        unsigned accept_seed {0};
 
-        size_t bootstrap_samples {1000};
+        unsigned bootstrap_samples {1000};
 
         /**
           Number of bins for the position histogram.
           */
-        size_t position_hist_bins {40};
+        unsigned position_hist_bins {40};
 
         /**
           Number of bins for the action histogram.
           */
-        size_t action_hist_bins {100};
+        unsigned action_hist_bins {100};
 
         /**
           Generates a filename that contains the most important parameters.

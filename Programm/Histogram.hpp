@@ -10,15 +10,21 @@ class Histogram {
     public:
         Histogram(double min, double max, size_t bins);
 
-        /**
-          Saves the current histogram to the given file.
-          */
-        void save(std::string filename);
+        Histogram &operator+=(Histogram &other);
 
         /**
           Push a new value into the histogram.
           **/
         void operator()(double value);
+
+        double operator[](size_t i) {
+            return static_cast<double>(bins[i]) / points_pushed;
+        }
+
+        /**
+          Saves the current histogram to the given file.
+          */
+        void save(std::string filename);
 
         /**
           Writes the current histogram into the given stream.
@@ -35,12 +41,8 @@ class Histogram {
             return max;
         }
 
-        double size() {
+        unsigned size() {
             return bins.size();
-        }
-
-        double operator[](size_t i) {
-            return static_cast<double>(bins[i]) / points_pushed;
         }
 
     protected:

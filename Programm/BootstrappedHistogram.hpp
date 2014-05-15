@@ -4,7 +4,7 @@
 #pragma once
 
 #include "BootstrappedQuantity.hpp"
-#include "FixedHistogram.hpp"
+#include "Histogram.hpp"
 
 class BootstrappedHistogram {
     public:
@@ -12,7 +12,7 @@ class BootstrappedHistogram {
 
         void write_histogram(std::ostream &outfile);
 
-        void insert_histogram(FixedHistogram &hist);
+        void insert_histogram(Histogram &hist);
 
         size_t bin_count() {
             return bins.size();

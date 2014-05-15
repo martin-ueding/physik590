@@ -76,12 +76,12 @@ class Oscillator {
         /**
           Time step @f$ a @f$.
           */
-        double time_step = 1.0;
+        double time_step;
 
         /**
           Mass @f$ m @f$.
           */
-        double mass = 1.0;
+        double mass;
 
     protected:
         /**
