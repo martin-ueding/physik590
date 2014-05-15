@@ -1,10 +1,6 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-/**
-  @file
-  */
-
 #include "BootstrapPool.hpp"
 #include "MetropolisDriver.hpp"
 #include "parse_arguments.hpp"
@@ -12,7 +8,6 @@
 #include "Settings.hpp"
 
 #include <iostream>
-
 
 /**
   Entry point for the metropolis program.
