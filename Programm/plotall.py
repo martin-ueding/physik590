@@ -15,7 +15,7 @@ import datetime
 def main():
     options = _parse_args()
 
-    runs = glob.glob('out/*/')
+    runs = sorted(glob.glob('out/*/'))
 
     for run in runs:
         print('Run:', run)
@@ -52,8 +52,13 @@ def plot_correlations(run, pattern):
 
         popt, pconv = op.curve_fit(decay, t[:cutoff], corr_val[:cutoff], sigma=corr_err[:cutoff])
 
-        print('popt:', popt)
-        print(pconv)
+        #print('popt:', popt)
+        #print(pconv)
+
+        E1_val = popt[0]
+        E1_err = np.sqrt(pconv.diagonal()[0])
+
+        print('E1 = {} +- {}'.format(E1_val, E1_err))
 
         x = np.linspace(np.min(t[:cutoff2]), np.max(t[:cutoff2]), 100)
         y = decay(x, *popt)
@@ -68,14 +73,6 @@ def plot_correlations(run, pattern):
         #pl.yscale('log')
         pl.savefig(filename.replace('.csv', '.pdf'))
         pl.clf()
-
-        for offset in [1, 2, 3]:
-            quotient = corr_val[offset:] / corr_val[:-offset]
-            log = np.log(abs(quotient))
-            E1 = - log / offset + 0.5
-            print('E1:', E1)
-
-            print()
 
 def needs_plotting(filename):
     csv_time = datetime.datetime.fromtimestamp(os.path.getmtime(filename))
