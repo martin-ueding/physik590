@@ -1,30 +1,13 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#include "ListQuantity.hpp"
+#include "VectorHelper.hpp"
 
 #include <fstream>
 #include <functional>
-#include <iostream>
 
-//ListQuantity::ListQuantity() { }
 
-ListQuantity::ListQuantity(size_t sites) : list(std::vector<double>(sites)) {
-}
-
-void ListQuantity::print() {
-    for (double & x_j : list) {
-        std::cout << x_j << std::endl;
-    }
-}
-
-void ListQuantity::binning_snapshot(Histogram &histogram) {
-    for (unsigned int i = 0; i < list.size(); i++) {
-        histogram.push(list[i]);
-    }
-}
-
-void ListQuantity::save_plot_file(std::string filename, std::string preamble) {
+void ListQuantity::save_plot_file(std::vector<double> &list, std::string filename, std::string preamble) {
     std::ofstream outfile(filename);
     outfile << preamble;
     outfile << "# j \t x_j" << std::endl;
@@ -34,7 +17,7 @@ void ListQuantity::save_plot_file(std::string filename, std::string preamble) {
     outfile.close();
 }
 
-void ListQuantity::set_to_random(double bound) {
+void ListQuantity::set_to_random(std::vector<double> &list, double bound) {
     std::uniform_real_distribution<double> distribution(-bound, bound);
     auto generator = std::bind(distribution, mt_engine);
 

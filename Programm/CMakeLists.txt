@@ -27,7 +27,6 @@ add_executable(metropolis
     HarmonicOscillator.cpp
     Histogram.cpp
     HistogramComputable.cpp
-    ListQuantity.cpp
     MetropolisAlgorithm.cpp
     MetropolisDriver.cpp
     Moment.cpp
@@ -40,6 +39,7 @@ add_executable(metropolis
     SizePrinter.cpp
     System.cpp
     Trajectory.cpp
+    VectorHelper.cpp
     VectorHistogram.cpp
 
     )
