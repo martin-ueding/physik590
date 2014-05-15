@@ -8,22 +8,23 @@
 #include <cmath>
 #include <iostream>
 
-boost::numeric::ublas::matrix Correlation::correlation(std::vector<double> &x, unsigned size, unsigned distance) {
+boost::numeric::ublas::matrix Correlation::correlation(std::vector<double> &x,
+        const unsigned size, const unsigned distance, const bool even) {
     boost::numeric::ublas::matrix<double> c {size, size};
 
     std::cout << c(0, 0) << std::endl;
     c.clear();
     std::cout << c(0, 0) << std::endl;
 
-    for (unsigned i {0}; i < c.size1; ++i) {
-        for (unsigned j {0}; j < c.size2; ++j) {
-            for (unsigned k {0}; k < x.size(); ++i) {
-                c(i, j) += x[k] * x[Periodic::wrap(k + distance, x.size())];
+    for (unsigned i {even ? 0 : 1}; i < c.size1; i += 2) {
+        for (unsigned j {even ? 0 : 1}; j < c.size2; j += 2) {
+            for (unsigned k {0}; k < x.size(); ++k) {
+                c(i, j) += std::pow(x[k], i) * std::pow(x[Periodic::wrap(k + distance, x.size())], j);
             }
         }
     }
 
-    // Normalize the elemnts 
+    // Normalize the elements.
     c /= x.size();
 
     return c;

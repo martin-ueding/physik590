@@ -3,7 +3,10 @@
 
 #pragma once
 
+#include "Histogram.hpp"
 #include "MetropolisDriver.hpp"
+
+#include <boost/numeric/ublas/matrix.hpp>
 
 #include <vector>
 
@@ -31,4 +34,9 @@ class BootstrapPool {
           The original trajectories.
           */
         std::vector<std::vector<double>> trajectories;
+
+        std::vector<boost::numeric::ublas::matrix<double>> even;
+        std::vector<boost::numeric::ublas::matrix<double>> odd;
+
+        std::vector<Histogram> histograms;
 };

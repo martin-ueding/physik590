@@ -15,6 +15,8 @@ class Correlation {
           @param[in] x Trajectory
           @param[in] size Size of the matrix
           @param[in] distance Distance to calculate
+          @param[in] even Calculate the even elements.
           */
-        boost::numeric::ublas::matrix correlation(std::vector<double> &x, unsigned size, unsigned distance);
+        boost::numeric::ublas::matrix correlation(std::vector<double> &x, const
+                unsigned size, const unsigned distance, const bool even);
 };
