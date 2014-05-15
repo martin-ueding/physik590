@@ -3,7 +3,7 @@
 
 #include "BootstrappedHistogram.hpp"
 
-#include <ostream>
+#include <fstream>
 
 BootstrappedHistogram::BootstrappedHistogram(double min, double max, size_t bins)
     :
@@ -11,7 +11,8 @@ BootstrappedHistogram::BootstrappedHistogram(double min, double max, size_t bins
 bins {std::vector<BootstrappedQuantity>(bins)} {
 }
 
-void BootstrappedHistogram::write_histogram(std::ostream &outfile) {
+void BootstrappedHistogram::write_histogram(std::string filename) {
+    std::ofstream outfile {filename};
     double width = (max - min) / bins.size();
 
     for (size_t i = 0; i < bins.size(); i++) {

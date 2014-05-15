@@ -10,7 +10,7 @@ class BootstrappedHistogram {
     public:
         BootstrappedHistogram(double min, double max, size_t bins);
 
-        void write_histogram(std::ostream &outfile);
+        void write_histogram(std::string filename);
 
         void insert_histogram(Histogram &hist);
 
