@@ -5,8 +5,8 @@
 
 #include "BootstrapPool.hpp"
 
-#include <vector>
 #include <random>
+#include <vector>
 
 class BootstrapSample {
     public:
@@ -16,18 +16,17 @@ class BootstrapSample {
         BootstrapSample(BootstrapPool &pool, std::mt19937 &engine);
 
         /**
-          Container with pointers to the trajectory in the pool.
-
-          This assumes that the pool lives longer than the samples.
-          Trajectories do not have to be copied, this should save a lot of
-          memory.
+          Combined correlation matrix function from all the summands.
           */
-        std::vector<size_t> indices;
+        std::map<unsigned, boost::numeric::ublas::matrix<double>> even;
 
-        ListQuantity &operator[](size_t i);
+        /**
+          Similar to \ref even.
+          */
+        std::map<unsigned, boost::numeric::ublas::matrix<double>> odd;
 
-        size_t size();
-
-    private:
-        BootstrapPool &pool;
+        /**
+          Histogram combined from all the summand histograms.
+          */
+        Histogram histogram;
 };
