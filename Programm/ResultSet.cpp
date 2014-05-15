@@ -20,7 +20,7 @@ settings{settings},
     computables.emplace_back(new Moment {1});
     computables.emplace_back(new Moment {2});
 
-    for (int i = 0; i < 30; i++) {
+    for (unsigned i = 0; i < settings.time_sites/2; i++) {
         add_correlation(i);
     }
 
