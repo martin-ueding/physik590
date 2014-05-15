@@ -23,7 +23,6 @@ add_executable(metropolis
     Computable.cpp
     ConcurrentCounter.cpp
     Correlation.cpp
-    FixedHistogram.cpp
     Histogram.cpp
     HistogramComputable.cpp
     MetropolisAlgorithm.cpp
@@ -35,10 +34,7 @@ add_executable(metropolis
     ProgressBar.cpp
     ResultSet.cpp
     Settings.cpp
-    SizePrinter.cpp
-    Trajectory.cpp
     VectorHelper.cpp
-    VectorHistogram.cpp
 
     )
 target_link_libraries(metropolis boost_program_options)
@@ -46,16 +42,3 @@ target_link_libraries(metropolis boost_system)
 target_link_libraries(metropolis boost_filesystem)
 target_link_libraries (metropolis ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(metropolis crypto++)
-
-add_executable(test-metropolis EXCLUDE_FROM_ALL
-    main-metropolis-test.cpp
-
-    HarmonicOscillator.cpp
-    HarmonicOscillatorTest.cpp
-    MetropolisAlgorithm.cpp
-    MetropolisAlgorithmTest.cpp
-    Periodic.cpp
-    PeriodicTest.cpp
-    System.cpp
-    )
-target_link_libraries(test-metropolis cppunit)

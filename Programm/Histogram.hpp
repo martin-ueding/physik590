@@ -4,13 +4,11 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 class Histogram {
     public:
-        /**
-          Prints the current histogram contents to the standard output.
-          */
-        void print();
+        FixedHistogram(double min, double max, size_t bins);
 
         /**
           Saves the current histogram to the given file.
@@ -18,19 +16,42 @@ class Histogram {
         void save(std::string filename);
 
         /**
-          Maximum size for a single histogram.
-          */
-        const size_t MAX_CACHE_ENTRIES = 1024L * 1024 * 1024 / sizeof(double);
-
-        /**
           Push a new value into the histogram.
           **/
-        virtual void push(double value) = 0;
+        void operator()(double value);
 
         /**
           Writes the current histogram into the given stream.
 
           @param outfile Stream to write to
           */
-        virtual void write_histogram(std::ostream &outfile) = 0;
+        void write_histogram(std::ostream &outfile);
+
+        void push(double value);
+
+        void write_histogram(std::ostream &outfile);
+
+        double get_min() {
+            return min;
+        }
+
+        double get_max() {
+            return max;
+        }
+
+        double size() {
+            return bins.size();
+        }
+
+        double operator[](size_t i) {
+            return static_cast<double>(bins[i]) / points_pushed;
+        }
+
+    protected:
+        double min;
+        double max;
+        std::vector<int> bins;
+        int points_pushed {0};
+
+        size_t map_bin(double value);
 };
