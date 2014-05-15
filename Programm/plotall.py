@@ -26,7 +26,7 @@ def main():
         plot_with(auto_plot_trajectory, 'trajectory-*.csv', run, plotted)
         plot_with(auto_plot_histogram, 'histogram-*.csv', run, plotted)
 
-        plot_correlations(run, 'correlations.csv')
+        plot_correlations(run, '*-correlations.csv')
 
 def plot_with(function, pattern, run, plotted):
     for csv_file in glob.glob(os.path.join(run, pattern)):
@@ -40,34 +40,42 @@ def plot_with(function, pattern, run, plotted):
 def decay(x, tau, ampl):
     return ampl * np.exp(-x / tau)
 
-def plot_correlations(run, filename):
-    data = np.loadtxt(os.path.join(run, filename))
-    t = data[:, 0] * 0.1
-    corr_val = data[:, 1]
-    corr_err = data[:, 2]
+def plot_correlations(run, pattern):
+    for filename in glob.glob(os.path.join(run, pattern)):
+        data = np.loadtxt(filename)
+        t = data[:, 0] * 0.1
+        corr_val = data[:, 1]
+        corr_err = data[:, 2]
 
-    popt, pconv = op.curve_fit(decay, t[:10], corr_val[:10], sigma=corr_err[:10])
+        cutoff = 40
+        cutoff2 = cutoff * 2.5
 
-    print('popt:', popt)
-    print(pconv)
+        popt, pconv = op.curve_fit(decay, t[:cutoff], corr_val[:cutoff], sigma=corr_err[:cutoff])
 
-    x = np.linspace(np.min(t), np.max(t), 100)
-    y = decay(x, *popt)
+        print('popt:', popt)
+        print(pconv)
 
-    pl.clf()
-    pl.errorbar(t, corr_val, yerr=corr_err)
-    pl.plot(x, y)
-    pl.yscale('log')
-    pl.savefig(os.path.join(run, 'correlations.pdf'))
-    pl.clf()
+        x = np.linspace(np.min(t[:cutoff2]), np.max(t[:cutoff2]), 100)
+        y = decay(x, *popt)
 
-    for offset in [1, 2, 3]:
-        quotient = corr_val[offset:] / corr_val[:-offset]
-        log = np.log(abs(quotient))
-        E1 = - log / offset + 0.5
-        print('E1:', E1)
+        pl.clf()
+        pl.errorbar(t[:cutoff2], corr_val[:cutoff2], yerr=corr_err[:cutoff2])
+        pl.plot(x, y)
+        pl.grid(True)
+        pl.title('Korrelationen')
+        pl.xlabel(r'$\Delta\tau$')
+        pl.ylabel(r'$\langle x(\tau) x(\tau + \Delta \tau) \rangle$')
+        #pl.yscale('log')
+        pl.savefig(filename.replace('.csv', '.pdf'))
+        pl.clf()
 
-        print()
+        for offset in [1, 2, 3]:
+            quotient = corr_val[offset:] / corr_val[:-offset]
+            log = np.log(abs(quotient))
+            E1 = - log / offset + 0.5
+            print('E1:', E1)
+
+            print()
 
 def needs_plotting(filename):
     csv_time = datetime.datetime.fromtimestamp(os.path.getmtime(filename))
