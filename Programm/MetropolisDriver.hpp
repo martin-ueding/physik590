@@ -3,13 +3,12 @@
 
 #pragma once
 
-#include "AnharmonicOscillator.hpp"
-#include "HarmonicOscillator.hpp"
-#include "ListQuantity.hpp"
-#include "ListQuantity.hpp"
+#include "Oscillator.hpp"
 #include "MetropolisAlgorithm.hpp"
 #include "Settings.hpp"
 #include "VectorHistogram.hpp"
+
+#include <vector>
 
 /**
   Driver for the MetropolisAlgorithm.
@@ -30,11 +29,11 @@ class MetropolisDriver {
           */
         MetropolisDriver(Settings settings);
 
-        ListQuantity next();
+        std::vector<double> next();
 
     protected:
         Settings settings;
-        AnharmonicOscillator system;
-        ListQuantity trajectory;
+        Oscillator system;
+        std::vector<double> x;
         MetropolisAlgorithm ma;
 };

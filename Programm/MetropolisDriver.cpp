@@ -3,36 +3,37 @@
 
 #include "MetropolisDriver.hpp"
 
+#include "VectorHelper.hpp"
+
 MetropolisDriver::MetropolisDriver(Settings settings) :
         settings(settings),
-        // system(HarmonicOscillator {settings.time_step, settings.mass, settings.mu_squared}),
-        system(AnharmonicOscillator {settings.time_step, settings.mass,
+        system(Oscillator {settings.time_step, settings.mass,
                 settings.mu_squared, settings.gauss_height,
                 settings.gauss_width
                 }),
-        trajectory {ListQuantity {settings.time_sites}},
+        x {std::vector<double>(settings.time_sites)},
         ma(MetropolisAlgorithm {trajectory, system, settings.position_seed, settings.accept_seed}) {
 
     system.export_potential(settings.generate_filename("potential.csv"), settings.report());
 
-    trajectory.save_plot_file(settings.generate_filename("trajectory-01-init.csv"), settings.report());
+    VectorHelper vh;
 
-    trajectory.set_to_random(settings.initial_random_width);
-    trajectory.save_plot_file(settings.generate_filename("trajectory-02-random.csv"), settings.report());
+    vh.save_plot_file(x, settings.generate_filename("trajectory-01-init.csv"), settings.report());
+
+    vh.set_to_random(x, settings.initial_random_width);
+    vh.save_plot_file(x, settings.generate_filename("trajectory-02-random.csv"), settings.report());
 
     for (int i = 0; i < settings.pre_iterations - settings.iterations_between; i++) {
         ma.iteration(settings.pre_rounds, settings.margin);
     }
-    trajectory.save_plot_file(settings.generate_filename("trajectory-04-more_iterations.csv"), settings.report());
+    vh.save_plot_file(x, settings.generate_filename("trajectory-04-more_iterations.csv"), settings.report());
 }
 
-ListQuantity MetropolisDriver::next() {
-    //ma.reset_accept_rate();
-
+std::vector<double> MetropolisDriver::next() {
     for (int j = 0; j < settings.iterations_between; j++) {
         ma.iteration(settings.rounds, settings.margin);
     }
     ma.iteration(settings.rounds, settings.margin);
 
-    return ListQuantity {trajectory};
+    return x;
 }
