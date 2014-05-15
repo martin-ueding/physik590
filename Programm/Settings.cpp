@@ -34,6 +34,7 @@ std::string Settings::report() {
     std::ostringstream oss;
 
     oss << prefix << "This run has the following parameters:" << std::endl;
+    oss << prefix << "Algorithm version" << colon << algorithm_version << std::endl;
     oss << prefix << "time sites" << colon << time_sites << std::endl;
     oss << prefix << "mass" << colon << mass << std::endl;
     oss << prefix << "time step" << colon << time_step << std::endl;
