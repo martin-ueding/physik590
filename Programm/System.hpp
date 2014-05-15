@@ -13,15 +13,19 @@
   All that is needed is an potential() function that will give a potential
   energy.
   */
-class System {
+class Oscillator {
     public:
         /**
-          Creates a new one particle system.
+          Creates a new anharmonic oscillator.
+
+          The first two parameters are passed off to the System constructor.
 
           @param time_step Time lattice spacing @f$ a @f$
           @param mass Mass @f$ m @f$
+          @param mu_squared Spring constant @f$ \mu^2 @f$
           */
-        System(double time_step, double mass);
+        AnharmonicOscillator(double time_step, double mass, double mu_squared,
+                             double gauss_height, double gauss_width);
 
         /**
           Computes the total action for the given trajectory.
@@ -62,7 +66,7 @@ class System {
 
           @param x Position @f$ x @f$
           */
-        virtual double potential(double x) = 0;
+        double potential(double x);
 
         /**
           Exports a X-Y-file for the potential.
@@ -78,4 +82,16 @@ class System {
           Mass @f$ m @f$.
           */
         double mass = 1.0;
+
+    protected:
+        /**
+          Sping constant @f$ k @f$ or @f$ \mu^2 @f$.
+          */
+        double mu_squared;
+
+        double gauss_height;
+        double gauss_width;
+
+    private:
+        double gauss_width_squared;
 };

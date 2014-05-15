@@ -1,17 +1,23 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#include "System.hpp"
+#include "Oscillator.hpp"
 
 #include <cstddef>
 #include <fstream>
 #include <iostream>
+#include <cmath>
 
-System::System(double time_step, double mass)
-    : time_step(time_step), mass(mass) {
+Oscillator::Oscillator(double time_step, double mass,
+        double mu_squared, double gauss_height, double gauss_width) :
+        Oscillator {time_step, mass},
+        mu_squared {mu_squared},
+        gauss_height {gauss_height},
+        gauss_width {gauss_width},
+        gauss_width_squared {gauss_width * gauss_width} {
 }
 
-double System::action(std::vector<double> &x) {
+double Oscillator::action(std::vector<double> &x) {
     double sum {0.0};
 
     for (size_t i {0}; i < x.size() - 1; i++) {
@@ -21,7 +27,7 @@ double System::action(std::vector<double> &x) {
     return sum;
 }
 
-double System::action_difference(double prev, double cur, double alt,
+double Oscillator::action_difference(double prev, double cur, double alt,
                                  double next) {
     double action_cur {action_step(prev, cur) + action_step(cur, next)};
     double action_alt {action_step(prev, alt) + action_step(alt, next)};
@@ -29,7 +35,7 @@ double System::action_difference(double prev, double cur, double alt,
     return action_alt - action_cur;
 }
 
-double System::action_step(double cur, double next) {
+double Oscillator::action_step(double cur, double next) {
     double difference {next - cur};
     double kinetic_part {
         0.5 * mass *(difference * difference) / (time_step * time_step)
@@ -38,7 +44,7 @@ double System::action_step(double cur, double next) {
     return time_step * (kinetic_part + potential_part);
 }
 
-void System::export_potential(std::string filename, std::string preamble) {
+void Oscillator::export_potential(std::string filename, std::string preamble) {
     std::ofstream handle {filename};
     handle << preamble;
     int steps = 1000;
@@ -47,4 +53,9 @@ void System::export_potential(std::string filename, std::string preamble) {
     for (double x {-bound}; x <= bound; x += step) {
         handle << x << "\t" << potential(x) << std::endl;
     }
+}
+
+double Oscillator::potential(double x) {
+    return 0.5 * mu_squared * x * x
+           + gauss_height * std::exp(-x * x / gauss_width_squared);
 }

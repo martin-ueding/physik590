@@ -15,7 +15,7 @@ find_package(Threads)
 add_executable(metropolis
     main-metropolis.cpp
 
-    AnharmonicOscillator.cpp
+    Oscillator.cpp
     BootstrappedHistogram.cpp
     BootstrappedQuantity.cpp
     BootstrapPool.cpp
@@ -36,7 +36,6 @@ add_executable(metropolis
     ResultSet.cpp
     Settings.cpp
     SizePrinter.cpp
-    System.cpp
     Trajectory.cpp
     VectorHelper.cpp
     VectorHistogram.cpp
