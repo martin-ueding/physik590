@@ -20,7 +20,7 @@ settings{settings},
     computables.emplace_back(new Moment {1});
     computables.emplace_back(new Moment {2});
 
-    for (unsigned i = 0; i < settings.time_sites/2; i++) {
+    for (unsigned i = 0; i < settings.time_sites/2; i += std::min(1u, i / 20)) {
         add_correlation(i);
     }
 
