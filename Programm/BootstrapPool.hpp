@@ -53,4 +53,6 @@ class BootstrapPool {
         std::vector<CorrFunc> odd;
 
         std::vector<Histogram> histograms;
+
+        std::mt19937 engine;
 };

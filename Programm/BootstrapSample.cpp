@@ -3,7 +3,8 @@
 
 #include "BootstrapSample.hpp"
 
-BootstrapSample::BootstrapSample(BootstrapPool &pool, std::mt19937 &engine) :
+
+BootstrapSample::BootstrapSample(BootstrapPool &pool) :
     histogram {pool.histograms[0].get_min(), pool.histograms[0].get_max(), pool.histograms[0].size()} {
     for (auto &p : pool.even[0]) {
         boost::numeric::ublas::matrix<double> m {p.second.size1(), p.second.size2()};
@@ -20,7 +21,7 @@ BootstrapSample::BootstrapSample(BootstrapPool &pool, std::mt19937 &engine) :
     std::uniform_int_distribution<size_t> dist {0, pool.size() - 1};
 
     for (unsigned index_id {0}; index_id < pool.size(); index_id++) {
-        unsigned i = dist(engine);
+        unsigned i = dist(pool.engine);
 
         auto &even_element = pool.even[i];
         for (auto &p : even_element) {
@@ -33,5 +34,6 @@ BootstrapSample::BootstrapSample(BootstrapPool &pool, std::mt19937 &engine) :
         }
 
         histogram += pool.histograms[i];
+
     }
 }

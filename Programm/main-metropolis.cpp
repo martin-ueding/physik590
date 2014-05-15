@@ -6,6 +6,7 @@
 #include "parse_arguments.hpp"
 #include "ResultSet.hpp"
 #include "Settings.hpp"
+#include "ProgressBar.hpp"
 
 #include <iostream>
 
@@ -28,6 +29,13 @@ int main(int argc, char **argv) {
     MetropolisDriver m_driver {settings};
 
     BootstrapPool pool {m_driver, settings.iterations, settings.position_hist_bins};
+
+    ProgressBar sample_bar {"Creating bootstrap samples", settings.bootstrap_samples};
+    for (unsigned sample_id {0u}; sample_id < settings.bootstrap_samples; sample_id++) {
+        BootstrapSample sample {pool};
+        sample_bar.update(sample_id);
+    }
+    sample_bar.close();
 
     return 0;
 }

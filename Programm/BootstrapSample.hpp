@@ -13,7 +13,7 @@ class BootstrapSample {
         /**
           Creates a a new sample from the given pool.
           */
-        BootstrapSample(BootstrapPool &pool, std::mt19937 &engine);
+        BootstrapSample(BootstrapPool &pool);
 
         /**
           Combined correlation matrix function from all the summands.
