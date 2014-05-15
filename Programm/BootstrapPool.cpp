@@ -6,6 +6,7 @@
 #include "ProgressBar.hpp"
 
 BootstrapPool::BootstrapPool(MetropolisDriver &driver, unsigned iterations) {
+    // Fill pool with trajectories.
     ProgressBar bar {"Populating bootstrap pool", iterations};
     for (unsigned i {0}; i < iterations; ++i) {
         trajectories.push_back(driver.next());
@@ -13,9 +14,10 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, unsigned iterations) {
     }
     bar.close();
 
+    // Compute correlations.
     unsigned correlation_size {10};
 
-    ProgressBar bar {"Calculating corrleation matrices", iterations};
+    ProgressBar bar {"Computing correlation matrices", trajectories.size()};
     for (unsigned t_id {0}; t_id < trajectories.size(); t_id++) {
         std::map<unsigned, boost::numeric::ublas::matrix> map_even;
         std::map<unsigned, boost::numeric::ublas::matrix> map_odd;
@@ -25,6 +27,23 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, unsigned iterations) {
         }
         even.append(std::move(map_even));
         odd.append(std::move(map_odd));
+
+        bar.update(t_id);
     }
-    bar.close()
+    bar.close();
+
+    // Compute histograms.
+    ProgressBar bar {"Computing histograms", iterations};
+    for (unsigned t_id {0}; t_id < trajectories.size(); t_id++) {
+        Histogram h {-5, 5, settings.position_hist_bins};
+
+        for (auto x_j : trajectories[t_id]) {
+            h(x_j);
+        }
+
+        histograms.push_back(h);
+
+        bar.update(t_id);
+    }
+    bar.close();
 }
