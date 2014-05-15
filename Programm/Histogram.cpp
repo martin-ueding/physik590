@@ -21,11 +21,13 @@ void Histogram::operator()(double value) {
     }
 }
 
-Histogram Histogram::&operator+=(Histogram &other) {
+Histogram &Histogram::operator+=(Histogram &other) {
     for (unsigned i {0}; i < bins.size(); i++) {
         bins[i] += other.bins[i];
     }
     points_pushed += other.points_pushed;
+
+    return *this;
 }
 
 void Histogram::save(std::string &filename) {

@@ -27,7 +27,6 @@ add_executable(metropolis
     HistogramComputable.cpp
     MetropolisAlgorithm.cpp
     MetropolisDriver.cpp
-    Moment.cpp
     parse_arguments.cpp
     Periodic.cpp
     PositionDensity.cpp

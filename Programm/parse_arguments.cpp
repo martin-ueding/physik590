@@ -18,7 +18,7 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
     };
     oszillator_options.add_options()
     ("time-bins,t",
-     boost::program_options::value<size_t>(&settings.time_sites)->default_value(settings.time_sites),
+     boost::program_options::value<unsigned>(&settings.time_sites)->default_value(settings.time_sites),
      "Number of sites in the time lattice")
     ("mass,m",
      boost::program_options::value<double>(&settings.mass)->default_value(settings.mass),
@@ -49,10 +49,10 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
      boost::program_options::value<double>(&settings.margin)->default_value(settings.margin),
      "Random margin, Δ")
     ("pre-iterations",
-     boost::program_options::value<int>(&settings.pre_iterations)->default_value(settings.pre_iterations),
+     boost::program_options::value<unsigned>(&settings.pre_iterations)->default_value(settings.pre_iterations),
      "Iterations to relax the system")
     ("pre-rounds",
-     boost::program_options::value<int>(&settings.pre_rounds)->default_value(settings.pre_rounds),
+     boost::program_options::value<unsigned>(&settings.pre_rounds)->default_value(settings.pre_rounds),
      "Rounds for a single x_j during relaxation")
     ;
     options.add(init_options);
@@ -62,13 +62,13 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
     };
     iter_options.add_options()
     ("iterations,i",
-     boost::program_options::value<size_t>(&settings.iterations)->default_value(settings.iterations),
+     boost::program_options::value<unsigned>(&settings.iterations)->default_value(settings.iterations),
      "Iterations for the histogram")
     ("rounds,r",
-     boost::program_options::value<int>(&settings.rounds)->default_value(settings.rounds),
+     boost::program_options::value<unsigned>(&settings.rounds)->default_value(settings.rounds),
      "Rounds for a single x_j")
     ("iterations-between",
-     boost::program_options::value<int>(&settings.iterations_between)->default_value(settings.iterations_between),
+     boost::program_options::value<unsigned>(&settings.iterations_between)->default_value(settings.iterations_between),
      "Extra iterations between measurements")
     ("position-seed,s",
      boost::program_options::value<int>(&settings.position_seed)->default_value(settings.position_seed),
@@ -77,7 +77,7 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
      boost::program_options::value<int>(&settings.accept_seed)->default_value(settings.accept_seed),
      "Seed for the random number generator used for accepting new positions")
     ("samples",
-     boost::program_options::value<size_t>(&settings.bootstrap_samples)->default_value(settings.bootstrap_samples),
+     boost::program_options::value<unsigned>(&settings.bootstrap_samples)->default_value(settings.bootstrap_samples),
      "Number of bootstrap samples to generate")
     ;
     options.add(iter_options);
@@ -87,10 +87,10 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
     };
     hist_options.add_options()
     ("position-hist-bins,b",
-     boost::program_options::value<size_t>(&settings.position_hist_bins)->default_value(settings.position_hist_bins),
+     boost::program_options::value<unsigned>(&settings.position_hist_bins)->default_value(settings.position_hist_bins),
      "Number of bins in the position histogram")
     ("action-hist-bins",
-     boost::program_options::value<size_t>(&settings.action_hist_bins)->default_value(settings.action_hist_bins),
+     boost::program_options::value<unsigned>(&settings.action_hist_bins)->default_value(settings.action_hist_bins),
      "Number of bins in the action histogram")
     ;
     options.add(hist_options);

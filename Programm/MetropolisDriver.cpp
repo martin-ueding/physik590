@@ -12,7 +12,7 @@ MetropolisDriver::MetropolisDriver(Settings settings) :
            settings.gauss_width
 }),
 x {std::vector<double>(settings.time_sites)},
-ma(MetropolisAlgorithm {trajectory, system, settings.position_seed, settings.accept_seed}) {
+ma(MetropolisAlgorithm {x, system, settings.position_seed, settings.accept_seed}) {
 
     system.export_potential(settings.generate_filename("potential.csv"), settings.report());
 
@@ -23,14 +23,14 @@ ma(MetropolisAlgorithm {trajectory, system, settings.position_seed, settings.acc
     vh.set_to_random(x, settings.initial_random_width);
     vh.save_plot_file(x, settings.generate_filename("trajectory-02-random.csv"), settings.report());
 
-    for (int i = 0; i < settings.pre_iterations - settings.iterations_between; i++) {
+    for (unsigned i = 0; i < settings.pre_iterations - settings.iterations_between; i++) {
         ma.iteration(settings.pre_rounds, settings.margin);
     }
     vh.save_plot_file(x, settings.generate_filename("trajectory-04-more_iterations.csv"), settings.report());
 }
 
 std::vector<double> MetropolisDriver::next() {
-    for (int j = 0; j < settings.iterations_between; j++) {
+    for (unsigned j = 0; j < settings.iterations_between; j++) {
         ma.iteration(settings.rounds, settings.margin);
     }
     ma.iteration(settings.rounds, settings.margin);

@@ -16,8 +16,6 @@ ResultSet::ResultSet(BootstrapPool &pool, Settings &settings) :
      bootstrap_sample_count {settings.bootstrap_samples},
      settings {settings},
 bar {ProgressBar{"Creating samples", settings.bootstrap_samples}} {
-    computables.emplace_back(new Moment {1});
-    computables.emplace_back(new Moment {2});
 
     for (unsigned i = 0; i < settings.time_sites / 2; i += i / 5 + 1) {
         add_correlation(i);

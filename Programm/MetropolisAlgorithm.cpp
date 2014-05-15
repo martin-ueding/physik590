@@ -9,7 +9,7 @@
 
 MetropolisAlgorithm::MetropolisAlgorithm(std::vector<double> &x, Oscillator &s,
         int position_seed, int accept_seed) :
-    x(trajectory), system(s),
+    x(x), system(s),
     position_engine(std::mt19937 {position_seed}),
 accept_engine(std::mt19937 {accept_seed}) {
 }
@@ -31,15 +31,15 @@ bool MetropolisAlgorithm::accept_action_difference(double action_difference) {
 }
 
 void MetropolisAlgorithm::iteration(int rounds, double margin) {
-    for (unsigned int j {0}; j < x.list.size(); j++) {
+    for (unsigned int j {0}; j < x.size(); j++) {
         // Wrap j around to create periodic boundary conditions.
-        unsigned int j_plus_one {Periodic::wrap(j + 1, x.list.size())};
-        unsigned int j_minus_one {Periodic::wrap(j - 1, x.list.size())};
+        unsigned int j_plus_one {Periodic::wrap(j + 1, x.size())};
+        unsigned int j_minus_one {Periodic::wrap(j - 1, x.size())};
 
         for (int round {0}; round < rounds; round++) {
             // Create a random number generator that will draw x_j' from a
             // normal distribution with mean = x_j and stddev = margin.
-            std::normal_distribution<double> distribution {x.list[j], margin};
+            std::normal_distribution<double> distribution {x[j], margin};
 
             // Generate a new random x_j'.
             double new_x {distribution(position_engine)};
@@ -47,12 +47,12 @@ void MetropolisAlgorithm::iteration(int rounds, double margin) {
             // Compute the difference in action (ΔS) that will result from the
             // exchange x_j → x_j'.
             double action_difference {
-                system.action_difference(x.list[j_minus_one], x.list[j], new_x,
-                x.list[j_plus_one])
+                system.action_difference(x[j_minus_one], x[j], new_x,
+                x[j_plus_one])
             };
 
             if (accept_action_difference(action_difference)) {
-                x.list[j] = new_x;
+                x[j] = new_x;
             }
         }
     }

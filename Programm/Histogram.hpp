@@ -24,14 +24,7 @@ class Histogram {
         /**
           Saves the current histogram to the given file.
           */
-        void save(std::string filename);
-
-        /**
-          Writes the current histogram into the given stream.
-
-          @param outfile Stream to write to
-          */
-        void write_histogram(std::ostream &outfile);
+        void save(std::string &filename);
 
         double get_min() {
             return min;

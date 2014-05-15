@@ -6,7 +6,6 @@
 #include "BootstrapPool.hpp"
 #include "ConcurrentCounter.hpp"
 #include "Correlation.hpp"
-#include "Moment.hpp"
 #include "PositionDensity.hpp"
 #include "ProgressBar.hpp"
 #include "ScalarComputable.hpp"

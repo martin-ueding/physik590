@@ -85,13 +85,13 @@ class Settings {
         /**
           Seed for the random generator that generates new positions.
           */
-        unsigned position_seed {0};
+        int position_seed {0};
 
         /**
           Seed for the random generator that is used to decide whether new
           positions should be accepted.
           */
-        unsigned accept_seed {0};
+        int accept_seed {0};
 
         unsigned bootstrap_samples {1000};
 
