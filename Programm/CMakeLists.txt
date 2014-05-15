@@ -24,7 +24,6 @@ add_executable(metropolis
     ConcurrentCounter.cpp
     Correlation.cpp
     FixedHistogram.cpp
-    HarmonicOscillator.cpp
     Histogram.cpp
     HistogramComputable.cpp
     MetropolisAlgorithm.cpp
