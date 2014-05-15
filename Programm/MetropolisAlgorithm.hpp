@@ -3,8 +3,7 @@
 
 #pragma once
 
-#include "System.hpp"
-#include "ListQuantity.hpp"
+#include "Oscillator.hpp"
 
 #include <random>
 #include <string>
@@ -25,8 +24,8 @@ class MetropolisAlgorithm {
           @param position_seed Seed for position generator
           @param accept_seed Seed for accept generator
           */
-        MetropolisAlgorithm(ListQuantity &trajectory, System &s, int
-                            position_seed, int accept_seed);
+        MetropolisAlgorithm(std::vector<double> &x, Oscillator &s,
+                            int position_seed, int accept_seed);
 
         /**
           Does a single iteration.
@@ -36,7 +35,7 @@ class MetropolisAlgorithm {
         /**
           Positions @f$ \{ x_j \} @f$.
           */
-        ListQuantity &x;
+        std::vector<double> &x;
 
         double get_accept_rate();
         double get_accept_rate_negative();
@@ -48,7 +47,7 @@ class MetropolisAlgorithm {
         /**
           System to work with.
           */
-        System &system;
+        Oscillator &system;
 
         /**
           Decides whether a new action should be accepted.
@@ -67,7 +66,7 @@ class MetropolisAlgorithm {
         std::mt19937 position_engine;
         std::mt19937 accept_engine;
 
-        unsigned int samples {0};
-        unsigned int accepted_negative {0};
-        unsigned int accepted_exponential {0};
+        unsigned samples {0};
+        unsigned accepted_negative {0};
+        unsigned accepted_exponential {0};
 };

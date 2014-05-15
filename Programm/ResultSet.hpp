@@ -38,6 +38,6 @@ class ResultSet {
         void compute_using_pool();
         void add_correlation(unsigned int distance);
         size_t bootstrap_sample_count;
-        Settings& settings;
+        Settings &settings;
         ProgressBar bar;
 };

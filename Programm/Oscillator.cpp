@@ -9,12 +9,12 @@
 #include <cmath>
 
 Oscillator::Oscillator(double time_step, double mass,
-        double mu_squared, double gauss_height, double gauss_width) :
-        Oscillator {time_step, mass},
-        mu_squared {mu_squared},
-        gauss_height {gauss_height},
-        gauss_width {gauss_width},
-        gauss_width_squared {gauss_width * gauss_width} {
+                       double mu_squared, double gauss_height, double gauss_width) :
+    Oscillator {time_step, mass},
+           mu_squared {mu_squared},
+           gauss_height {gauss_height},
+           gauss_width {gauss_width},
+gauss_width_squared {gauss_width * gauss_width} {
 }
 
 double Oscillator::action(std::vector<double> &x) {
@@ -28,7 +28,7 @@ double Oscillator::action(std::vector<double> &x) {
 }
 
 double Oscillator::action_difference(double prev, double cur, double alt,
-                                 double next) {
+                                     double next) {
     double action_cur {action_step(prev, cur) + action_step(cur, next)};
     double action_alt {action_step(prev, alt) + action_step(alt, next)};
 
@@ -50,7 +50,7 @@ void Oscillator::export_potential(std::string filename, std::string preamble) {
     int steps = 1000;
     double bound {5.0};
     double step {bound / 2 / steps};
-    for (double x {-bound}; x <= bound; x += step) {
+    for (double x { -bound}; x <= bound; x += step) {
         handle << x << "\t" << potential(x) << std::endl;
     }
 }

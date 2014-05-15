@@ -4,7 +4,6 @@
 #pragma once
 
 #include "BootstrapPool.hpp"
-#include "ListQuantity.hpp"
 
 #include <vector>
 #include <random>

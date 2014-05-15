@@ -5,10 +5,10 @@
 
 #include <iostream>
 
-ProgressBar::ProgressBar(std::string prefix, size_t max) : max{max} {
+ProgressBar::ProgressBar(std::string prefix, size_t max) : max {max} {
     step_size = max / max_steps;
     std::cout << prefix << std::endl;
-    
+
     std::cout << "[";
     for (int i = 0; i < max_steps; i++) {
         std::cout << "-";

@@ -9,6 +9,7 @@
 #include <boost/numeric/ublas/matrix.hpp>
 
 #include <vector>
+#include <map>
 
 /**
   The base set of trajectories that are used for bootstrapping later on.
@@ -21,7 +22,7 @@ class BootstrapPool {
           @param[in] driver Driver that generates trajectories
           @param[in] iterations Number of pool entries
           */
-        BootstrapPool(MetropolisDriver &driver, size_t iterations);
+        BootstrapPool(MetropolisDriver &driver, unsigned iterations);
 
         /**
           Gives the size of the pool.
@@ -35,8 +36,19 @@ class BootstrapPool {
           */
         std::vector<std::vector<double>> trajectories;
 
-        std::vector<boost::numeric::ublas::matrix<double>> even;
-        std::vector<boost::numeric::ublas::matrix<double>> odd;
+        /**
+          Pool of even correlation matrix function summands.
+
+          Those are maps from the distances to the correlation matrix with that
+          given distance. The matrix only contrains correlations for \c i and
+          \c j that are even.
+          */
+        std::vector<std::map<unsigned, boost::numeric::ublas::matrix<double>>> even;
+
+        /**
+          Same as \ref even, just for odd \c i and \c j.
+          */
+        std::vector<std::map<unsigned, boost::numeric::ublas::matrix<double>>> pool;
 
         std::vector<Histogram> histograms;
 };

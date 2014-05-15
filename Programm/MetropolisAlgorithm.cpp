@@ -7,7 +7,7 @@
 
 #include <cmath>
 
-MetropolisAlgorithm::MetropolisAlgorithm(ListQuantity &trajectory, System &s,
+MetropolisAlgorithm::MetropolisAlgorithm(std::vector<double> &x, Oscillator &s,
         int position_seed, int accept_seed) :
     x(trajectory), system(s),
     position_engine(std::mt19937 {position_seed}),

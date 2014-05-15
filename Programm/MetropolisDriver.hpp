@@ -6,7 +6,6 @@
 #include "Oscillator.hpp"
 #include "MetropolisAlgorithm.hpp"
 #include "Settings.hpp"
-#include "VectorHistogram.hpp"
 
 #include <vector>
 

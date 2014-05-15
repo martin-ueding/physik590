@@ -8,7 +8,7 @@
 
 class Histogram {
     public:
-        FixedHistogram(double min, double max, size_t bins);
+        Histogram(double min, double max, size_t bins);
 
         /**
           Saves the current histogram to the given file.
@@ -25,10 +25,6 @@ class Histogram {
 
           @param outfile Stream to write to
           */
-        void write_histogram(std::ostream &outfile);
-
-        void push(double value);
-
         void write_histogram(std::ostream &outfile);
 
         double get_min() {

@@ -24,8 +24,8 @@ class Oscillator {
           @param mass Mass @f$ m @f$
           @param mu_squared Spring constant @f$ \mu^2 @f$
           */
-        AnharmonicOscillator(double time_step, double mass, double mu_squared,
-                             double gauss_height, double gauss_width);
+        Oscillator(double time_step, double mass, double mu_squared,
+                   double gauss_height, double gauss_width);
 
         /**
           Computes the total action for the given trajectory.
