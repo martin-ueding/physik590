@@ -18,7 +18,7 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, unsigned iterations, unsi
     unsigned time_sites = trajectories[0].size();
 
     // Compute correlations.
-    unsigned correlation_size {10};
+    unsigned correlation_size {5};
 
     ProgressBar bar_corr {"Computing correlation matrices", trajectories.size()};
     for (unsigned t_id {0}; t_id < trajectories.size(); t_id++) {
