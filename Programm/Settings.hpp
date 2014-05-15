@@ -13,7 +13,7 @@
   */
 class Settings {
     public:
-        unsigned algorithm_version {1};
+        unsigned algorithm_version {2};
 
         /**
           @f$ N @f$ in [CF80].
