@@ -12,10 +12,7 @@ boost::numeric::ublas::matrix<double>
 Correlation::correlation(std::vector<double> &x, const unsigned size,
         const unsigned distance, const bool even) {
     boost::numeric::ublas::matrix<double> c {size, size};
-
-    std::cout << c(0, 0) << std::endl;
     c.clear();
-    std::cout << c(0, 0) << std::endl;
 
     for (unsigned i {even ? 0u : 1u}; i < c.size1(); i += 2) {
         for (unsigned j {even ? 0u : 1u}; j < c.size2(); j += 2) {
