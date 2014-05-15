@@ -7,7 +7,7 @@
 #include <functional>
 
 
-void ListQuantity::save_plot_file(std::vector<double> &list, std::string filename, std::string preamble) {
+void VectorHelper::save_plot_file(std::vector<double> &list, std::string filename, std::string preamble) {
     std::ofstream outfile(filename);
     outfile << preamble;
     outfile << "# j \t x_j" << std::endl;
@@ -17,7 +17,7 @@ void ListQuantity::save_plot_file(std::vector<double> &list, std::string filenam
     outfile.close();
 }
 
-void ListQuantity::set_to_random(std::vector<double> &list, double bound) {
+void VectorHelper::set_to_random(std::vector<double> &list, double bound) {
     std::uniform_real_distribution<double> distribution(-bound, bound);
     auto generator = std::bind(distribution, mt_engine);
 

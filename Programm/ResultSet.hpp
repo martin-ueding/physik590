@@ -8,7 +8,6 @@
 #include "Correlation.hpp"
 #include "PositionDensity.hpp"
 #include "ProgressBar.hpp"
-#include "ScalarComputable.hpp"
 
 #include <memory>
 #include <vector>
@@ -16,10 +15,7 @@
 
 class ResultSet {
     public:
-        ResultSet(BootstrapPool &pool, Settings &settings);
-
-        std::vector<std::shared_ptr<ScalarComputable>> computables;
-        std::map<unsigned int, std::shared_ptr<Correlation>> correlations;
+        ResultSet(BootstrapPool &pool);
 
         PositionDensity dens;
 
@@ -33,10 +29,4 @@ class ResultSet {
         ConcurrentCounter counter {1000};
         BootstrapPool &pool;
         std::mt19937 engine;
-
-        void compute_using_pool();
-        void add_correlation(unsigned int distance);
-        size_t bootstrap_sample_count;
-        Settings &settings;
-        ProgressBar bar;
 };
