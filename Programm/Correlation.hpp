@@ -3,38 +3,18 @@
 
 #pragma once
 
-#include "ScalarComputable.hpp"
+#include <boost/numeric/ublas/matrix.hpp>
 
-#include <cmath>
-#include <cstddef>
-#include <string>
 #include <vector>
 
-class Correlation : public ScalarComputable {
+class Correlation {
     public:
         /**
-          Creates a new correlation calculator.
+          Calculates the correlation matrix for a single trajectory.
 
-          @param[in] distance Lattice distance
+          @param[in] x Trajectory
+          @param[in] size Size of the matrix
+          @param[in] distance Distance to calculate
           */
-        Correlation(unsigned int distance);
-
-        void add_sample(BootstrapSample &sample);
-
-        std::string get_name();
-
-    protected:
-        unsigned int distance;
-
-        /**
-          Averages all correlations with a given distance in that list.
-
-          Using periodic boundary conditions, there are as many correlations to
-          be extracted as there are elements in the given list. All those are
-          averaged.
-
-          @param[in] list List with data points
-          @param[in] distance Difference in steps
-          */
-        double average_all(std::vector<double> &list, const unsigned distance);
+        boost::numeric::ublas::matrix correlation(std::vector<double> &x, unsigned size, unsigned distance);
 };

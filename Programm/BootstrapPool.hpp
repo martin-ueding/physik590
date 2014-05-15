@@ -21,25 +21,14 @@ class BootstrapPool {
         BootstrapPool(MetropolisDriver &driver, size_t iterations);
 
         /**
-          Gives the size of the pool
+          Gives the size of the pool.
           */
         size_t size() {
-            return pool.size();
+            return trajectories.size();
         }
 
         /**
-          Gives access to the elements in the pool.
+          The original trajectories.
           */
-        ListQuantity &operator[](size_t i) {
-            return pool[i];
-        }
-
-    protected:
-        /**
-          The pool itself.
-
-          Each entry in the primary pool is just a trajectory from the
-          Metropolis algorithm.
-          */
-        std::vector<std::vector<double>> pool;
+        std::vector<std::vector<double>> trajectories;
 };

@@ -5,37 +5,26 @@
 
 #include "Periodic.hpp"
 
-#include <cassert>
-#include <sstream>
+#include <cmath>
+#include <iostream>
 
-Correlation::Correlation(unsigned int distance) : distance {distance} {
-}
+boost::numeric::ublas::matrix Correlation::correlation(std::vector<double> &x, unsigned size, unsigned distance) {
+    boost::numeric::ublas::matrix<double> c {size, size};
 
-void Correlation::add_sample(BootstrapSample &sample) {
-    size_t count {0};
-    double value {0.0};
+    std::cout << c(0, 0) << std::endl;
+    c.clear();
+    std::cout << c(0, 0) << std::endl;
 
-    for (size_t trajectory_id {0}; trajectory_id < sample.size(); trajectory_id++) {
-        value += average_all(sample[trajectory_id].list, distance);
-        count++;
+    for (unsigned i {0}; i < c.size1; ++i) {
+        for (unsigned j {0}; j < c.size2; ++j) {
+            for (unsigned k {0}; k < x.size(); ++i) {
+                c(i, j) += x[k] * x[Periodic::wrap(k + distance, x.size())];
+            }
+        }
     }
 
-    append(value / count);
-}
+    // Normalize the elemnts 
+    c /= x.size();
 
-double Correlation::average_all(std::vector<double> &list, const unsigned distance) {
-    double sum {0};
-    size_t max {list.size()};
-
-    for (unsigned i {0}; i < max; ++i) {
-        sum += list[i] * list[Periodic::wrap(i + distance, max)];
-    }
-
-    return sum / max;
-}
-
-std::string Correlation::get_name() {
-    std::ostringstream oss;
-    oss << "Correlation " << distance;
-    return oss.str();
+    return c;
 }
