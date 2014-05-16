@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
             inner.emplace(std::piecewise_construct, std::make_tuple(n), std::make_tuple());
         }
 
-        bs_E_n_t.insert(decltype(bs_E_n_t)::value_type {t, inner});
+        bs_E_n_t.emplace(t, std::move(inner));
     }
 
     ProgressBar sample_bar {"Creating bootstrap samples", settings.bootstrap_samples};
@@ -81,7 +81,7 @@ int main(int argc, char **argv) {
                 double E = - 1 / settings.time_step * std::log(lambda_n_tplus1[n] / lambda_n_t[n]);
                 E_n.push_back(E);
             }
-            E_n_t.insert(decltype(E_n_t)::value_type {t, E_n});
+            E_n_t.emplace(t, E_n);
         }
 
         return 0;
