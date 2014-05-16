@@ -26,6 +26,9 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, unsigned iterations,
         for (unsigned distance : correlation_ts) {
             map_even.insert(CorrFunc::value_type {distance, Correlation::correlation(trajectories[t_id], correlation_size, distance, true)});
             map_odd.insert(CorrFunc::value_type {distance, Correlation::correlation(trajectories[t_id], correlation_size, distance, false)});
+
+            map_even.insert(CorrFunc::value_type {distance+1, Correlation::correlation(trajectories[t_id], correlation_size, distance+1, true)});
+            map_odd.insert(CorrFunc::value_type {distance+1, Correlation::correlation(trajectories[t_id], correlation_size, distance+1, false)});
         }
         even.push_back(std::move(map_even));
         odd.push_back(std::move(map_odd));
