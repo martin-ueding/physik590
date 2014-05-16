@@ -14,10 +14,14 @@ Correlation::correlation(std::vector<double> &x, const unsigned size,
     Eigen::MatrixXd c {size, size};
     c.setZero();
 
-    for (unsigned i {even ? 0u : 1u}; i < c.rows(); i += 2) {
-        for (unsigned j {even ? 0u : 1u}; j < c.cols(); j += 2) {
+    for (unsigned row {0u} ; row < c.rows(); row++) {
+        for (unsigned col {0u}; col < c.cols(); col++) {
             for (unsigned k {0u}; k < x.size(); ++k) {
-                c(i, j) += std::pow(x[k], i) * std::pow(x[Periodic::wrap(k + distance, x.size())], j);
+                unsigned power1 {(even ? 0 : 1) + 2 * row};
+                unsigned power2 {(even ? 0 : 1) + 2 * col};
+                double x1 {x[k]};
+                double x2 {x[Periodic::wrap(k + distance, x.size())]};
+                c(row, col) += std::pow(x1, power1) * std::pow(x2, power2);
             }
         }
     }
