@@ -39,14 +39,25 @@ int main(int argc, char **argv) {
 
         boot_hist.insert_histogram(sample.histogram);
 
-        std::vector<double> eigenvalues = GEVPSolver::eigenvalues(sample.even[2], sample.even[1]);
+        ///////////////////////////////////////////////////////////////////////
         sample_bar.close();
 
-        for (auto i : eigenvalues) {
-            std::cout << i << std::endl;
+        std::map<unsigned, std::vector<double>> lambda_n_t;
+
+        unsigned t_0 = 0;
+        auto &C_t0 = sample.even[t_0];
+        for (auto &pair : sample.even) {
+            unsigned t = pair.first;
+            auto &C_t = pair.second;
+            lambda_n_t.insert(decltype(lambda_n_t)::value_type{t, GEVPSolver::eigenvalues(C_t, C_t0)});
+
+            for (double lambda : lambda_n_t[t]) {
+                std::cout << lambda << std::endl;
+            }
         }
 
         return 0;
+        ///////////////////////////////////////////////////////////////////////
 
         sample_bar.update(sample_id);
     }
@@ -56,3 +67,7 @@ int main(int argc, char **argv) {
 
     return 0;
 }
+
+// Extract the correlation matrix function from the sample.
+// Compute the λ_n(t).
+// Calculate the E_n(t).

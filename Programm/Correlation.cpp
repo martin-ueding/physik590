@@ -15,10 +15,10 @@ Correlation::correlation(std::vector<double> &x, const unsigned size,
     c.setZero();
 
     for (unsigned row {0u} ; row < c.rows(); row++) {
+        unsigned power1 {(even ? 0 : 1) + 2 * row};
         for (unsigned col {0u}; col < c.cols(); col++) {
+            unsigned power2 {(even ? 0 : 1) + 2 * col};
             for (unsigned k {0u}; k < x.size(); ++k) {
-                unsigned power1 {(even ? 0 : 1) + 2 * row};
-                unsigned power2 {(even ? 0 : 1) + 2 * col};
                 double x1 {x[k]};
                 double x2 {x[Periodic::wrap(k + distance, x.size())]};
                 c(row, col) += std::pow(x1, power1) * std::pow(x2, power2);
