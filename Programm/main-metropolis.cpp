@@ -2,11 +2,12 @@
 // Licensed under The GNU Public License Version 2 (or later)
 
 #include "BootstrapPool.hpp"
+#include "GEVPSolver.hpp"
 #include "MetropolisDriver.hpp"
 #include "parse_arguments.hpp"
+#include "ProgressBar.hpp"
 #include "ResultSet.hpp"
 #include "Settings.hpp"
-#include "ProgressBar.hpp"
 
 #include <iostream>
 
@@ -37,6 +38,15 @@ int main(int argc, char **argv) {
         BootstrapSample sample {pool};
 
         boot_hist.insert_histogram(sample.histogram);
+
+        std::vector<double> eigenvalues = GEVPSolver::eigenvalues(sample.even[2], sample.even[1]);
+        sample_bar.close();
+
+        for (auto i : eigenvalues) {
+            std::cout << i << std::endl;
+        }
+
+        return 0;
 
         sample_bar.update(sample_id);
     }
