@@ -63,9 +63,6 @@ int main(int argc, char **argv) {
 
         boot_hist.insert_histogram(sample.histogram);
 
-        ///////////////////////////////////////////////////////////////////////
-        sample_bar.close();
-
         unsigned t_0 = 0;
         auto &C_t0 = sample.even[t_0];
         for (unsigned t : settings.correlation_ts) {
@@ -79,12 +76,17 @@ int main(int argc, char **argv) {
             }
         }
 
-        return 0;
-        ///////////////////////////////////////////////////////////////////////
-
         sample_bar.update(sample_id);
     }
     sample_bar.close();
+
+
+        for (unsigned n {0}; n < 10; n++) {
+            for (unsigned t : settings.correlation_ts) {
+                auto ms = bs_E_n_t[t][n].mean_and_stddev();
+                std::cout << "E_" << n << "(" << t << ") = " << ms.first << "±" << ms.second << std::endl;
+            }
+        }
 
     boot_hist.write_histogram(settings.generate_filename("position-density.csv"));
 
