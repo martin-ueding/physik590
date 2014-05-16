@@ -6,6 +6,8 @@
 #include "Correlation.hpp"
 #include "ProgressBar.hpp"
 
+#include <future>
+
 BootstrapPool::BootstrapPool(MetropolisDriver &driver, unsigned iterations,
         unsigned position_hist_bins, std::vector<unsigned> &correlation_ts) {
     // Fill pool with trajectories.
@@ -24,11 +26,19 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, unsigned iterations,
         CorrFunc map_even;
         CorrFunc map_odd;
         for (unsigned distance : correlation_ts) {
-            map_even.insert(CorrFunc::value_type {distance, Correlation::correlation(trajectories[t_id], correlation_size, distance, true)});
-            map_odd.insert(CorrFunc::value_type {distance, Correlation::correlation(trajectories[t_id], correlation_size, distance, false)});
+            std::future<Eigen::MatrixXd> f1 = std::async(correlation, std::ref(trajectories[t_id]), correlation_size, distance, true);
 
-            map_even.insert(CorrFunc::value_type {distance+1, Correlation::correlation(trajectories[t_id], correlation_size, distance+1, true)});
-            map_odd.insert(CorrFunc::value_type {distance+1, Correlation::correlation(trajectories[t_id], correlation_size, distance+1, false)});
+            std::future<Eigen::MatrixXd> f2 = std::async(correlation, std::ref(trajectories[t_id]), correlation_size, distance, false);
+
+            std::future<Eigen::MatrixXd> f3 = std::async(correlation, std::ref(trajectories[t_id]), correlation_size, distance+1, true);
+
+            std::future<Eigen::MatrixXd> f4 = std::async(correlation, std::ref(trajectories[t_id]), correlation_size, distance+1, false);
+
+            map_even.emplace(distance, f1.get());
+            map_odd.emplace(distance, f2.get());
+
+            map_even.emplace(distance+1, f3.get());
+            map_odd.emplace(distance+1, f4.get());
         }
         even.push_back(std::move(map_even));
         odd.push_back(std::move(map_odd));
