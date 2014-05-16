@@ -42,8 +42,6 @@ int main(int argc, char **argv) {
 
     BootstrappedHistogram boot_hist { -5, 5, settings.position_hist_bins};
 
-    std::map<unsigned, std::vector<double>> E_n_t;
-
     /**
       The inner map is a mapping that goes through all E_n. The outter map
       holds the E_n at different times t.
@@ -68,20 +66,17 @@ int main(int argc, char **argv) {
         ///////////////////////////////////////////////////////////////////////
         sample_bar.close();
 
-        std::map<unsigned, std::vector<double>> E_n_t;
-
         unsigned t_0 = 0;
         auto &C_t0 = sample.even[t_0];
         for (unsigned t : settings.correlation_ts) {
             std::vector<double> lambda_n_t {GEVPSolver::eigenvalues(sample.even[t], C_t0)};
             std::vector<double> lambda_n_tplus1 {GEVPSolver::eigenvalues(sample.even[t+1], C_t0)};
 
-            std::vector<double> E_n;
             for (unsigned n {0}; n < lambda_n_t.size(); n++) {
                 double E = - 1 / settings.time_step * std::log(lambda_n_tplus1[n] / lambda_n_t[n]);
-                E_n.push_back(E);
+
+                bs_E_n_t[t][0 + 2*n].append(E);
             }
-            E_n_t.emplace(t, E_n);
         }
 
         return 0;
