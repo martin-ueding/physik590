@@ -17,7 +17,7 @@ class Correlation {
           @param[in] distance Distance to calculate
           @param[in] even Calculate the even elements.
           */
-        static boost::numeric::ublas::matrix<double>
+        static Eigen::MatrixXd
         correlation(std::vector<double> &x, const unsigned size,
                     const unsigned distance, const bool even);
 };

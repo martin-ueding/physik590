@@ -18,12 +18,12 @@ class BootstrapSample {
         /**
           Combined correlation matrix function from all the summands.
           */
-        std::map<unsigned, boost::numeric::ublas::matrix<double>> even;
+        CorrFunc even;
 
         /**
           Similar to \ref even.
           */
-        std::map<unsigned, boost::numeric::ublas::matrix<double>> odd;
+        CorrFunc odd;
 
         /**
           Histogram combined from all the summand histograms.

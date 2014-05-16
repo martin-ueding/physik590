@@ -7,14 +7,14 @@
 BootstrapSample::BootstrapSample(BootstrapPool &pool) :
     histogram {pool.histograms[0].get_min(), pool.histograms[0].get_max(), pool.histograms[0].size()} {
     for (auto &p : pool.even[0]) {
-        boost::numeric::ublas::matrix<double> m {p.second.size1(), p.second.size2()};
-        m.clear();
+        Eigen::MatrixXd m {p.second.rows(), p.second.cols()};
+        m.setZero();
         even.insert(CorrFunc::value_type{p.first, m});
     }
 
     for (auto &p : pool.odd[0]) {
-        boost::numeric::ublas::matrix<double> m {p.second.size1(), p.second.size2()};
-        m.clear();
+        Eigen::MatrixXd m {p.second.rows(), p.second.cols()};
+        m.setZero();
         odd.insert(CorrFunc::value_type{p.first, m});
     }
 

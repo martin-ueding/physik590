@@ -6,12 +6,12 @@
 #include "Histogram.hpp"
 #include "MetropolisDriver.hpp"
 
-#include <boost/numeric/ublas/matrix.hpp>
+#include <eigen3/Eigen/Dense>
 
 #include <vector>
 #include <map>
 
-typedef std::map<unsigned, boost::numeric::ublas::matrix<double>> CorrFunc;
+typedef std::map<unsigned, Eigen::MatrixXd> CorrFunc;
 
 /**
   The base set of trajectories that are used for bootstrapping later on.

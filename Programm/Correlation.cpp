@@ -8,14 +8,14 @@
 #include <cmath>
 #include <iostream>
 
-boost::numeric::ublas::matrix<double>
+Eigen::MatrixXd
 Correlation::correlation(std::vector<double> &x, const unsigned size,
         const unsigned distance, const bool even) {
-    boost::numeric::ublas::matrix<double> c {size, size};
-    c.clear();
+    Eigen::MatrixXd c {size, size};
+    c.setZero();
 
-    for (unsigned i {even ? 0u : 1u}; i < c.size1(); i += 2) {
-        for (unsigned j {even ? 0u : 1u}; j < c.size2(); j += 2) {
+    for (unsigned i {even ? 0u : 1u}; i < c.rows(); i += 2) {
+        for (unsigned j {even ? 0u : 1u}; j < c.cols(); j += 2) {
             for (unsigned k {0u}; k < x.size(); ++k) {
                 c(i, j) += std::pow(x[k], i) * std::pow(x[Periodic::wrap(k + distance, x.size())], j);
             }
