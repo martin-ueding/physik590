@@ -1,6 +1,7 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
+#include "BootstrappedQuantity.hpp"
 #include "BootstrapPool.hpp"
 #include "GEVPSolver.hpp"
 #include "MetropolisDriver.hpp"
@@ -41,6 +42,23 @@ int main(int argc, char **argv) {
 
     BootstrappedHistogram boot_hist { -5, 5, settings.position_hist_bins};
 
+    std::map<unsigned, std::vector<double>> E_n_t;
+
+    /**
+      The inner map is a mapping that goes through all E_n. The outter map
+      holds the E_n at different times t.
+      */
+    std::map<unsigned, std::map<unsigned, BootstrappedQuantity>> bs_E_n_t;
+
+    for (unsigned t : settings.correlation_ts) {
+        std::map<unsigned, BootstrappedQuantity> inner;
+        for (unsigned n {0}; n < 10; n++) {
+            inner.emplace(std::piecewise_construct, std::make_tuple(n), std::make_tuple());
+        }
+
+        bs_E_n_t.insert(decltype(bs_E_n_t)::value_type {t, inner});
+    }
+
     ProgressBar sample_bar {"Creating bootstrap samples", settings.bootstrap_samples};
     for (unsigned sample_id {0u}; sample_id < settings.bootstrap_samples; sample_id++) {
         BootstrapSample sample {pool};
@@ -50,17 +68,20 @@ int main(int argc, char **argv) {
         ///////////////////////////////////////////////////////////////////////
         sample_bar.close();
 
-        std::map<unsigned, std::vector<double>> lambda_n_t;
+        std::map<unsigned, std::vector<double>> E_n_t;
 
         unsigned t_0 = 0;
         auto &C_t0 = sample.even[t_0];
         for (unsigned t : settings.correlation_ts) {
-            auto &C_t = sample.even[t];
-            lambda_n_t.insert(decltype(lambda_n_t)::value_type {t, GEVPSolver::eigenvalues(C_t, C_t0)});
+            std::vector<double> lambda_n_t {GEVPSolver::eigenvalues(sample.even[t], C_t0)};
+            std::vector<double> lambda_n_tplus1 {GEVPSolver::eigenvalues(sample.even[t+1], C_t0)};
 
-            for (double lambda : lambda_n_t[t]) {
-                std::cout << lambda << std::endl;
+            std::vector<double> E_n;
+            for (unsigned n {0}; n < lambda_n_t.size(); n++) {
+                double E = - 1 / settings.time_step * std::log(lambda_n_tplus1[n] / lambda_n_t[n]);
+                E_n.push_back(E);
             }
+            E_n_t.insert(decltype(E_n_t)::value_type {t, E_n});
         }
 
         return 0;
