@@ -26,13 +26,13 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, unsigned iterations,
         CorrFunc map_even;
         CorrFunc map_odd;
         for (unsigned distance : correlation_ts) {
-            std::future<Eigen::MatrixXd> f1 = std::async(correlation, std::ref(trajectories[t_id]), correlation_size, distance, true);
+            std::future<Eigen::MatrixXd> f1 = std::async(std::launch::async, correlation, std::ref(trajectories[t_id]), correlation_size, distance, true);
 
-            std::future<Eigen::MatrixXd> f2 = std::async(correlation, std::ref(trajectories[t_id]), correlation_size, distance, false);
+            std::future<Eigen::MatrixXd> f2 = std::async(std::launch::async, correlation, std::ref(trajectories[t_id]), correlation_size, distance, false);
 
-            std::future<Eigen::MatrixXd> f3 = std::async(correlation, std::ref(trajectories[t_id]), correlation_size, distance+1, true);
+            std::future<Eigen::MatrixXd> f3 = std::async(std::launch::async, correlation, std::ref(trajectories[t_id]), correlation_size, distance+1, true);
 
-            std::future<Eigen::MatrixXd> f4 = std::async(correlation, std::ref(trajectories[t_id]), correlation_size, distance+1, false);
+            std::future<Eigen::MatrixXd> f4 = std::async(std::launch::async, correlation, std::ref(trajectories[t_id]), correlation_size, distance+1, false);
 
             map_even.emplace(distance, f1.get());
             map_odd.emplace(distance, f2.get());
