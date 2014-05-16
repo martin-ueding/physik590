@@ -15,7 +15,6 @@ find_package(Threads)
 add_executable(metropolis
     main-metropolis.cpp
 
-    Oscillator.cpp
     BootstrappedHistogram.cpp
     BootstrappedQuantity.cpp
     BootstrapPool.cpp
@@ -23,10 +22,12 @@ add_executable(metropolis
     Computable.cpp
     ConcurrentCounter.cpp
     Correlation.cpp
+    GEVPSolver.cpp
     Histogram.cpp
     HistogramComputable.cpp
     MetropolisAlgorithm.cpp
     MetropolisDriver.cpp
+    Oscillator.cpp
     parse_arguments.cpp
     Periodic.cpp
     PositionDensity.cpp
