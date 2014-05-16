@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <boost/numeric/ublas/matrix.hpp>
+#include <eigen3/Eigen/Dense>
 
 #include <vector>
 
