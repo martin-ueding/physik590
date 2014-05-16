@@ -10,11 +10,11 @@
 
 Oscillator::Oscillator(double time_step, double mass,
                        double mu_squared, double gauss_height, double gauss_width) :
-            time_step{time_step},
-            mass {mass},
-           mu_squared {mu_squared},
-           gauss_height {gauss_height},
-           gauss_width {gauss_width},
+    time_step {time_step},
+          mass {mass},
+          mu_squared {mu_squared},
+          gauss_height {gauss_height},
+          gauss_width {gauss_width},
 gauss_width_squared {gauss_width * gauss_width} {
 }
 

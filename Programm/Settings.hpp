@@ -4,6 +4,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 /**
   Holds the parameters for a simulation.
@@ -13,6 +14,23 @@
   */
 class Settings {
     public:
+        /**
+          Generates a filename that contains the most important parameters.
+
+          @param name Desired basename
+          @return Prefix-Parameters-Suffix
+          */
+        std::string generate_filename(std::string name);
+
+        std::string report();
+
+        std::string hash();
+
+        /**
+          Calculates options based on the other ones.
+          */
+        void compute();
+
         unsigned algorithm_version {2};
 
         /**
@@ -106,16 +124,18 @@ class Settings {
         unsigned action_hist_bins {100};
 
         /**
-          Generates a filename that contains the most important parameters.
+         Time points to calculate correlations for.
 
-          @param name Desired basename
-          @return Prefix-Parameters-Suffix
-          */
-        std::string generate_filename(std::string name);
+         The correlation matrix is a function of \f$ t \f$ and \f$ t_0 \f$,
+         like \f$ C_{ij} (t, t_0) \f$. The value of \f$ t_0 \f$ can be fixed or
+         half of \f$ t \f$. Either way, \f$ t_0 \f$ will be calculated from \f$
+         t \f$.
 
-        std::string report();
-
-        std::string hash();
+         Since the slope of the eigenvalues is needed, for each given value,
+         the correlation for the next step has to be calculated as well. This
+         array only contains the first one.
+         */
+        std::vector<unsigned> correlation_ts;
 
     private:
         /**

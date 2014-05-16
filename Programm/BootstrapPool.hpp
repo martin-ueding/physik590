@@ -23,8 +23,12 @@ class BootstrapPool {
 
           @param[in] driver Driver that generates trajectories
           @param[in] iterations Number of pool entries
+          @param[in] position_hist_bins Number of bins in the position histogram
+          @param[in] correlation_ts List of correlation distances to precompute
           */
-        BootstrapPool(MetropolisDriver &driver, unsigned iterations, unsigned position_hist_bins);
+        BootstrapPool(MetropolisDriver &driver, unsigned iterations,
+                      unsigned position_hist_bins,
+                      std::vector<unsigned> &correlation_ts);
 
         /**
           Gives the size of the pool.

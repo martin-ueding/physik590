@@ -9,6 +9,12 @@
 
 #include <sstream>
 
+void Settings::compute() {
+    for (unsigned i = 0; i < time_sites / 2; i += 2 + i / 2) {
+        correlation_ts.push_back(i);
+    }
+}
+
 std::string Settings::generate_filename(std::string name) {
     std::ostringstream oss;
     std::string computed_hash {hash()};

@@ -10,7 +10,7 @@
 
 Eigen::MatrixXd
 Correlation::correlation(std::vector<double> &x, const unsigned size,
-        const unsigned distance, const bool even) {
+                         const unsigned distance, const bool even) {
     Eigen::MatrixXd c {size, size};
     c.setZero();
 

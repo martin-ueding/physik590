@@ -6,7 +6,8 @@
 #include "Correlation.hpp"
 #include "ProgressBar.hpp"
 
-BootstrapPool::BootstrapPool(MetropolisDriver &driver, unsigned iterations, unsigned position_hist_bins) {
+BootstrapPool::BootstrapPool(MetropolisDriver &driver, unsigned iterations,
+        unsigned position_hist_bins, std::vector<unsigned> &correlation_ts) {
     // Fill pool with trajectories.
     ProgressBar bar {"Populating bootstrap pool", iterations};
     for (unsigned i {0}; i < iterations; ++i) {
@@ -15,8 +16,6 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, unsigned iterations, unsi
     }
     bar.close();
 
-    unsigned time_sites = trajectories[0].size();
-
     // Compute correlations.
     unsigned correlation_size {5};
 
@@ -24,7 +23,7 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, unsigned iterations, unsi
     for (unsigned t_id {0}; t_id < trajectories.size(); t_id++) {
         CorrFunc map_even;
         CorrFunc map_odd;
-        for (unsigned distance = 0; distance < time_sites / 2; distance += distance / 5 + 1) {
+        for (unsigned distance : correlation_ts) {
             map_even.insert(CorrFunc::value_type {distance, Correlation::correlation(trajectories[t_id], correlation_size, distance, true)});
             map_odd.insert(CorrFunc::value_type {distance, Correlation::correlation(trajectories[t_id], correlation_size, distance, false)});
         }
