@@ -5,6 +5,7 @@
 
 #include <eigen3/Eigen/Eigenvalues>
 
+#include <algorithm>
 #include <iostream>
 
 std::vector<double> GEVPSolver::eigenvalues(Eigen::MatrixXd &a, Eigen::MatrixXd &b) {
@@ -40,6 +41,8 @@ std::vector<double> GEVPSolver::eigenvalues(Eigen::MatrixXd &a, Eigen::MatrixXd 
         std::complex<double> ev = eigenvalues(row_id, 0);
         eigenvalues_vector.push_back(ev.real());
     }
+
+    sort(eigenvalues_vector.begin(), eigenvalues_vector.end());
 
     return eigenvalues_vector;
 }
