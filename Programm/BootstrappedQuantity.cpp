@@ -8,6 +8,7 @@
 #include <iostream>
 #include <numeric>
 #include <sstream>
+#include <stdexcept>
 
 void BootstrappedQuantity::append(double point) {
     if (std::isnan(point)) {
@@ -17,24 +18,31 @@ void BootstrappedQuantity::append(double point) {
     data.push_back(point);
 }
 
-std::pair<double, double> BootstrappedQuantity::mean_and_stddev() {
+double BootstrappedQuantity::mean() {
+    if (data.size() == 0) {
+        throw std::runtime_error{"No elements to calculate mean from!"};
+    }
     double sum {std::accumulate(data.begin(), data.end(), 0.0)};
     double mean {sum / data.size()};
 
-    //double squared_sum {std::inner_product(data.begin(), data.end(), data.begin(), 0.0)};
-    //double stddev {std::sqrt(squared_sum / data.size() - mean * mean)};
+    return mean;
+}
+
+double BootstrappedQuantity::stddev() {
+    if (data.size() == 0) {
+        throw std::runtime_error{"No elements to calculate standard deviation from!"};
+    }
 
     std::vector<double> diff(data.size());
-    std::transform(data.begin(), data.end(), diff.begin(), std::bind2nd(std::minus<double>(), mean));
+    std::transform(data.begin(), data.end(), diff.begin(), std::bind2nd(std::minus<double>(), mean()));
     double sq_sum = std::inner_product(diff.begin(), diff.end(), diff.begin(), 0.0);
     double stddev = std::sqrt(sq_sum / data.size());
 
-    return std::pair<double, double> {mean, stddev};
+    return stddev;
 }
 
 std::string BootstrappedQuantity::format() {
-    auto ms = mean_and_stddev();
     std::ostringstream oss;
-    oss << ms.first << " ± " << ms.second;
+    oss << mean() << " ± " << stddev();
     return oss.str();
 }

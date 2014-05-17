@@ -23,12 +23,14 @@ class BootstrappedQuantity {
           */
         void append(double point);
 
+        double mean();
+
         /**
-          Calculates mean and standard deviation of the saved data.
+          Calculates standard deviation of the saved data.
 
           Implementation is taken from http://stackoverflow.com/a/7616783.
           */
-        std::pair<double, double> mean_and_stddev();
+        double stddev();
 
         /**
           Prints a representation of the value and error.

@@ -83,8 +83,14 @@ int main(int argc, char **argv) {
 
     for (unsigned n {0}; n < settings.max_energyvalue(); n++) {
         for (unsigned t : settings.correlation_ts) {
-            auto ms = bs_E_n_t[t][n].mean_and_stddev();
-            std::cout << "E_" << n << "(" << t << ") = " << ms.first << "±" << ms.second << std::endl;
+            try {
+                double mean {bs_E_n_t[t][n].mean()};
+                double stddev {bs_E_n_t[t][n].stddev()};
+                std::cout << "E_" << n << "(" << t << ") = " << mean << "±" << stddev << std::endl;
+            }
+            catch (std::runtime_error e) {
+                std::cout << e.what() << std::endl;
+            }
         }
     }
 
