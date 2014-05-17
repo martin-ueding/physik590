@@ -12,6 +12,7 @@
 
 void BootstrappedQuantity::append(double point) {
     if (std::isnan(point)) {
+        nans++;
         return;
     }
     std::unique_lock<std::mutex> lock {append_mutex};
@@ -20,7 +21,15 @@ void BootstrappedQuantity::append(double point) {
 
 double BootstrappedQuantity::mean() {
     if (data.size() == 0) {
-        throw std::runtime_error{"No elements to calculate mean from!"};
+        std::ostringstream oss;
+        oss << "No elements to calculate mean from";
+        if (nans > 0) {
+            oss << ", but " << nans << " NaNs.";
+        }
+        else {
+            oss << ".";
+        }
+        throw std::runtime_error{oss.str()};
     }
     double sum {std::accumulate(data.begin(), data.end(), 0.0)};
     double mean {sum / data.size()};

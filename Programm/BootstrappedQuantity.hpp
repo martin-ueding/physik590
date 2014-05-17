@@ -41,4 +41,9 @@ class BootstrappedQuantity {
         std::vector<double> data;
 
         std::mutex append_mutex;
+
+        /**
+          Stores the number of not-a-number entries that were appended.
+          */
+        unsigned nans {0};
 };
