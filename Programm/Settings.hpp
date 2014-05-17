@@ -137,6 +137,11 @@ class Settings {
          */
         std::vector<unsigned> correlation_ts;
 
+        /**
+          Size of the correlation matrices.
+          */
+        unsigned correlation_size {3};
+
     private:
         /**
           Separator for parameters in the file name.

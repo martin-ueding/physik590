@@ -6,29 +6,25 @@
 #include "Correlation.hpp"
 #include "ProgressBar.hpp"
 
-BootstrapPool::BootstrapPool(MetropolisDriver &driver, unsigned iterations,
-        unsigned position_hist_bins, std::vector<unsigned> &correlation_ts) {
+BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
     // Fill pool with trajectories.
-    ProgressBar bar {"Populating bootstrap pool", iterations};
-    for (unsigned i {0}; i < iterations; ++i) {
+    ProgressBar bar {"Populating bootstrap pool", settings.iterations};
+    for (unsigned i {0}; i < settings.iterations; ++i) {
         trajectories.push_back(driver.next());
         bar.update(i);
     }
     bar.close();
 
-    // Compute correlations.
-    unsigned correlation_size {5};
-
     ProgressBar bar_corr {"Computing correlation matrices", trajectories.size()};
     for (unsigned t_id {0}; t_id < trajectories.size(); t_id++) {
         CorrFunc map_even;
         CorrFunc map_odd;
-        for (unsigned distance : correlation_ts) {
-            map_even.emplace(distance, correlation(trajectories[t_id], correlation_size, distance, true));
-            map_odd.emplace(distance, correlation(trajectories[t_id], correlation_size, distance, true));
+        for (unsigned distance : settings.correlation_ts) {
+            map_even.emplace(distance, correlation(trajectories[t_id], settings.correlation_size, distance, true));
+            map_odd.emplace(distance, correlation(trajectories[t_id], settings.correlation_size, distance, true));
 
-            map_even.emplace(distance+1, correlation(trajectories[t_id], correlation_size, distance+1, true));
-            map_odd.emplace(distance+1, correlation(trajectories[t_id], correlation_size, distance+1, true));
+            map_even.emplace(distance+1, correlation(trajectories[t_id], settings.correlation_size, distance+1, true));
+            map_odd.emplace(distance+1, correlation(trajectories[t_id], settings.correlation_size, distance+1, true));
         }
         even.push_back(std::move(map_even));
         odd.push_back(std::move(map_odd));
@@ -38,9 +34,9 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, unsigned iterations,
     bar_corr.close();
 
     // Compute histograms.
-    ProgressBar bar_hist {"Computing histograms", iterations};
+    ProgressBar bar_hist {"Computing histograms", settings.iterations};
     for (unsigned t_id {0}; t_id < trajectories.size(); t_id++) {
-        Histogram h {-5, 5, position_hist_bins};
+        Histogram h {-5, 5, settings.position_hist_bins};
 
         for (auto x_j : trajectories[t_id]) {
             h(x_j);

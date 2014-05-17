@@ -5,6 +5,7 @@
 
 #include "Histogram.hpp"
 #include "MetropolisDriver.hpp"
+#include "Settings.hpp"
 
 #include <eigen3/Eigen/Dense>
 
@@ -22,13 +23,9 @@ class BootstrapPool {
           Fills the pool with trajectories.
 
           @param[in] driver Driver that generates trajectories
-          @param[in] iterations Number of pool entries
-          @param[in] position_hist_bins Number of bins in the position histogram
-          @param[in] correlation_ts List of correlation distances to precompute
+          @param[in] settings Program settings
           */
-        BootstrapPool(MetropolisDriver &driver, unsigned iterations,
-                      unsigned position_hist_bins,
-                      std::vector<unsigned> &correlation_ts);
+        BootstrapPool(MetropolisDriver &driver, Settings &settings);
 
         /**
           Gives the size of the pool.

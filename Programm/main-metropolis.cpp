@@ -35,10 +35,7 @@ int main(int argc, char **argv) {
 
     MetropolisDriver m_driver {settings};
 
-    BootstrapPool pool {
-        m_driver, settings.iterations, settings.position_hist_bins,
-            settings.correlation_ts
-    };
+    BootstrapPool pool {m_driver, settings};
 
     BootstrappedHistogram boot_hist { -5, 5, settings.position_hist_bins};
 
