@@ -52,6 +52,7 @@ def run_84DAA2_correlations():
     data = np.loadtxt('CSV/84DAA2-correlations.csv')
     j = data[:, 0] # Time lattice index
     c = data[:, 1] # Correlation
+    c_err = data[:, 2]
 
     tau = j * a # Imaginary time
 
@@ -60,6 +61,7 @@ def run_84DAA2_correlations():
 
     tau = tau[selection]
     c = c[selection]
+    c_err = c_err[selection]
 
     popt, pconv = op.curve_fit(decay, tau, c)
     fx = np.linspace(min(tau), max(tau), 1000)
@@ -73,7 +75,7 @@ def run_84DAA2_correlations():
     E1_val = popt[0]
     E1_err = d[0]
 
-    np.savetxt('_build/84DAA2-data.csv', np.column_stack([tau, c]))
+    np.savetxt('_build/84DAA2-data.csv', np.column_stack([tau, c, c_err]))
     np.savetxt('_build/84DAA2-fit.csv', np.column_stack([fx, fy]))
 
     print(unitprint.siunitx(E1_val, E1_err))

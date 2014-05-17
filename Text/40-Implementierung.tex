@@ -168,6 +168,45 @@ weicht merklich von der Kontinuumslösung ab.
 
 \subsection{Korrelationen}
 
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{84DAA2-correlation}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.55\linewidth,
+                xlabel={$\tau$},
+                ylabel={$C_{11}(\tau)},
+                grid=major,
+                legend entries={
+                    {Simulation},
+                    {Anpassung},
+                },
+            ]
+            \addplot[
+                black,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {_build/84DAA2-data.csv};
+            \addplot[black] table {_build/84DAA2-fit.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Korrelationsfunktion $C_{11}(\tau) = \Bracket{x(t) x(t + \tau)}_{t}$
+        gegen imaginäre Zeit $\tau$. An die Punkte wurde eine abfallende
+        Exponentialfunktion angepasst. Die Daten stammen aus einer Simulation
+        mit $\timestep = \num{0.1}$, $\initialrandomwidth = \margin =
+        \num{0.632456}$, $\mu^2 = \num{1}$, $\timesites = \num{10000}$,
+        $\iterations = \num{10000}$ und $\bootstrapsamples = \num{1000}$.
+    }
+    \label{fig:84DAA2-correlation}
+\end{figure}
+
+
+
 \subsection{Energiewerte}
 
 \section{Anharmonischer Oszillator}
