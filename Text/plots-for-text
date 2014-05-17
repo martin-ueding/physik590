@@ -5,8 +5,11 @@
 
 import argparse
 
+import matplotlib.pyplot as pl
 import numpy as np
+import scipy.optimize as op
 import scipy.special
+import unitprint
 
 def gamma_data():
     gamma = scipy.special.gamma
@@ -41,6 +44,41 @@ def histogram_theory_1():
     y = np.sqrt(omega / np.pi) * np.exp(- omega * x**2)
     np.savetxt('_build/histogram_theory_1.csv', np.column_stack([x, y]))
 
+def decay(x, tau, ampl):
+    return ampl * np.exp(-x / tau)
+
+def run_84DAA2_correlations():
+    a = 0.1 # Time step
+    data = np.loadtxt('CSV/84DAA2-correlations.csv')
+    j = data[:, 0] # Time lattice index
+    c = data[:, 1] # Correlation
+
+    tau = j * a # Imaginary time
+
+    cut = 7
+    selection = tau < cut
+
+    tau = tau[selection]
+    c = c[selection]
+
+    popt, pconv = op.curve_fit(decay, tau, c)
+    fx = np.linspace(min(tau), max(tau), 1000)
+    fy = decay(fx, *popt)
+
+    print(popt)
+    print(pconv)
+
+    d = np.sqrt(pconv.diagonal())
+
+    E1_val = popt[0]
+    E1_err = d[0]
+
+    np.savetxt('_build/84DAA2-data.csv', np.column_stack([tau, c]))
+    np.savetxt('_build/84DAA2-fit.csv', np.column_stack([fx, fy]))
+
+    print(unitprint.siunitx(E1_val, E1_err))
+
+
 
 def main():
     options = _parse_args()
@@ -49,6 +87,7 @@ def main():
     histogram_theory_continous()
     histogram_theory_01()
     histogram_theory_1()
+    run_84DAA2_correlations()
 
 def _parse_args():
     """
