@@ -27,7 +27,30 @@ class Settings {
         std::string hash();
 
         /**
+          Gives the number of eigenvalues that can be computed.
+          */
+        unsigned max_energyvalue();
+
+        /**
+          Convertes an eigenvalue index into a energy index.
+
+          The first even eigenvalues are 0, 2, 4. Those have indices 0, 1 and
+          2. The first odd eigenvalues are 1, 3, 5. Those has the same indices.
+          The method therefore is to multipy the index with two and add one if
+          it is odd.
+
+              0 2 4 6 n
+              0 1 2 3 index
+
+              1 3 5 7 n
+              0 1 2 3 index
+          */
+        unsigned energyvalue(unsigned i, bool even);
+
+        /**
           Calculates options based on the other ones.
+
+          Call this whenever you have changed any values.
           */
         void compute();
 

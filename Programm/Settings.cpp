@@ -81,3 +81,11 @@ std::string Settings::hash() {
 
     return output;
 }
+
+unsigned Settings::max_energyvalue() {
+    return 2 * correlation_size - 1;
+}
+
+unsigned Settings::energyvalue(unsigned i, bool even) {
+    return i / 2 + (even ? 0 : 1);
+}

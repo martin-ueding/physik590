@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
 
     for (unsigned t : settings.correlation_ts) {
         std::map<unsigned, BootstrappedQuantity> inner;
-        for (unsigned n {0}; n < 10; n++) {
+        for (unsigned n {0}; n < settings.max_energyvalue(); n++) {
             inner.emplace(std::piecewise_construct, std::make_tuple(n), std::make_tuple());
         }
 
@@ -69,7 +69,7 @@ int main(int argc, char **argv) {
             for (unsigned n {0}; n < lambda_n_t.size(); n++) {
                 double E = - 1 / settings.time_step * std::log(lambda_n_tplus1[n] / lambda_n_t[n]);
 
-                bs_E_n_t[t][0 + 2*n].append(E);
+                bs_E_n_t[t][settings.energyvalue(n, true)].append(E);
             }
         }
 
