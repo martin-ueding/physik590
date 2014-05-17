@@ -168,6 +168,9 @@ class Settings {
           */
         unsigned correlation_size {3};
 
+        unsigned export_potential_steps {1000};
+        double export_potential_bound {5.0};
+
     private:
         /**
           Separator for parameters in the file name.

@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include "Settings.hpp"
+
 #include <string>
 #include <vector>
 
@@ -19,13 +21,8 @@ class Oscillator {
           Creates a new anharmonic oscillator.
 
           The first two parameters are passed off to the System constructor.
-
-          @param time_step Time lattice spacing @f$ a @f$
-          @param mass Mass @f$ m @f$
-          @param mu_squared Spring constant @f$ \mu^2 @f$
           */
-        Oscillator(double time_step, double mass, double mu_squared,
-                   double gauss_height, double gauss_width);
+        Oscillator(Settings &settings);
 
         /**
           Computes the total action for the given trajectory.
@@ -71,27 +68,10 @@ class Oscillator {
         /**
           Exports a X-Y-file for the potential.
           */
-        void export_potential(std::string filename, std::string preamble);
-
-        /**
-          Time step @f$ a @f$.
-          */
-        double time_step;
-
-        /**
-          Mass @f$ m @f$.
-          */
-        double mass;
-
-    protected:
-        /**
-          Sping constant @f$ k @f$ or @f$ \mu^2 @f$.
-          */
-        double mu_squared;
-
-        double gauss_height;
-        double gauss_width;
+        void export_potential(std::string filename, std::string preamble,
+        Settings &settings);
 
     private:
+        Settings &settings;
         double gauss_width_squared;
 };

@@ -8,14 +8,9 @@
 #include <iostream>
 #include <cmath>
 
-Oscillator::Oscillator(double time_step, double mass,
-                       double mu_squared, double gauss_height, double gauss_width) :
-    time_step {time_step},
-          mass {mass},
-          mu_squared {mu_squared},
-          gauss_height {gauss_height},
-          gauss_width {gauss_width},
-gauss_width_squared {gauss_width * gauss_width} {
+Oscillator::Oscillator(Settings &settings) :
+    settings{settings},
+gauss_width_squared {settings.gauss_width * settings.gauss_width} {
 }
 
 double Oscillator::action(std::vector<double> &x) {
@@ -39,24 +34,23 @@ double Oscillator::action_difference(double prev, double cur, double alt,
 double Oscillator::action_step(double cur, double next) {
     double difference {next - cur};
     double kinetic_part {
-        0.5 * mass *(difference * difference) / (time_step * time_step)
+        0.5 * settings.mass *(difference * difference) / (settings.time_step * settings.time_step)
     };
     double potential_part {potential(cur)};
-    return time_step * (kinetic_part + potential_part);
+    return settings.time_step * (kinetic_part + potential_part);
 }
 
-void Oscillator::export_potential(std::string filename, std::string preamble) {
+void Oscillator::export_potential(std::string filename, std::string preamble,
+        Settings &settings) {
     std::ofstream handle {filename};
     handle << preamble;
-    int steps = 1000;
-    double bound {5.0};
-    double step {bound / 2 / steps};
-    for (double x { -bound}; x <= bound; x += step) {
+    double step {settings.export_potential_bound / 2 / settings.export_potential_steps};
+    for (double x {-settings.export_potential_bound}; x <= settings.export_potential_bound; x += step) {
         handle << x << "\t" << potential(x) << std::endl;
     }
 }
 
 double Oscillator::potential(double x) {
-    return 0.5 * mu_squared * x * x
-           + gauss_height * std::exp(-x * x / gauss_width_squared);
+    return 0.5 * settings.mu_squared * x * x
+           + settings.gauss_height * std::exp(-x * x / gauss_width_squared);
 }
