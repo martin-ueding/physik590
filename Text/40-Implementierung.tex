@@ -168,6 +168,37 @@ weicht merklich von der Kontinuumslösung ab.
 
 \subsection{Korrelationen}
 
+Die Energie des ersten angeregten Zustands kann mit der der Korrelation
+berechnet werden \parencite[(4.14)]{Creutz/Statistical_Approach_QM}:
+\begin{equation}
+    \label{eq:Creutz_4.14}
+    E_1 = \lim_{\tau \to \infty} \frac{-1}{\Deltaup \tau} \ln
+    \del{\frac{\Bracket{x(0) \, x(\tau + \Deltaup \tau)}}{\Bracket{x(0) \,
+    x(\tau)}}} + E_0.
+\end{equation}
+
+Dies ist äquivalent zu einer abfallenden Exponentialfunktion, die an die
+Korrelationsfunktion $C_{11}(\tau) = \bracket{x(0) \, x(\tau)}$ angepasst wird.
+Sei die Anpassungsfunktion
+\[
+    f(\tau) := c_1 \exp\del{-\frac{\tau}{c_2}}.
+\]
+Die Korrelationen in \eqref{eq:Creutz_4.14} drücke ich durch $f$ aus. Somit
+erhalte ich:
+\[
+    E_1 - E_0
+    = \lim_{\tau \to \infty} \frac{-1}{\Deltaup \tau} \ln
+    \del{\frac{f(\tau + \Deltaup \tau)}{f(\tau)}}
+    = \frac{1}{c_2}.
+\]
+
+In einem Simulationsdurchlauf mit $\timestep = \num{0.1}$, $\timesites =
+\num{10000}$ und $\iterations = \num{10000}$ erhalte ich gute Korrelationen bis
+$\tau \approx \num{7}$, siehe Abbildung~\ref{fig:84DAA2-correlation}. Aus der
+Anpassung an diese Daten erhalte ich $1/c_2 = E_1 - E_0 = \num{0.995 +-
+0.002}$. Dies passt gut mit der Erwartung von $\Deltaup E_{0,1} = \num{1}$
+zusammen.
+
 \begin{figure}[htbp]
     \centering
     \tikzsetnextfilename{84DAA2-correlation}
@@ -176,7 +207,7 @@ weicht merklich von der Kontinuumslösung ab.
                 width=\linewidth,
                 height=0.55\linewidth,
                 xlabel={$\tau$},
-                ylabel={$C_{11}(\tau)},
+                ylabel={$C_{11}(\tau)$},
                 grid=major,
                 legend entries={
                     {Simulation},
@@ -195,8 +226,8 @@ weicht merklich von der Kontinuumslösung ab.
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        Korrelationsfunktion $C_{11}(\tau) = \Bracket{x(t) x(t + \tau)}_{t}$
-        gegen imaginäre Zeit $\tau$. An die Punkte wurde eine abfallende
+        Korrelationsfunktion $C_{11}(\tau) = \bracket{x(0) \, x(\tau)}$ gegen
+        imaginäre Zeit $\tau$. An die Punkte wurde eine abfallende
         Exponentialfunktion angepasst. Die Daten stammen aus einer Simulation
         mit $\timestep = \num{0.1}$, $\initialrandomwidth = \margin =
         \num{0.632456}$, $\mu^2 = \num{1}$, $\timesites = \num{10000}$,

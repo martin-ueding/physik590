@@ -72,8 +72,8 @@ def run_84DAA2_correlations():
 
     d = np.sqrt(pconv.diagonal())
 
-    E1_val = popt[0]
-    E1_err = d[0]
+    E1_val = 1 / popt[0]
+    E1_err = 1 / popt[0]**2 * d[0]
 
     np.savetxt('_build/84DAA2-data.csv', np.column_stack([tau, c, c_err]))
     np.savetxt('_build/84DAA2-fit.csv', np.column_stack([fx, fy]))
