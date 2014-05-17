@@ -36,7 +36,7 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
     // Compute histograms.
     ProgressBar bar_hist {"Computing histograms", settings.iterations};
     for (unsigned t_id {0}; t_id < trajectories.size(); t_id++) {
-        Histogram h {-5, 5, settings.position_hist_bins};
+        Histogram h {settings.position_hist_min, settings.position_hist_max, settings.position_hist_bins};
 
         for (auto x_j : trajectories[t_id]) {
             h(x_j);

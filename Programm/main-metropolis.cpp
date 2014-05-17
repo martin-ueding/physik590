@@ -37,7 +37,10 @@ int main(int argc, char **argv) {
 
     BootstrapPool pool {m_driver, settings};
 
-    BootstrappedHistogram boot_hist { -5, 5, settings.position_hist_bins};
+    BootstrappedHistogram boot_hist {
+        settings.position_hist_min, settings.position_hist_max,
+            settings.position_hist_bins
+    };
 
     /**
       The inner map is a mapping that goes through all E_n. The outter map
@@ -78,12 +81,12 @@ int main(int argc, char **argv) {
     sample_bar.close();
 
 
-        for (unsigned n {0}; n < 10; n++) {
-            for (unsigned t : settings.correlation_ts) {
-                auto ms = bs_E_n_t[t][n].mean_and_stddev();
-                std::cout << "E_" << n << "(" << t << ") = " << ms.first << "±" << ms.second << std::endl;
-            }
+    for (unsigned n {0}; n < settings.max_energyvalue(); n++) {
+        for (unsigned t : settings.correlation_ts) {
+            auto ms = bs_E_n_t[t][n].mean_and_stddev();
+            std::cout << "E_" << n << "(" << t << ") = " << ms.first << "±" << ms.second << std::endl;
         }
+    }
 
     boot_hist.write_histogram(settings.generate_filename("position-density.csv"));
 
