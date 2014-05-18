@@ -329,7 +329,47 @@ Erwartungswert $\overline X$ durch den Mittelwert von $\mathbb X$ gegeben. Der
 Fehler $\Deltaup \overline X$ ist durch die Standardabweichung von $\mathbb X$
 gegeben.
 
-%\nocite{Blossier/Eigenvalue}
+\section{GEVP-Methode}
+
+„Generalized Eigenvalue Problem“
+
+\parencite[(2.1)]{Blossier/Eigenvalue}
+\[
+    C_{ij} := \Bracket{O_i(t) \, O_j^*(t)}
+\]
+
+\subsection{Lösung durch Cholesky-Zerlegung}
+
+Das generalisierte Eigenwertproblem $\tens A \vec v = \lambda \tens B \vec v$
+kann durch Multiplikation mit $\tens B^{-1}$ von links in ein normales
+Eigenwertproblem überführt werden, wobei jedoch Symmetrien von $\tens A$ und
+$\tens B$ verloren gehen. Um dies zu vermeiden, kann man das Problem mit der
+Cholesky-Zerlegung lösen. Diese zerlegt $\tens B$ in eine untere Dreiecksmatrix
+$\tens L$, so dass $\tens B = \tens L \tens L^\dagger$ gilt.
+\parencite{MacKinnon/GEVP}
+
+Damit kann das Problem umgeformt werden zu \parencite[(3.31)]{MacKinnon/GEVP}
+\[
+    \sbr{\tens L^{-1} \tens A [\tens L^\dagger]^{-1}} \tens L^\dagger \vec x
+    =
+    \lambda [\tens L^\dagger \vec x].
+\]
+Definiert man nun
+\[
+    \tilde{\tens A} := \sbr{\tens L^{-1} \tens A [\tens L^\dagger]^{-1}}
+    \eqnsep
+    \tilde{\vec x} := \tens L^\dagger \vec x,
+\]
+lässt sich dies als normale Eigenwertproblem schreiben \parencite[(3.32)]{MacKinnon/GEVP}:
+\[
+    \tilde{\tens A} \tilde{\vec x} = \lambda \tilde{\vec x}.
+\]
+
+Für die Implementierung der Cholesky-Zerlegung benutze ich die Funktion
+\texttt{Eigen::MatrixBase::llt()} aus der C++ Bibliothek Eigen
+\parencite{Eigen/LLT}. Das normale Eigenwertproblem löse ich anschließend mit
+der Klasse \texttt{Eigen::EigenSolver} \parencite{Eigen/EigenSolver}.
+
 
 %\nocite{Thijssen/Computational_Physics}
 
