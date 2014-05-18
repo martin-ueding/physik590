@@ -4,35 +4,53 @@
 
 \section{Eindimensionale Wellenfunktion mit $\delta$-Störung}
 
+% TODO Einleitung für diesen Teil schreiben.
+
 \newcommand\br[1]{\parencite[(#1)]{Busch/Two_Cold}}
 
-Analog zu \br2:
+In \citetitle{Busch/Two_Cold} leiten die Autoren eine analytische Lösung für
+einen anharmonischen Oszillator her, bei welchem der Störterm eine
+Deltadistribution ist. Damit berechnen sie dann Wellenfunktionen und
+Energiewerte.
+
+Die Herleitung für den eindimensionalen Fall wird als analog zum
+dreidimensionalen Fall beschrieben. Anstelle des dreidimensionalen Potentials
+$\sqrt 2 \piup a_0 \delta^{(3)}(\vec r) \pd{}r r$ soll einfach nur $V(x_1 -
+x_2) = - 2/a_0 \delta(x_1 - x_2)$ benutzt werden
+\parencite[Fußnote~20]{Busch/Two_Cold}.
+
+Ich beginne meine Herleitung nach der Separation von Schwerpunkts- und
+Relativbewegung analog zu \br2. Der Hamiltonoperator für den anharmonischen
+Oszillator ist
 \[
-    H_\text{rel} =
-    \underbrace{- \frac12 \nabla_x^2 + \frac 12 x^2}_{H_\text{osz}} - \frac2{a_0} \delta(x)
+    H_\text{rel} = \underbrace{- \frac12 \nabla_x^2 + \frac 12
+    x^2}_{H_\text{osz}} - \frac2{a_0} \delta(x).
 \]
 
-Analog \br3:
+Dieser Operator löst (analog \br3) die zeitunabhängige Schrödingergleichung
+\begin{equation}
+    \label{eq:Bus_3}
+    \del{H_\text{osz} - \frac2{a_0} \delta(x)} \Psi(x) = E \Psi(x).
+\end{equation}
+
+Die Autoren entwickeln die unbekannte Wellenfunktion $\Psi$ nun nach den
+bekannten Wellenfunktionen des harmonischen Oszillators \br4:
 \[
-    \del{H_\text{osz} - \frac2{a_0} \delta(x)} \Psi(x) = E \Psi(x)
+    \Psi(x) = \sum_{n=0}^\infty c_n \phi_n(x).
 \]
 
-Benutze ebenfalls \br4:
-\[
-    \Psi(x) = \sum_{n=0}^\infty c_n \phi_n(x)
-\]
+Im eindimensionalen Fall gibt es keinen Drehimpuls $l$. Aber $\phi_n$ mit
+ungeradem $n$ tragen nicht bei, da diese bei $x = 0$ einen Nulldurchgang haben.
+Somit bleiben in der Summe nur die geraden $n$.
 
-Hier gibt es keinen Drehimpuls $l$. Aber $\phi_n$ mit ungeradem $n$ tragen
-nicht bei, da diese bei $x = 0$ einen Nulldurchgang haben.
 
-Einsetzen, analog zu \br5:
+Dies setze ich (analog zu \br5) in die Schrödingergleichung \eqref{eq:Bus_3}
+ein:
 \[
     \del{H_\text{osz} - E - \frac2{a_0} \delta(x)}
     \sum_{n=0}^\infty c_n \phi_n(x)
     = 0
-\]
-
-\[
+    \iff
     \sum_{n=0}^\infty (E_n - E) c_n \phi_n(x)
     \frac2{a_0} \delta(x)
     \sum_{n=0}^\infty c_n \phi_n(x)
@@ -49,18 +67,20 @@ Integration über $x$:
     \sum_{n=0}^\infty c_n \phi_n(x) = 0
 \]
 
-Mit
+Mit der Orthogonalitätsrelation für die Eigenfunktionen
 \[
     \int_{-\infty}^\infty \dif x \phi_m^*(x) \phi_n(x) = \braket{m|n} =
     \delta_{mn}
 \]
-folgt
+folgt für die Schrödingergleichung
 \[
     (E_m - E) c_m - \frac2{a_0} \phi_m^*(0) \sum_{n=0}^\infty c_n \phi_n(0) =
     0.
 \]
 
-Daraus folgt der Ansatz
+Über den Index $n$ wird summiert, dieser ist außerdem für alle $m$ gleich.
+Somit kann dieser Teil in eine Konstante $A$ verschoben werden. Daraus folgt
+der Ansatz
 \[
     c_m = A \frac{\phi_m^*(0)}{E_m - E}
 \]
@@ -70,15 +90,15 @@ analog zu \br7. Diesen Ansatz setze ich in die Gleichung ein und erhalte:
 \]
 
 Als nächsten Schritt werden die Eigenfunktionen des harmonischen Oszillators
-$\phi_n$ eingesetzt:
+$\phi_n$ eingesetzt. An der Stelle $x = 0$ verschwindet der Exponentialterm:
 \[
     \sum_{n=0}^\infty \frac{1}{2^n n! \sqrt\piup} \frac{H_n^*(0) H_n(0)}{E_n -
     E} = \frac{a_0}2
 \]
 
-Mit
+Mit dem Wert der Hermitepolynome am Ursprung,
 \[
-    H_n(0) = \frac{2^n \sqrt\piup}{\Gamma\del{\frac{1-n}2}}
+    H_n(0) = \frac{2^n \sqrt\piup}{\Gamma\del{\frac{1-n}2}},
 \]
 folgt:
 \[
@@ -86,7 +106,8 @@ folgt:
     E} \Gamma\del{\frac{1-n}2}^{-2} = \frac{a_0}2
 \]
 
-$E_n$ einsetzen:
+In die obige Gleichung setze ich die bekannten Energiewerte $E_n = n + 1/2$ für
+den harmonischen Oszillator ein:
 \[
     \sum_{n=0}^\infty \frac{2^n \sqrt\piup}{n!} \frac{1}{\frac 12 + n -
     E} \Gamma\del{\frac{1-n}2}^{-2} = \frac{a_0}2
@@ -96,9 +117,16 @@ Mit Mathematica lässt sich diese Summe berechnen, wenn man nur über die gerade
 $n$ summieren lässt:
 \[
     \frac{2 \Gamma\del{\frac 14(5-2E)}}{(2E-1)\Gamma\del{\frac 14(3-2E)}}
-    = \frac{a_0}2
+    = \frac{a_0}2.
 \]
-Diese Relation ist in Abbildung~\ref{fig:E_a0} dargestellt.
+Ausgedrückt mit der Kopplungsstärke $1/a_0$ ist die Relation
+\[
+    \frac{(2E-1)\Gamma\del{\frac 14(3-2E)}}{4 \Gamma\del{\frac 14(5-2E)}}
+    = \frac1{a_0}.
+\]
+
+
+Dies ist in Abbildung~\ref{fig:E_a0} dargestellt.
 
 \begin{figure}[htbp]
     \centering
