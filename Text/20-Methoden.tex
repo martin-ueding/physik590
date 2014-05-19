@@ -331,22 +331,87 @@ gegeben.
 
 \section{GEVP-Methode}
 
-„Generalized Eigenvalue Problem“
+Beim harmonischen Oszillator kann die Grundzustandsenergie über den Virialsatz
+bestimmt werden.
+% TODO Quellenangabe
 
-\parencite[(2.1)]{Blossier/Eigenvalue}
+% XXX Hier passt eigentlich das aus der Implementierung rein zu E_1 aus [CF80]
+% rein.
+
+Energien für noch höhere Zustände können mit dem „Generalized Eigenvalue
+Problem“ (GEVP) errechnet werden.
+
+\subsection{Interpolationsfelder}
+
+Dazu werden Interpolationsfelder $O_i$ gewählt
+\parencite[1]{Blossier/Eigenvalue}. In diesem Fall ist die Wahl $O_i(x) = x^i$
+sinnvoll.
+% TODO Quellenangabe / Danksagung
+
+% TODO Erklärung, dass die Potenzen von x den Absteigeoperator enthalten und
+% somit nur die gewünschten Zustände dabei herauskommen.
+$x$ lässt sich durch die Ab- und Aufsteigeoperatoren $a$ bzw. $a^\dagger$
+ausdrücken: $x \propto a + a^\dagger$
+\parencite[(3.5a)]{Schwabl/Quantenmechanik}. Die Potenzen von $x$ enthalten
+demnach Potenzen von $a$, womit die Matrixelemente $\braket{0|a^i|n} = 0$
+sind, wenn $i < n$. Sie sind jedoch ebenfalls 0, wenn $i - n$ ungerade ist. Die größte
+Potenz von $a$ in $x^i$ ist $a^i$. Bei einer geraden Anzahl an Auf- und
+Absteigevorgängen kann es insgesamt keine ungerade Änderung der Quantenzahl $n$
+geben. Daher tragen für ein Matrixelement mit einer geraden Potenz von $x$ auch
+nur gerade Energieeigenzustände bei.
+
+\subsection{Korrelationsfunktionen}
+
+Mit den Interpolationsfeldern $O_i$ lassen sich die Korrelationsfunktionen
 \[
-    C_{ij} := \Bracket{O_i(t) \, O_j^*(t)}
+    C_{ij}(t) := \Bracket{O_i(t) \, O_j^*(t)}
+    = \Bracket{x^i(0) \, x^j(t)}
 \]
+definieren \parencite[(2.1)]{Blossier/Eigenvalue}.
 
-\subsection{Lösung durch Cholesky-Zerlegung}
+Da $\bracket{x} = 0$ aufgrund der Symmetrie des Potentials zu erwarten ist,
+werden die Mittelwerte über ungerade Größen, also mit $i + j$ ungerade,
+annähernd verschwinden. Es ist daher nicht sinnvoll, diese Größen überhaupt zu
+berechnen.
+
+Um das System numerisch stabiler zu bekommen, wird die Korrelationsmatrix in
+einen nur geraden und einen nur ungeraden Teil zerlegt, also beide $i$ und $j$
+gerade bzw. ungerade. Da wie vorher beschrieben auch nur gerade bzw. ungerade
+Energieeigenzustände beitragen, kann man so sogar gerade und ungerade Zustände
+trennen.
+
+Das generalisierte Eigenwertproblem, aus dessen Eigenwerte die Energien
+extrahiert werde können, ist durch
+\[
+    \tens C(t) \, \vec v_n(t, t_0) = \lambda_n(t, t_0) \, \tens C(t_0) \, \vec v_n(t,
+    t_0)
+    \eqnsep
+    n = 1, \ldots, N
+    \eqnsep
+    t > t_0
+\]
+gegeben \parencite[(2.1)]{Blossier/Eigenvalue}. Aus den Eigenwerten lassen sich
+die effektiven Energien
+\[
+    E_n^\text{eff}(t, t_0) = - \partial_t \ln\del{\lambda_n(t, t_0)} \equiv -
+    \frac 1\timestep \sbr{ \ln\del{\lambda_n(t+\timestep, t_0)} -
+    \ln\del{\lambda_n(t, t_0)} }
+\]
+bestimmen \parencite[(2.4)]{Blossier/Eigenvalue}, die mit $t \to \infty$ gegen
+die Energie $E_n$ konvergieren \parencite[(2.3)]{Blossier/Eigenvalue}.
+
+\subsection{Lösung des GEVP durch Cholesky-Zerlegung}
 
 Das generalisierte Eigenwertproblem $\tens A \vec v = \lambda \tens B \vec v$
 kann durch Multiplikation mit $\tens B^{-1}$ von links in ein normales
 Eigenwertproblem überführt werden, wobei jedoch Symmetrien von $\tens A$ und
 $\tens B$ verloren gehen. Um dies zu vermeiden, kann man das Problem mit der
 Cholesky-Zerlegung lösen. Diese zerlegt $\tens B$ in eine untere Dreiecksmatrix
-$\tens L$, so dass $\tens B = \tens L \tens L^\dagger$ gilt.
+$\tens L$, so dass $\tens B = \tens L \tens L^\dagger$ gilt. Vorraussetzung
+ist, dass $\tens B$ positiv definit ist, was hier der Fall ist.
+% TODO Warum ist die positiv definit?
 \parencite{MacKinnon/GEVP}
+
 
 Damit kann das Problem umgeformt werden zu \parencite[(3.31)]{MacKinnon/GEVP}
 \[
@@ -366,9 +431,9 @@ lässt sich dies als normale Eigenwertproblem schreiben \parencite[(3.32)]{MacKi
 \]
 
 Für die Implementierung der Cholesky-Zerlegung benutze ich die Funktion
-\texttt{Eigen::MatrixBase::llt()} aus der C++ Bibliothek Eigen
-\parencite{Eigen/LLT}. Das normale Eigenwertproblem löse ich anschließend mit
-der Klasse \texttt{Eigen::EigenSolver} \parencite{Eigen/EigenSolver}.
+\texttt{Eigen::MatrixBase::llt()} \parencite{Eigen/LLT} aus der C++ Bibliothek
+Eigen. Das normale Eigenwertproblem löse ich anschließend mit der Klasse
+\texttt{Eigen::EigenSolver} \parencite{Eigen/EigenSolver}.
 
 
 %\nocite{Thijssen/Computational_Physics}
