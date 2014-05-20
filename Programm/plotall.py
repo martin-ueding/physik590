@@ -28,6 +28,35 @@ def main():
 
         plot_correlations(run, '*-correlations.csv')
 
+        fit_eigenvalues(run, '*-eigenvalue-*.csv')
+
+def fit_eigenvalues(run, pattern):
+    for csv_file in glob.glob(os.path.join(run, pattern)):
+        data = np.loadtxt(csv_file)
+        if len(data) == 0:
+            continue
+        tau = data[:, 0] * 0.1
+        y_val = data[:, 1]
+        y_err = data[:, 2]
+
+        selection = tau < 4
+
+        tau_s = tau[selection]
+        y_val_s = y_val[selection]
+
+        popt, pconv = op.curve_fit(decay_with_offset, tau_s, y_val_s)
+
+        fx = np.linspace(min(tau_s), max(tau_s), 1000)
+        fy = decay_with_offset(fx, *popt)
+
+        pl.clf()
+        pl.plot(tau_s, y_val_s, linestyle='none', marker='+')
+        pl.plot(fx, fy)
+        pl.savefig(csv_file.replace('.csv', '.pdf'))
+        pl.clf()
+
+        print(csv_file, popt[0])
+
 def plot_with(function, pattern, run, plotted):
     for csv_file in glob.glob(os.path.join(run, pattern)):
         if csv_file in plotted:
@@ -39,6 +68,9 @@ def plot_with(function, pattern, run, plotted):
 
 def decay(x, tau, ampl):
     return ampl * np.exp(-x / tau)
+
+def decay_with_offset(x, tau, ampl, offset):
+    return decay(x, tau, ampl) + offset
 
 def plot_correlations(run, pattern):
     for filename in glob.glob(os.path.join(run, pattern)):
@@ -58,7 +90,7 @@ def plot_correlations(run, pattern):
         E1_val = popt[0]
         E1_err = np.sqrt(pconv.diagonal()[0])
 
-        print('E1 = {} +- {}'.format(E1_val, E1_err))
+        print('E1 - E0 = {} +- {}'.format(E1_val, E1_err))
 
         x = np.linspace(np.min(t[:cutoff2]), np.max(t[:cutoff2]), 100)
         y = decay(x, *popt)

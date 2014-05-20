@@ -65,15 +65,18 @@ int main(int argc, char **argv) {
         auto &C_t0 = sample.even[t_0];
         for (unsigned t : settings.correlation_ts) {
             std::vector<double> lambda_n_t {GEVPSolver::eigenvalues(sample.even[t], C_t0)};
-            std::vector<double> lambda_n_tplus1 {GEVPSolver::eigenvalues(sample.even[t+1], C_t0)};
+            //std::vector<double> lambda_n_tplus1 {GEVPSolver::eigenvalues(sample.even[t+1], C_t0)};
 
             for (unsigned n {0}; n < lambda_n_t.size(); n++) {
-                double E = - 1 / settings.time_step * std::log(lambda_n_tplus1[n] / lambda_n_t[n]);
+                //double E = - 1 / settings.time_step * std::log(lambda_n_tplus1[n] / lambda_n_t[n]);
 
-                E = lambda_n_t[n];
+                double E = lambda_n_t[n];
 
-                bs_E_n_t[t][settings.energyvalue(n, true)].append(E);
+                std::cout << std::setw(11) << E << " ";
+
+                bs_E_n_t[t][settings.matrix_to_state(n, true)].append(E);
             }
+            std::cout << std::endl;
         }
 
         sample_bar.update(sample_id);

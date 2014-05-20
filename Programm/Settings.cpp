@@ -58,7 +58,14 @@ std::string Settings::report() {
     oss << prefix << "accept seed" << colon << accept_seed << std::endl;
     oss << prefix << "bootstrap samples" << colon << bootstrap_samples << std::endl;
     oss << prefix << "position_hist_bins" << colon << position_hist_bins << std::endl;
-    oss << prefix << "action_hist_bins" << colon << action_hist_bins  << std::endl;
+    oss << prefix << "action_hist_bins" << colon << action_hist_bins << std::endl;
+    oss << prefix << "correlation_size" << colon << correlation_size << std::endl;
+    oss << prefix << "correlation_ts" << colon;
+    for (unsigned i: correlation_ts)
+        oss << i << " ";
+    oss << std::endl;
+    oss << prefix << "export_potential_steps" << colon << export_potential_steps << std::endl;
+    oss << prefix << "export_potential_bound" << colon << export_potential_bound << std::endl;
     oss << prefix << "----" << std::endl;
 
     return oss.str();
@@ -86,6 +93,13 @@ unsigned Settings::max_energyvalue() {
     return 2 * correlation_size - 1;
 }
 
-unsigned Settings::energyvalue(unsigned i, bool even) {
-    return i / 2 + (even ? 0 : 1);
+unsigned Settings::matrix_to_state(unsigned i, bool even) {
+    return i * 2 + (even ? 2 : 1);
+}
+
+unsigned Settings::state_to_matrix(unsigned n) {
+    if (n == 1) {
+        throw std::range_error {"Correlation C_00 is not contained in the matrix."};
+    }
+    return (n - 1) / 2;
 }

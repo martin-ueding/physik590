@@ -34,18 +34,23 @@ class Settings {
         /**
           Convertes an eigenvalue index into a energy index.
 
-          The first even eigenvalues are 0, 2, 4. Those have indices 0, 1 and
-          2. The first odd eigenvalues are 1, 3, 5. Those has the same indices.
-          The method therefore is to multipy the index with two and add one if
-          it is odd.
+          The first even eigenvalues are 2, 4, 6. Those have indices 0, 1 and
+          2. The first odd eigenvalues are 1, 3, 5. Those have the same
+          indices. The method therefore is to multipy the index with two and
+          add one if it is odd.
 
-              0 2 4 6 n
+              2 4 6 8 n
               0 1 2 3 index
 
               1 3 5 7 n
               0 1 2 3 index
+
+          @param[in] n n
+          @return index
           */
-        unsigned energyvalue(unsigned i, bool even);
+        unsigned matrix_to_state(unsigned i, bool even);
+
+        unsigned state_to_matrix(unsigned n);
 
         /**
           Calculates options based on the other ones.
@@ -166,7 +171,7 @@ class Settings {
         /**
           Size of the correlation matrices.
           */
-        unsigned correlation_size {3};
+        unsigned correlation_size {4};
 
         unsigned export_potential_steps {1000};
         double export_potential_bound {5.0};
