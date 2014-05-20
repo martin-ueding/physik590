@@ -69,7 +69,6 @@ int main(int argc, char **argv) {
 
             for (unsigned n {0}; n < lambda_n_t.size(); n++) {
                 //double E = - 1 / settings.time_step * std::log(lambda_n_tplus1[n] / lambda_n_t[n]);
-
                 double E = lambda_n_t[n];
 
                 std::cout << std::setw(11) << E << " ";
@@ -101,16 +100,21 @@ int main(int argc, char **argv) {
     // Output to single files.
     for (unsigned n {0}; n < settings.max_energyvalue(); n++) {
         std::ostringstream filename;
+        std::ostringstream output;
         filename << "eigenvalue-" << n << ".csv";
-        std::ofstream handle {settings.generate_filename(filename.str())};
         for (unsigned t : settings.correlation_ts) {
             try {
                 double mean {bs_E_n_t[t][n].mean()};
                 double stddev {bs_E_n_t[t][n].stddev()};
-                handle << t << "\t" << mean << "\t" << stddev << std::endl;
+                output << t << "\t" << mean << "\t" << stddev << std::endl;
             }
             catch (std::runtime_error e) {
             }
+        }
+        std::string output_string {output.str()};
+        if (output_string.length() > 0) {
+            std::ofstream handle {settings.generate_filename(filename.str())};
+            handle << output_string;
         }
     }
 
