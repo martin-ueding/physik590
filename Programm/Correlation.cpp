@@ -15,9 +15,9 @@ correlation(std::vector<double> &x, const unsigned size,
     c.setZero();
 
     for (unsigned row {0u} ; row < c.rows(); row++) {
-        unsigned power1 {(even ? 0 : 1) + 2 * row};
+        unsigned power1 {(even ? 2 : 1) + 2 * row};
         for (unsigned col {0u}; col < c.cols(); col++) {
-            unsigned power2 {(even ? 0 : 1) + 2 * col};
+            unsigned power2 {(even ? 2 : 1) + 2 * col};
             for (unsigned k {0u}; k < x.size(); ++k) {
                 double x1 {x[k]};
                 double x2 {x[Periodic::wrap(k + distance, x.size())]};
