@@ -89,8 +89,15 @@ class Settings {
           */
         double mu_squared {1};
 
-        double gauss_height {0.0};
+        /**
+          Inverse scattering length \f$ 1/a_0 \f$.
+          */
+        double inverse_scattering_length {0.0};
 
+        /**
+          Standard deviation for the gauss curve that approximates the delta
+          distribution.
+          */
         double gauss_width {1.0};
 
         /**

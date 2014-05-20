@@ -52,5 +52,5 @@ void Oscillator::export_potential(std::string filename, std::string preamble,
 
 double Oscillator::potential(double x) {
     return 0.5 * settings.mu_squared * x * x
-           + settings.gauss_height * std::exp(-x * x / gauss_width_squared);
+           + 2 * settings.inverse_scattering_length * std::exp(-x * x / gauss_width_squared);
 }

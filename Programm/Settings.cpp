@@ -44,8 +44,8 @@ std::string Settings::report() {
     oss << prefix << "time sites" << colon << time_sites << std::endl;
     oss << prefix << "mass" << colon << mass << std::endl;
     oss << prefix << "time step" << colon << time_step << std::endl;
-    oss << prefix << "mu_squared" << colon << mu_squared << std::endl;
-    oss << prefix << "gauss height" << colon << gauss_height << std::endl;
+    oss << prefix << "mu squared" << colon << mu_squared << std::endl;
+    oss << prefix << "inverse scattering length" << colon << inverse_scattering_length << std::endl;
     oss << prefix << "gauss width" << colon << gauss_width << std::endl;
     oss << prefix << "initial random width" << colon << initial_random_width << std::endl;
     oss << prefix << "margin" << colon << margin << std::endl;
@@ -57,16 +57,16 @@ std::string Settings::report() {
     oss << prefix << "position seed" << colon << position_seed << std::endl;
     oss << prefix << "accept seed" << colon << accept_seed << std::endl;
     oss << prefix << "bootstrap samples" << colon << bootstrap_samples << std::endl;
-    oss << prefix << "position_hist_bins" << colon << position_hist_bins << std::endl;
-    oss << prefix << "action_hist_bins" << colon << action_hist_bins << std::endl;
-    oss << prefix << "correlation_size" << colon << correlation_size << std::endl;
-    oss << prefix << "correlation_ts" << colon;
+    oss << prefix << "position hist_bins" << colon << position_hist_bins << std::endl;
+    oss << prefix << "action hist_bins" << colon << action_hist_bins << std::endl;
+    oss << prefix << "correlation size" << colon << correlation_size << std::endl;
+    oss << prefix << "correlation ts" << colon;
     for (unsigned i: correlation_ts)
         oss << i << " ";
     oss << std::endl;
-    oss << prefix << "export_potential_steps" << colon << export_potential_steps << std::endl;
-    oss << prefix << "export_potential_bound" << colon << export_potential_bound << std::endl;
-    oss << prefix << "corr_tau_max" << colon << corr_tau_max << std::endl;
+    oss << prefix << "export potential steps" << colon << export_potential_steps << std::endl;
+    oss << prefix << "export potential bound" << colon << export_potential_bound << std::endl;
+    oss << prefix << "corr tau max" << colon << corr_tau_max << std::endl;
     oss << prefix << "----" << std::endl;
 
     return oss.str();

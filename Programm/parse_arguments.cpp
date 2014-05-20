@@ -29,8 +29,8 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
     ("mu-squared,o",
      boost::program_options::value<double>(&settings.mu_squared)->default_value(settings.mu_squared),
      "μ²")
-    ("gauss-height",
-     boost::program_options::value<double>(&settings.gauss_height)->default_value(settings.gauss_height),
+    ("inverse-scattering-length",
+     boost::program_options::value<double>(&settings.inverse_scattering_length)->default_value(settings.inverse_scattering_length),
      "Gauss height")
     ("gauss-width",
      boost::program_options::value<double>(&settings.gauss_width)->default_value(settings.gauss_width),
