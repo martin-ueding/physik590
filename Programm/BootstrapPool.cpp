@@ -20,11 +20,11 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
         CorrFunc map_even;
         CorrFunc map_odd;
         for (unsigned distance : settings.correlation_ts) {
-            map_even.emplace(distance, correlation(trajectories[t_id], settings.correlation_size, distance, true));
-            map_odd.emplace(distance, correlation(trajectories[t_id], settings.correlation_size, distance, true));
+            map_even.emplace(distance, correlation(trajectories[t_id], settings, distance, true));
+            map_odd.emplace(distance, correlation(trajectories[t_id], settings, distance, true));
 
-            map_even.emplace(distance+1, correlation(trajectories[t_id], settings.correlation_size, distance+1, true));
-            map_odd.emplace(distance+1, correlation(trajectories[t_id], settings.correlation_size, distance+1, true));
+            map_even.emplace(distance+1, correlation(trajectories[t_id], settings, distance+1, true));
+            map_odd.emplace(distance+1, correlation(trajectories[t_id], settings, distance+1, true));
         }
         even.push_back(std::move(map_even));
         odd.push_back(std::move(map_odd));

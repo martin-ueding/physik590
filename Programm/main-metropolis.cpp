@@ -28,7 +28,7 @@ void do_stuff(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &settings) {
 
         for (unsigned i {0}; i < lambda_i_t.size(); i++) {
             //double E = - 1 / settings.time_step * std::log(lambda_n_tplus1[n] / lambda_n_t[n]);
-            double E = lambda_i_t[n];
+            double E = lambda_i_t[i];
             bs_E_n_t[t][settings.matrix_to_state(i, even)].append(E);
         }
     }
