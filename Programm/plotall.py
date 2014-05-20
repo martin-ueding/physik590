@@ -31,7 +31,7 @@ def main():
         fit_eigenvalues(run, '*-eigenvalue-*.csv')
 
 def fit_eigenvalues(run, pattern):
-    for csv_file in glob.glob(os.path.join(run, pattern)):
+    for csv_file in sorted(glob.glob(os.path.join(run, pattern))):
         data = np.loadtxt(csv_file)
         if len(data) == 0:
             continue

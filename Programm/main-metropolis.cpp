@@ -79,11 +79,6 @@ int main(int argc, char **argv) {
     for (unsigned sample_id {0u}; sample_id < settings.bootstrap_samples; sample_id++) {
         BootstrapSample sample {pool};
 
-        std::cout << sample.even[0] << std::endl;
-        std::cout << sample.odd[0] << std::endl;
-
-        exit(0);
-
         boot_hist.insert_histogram(sample.histogram);
 
         do_stuff(sample.even, true, bs_E_n_t, settings);
