@@ -75,10 +75,20 @@ int main(int argc, char **argv) {
         bs_E_n_t.emplace(t, std::move(inner));
     }
 
+    std::vector<BootstrappedQuantity> c11(settings.correlation_ts.size());
+
     ProgressBar sample_bar {"Creating bootstrap samples", settings.bootstrap_samples};
     for (unsigned sample_id {0u}; sample_id < settings.bootstrap_samples; sample_id++) {
         BootstrapSample sample {pool};
 
+        // Extract C_11.
+        CorrFunc &odd {sample.odd};
+        for (auto &pair : odd) {
+            c11[pair.first] += pair.second(settings.state_to_matrix(1), settings.state_to_matrix(1));
+        }
+
+
+        // Extract histogram.
         boot_hist.insert_histogram(sample.histogram);
 
         do_stuff(sample.even, true, bs_E_n_t, settings);
