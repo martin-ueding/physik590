@@ -14,6 +14,26 @@
 #include <iostream>
 #include <iomanip>
 
+typedef std::map<unsigned, std::map<unsigned, BootstrappedQuantity>> BQMapMap;
+
+/**
+  This method does some stuff, and I have yet to specify what exactly it does.
+  */
+void do_stuff(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &settings) {
+    unsigned t_0 = 0;
+    auto &C_t0 = C[t_0];
+    for (unsigned t : settings.correlation_ts) {
+        std::vector<double> lambda_n_t {GEVPSolver::eigenvalues(C[t], C_t0)};
+        //std::vector<double> lambda_n_tplus1 {GEVPSolver::eigenvalues(sample.even[t+1], C_t0)};
+
+        for (unsigned n {0}; n < lambda_n_t.size(); n++) {
+            //double E = - 1 / settings.time_step * std::log(lambda_n_tplus1[n] / lambda_n_t[n]);
+            double E = lambda_n_t[n];
+            bs_E_n_t[t][settings.matrix_to_state(n, even)].append(E);
+        }
+    }
+}
+
 /**
   Entry point for the metropolis program.
 
@@ -44,7 +64,7 @@ int main(int argc, char **argv) {
       The inner map is a mapping that goes through all E_n. The outter map
       holds the E_n at different times t.
       */
-    std::map<unsigned, std::map<unsigned, BootstrappedQuantity>> bs_E_n_t;
+    BQMapMap bs_E_n_t;
 
     for (unsigned t : settings.correlation_ts) {
         std::map<unsigned, BootstrappedQuantity> inner;
@@ -61,29 +81,15 @@ int main(int argc, char **argv) {
 
         boot_hist.insert_histogram(sample.histogram);
 
-        unsigned t_0 = 0;
-        auto &C_t0 = sample.even[t_0];
-        for (unsigned t : settings.correlation_ts) {
-            std::vector<double> lambda_n_t {GEVPSolver::eigenvalues(sample.even[t], C_t0)};
-            //std::vector<double> lambda_n_tplus1 {GEVPSolver::eigenvalues(sample.even[t+1], C_t0)};
-
-            for (unsigned n {0}; n < lambda_n_t.size(); n++) {
-                //double E = - 1 / settings.time_step * std::log(lambda_n_tplus1[n] / lambda_n_t[n]);
-                double E = lambda_n_t[n];
-
-                std::cout << std::setw(11) << E << " ";
-
-                bs_E_n_t[t][settings.matrix_to_state(n, true)].append(E);
-            }
-            std::cout << std::endl;
-        }
+        do_stuff(sample.even, true, bs_E_n_t, settings);
+        do_stuff(sample.odd, false, bs_E_n_t, settings);
 
         sample_bar.update(sample_id);
     }
     sample_bar.close();
 
 
-    for (unsigned n {0}; n < settings.max_energyvalue(); n++) {
+    for (unsigned n {1}; n <= settings.max_energyvalue(); n++) {
         for (unsigned t : settings.correlation_ts) {
             std::cout << "E_" << n << "(" << std::setw(4) << t << ") = ";
             try {
@@ -98,7 +104,7 @@ int main(int argc, char **argv) {
     }
 
     // Output to single files.
-    for (unsigned n {0}; n < settings.max_energyvalue(); n++) {
+    for (unsigned n {1}; n <= settings.max_energyvalue(); n++) {
         std::ostringstream filename;
         std::ostringstream output;
         filename << "eigenvalue-" << n << ".csv";
