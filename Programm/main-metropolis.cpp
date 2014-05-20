@@ -120,6 +120,7 @@ int main(int argc, char **argv) {
         std::string output_string {output.str()};
         if (output_string.length() > 0) {
             std::ofstream handle {settings.generate_filename(filename.str())};
+            handle << settings.report();
             handle << output_string;
         }
     }
