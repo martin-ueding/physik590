@@ -10,7 +10,8 @@ set(CMAKE_CXX_COMPILER "/usr/bin/g++")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -O3 -pthread -std=c++11 -Wall -Werror")
 set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 
-find_package(Threads)
+find_package(Boost COMPONENTS filesystem program_options system REQUIRED)
+find_package(Threads REQUIRED)
 
 add_executable(metropolis
     main-metropolis.cpp
@@ -37,8 +38,13 @@ add_executable(metropolis
     VectorHelper.cpp
 
     )
-target_link_libraries(metropolis boost_program_options)
-target_link_libraries(metropolis boost_system)
-target_link_libraries(metropolis boost_filesystem)
-target_link_libraries (metropolis ${CMAKE_THREAD_LIBS_INIT})
+
+include_directories(${Boost_INCLUDE_DIRS})
+
+target_link_libraries(metropolis ${Boost_PROGRAM_OPTIONS_LIBRARY})
+target_link_libraries(metropolis ${Boost_FILESYSTEM_LIBRARY})
+target_link_libraries(metropolis ${Boost_SYSTEM_LIBRARY})
+
+target_link_libraries(metropolis ${CMAKE_THREAD_LIBS_INIT})
+
 target_link_libraries(metropolis crypto++)
