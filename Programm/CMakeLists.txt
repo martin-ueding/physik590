@@ -41,9 +41,7 @@ add_executable(metropolis
 
 include_directories(${Boost_INCLUDE_DIRS})
 
-target_link_libraries(metropolis ${Boost_PROGRAM_OPTIONS_LIBRARY})
-target_link_libraries(metropolis ${Boost_FILESYSTEM_LIBRARY})
-target_link_libraries(metropolis ${Boost_SYSTEM_LIBRARY})
+target_link_libraries(metropolis ${Boost_LIBRARIES})
 
 target_link_libraries(metropolis ${CMAKE_THREAD_LIBS_INIT})
 
