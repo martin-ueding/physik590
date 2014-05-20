@@ -10,7 +10,7 @@
 #include <sstream>
 
 void Settings::compute() {
-    for (unsigned i = 0; i < time_sites / 2; i += 2 + i / 2) {
+    for (unsigned i = 0; time_step * i < corr_tau_max; i++) {
         correlation_ts.push_back(i);
     }
 }
@@ -66,6 +66,7 @@ std::string Settings::report() {
     oss << std::endl;
     oss << prefix << "export_potential_steps" << colon << export_potential_steps << std::endl;
     oss << prefix << "export_potential_bound" << colon << export_potential_bound << std::endl;
+    oss << prefix << "corr_tau_max" << colon << corr_tau_max << std::endl;
     oss << prefix << "----" << std::endl;
 
     return oss.str();

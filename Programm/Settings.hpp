@@ -176,6 +176,8 @@ class Settings {
         unsigned export_potential_steps {1000};
         double export_potential_bound {5.0};
 
+        double corr_tau_max = 4;
+
     private:
         /**
           Separator for parameters in the file name.
