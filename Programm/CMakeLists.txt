@@ -12,6 +12,7 @@ set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 
 find_package(Boost COMPONENTS filesystem program_options system REQUIRED)
 find_package(Threads REQUIRED)
+find_package(Eigen3)
 
 add_executable(metropolis
     main-metropolis.cpp
