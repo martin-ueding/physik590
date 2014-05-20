@@ -3,7 +3,6 @@
 
 #include "BootstrapSample.hpp"
 
-
 BootstrapSample::BootstrapSample(BootstrapPool &pool) :
     histogram {pool.histograms[0].get_min(), pool.histograms[0].get_max(), pool.histograms[0].size()} {
     for (auto & p : pool.even[0]) {
