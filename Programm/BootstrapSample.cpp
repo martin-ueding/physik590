@@ -33,6 +33,5 @@ BootstrapSample::BootstrapSample(BootstrapPool &pool) :
         }
 
         histogram += pool.histograms[i];
-
     }
 }
