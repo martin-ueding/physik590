@@ -23,13 +23,13 @@ void do_stuff(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &settings) {
     unsigned t_0 = 0;
     auto &C_t0 = C[t_0];
     for (unsigned t : settings.correlation_ts) {
-        std::vector<double> lambda_n_t {GEVPSolver::eigenvalues(C[t], C_t0)};
+        std::vector<double> lambda_i_t {GEVPSolver::eigenvalues(C[t], C_t0)};
         //std::vector<double> lambda_n_tplus1 {GEVPSolver::eigenvalues(sample.even[t+1], C_t0)};
 
-        for (unsigned n {0}; n < lambda_n_t.size(); n++) {
+        for (unsigned i {0}; i < lambda_i_t.size(); i++) {
             //double E = - 1 / settings.time_step * std::log(lambda_n_tplus1[n] / lambda_n_t[n]);
-            double E = lambda_n_t[n];
-            bs_E_n_t[t][settings.matrix_to_state(n, even)].append(E);
+            double E = lambda_i_t[n];
+            bs_E_n_t[t][settings.matrix_to_state(i, even)].append(E);
         }
     }
 }
