@@ -75,7 +75,8 @@ int main(int argc, char **argv) {
         bs_E_n_t.emplace(t, std::move(inner));
     }
 
-    std::vector<BootstrappedQuantity> c11(settings.correlation_ts.size());
+    unsigned largest = *std::max_element(settings.correlation_ts.begin(), settings.correlation_ts.end());
+    std::vector<BootstrappedQuantity> c11(largest + 2);
 
     ProgressBar sample_bar {"Creating bootstrap samples", settings.bootstrap_samples};
     for (unsigned sample_id {0u}; sample_id < settings.bootstrap_samples; sample_id++) {
