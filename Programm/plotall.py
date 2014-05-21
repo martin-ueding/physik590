@@ -35,7 +35,7 @@ def fit_eigenvalues(run, pattern):
         data = np.loadtxt(csv_file)
         if len(data) == 0:
             continue
-        tau = data[:, 0] * 0.1
+        tau = data[:, 0]
         y_val = data[:, 1]
         y_err = data[:, 2]
 
