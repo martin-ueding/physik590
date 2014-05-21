@@ -137,14 +137,14 @@ int main(int argc, char **argv) {
         if (output_string.length() > 0) {
             std::ofstream handle {settings.generate_filename(filename.str())};
             handle << settings.report();
-            handle << "tau \t c??_val \t c??_err" << std::endl;
+            handle << "# tau \t c??_val \t c??_err" << std::endl;
             handle << output_string;
         }
     }
 
     std::ofstream c11_handle {settings.generate_filename("c11.csv")};
     c11_handle << settings.report();
-    c11_handle << "tau \t c11_val \t c11_err" << std::endl;
+    c11_handle << "# tau \t c11_val \t c11_err" << std::endl;
     for (unsigned i{0}; i < c11.size(); i++) {
         c11_handle << i * settings.time_step << "\t" << c11[i].mean() << "\t" << c11[i].stddev() << std::endl;
     }
