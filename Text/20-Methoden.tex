@@ -72,7 +72,8 @@ Feynmans Pfadintegralformalismus erlaubt es ein quantenmechanisches System mit
 $n$ Freiheitsgraden in ein klassisches System mit $n+1$ Freiheitsgraden zu
 überführen. Dieses System kann dann mit Methoden ähnlich der statistischen
 Physik behandelt werden. Analog zur kanonischen Zustandssumme tritt hier eine
-Summe über alle Weltlinien zwischen festem Anfangs- und Endpunkt auf
+Summe über alle Weltlinien, die zwischen festem Anfangs- und Endpunkt $x_\text
+A$ bzw. $x_\text E$, die eine Zeit $T$ auseinander liegen, auf
 \parencite[(2.7)]{Creutz/Statistical_Approach_QM}:
 \[
     Z(x_\text E, x_\text A) = \sum_{\text{Trajektorien $j$}} \exp\del{ \iup
@@ -90,34 +91,36 @@ Trajektorien $x(\tau)$, die $x(0) = x_\text A$ und $x(T) = x_\text E$ erfüllen,
 so kann die Summe umgeschrieben werden zu
 \parencite[(2.1)]{Creutz/Statistical_Approach_QM}:
 \[
-    \int [\dif x] \, \exp\del{-\frac{S[x]}\hbar}.
+    \int [\dif x] \, \exp\del{-\frac{S(x)}\hbar}.
 \]
-Dieser Integrand wird nur in der Nähe der minimalen Wirkung Beiträge liefern.
-Dies reduziert den Bereich des Phasenraums, über den integriert werden muss,
-derart, dass die Integration mit Monte Carlo Methoden gut möglich ist.
+$S$ ist hier ein Funktional der Trajektorie $x$. Dieser Integrand wird nur in
+der Nähe der minimalen Wirkung Beiträge liefern. Dies reduziert den Bereich des
+Phasenraums, über den integriert werden muss, derart, dass die Integration mit
+Monte Carlo Methoden gut möglich ist.
 
 Die Wirkung ist auch hier die Zeitintegration der Lagrangefunktion
 \parencite[(2.5)]{Creutz/Statistical_Approach_QM}:
 \[
-    S = \int_0^T \dif \tau \, \del{\frac 12 m \del{\dpd x\tau(\tau)}^2 + V(x)}
+    S = \int_0^T \dif \tau \, \sbr{\frac 12 m \sbr{\dpd x\tau(\tau)}^2 + V(x)}
 \]
 
 Diskretisiert man die Weltlinien, so wird es möglich, die Integration über alle
 Weltlinien auszuführen. Das Integrationsmaß wird bei einer Unterteilung in
-$\timesites+1$ ($0, \ldots, \timesites$)
-Zeitpunkte zu:
+$\timesites+1$ (also $0, \ldots, \timesites$) Zeitpunkte zu:
 \[
-    \int [\dif x] \leadsto \prod_{j = 1}^{\timesites-1} \int_{-\infty}^\infty \dif x_j.
+    \int [\dif x]
+    \quad\leadsto\quad
+    \prod_{j = 1}^{\timesites-1} \int_{-\infty}^\infty \dif x_j.
 \]
 Der Abstand der diskreten Zeitpunkte ist der Einfachheit halber konstant und
 wird als $\timestep$ definiert. Somit gilt $T = \timesites\timestep$. Durch die
 Diskretisierung werden Weltlinien unterdrückt, die sich zwischen den
 Zeitpunkten stark ändern. Im Gegensatz zur reellen Zeit, in der Weltlinien mit
-beliebe Wirkung in die Zustandssumme einfließen können, fließen mit imaginärer
-Zeit Weltlinien mit großer Geschwindigkeit (und daher großer Wirkung) deutlich
-weniger stark ein. Daher ist die Benutzung eines Zeitgitters in Kombination mit
-imaginärer Zeit legitim. Im Grenzfall $\timestep \to 0$ erhält man den
-kontinuierlichen Fall zurück.
+beliebiger Wirkung in die Zustandssumme einfließen können, fließen mit
+imaginärer Zeit Weltlinien mit großer Geschwindigkeit (und daher großer
+Wirkung) exponentiell weniger stark ein. Daher ist die Benutzung eines
+Zeitgitters in Kombination mit imaginärer Zeit legitim. Im Grenzfall $\timestep
+\to 0$ erhält man den kontinuierlichen Fall zurück.
 
 Durch die diskrete Zeit wird in der Wirkung die Zeitableitung durch einen
 Differenzenquotient ersetzt. Die Lagrangefunktion hängt nur noch von zwei
@@ -138,11 +141,11 @@ Integral liefern, ist jedoch aufgrund der exponentiellen Gewichtung recht
 klein. Der Algorithmus von Metropolis wählt die Weltlinien entsprechend dieser
 Gewichtung so aus, dass ein ungewichteter Mittelwert dieser Weltlinien einen
 Schätzwert für die gewünschte Größe gibt
-\parencite[434]{Creutz/Statistical_Approach_QM}. Die Verteilung der
-Trajektorien $\vec x_k$ wird durch
+\parencite[434]{Creutz/Statistical_Approach_QM}. Die Wahrscheinlichkeit, die
+Trajektorie $\vec x_k$ zu erhalten, wird durch
 \begin{equation}
     \label{eq:p_x_k}
-    p(\vec x_k) = \frac{\exp(-S(\vec x_k))}{\int [\dif x] \exp(-S(\vec x))}
+    p(\vec x_k) = \frac{\exp(-S(\vec x_k))}{\int [\dif x] \, \exp(-S(\vec x))}
 \end{equation}
 gegeben \parencite[(3.6)]{Creutz/Statistical_Approach_QM}. Werden $\iterations$
 Weltlinien durch den Metropolisalgorithmus generiert, so ist der Schätzwert
@@ -150,7 +153,7 @@ $\overline A$ für
 eine Größe $\bracket A$
 \parencite[(3.7)]{Creutz/Statistical_Approach_QM}:
 \[
-    \overline A = \frac1\iterations \sum_{k=1}^\iterations A(\vec x_k).
+    \overline A := \frac1\iterations \sum_{k=1}^\iterations A(\vec x_k).
 \]
 
 \subsection{Markovketten}
