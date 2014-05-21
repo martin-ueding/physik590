@@ -105,20 +105,6 @@ int main(int argc, char **argv) {
     sample_bar.close();
 
 
-    for (unsigned n {1}; n <= settings.max_energyvalue(); n++) {
-        for (unsigned t : settings.correlation_ts) {
-            std::cout << "E_" << n << "(" << std::setw(4) << t << ") = ";
-            try {
-                double mean {bs_E_n_t[t][n].mean()};
-                double stddev {bs_E_n_t[t][n].stddev()};
-                std::cout << std::setw(13) << mean << " ± " << std::setw(13) << stddev << std::endl;
-            }
-            catch (std::runtime_error e) {
-                std::cout << e.what() << std::endl;
-            }
-        }
-    }
-
     // Output to single files.
     for (unsigned n {1}; n <= settings.max_energyvalue(); n++) {
         std::ostringstream filename;
