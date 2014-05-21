@@ -26,7 +26,7 @@ def main():
         plot_with(auto_plot_trajectory, 'trajectory-*.csv', run, plotted)
         plot_with(auto_plot_histogram, 'histogram-*.csv', run, plotted)
 
-        plot_correlations(run, '*-correlations.csv')
+        plot_correlations(run, '*-c11.csv')
 
         fit_eigenvalues(run, '*-eigenvalue-*.csv')
 
@@ -52,10 +52,15 @@ def fit_eigenvalues(run, pattern):
         pl.clf()
         pl.plot(tau_s, y_val_s, linestyle='none', marker='+')
         pl.plot(fx, fy)
+        pl.grid(True)
+        pl.title(os.path.basename(csv_file))
+        pl.xlabel('imaginäre Zeit')
+        pl.ylabel('Eigenwert')
+        pl.yscale('log')
         pl.savefig(csv_file.replace('.csv', '.pdf'))
         pl.clf()
 
-        print(csv_file, popt[0])
+        print(os.path.basename(csv_file), popt[0])
 
 def plot_with(function, pattern, run, plotted):
     for csv_file in glob.glob(os.path.join(run, pattern)):
@@ -81,14 +86,15 @@ def decay_with_offset(x, tau, ampl, offset):
 def plot_correlations(run, pattern):
     for filename in glob.glob(os.path.join(run, pattern)):
         data = np.loadtxt(filename)
-        t = data[:, 0] * 0.1
+        t = data[:, 0]
         corr_val = data[:, 1]
         corr_err = data[:, 2]
 
-        cutoff = 40
-        cutoff2 = cutoff * 2.5
+        cutoff = 4
 
-        popt, pconv = op.curve_fit(decay, t[:cutoff], corr_val[:cutoff], sigma=corr_err[:cutoff])
+        selection = t < cutoff
+
+        popt, pconv = op.curve_fit(time_evolution, t[selection], corr_val[selection], sigma=corr_err[selection])
 
         #print('popt:', popt)
         #print(pconv)
@@ -98,17 +104,17 @@ def plot_correlations(run, pattern):
 
         print('E1 - E0 = {} +- {}'.format(E1_val, E1_err))
 
-        x = np.linspace(np.min(t[:cutoff2]), np.max(t[:cutoff2]), 100)
-        y = decay(x, *popt)
+        x = np.linspace(np.min(t[selection]), np.max(t[selection]), 100)
+        y = time_evolution(x, *popt)
 
         pl.clf()
-        pl.errorbar(t[:cutoff2], corr_val[:cutoff2], yerr=corr_err[:cutoff2])
+        pl.errorbar(t[selection], corr_val[selection], yerr=corr_err[selection])
         pl.plot(x, y)
         pl.grid(True)
-        pl.title('Korrelationen')
+        pl.title(os.path.basename(filename))
         pl.xlabel(r'$\Delta\tau$')
         pl.ylabel(r'$\langle x(\tau) x(\tau + \Delta \tau) \rangle$')
-        #pl.yscale('log')
+        pl.yscale('log')
         pl.savefig(filename.replace('.csv', '.pdf'))
         pl.clf()
 
