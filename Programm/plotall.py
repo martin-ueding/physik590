@@ -15,7 +15,7 @@ import datetime
 def main():
     options = _parse_args()
 
-    runs = sorted(glob.glob('out/*/'))
+    runs = sorted(glob.glob('out/?????????*/'))
 
     for run in runs:
         print('Run:', run)
