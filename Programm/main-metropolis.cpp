@@ -84,16 +84,21 @@ int main(int argc, char **argv) {
 
         // Extract C_11.
         CorrFunc &odd {sample.odd};
-        for (auto &pair : odd) {
-            c11[pair.first] += pair.second(settings.state_to_matrix(1), settings.state_to_matrix(1));
+        for (std::pair<const unsigned, Eigen::MatrixXd> &pair : odd) {
+            unsigned t {pair.first};
+            Eigen::MatrixXd &c_t {pair.second};
+            double c_t_11 {c_t(settings.state_to_matrix(1), settings.state_to_matrix(1))};
+            c11[t].append(c_t_11);
         }
 
 
         // Extract histogram.
         boot_hist.insert_histogram(sample.histogram);
 
+
         do_stuff(sample.even, true, bs_E_n_t, settings);
         do_stuff(sample.odd, false, bs_E_n_t, settings);
+
 
         sample_bar.update(sample_id);
     }
