@@ -159,9 +159,9 @@ eine Größe $\bracket A$
 \subsection{Markovketten}
 
 Um die Weltlinien entsprechend gewichtet generieren zu können, kommt ein
-Markovprozess zum Einsatz, der aus einer Weltlinie die nächste generiert. Für
-$\iterations \to \infty$ nähert sich die Verteilung der Benötigten an.
-\parencite[434]{Creutz/Statistical_Approach_QM}
+bestimmter Markovprozess zum Einsatz, der aus einer Weltlinie die nächste
+generiert. Für $\iterations \to \infty$ nähert sich die Verteilung der
+Benötigten an. \parencite[434]{Creutz/Statistical_Approach_QM}
 
 % Eigenschaften von Markovketten
 
@@ -172,6 +172,9 @@ Vielteilchensystems. Man kann nun eine Übergangsmatrix $W_{ij}$ definieren, die
 die Wahrscheinlichkeit angibt, dass das System vom Zustand $i$ in den Zustand
 $j$ wechselt. Aufgrund der diskreten Zeit entspricht ein Zeitschritt einem
 Übergangsschritt.
+
+% FIXME Hier klarer machen, was die x indiziert und was ganze Trajektorien
+% indiziert.
 
 Die Matrixelemente müssen $W_{ij} \geq 0$, sowie muss $\sum_j W_{ij} = 1$
 gelten, da jeder Zustand in einen nächsten (oder sich selbst) übergehen muss
