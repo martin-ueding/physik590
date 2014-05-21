@@ -99,7 +99,7 @@ unsigned Settings::matrix_to_state(unsigned i, bool even) {
 }
 
 unsigned Settings::state_to_matrix(unsigned n) {
-    if (n == 1) {
+    if (n == 0) {
         throw std::range_error {"Correlation C_00 is not contained in the matrix."};
     }
     return (n - 1) / 2;
