@@ -44,10 +44,10 @@ def fit_eigenvalues(run, pattern):
         tau_s = tau[selection]
         y_val_s = y_val[selection]
 
-        popt, pconv = op.curve_fit(decay_with_offset, tau_s, y_val_s)
+        popt, pconv = op.curve_fit(time_evolution_with_offset, tau_s, y_val_s)
 
         fx = np.linspace(min(tau_s), max(tau_s), 1000)
-        fy = decay_with_offset(fx, *popt)
+        fy = time_evolution_with_offset(fx, *popt)
 
         pl.clf()
         pl.plot(tau_s, y_val_s, linestyle='none', marker='+')
@@ -68,6 +68,12 @@ def plot_with(function, pattern, run, plotted):
 
 def decay(x, tau, ampl):
     return ampl * np.exp(-x / tau)
+
+def time_evolution(x, e_n, ampl):
+    return ampl * np.exp(-e_n * x)
+
+def time_evolution_with_offset(x, e_n, ampl, offset):
+    return time_evolution(x, e_n, ampl) + offset
 
 def decay_with_offset(x, tau, ampl, offset):
     return decay(x, tau, ampl) + offset

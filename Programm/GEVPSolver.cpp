@@ -26,7 +26,9 @@ std::vector<double> GEVPSolver::eigenvalues(Eigen::MatrixXd &a, Eigen::MatrixXd 
         eigenvalues_vector.push_back(ev.real());
     }
 
-    sort(eigenvalues_vector.begin(), eigenvalues_vector.end());
+    // Reverse sort of the eigenvalues. Beware that those are reverse
+    // iterators.
+    sort(eigenvalues_vector.rend(), eigenvalues_vector.rbegin());
 
     /*
     std::cout << "A" << std::endl;
