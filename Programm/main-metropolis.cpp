@@ -128,7 +128,7 @@ int main(int argc, char **argv) {
             try {
                 double mean {bs_E_n_t[t][n].mean()};
                 double stddev {bs_E_n_t[t][n].stddev()};
-                output << t << "\t" << mean << "\t" << stddev << std::endl;
+                output << t * settings.time_step << "\t" << mean << "\t" << stddev << std::endl;
             }
             catch (std::runtime_error e) {
             }
@@ -137,6 +137,7 @@ int main(int argc, char **argv) {
         if (output_string.length() > 0) {
             std::ofstream handle {settings.generate_filename(filename.str())};
             handle << settings.report();
+            handle << "tau \t c??_val \t c??_err" << std::endl;
             handle << output_string;
         }
     }
