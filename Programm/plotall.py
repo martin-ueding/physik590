@@ -43,14 +43,16 @@ def fit_eigenvalues(run, pattern):
 
         tau_s = tau[selection]
         y_val_s = y_val[selection]
+        y_err_s = y_err[selection]
 
-        popt, pconv = op.curve_fit(time_evolution_with_offset, tau_s, y_val_s)
+        func = time_evolution_with_offset
+        popt, pconv = op.curve_fit(func, tau_s, y_val_s, sigma=1/y_err_s)
 
         fx = np.linspace(min(tau_s), max(tau_s), 1000)
-        fy = time_evolution_with_offset(fx, *popt)
+        fy = func(fx, *popt)
 
         pl.clf()
-        pl.plot(tau_s, y_val_s, linestyle='none', marker='+')
+        pl.errorbar(tau_s, y_val_s, yerr=y_err_s, linestyle='none', marker='+')
         pl.plot(fx, fy)
         pl.grid(True)
         pl.title(os.path.basename(csv_file))
