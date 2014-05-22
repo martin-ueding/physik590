@@ -22,9 +22,6 @@
 
 typedef std::map<unsigned, std::map<unsigned, BootstrappedQuantity>> BQMapMap;
 
-/**
-  This method does some stuff, and I have yet to specify what exactly it does.
-  */
 void do_stuff(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &settings) {
     auto &C_t0 = C[settings.t_0];
     for (unsigned t : settings.correlation_ts) {
@@ -42,54 +39,22 @@ void do_stuff(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &settings) {
     }
 }
 
-void signal_handler (int signo) {
-    if(signo == SIGFPE) {
-      std::cout << "Caught FPE" << std::endl;
-    }
+void save_pool(std::shared_ptr<BootstrapPool> pool, Settings &settings) {
+    ProgressBar bar {"Serializing", 1};
+    std::ofstream ofs {settings.generate_filename("pool.bin")};
+    boost::archive::binary_oarchive oa {ofs};
+    oa << *pool;
 }
 
-/**
-  Entry point for the metropolis program.
+void load_into_pool(std::shared_ptr<BootstrapPool> pool, Settings &settings) {
+    ProgressBar bar {"Loading data", 1};
+    pool = std::unique_ptr<BootstrapPool> {new BootstrapPool {}};
+    std::ifstream ifs(settings.load_filename);
+    boost::archive::binary_iarchive ia(ifs);
+    ia >> *pool;
+}
 
-  @param argc Argument count
-  @param argv Argument values
-  @return Return code
-  */
-int main(int argc, char **argv) {
-  signal(SIGFPE, (*signal_handler));
-    Settings settings;
-
-    parse_arguments(argc, argv, settings);
-    settings.compute();
-
-    std::cout << "ID of this run: " << settings.hash() << std::endl;
-
-    MetropolisDriver m_driver {settings};
-
-    BootstrapPool pool_store {m_driver, settings};
-
-    {
-        ProgressBar bar {"Serializing", 1};
-        std::ofstream ofs {settings.generate_filename("pool.bin")};
-        boost::archive::binary_oarchive oa {ofs};
-        oa << pool_store;
-        // archive and stream closed when destructors are called
-    }
-
-    settings.load_filename = settings.generate_filename("pool.bin");
-
-     // ... some time later restore the class instance to its orginal state
-    BootstrapPool pool;
-    {
-        ProgressBar bar {"Loading data", 1};
-        // create and open an archive for input
-        std::ifstream ifs(settings.load_filename);
-        boost::archive::binary_iarchive ia(ifs);
-        // read class state from archive
-        ia >> pool;
-        // archive and stream closed when destructors are called
-    }
-
+void analysis(BootstrapPool &pool, Settings &settings) {
     BootstrappedHistogram boot_hist {
         settings.position_hist_min, settings.position_hist_max,
         settings.position_hist_bins
@@ -172,10 +137,36 @@ int main(int argc, char **argv) {
 
 
     boot_hist.write_histogram(settings.generate_filename("position-density.csv"));
+}
+
+/**
+  Entry point for the metropolis program.
+
+  @param argc Argument count
+  @param argv Argument values
+  @return Return code
+  */
+int main(int argc, char **argv) {
+    Settings settings;
+
+    parse_arguments(argc, argv, settings);
+    settings.compute();
+
+    std::cout << "ID of this run: " << settings.hash() << std::endl;
+
+    MetropolisDriver m_driver {settings};
+
+    std::shared_ptr<BootstrapPool> pool;
+
+    if (settings.load_filename == "") {
+        pool = std::unique_ptr<BootstrapPool> {new BootstrapPool {m_driver, settings}};
+        save_pool(pool, settings);
+    }
+    else {
+        load_into_pool(pool, settings);
+    }
+
+    analysis(*pool, settings);
 
     return 0;
 }
-
-// Extract the correlation matrix function from the sample.
-// Compute the λ_n(t).
-// Calculate the E_n(t).
