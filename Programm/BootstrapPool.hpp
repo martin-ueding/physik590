@@ -8,12 +8,33 @@
 #include "ProgressBar.hpp"
 #include "Settings.hpp"
 
+#include <boost/archive/text_oarchive.hpp>
+#include <eigen3/Eigen/Core>
 #include <eigen3/Eigen/Dense>
 
 #include <atomic>
+#include <fstream>
 #include <map>
 #include <mutex>
 #include <vector>
+
+namespace boost {
+    template<class Archive, typename _Scalar, int _Rows, int _Cols, int _Options, int _MaxRows, int _MaxCols>
+    inline void serialize(Archive &ar, Matrix < _Scalar, _Rows, _Cols, _Options,
+                          _MaxRows, _MaxCols > &t,
+                          const unsigned int file_version) {
+        size_t rows = t.rows(), cols = t.cols();
+        ar &rows;
+        ar &cols;
+        if (rows * cols != t.size()) {
+            t.resize(rows, cols);
+        }
+
+        for (size_t i = 0; i < t.size(); i++) {
+            ar &t.data()[i];
+        }
+    }
+}
 
 typedef std::map<unsigned, Eigen::MatrixXd> CorrFunc;
 
@@ -21,6 +42,7 @@ typedef std::map<unsigned, Eigen::MatrixXd> CorrFunc;
   The base set of trajectories that are used for bootstrapping later on.
   */
 class BootstrapPool {
+        friend class boost::serialization::access;
     public:
         /**
           Fills the pool with trajectories.
@@ -37,6 +59,14 @@ class BootstrapPool {
           */
         size_t size() {
             return trajectories.size();
+        }
+
+        template<class Archive>
+        void serialize(Archive &ar, const unsigned int version) {
+            ar &trajectories;
+            ar &even;
+            ar &odd;
+            ar &histogram;
         }
 
         /**
