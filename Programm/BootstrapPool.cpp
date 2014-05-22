@@ -7,6 +7,9 @@
 
 #include <thread>
 
+BootstrapPool::BootstrapPool() {
+}
+
 BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
     // Fill pool with trajectories.
     ProgressBar bar {"Populating bootstrap pool", settings.iterations};

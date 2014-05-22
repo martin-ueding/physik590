@@ -16,4 +16,4 @@
   @param[out] settings Settings instance
   @return Whether program should be halted
   */
-bool parse_arguments(int argc, char **argv, Settings &settings);
+void parse_arguments(int argc, char **argv, Settings &settings);

@@ -7,6 +7,9 @@
 #include <fstream>
 #include <iostream>
 
+Histogram::Histogram() {
+}
+
 Histogram::Histogram(double min, double max, size_t bins) :
     min {min},
     max {max},

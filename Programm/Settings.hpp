@@ -187,6 +187,8 @@ class Settings {
 
         unsigned t_0 {1};
 
+        std::string load_filename;
+
     private:
         /**
           Separator for parameters in the file name.

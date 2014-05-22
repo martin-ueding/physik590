@@ -50,6 +50,8 @@ typedef std::map<unsigned, Eigen::MatrixXd> CorrFunc;
 class BootstrapPool {
         friend class boost::serialization::access;
     public:
+        BootstrapPool();
+
         /**
           Fills the pool with trajectories.
 

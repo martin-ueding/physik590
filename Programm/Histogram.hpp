@@ -3,10 +3,14 @@
 
 #pragma once
 
+#include <boost/archive/text_oarchive.hpp>
+
 #include <string>
 #include <vector>
 
 class Histogram {
+        friend class boost::serialization::access;
+
     public:
         Histogram(double min, double max, size_t bins);
 
@@ -50,6 +54,8 @@ class Histogram {
 #pragma clang diagnostic pop
 
     protected:
+        Histogram();
+
         double min;
         double max;
         std::vector<int> bins;

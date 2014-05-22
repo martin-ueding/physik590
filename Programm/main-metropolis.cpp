@@ -10,9 +10,10 @@
 #include "ResultSet.hpp"
 #include "Settings.hpp"
 
+#include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
-#include <boost/serialization/vector.hpp>
 #include <boost/serialization/map.hpp>
+#include <boost/serialization/vector.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -50,23 +51,35 @@ void do_stuff(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &settings) {
 int main(int argc, char **argv) {
     Settings settings;
 
-    if (parse_arguments(argc, argv, settings)) {
-        return 0;
-    }
+    parse_arguments(argc, argv, settings);
     settings.compute();
+
+
 
     std::cout << "ID of this run: " << settings.hash() << std::endl;
 
     MetropolisDriver m_driver {settings};
 
-    BootstrapPool pool {m_driver, settings};
+    BootstrapPool pool_store {m_driver, settings};
 
 
     {
+        ProgressBar bar {"Serializing", 1};
         std::ofstream ofs {settings.generate_filename("pool.bin")};
         boost::archive::text_oarchive oa {ofs};
-        // write class instance to archive
-        oa << pool;
+        oa << pool_store;
+        // archive and stream closed when destructors are called
+    }
+
+     // ... some time later restore the class instance to its orginal state
+    BootstrapPool pool;
+    {
+        ProgressBar bar {"Loading data", 1};
+        // create and open an archive for input
+        std::ifstream ifs(settings.load_filename);
+        boost::archive::text_iarchive ia(ifs);
+        // read class state from archive
+        ia >> pool;
         // archive and stream closed when destructors are called
     }
 
