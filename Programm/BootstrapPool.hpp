@@ -28,14 +28,14 @@ namespace boost {
     inline void serialize(Archive &ar, Eigen::Matrix < _Scalar, _Rows, _Cols, _Options,
                           _MaxRows, _MaxCols > &t,
                           const unsigned int file_version) {
-        size_t rows = t.rows(), cols = t.cols();
+        long rows = t.rows(), cols = t.cols();
         ar &rows;
         ar &cols;
         if (rows * cols != t.size()) {
             t.resize(rows, cols);
         }
 
-        for (size_t i = 0; i < t.size(); i++) {
+        for (long i = 0; i < t.size(); i++) {
             ar &t.data()[i];
         }
     }

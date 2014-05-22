@@ -38,6 +38,17 @@ class Histogram {
             return bins.size();
         }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
+        template<class Archive>
+        void serialize(Archive &ar, const unsigned int version) {
+            ar &min;
+            ar &max;
+            ar &bins;
+            ar &points_pushed;
+        }
+#pragma clang diagnostic pop
+
     protected:
         double min;
         double max;

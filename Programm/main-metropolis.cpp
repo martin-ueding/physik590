@@ -11,6 +11,8 @@
 #include "Settings.hpp"
 
 #include <boost/archive/text_oarchive.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/map.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -60,9 +62,9 @@ int main(int argc, char **argv) {
     BootstrapPool pool {m_driver, settings};
 
 
-     {
-         std::ofstream ofs{settings.generate_filename("pool.bin")};
-        boost::archive::text_oarchive oa{ofs};
+    {
+        std::ofstream ofs {settings.generate_filename("pool.bin")};
+        boost::archive::text_oarchive oa {ofs};
         // write class instance to archive
         oa << pool;
         // archive and stream closed when destructors are called
