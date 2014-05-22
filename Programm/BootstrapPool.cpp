@@ -58,8 +58,8 @@ void BootstrapPool::operator()(Settings &settings, ProgressBar &bar_corr) {
             map_even.emplace(distance, correlation(trajectories[t_id], settings, distance, true));
             map_odd.emplace(distance, correlation(trajectories[t_id], settings, distance, false));
 
-            map_even.emplace(distance+1, correlation(trajectories[t_id], settings, distance+1, true));
-            map_odd.emplace(distance+1, correlation(trajectories[t_id], settings, distance+1, false));
+            map_even.emplace(distance + 1, correlation(trajectories[t_id], settings, distance + 1, true));
+            map_odd.emplace(distance + 1, correlation(trajectories[t_id], settings, distance + 1, false));
         }
         std::lock_guard<std::mutex> {mutex};
         even[t_id] = map_even;
