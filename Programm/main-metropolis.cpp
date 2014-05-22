@@ -22,7 +22,7 @@
 
 typedef std::map<unsigned, std::map<unsigned, BootstrappedQuantity>> BQMapMap;
 
-void do_stuff(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &settings) {
+void insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &settings) {
     auto &C_t0 = C[settings.t_0];
     for (unsigned t : settings.correlation_ts) {
         if (t <= settings.t_0) {
@@ -107,8 +107,8 @@ void analysis(BootstrapPool &pool, Settings &settings) {
         boot_hist.insert_histogram(sample.histogram);
 
 
-        do_stuff(sample.even, true, bs_E_n_t, settings);
-        do_stuff(sample.odd, false, bs_E_n_t, settings);
+        insert_eigenvalues(sample.even, true, bs_E_n_t, settings);
+        insert_eigenvalues(sample.odd, false, bs_E_n_t, settings);
 
 
         sample_bar.update(sample_id);
