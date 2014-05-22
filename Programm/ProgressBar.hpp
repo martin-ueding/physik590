@@ -4,6 +4,7 @@
 #pragma once
 
 #include <string>
+#include <chrono>
 
 class ProgressBar {
     public:
@@ -27,4 +28,6 @@ class ProgressBar {
         bool is_closed {false};
 
         void print_update(int value);
+
+        std::chrono::time_point<std::chrono::steady_clock> start_time {std::chrono::steady_clock::now()};
 };
