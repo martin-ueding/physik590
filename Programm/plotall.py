@@ -62,7 +62,8 @@ def fit_eigenvalues(run, pattern):
         pl.savefig(csv_file.replace('.csv', '.pdf'))
         pl.clf()
 
-        print(os.path.basename(csv_file), popt[0])
+        print(os.path.basename(csv_file), 'E_n', popt[0])
+        print(os.path.basename(csv_file), 'offset', popt[2])
 
 def plot_with(function, pattern, run, plotted):
     for csv_file in glob.glob(os.path.join(run, pattern)):
