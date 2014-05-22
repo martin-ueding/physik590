@@ -44,14 +44,16 @@ void save_pool(std::shared_ptr<BootstrapPool> pool, Settings &settings) {
     std::ofstream ofs {settings.generate_filename("pool.bin")};
     boost::archive::binary_oarchive oa {ofs};
     oa << *pool;
+    //oa << settings;
 }
 
-void load_into_pool(std::shared_ptr<BootstrapPool> pool, Settings &settings) {
+void load_into_pool(std::shared_ptr<BootstrapPool> &pool, Settings &settings) {
     ProgressBar bar {"Loading data", 1};
     pool = std::unique_ptr<BootstrapPool> {new BootstrapPool {}};
     std::ifstream ifs(settings.load_filename);
     boost::archive::binary_iarchive ia(ifs);
     ia >> *pool;
+    //ia >> settings;
 
     bar.close();
     std::cout << "pool.even.size() " << pool->even.size() << std::endl;
@@ -174,6 +176,8 @@ int main(int argc, char **argv) {
     else {
         load_into_pool(pool, settings);
     }
+
+    std::cout << "ID of this run: " << settings.hash() << std::endl;
 
     analysis(*pool, settings);
 
