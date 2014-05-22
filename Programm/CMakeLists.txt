@@ -11,6 +11,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -O3 -pthread -std=c++11 -W
 set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 
 find_package(Boost COMPONENTS filesystem program_options system REQUIRED)
+find_package(Threads REQUIRED)
 find_package(Eigen3)
 
 add_executable(metropolis
@@ -42,4 +43,7 @@ add_executable(metropolis
 include_directories(${Boost_INCLUDE_DIRS})
 
 target_link_libraries(metropolis ${Boost_LIBRARIES})
+
+target_link_libraries(metropolis ${CMAKE_THREAD_LIBS_INIT})
+
 target_link_libraries(metropolis crypto++)
