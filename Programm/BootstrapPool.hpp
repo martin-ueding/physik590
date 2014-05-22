@@ -5,12 +5,15 @@
 
 #include "Histogram.hpp"
 #include "MetropolisDriver.hpp"
+#include "ProgressBar.hpp"
 #include "Settings.hpp"
 
 #include <eigen3/Eigen/Dense>
 
-#include <vector>
+#include <atomic>
 #include <map>
+#include <mutex>
+#include <vector>
 
 typedef std::map<unsigned, Eigen::MatrixXd> CorrFunc;
 
@@ -26,6 +29,8 @@ class BootstrapPool {
           @param[in] settings Program settings
           */
         BootstrapPool(MetropolisDriver &driver, Settings &settings);
+
+        void operator()(Settings &settings, ProgressBar &bar_corr);
 
         /**
           Gives the size of the pool.
@@ -56,4 +61,8 @@ class BootstrapPool {
         std::vector<Histogram> histograms;
 
         std::mt19937 engine;
+
+    protected:
+        std::atomic<unsigned> t_id_atom {0};
+        std::mutex mutex;
 };
