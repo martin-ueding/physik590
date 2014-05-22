@@ -23,7 +23,6 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
 
     even.resize(trajectories.size());
     odd.resize(trajectories.size());
-    histograms.resize(trajectories.size());
 
     unsigned cpu_count = std::thread::hardware_concurrency();
 
