@@ -92,6 +92,9 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
     ("action-hist-bins",
      boost::program_options::value<unsigned>(&settings.action_hist_bins)->default_value(settings.action_hist_bins),
      "Number of bins in the action histogram")
+    ("correlation-size",
+     boost::program_options::value<unsigned>(&settings.correlation_size)->default_value(settings.correlation_size),
+     "Size of the correlation matrix. Maximum eigenvalue is twice this.")
     ;
     options.add(hist_options);
 
