@@ -18,4 +18,4 @@
   @param[in] even Calculate the even elements.
   */
 Eigen::MatrixXd correlation(std::vector<double> &x, Settings &settings,
-        const unsigned distance, const bool even);
+                            const unsigned distance, const bool even);

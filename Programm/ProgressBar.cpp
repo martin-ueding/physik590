@@ -44,7 +44,7 @@ void ProgressBar::close() {
     std::cout << "]";
 
     double time_in_seconds = std::chrono::duration_cast<std::chrono::milliseconds>
-        (std::chrono::steady_clock::now() - start_time).count() / 1000.0;
+                             (std::chrono::steady_clock::now() - start_time).count() / 1000.0;
     std::cout << " " << time_in_seconds << " s";
 
     std::cout << std::endl;

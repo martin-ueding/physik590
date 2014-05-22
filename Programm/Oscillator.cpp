@@ -9,7 +9,7 @@
 #include <cmath>
 
 Oscillator::Oscillator(Settings &settings) :
-    settings{settings},
+    settings {settings},
 gauss_width_squared {settings.gauss_width * settings.gauss_width} {
 }
 
@@ -41,11 +41,11 @@ double Oscillator::action_step(double cur, double next) {
 }
 
 void Oscillator::export_potential(std::string filename, std::string preamble,
-        Settings &settings) {
+                                  Settings &settings) {
     std::ofstream handle {filename};
     handle << preamble;
     double step {settings.export_potential_bound / 2 / settings.export_potential_steps};
-    for (double x {-settings.export_potential_bound}; x <= settings.export_potential_bound; x += step) {
+    for (double x { -settings.export_potential_bound}; x <= settings.export_potential_bound; x += step) {
         handle << x << "\t" << potential(x) << std::endl;
     }
 }

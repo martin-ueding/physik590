@@ -25,7 +25,7 @@ void do_stuff(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &settings) {
         if (t <= settings.t_0) {
             continue;
         }
-        std::vector<double> lambda_i_t ( GEVPSolver::eigenvalues(C[t], C_t0) );
+        std::vector<double> lambda_i_t (GEVPSolver::eigenvalues(C[t], C_t0));
         //std::vector<double> lambda_n_tplus1 {GEVPSolver::eigenvalues(sample.even[t+1], C_t0)};
 
         for (unsigned i {0}; i < lambda_i_t.size(); i++) {
@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
 
     BootstrappedHistogram boot_hist {
         settings.position_hist_min, settings.position_hist_max,
-            settings.position_hist_bins
+        settings.position_hist_bins
     };
 
     /**
@@ -116,7 +116,7 @@ int main(int argc, char **argv) {
             try {
                 double mean {bs_E_n_t[t][n].mean()};
                 double stddev {bs_E_n_t[t][n].stddev()};
-                output << t * settings.time_step << "\t" << mean << "\t" << stddev << std::endl;
+                output << t *settings.time_step << "\t" << mean << "\t" << stddev << std::endl;
             }
             catch (std::runtime_error e) {
             }
@@ -133,8 +133,8 @@ int main(int argc, char **argv) {
     std::ofstream c11_handle {settings.generate_filename("c11.csv")};
     c11_handle << settings.report();
     c11_handle << "# tau \t c11_val \t c11_err" << std::endl;
-    for (unsigned i{0}; i < c11.size(); i++) {
-        c11_handle << i * settings.time_step << "\t" << c11[i].mean() << "\t" << c11[i].stddev() << std::endl;
+    for (unsigned i {0}; i < c11.size(); i++) {
+        c11_handle << i *settings.time_step << "\t" << c11[i].mean() << "\t" << c11[i].stddev() << std::endl;
     }
 
 

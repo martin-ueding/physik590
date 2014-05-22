@@ -61,8 +61,9 @@ std::string Settings::report() {
     oss << prefix << "action hist_bins" << colon << action_hist_bins << std::endl;
     oss << prefix << "correlation size" << colon << correlation_size << std::endl;
     oss << prefix << "correlation ts" << colon;
-    for (unsigned i: correlation_ts)
+    for (unsigned i : correlation_ts) {
         oss << i << " ";
+    }
     oss << std::endl;
     oss << prefix << "export potential steps" << colon << export_potential_steps << std::endl;
     oss << prefix << "export potential bound" << colon << export_potential_bound << std::endl;

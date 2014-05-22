@@ -29,7 +29,7 @@ double BootstrappedQuantity::mean() {
         else {
             oss << ".";
         }
-        throw std::runtime_error{oss.str()};
+        throw std::runtime_error {oss.str()};
     }
     double sum {std::accumulate(data.begin(), data.end(), 0.0)};
     double mean {sum / data.size()};
@@ -39,7 +39,7 @@ double BootstrappedQuantity::mean() {
 
 double BootstrappedQuantity::stddev() {
     if (data.size() == 0) {
-        throw std::runtime_error{"No elements to calculate standard deviation from!"};
+        throw std::runtime_error {"No elements to calculate standard deviation from!"};
     }
 
     std::vector<double> diff(data.size());

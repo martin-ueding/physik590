@@ -69,7 +69,7 @@ class Oscillator {
           Exports a X-Y-file for the potential.
           */
         void export_potential(std::string filename, std::string preamble,
-        Settings &settings);
+                              Settings &settings);
 
     private:
         Settings &settings;
