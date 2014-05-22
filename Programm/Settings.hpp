@@ -59,7 +59,7 @@ class Settings {
           */
         void compute();
 
-        unsigned algorithm_version {2};
+        unsigned algorithm_version {3};
 
         /**
           @f$ N @f$ in [CF80].
