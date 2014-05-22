@@ -95,6 +95,9 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
     ("correlation-size",
      boost::program_options::value<unsigned>(&settings.correlation_size)->default_value(settings.correlation_size),
      "Size of the correlation matrix. Maximum eigenvalue is twice this.")
+    ("corr-tau-max",
+     boost::program_options::value<double>(&settings.corr_tau_max)->default_value(settings.corr_tau_max),
+     "Last τ to calculate C(τ) for.")
     ;
     options.add(hist_options);
 
