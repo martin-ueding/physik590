@@ -2,6 +2,7 @@
 // Licensed under The GNU Public License Version 2 (or later)
 
 // http://stackoverflow.com/a/12618789
+// http://stackoverflow.com/a/18423496
 
 #pragma once
 
@@ -22,7 +23,10 @@
 
 namespace boost {
     template<class Archive, typename _Scalar, int _Rows, int _Cols, int _Options, int _MaxRows, int _MaxCols>
-    inline void serialize(Archive &ar, Matrix < _Scalar, _Rows, _Cols, _Options,
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
+    inline void serialize(Archive &ar, Eigen::Matrix < _Scalar, _Rows, _Cols, _Options,
                           _MaxRows, _MaxCols > &t,
                           const unsigned int file_version) {
         size_t rows = t.rows(), cols = t.cols();
@@ -36,6 +40,7 @@ namespace boost {
             ar &t.data()[i];
         }
     }
+#pragma clang diagnostic pop
 }
 
 typedef std::map<unsigned, Eigen::MatrixXd> CorrFunc;
@@ -63,13 +68,16 @@ class BootstrapPool {
             return trajectories.size();
         }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
         template<class Archive>
         void serialize(Archive &ar, const unsigned int version) {
             ar &trajectories;
             ar &even;
             ar &odd;
-            ar &histogram;
+            ar &histograms;
         }
+#pragma clang diagnostic pop
 
         /**
           The original trajectories.
