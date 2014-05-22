@@ -15,7 +15,14 @@ import datetime
 def main():
     options = _parse_args()
 
-    runs = sorted(glob.glob('out/?????????*/'))
+    if len(options.prefixes) == 0:
+        runs = sorted(glob.glob('out/*/'))
+    else:
+        runs = sorted([
+            run
+            for prefix in options.prefixes
+            for run in glob.glob('out/{}*/'.format(prefix))
+        ])
 
     for run in runs:
         print('Run:', run)
@@ -46,24 +53,27 @@ def fit_eigenvalues(run, pattern):
         y_err_s = y_err[selection]
 
         func = time_evolution
-        popt, pconv = op.curve_fit(func, tau_s, y_val_s, sigma=1/y_err_s)
+        try:
+            popt, pconv = op.curve_fit(func, tau_s, y_val_s, sigma=1/y_err_s)
 
-        fx = np.linspace(min(tau_s), max(tau_s), 1000)
-        fy = func(fx, *popt)
+            fx = np.linspace(min(tau_s), max(tau_s), 1000)
+            fy = func(fx, *popt)
 
-        pl.clf()
-        pl.errorbar(tau_s, y_val_s, yerr=y_err_s, linestyle='none', marker='+')
-        pl.plot(fx, fy)
-        pl.grid(True)
-        pl.title(os.path.basename(csv_file))
-        pl.xlabel('imaginäre Zeit')
-        pl.ylabel('Eigenwert')
-        pl.yscale('log')
-        pl.savefig(csv_file.replace('.csv', '.pdf'))
-        pl.clf()
+            pl.clf()
+            pl.errorbar(tau_s, y_val_s, yerr=y_err_s, linestyle='none', marker='+')
+            pl.plot(fx, fy)
+            pl.grid(True)
+            pl.title(os.path.basename(csv_file))
+            pl.xlabel('imaginäre Zeit')
+            pl.ylabel('Eigenwert')
+            pl.yscale('log')
+            pl.savefig(csv_file.replace('.csv', '.pdf'))
+            pl.clf()
 
-        print(os.path.basename(csv_file), 'E_n', popt[0])
-        #print(os.path.basename(csv_file), 'offset', popt[2])
+            print(os.path.basename(csv_file), 'E_n', popt[0])
+            #print(os.path.basename(csv_file), 'offset', popt[2])
+        except RuntimeError as e:
+            print(e)
 
 def plot_with(function, pattern, run, plotted):
     for csv_file in glob.glob(os.path.join(run, pattern)):
@@ -199,10 +209,7 @@ def _parse_args():
     :rtype: Namespace
     """
     parser = argparse.ArgumentParser(description="")
-    #parser.add_argument("args", metavar="N", type=str, nargs="*", help="Positional arguments.")
-    #parser.add_argument("", dest="", type="", default=, help=)
-    #parser.add_argument("--version", action="version", version="<the version>")
-    parser.add_argument("-v", dest='verbose', action="count", help='Enable verbose output. Can be supplied multiple times for even more verbosity.')
+    parser.add_argument("prefixes", nargs="*", help="Positional arguments.")
 
     options = parser.parse_args()
 
