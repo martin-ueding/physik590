@@ -10,8 +10,8 @@
 #include "ResultSet.hpp"
 #include "Settings.hpp"
 
-#include <boost/archive/text_iarchive.hpp>
-#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 #include <boost/serialization/map.hpp>
 #include <boost/serialization/vector.hpp>
 
@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
     {
         ProgressBar bar {"Serializing", 1};
         std::ofstream ofs {settings.generate_filename("pool.bin")};
-        boost::archive::text_oarchive oa {ofs};
+        boost::archive::binary_oarchive oa {ofs};
         oa << pool_store;
         // archive and stream closed when destructors are called
     }
@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
         ProgressBar bar {"Loading data", 1};
         // create and open an archive for input
         std::ifstream ifs(settings.load_filename);
-        boost::archive::text_iarchive ia(ifs);
+        boost::archive::binary_iarchive ia(ifs);
         // read class state from archive
         ia >> pool;
         // archive and stream closed when destructors are called
