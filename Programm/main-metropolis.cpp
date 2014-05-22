@@ -20,10 +20,9 @@ typedef std::map<unsigned, std::map<unsigned, BootstrappedQuantity>> BQMapMap;
   This method does some stuff, and I have yet to specify what exactly it does.
   */
 void do_stuff(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &settings) {
-    unsigned t_0 = 1/settings.time_step;
-    auto &C_t0 = C[t_0];
+    auto &C_t0 = C[settings.t_0];
     for (unsigned t : settings.correlation_ts) {
-        if (t <= t_0) {
+        if (t <= settings.t_0) {
             continue;
         }
         std::vector<double> lambda_i_t ( GEVPSolver::eigenvalues(C[t], C_t0) );

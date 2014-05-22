@@ -185,6 +185,8 @@ class Settings {
 
         double corr_tau_max = 4;
 
+        unsigned t_0 {1};
+
     private:
         /**
           Separator for parameters in the file name.

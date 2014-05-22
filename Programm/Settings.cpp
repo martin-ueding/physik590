@@ -67,6 +67,7 @@ std::string Settings::report() {
     oss << prefix << "export potential steps" << colon << export_potential_steps << std::endl;
     oss << prefix << "export potential bound" << colon << export_potential_bound << std::endl;
     oss << prefix << "corr tau max" << colon << corr_tau_max << std::endl;
+    oss << prefix << "t_0" << colon << t_0 << std::endl;
     oss << prefix << "----" << std::endl;
 
     return oss.str();
