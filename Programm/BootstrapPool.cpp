@@ -19,9 +19,11 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
     }
     bar.close();
 
-    even.reserve(trajectories.size());
-    odd.reserve(trajectories.size());
-    histograms.reserve(trajectories.size());
+    std::cout << "BootstrapPool::trajectories now contains " << trajectories.size() << " items." << std::endl;
+
+    even.resize(trajectories.size());
+    odd.resize(trajectories.size());
+    histograms.resize(trajectories.size());
 
     unsigned cpu_count = std::thread::hardware_concurrency();
 
@@ -35,6 +37,9 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
         workers[i].join();
     }
     bar_corr.close();
+
+    std::cout << "BootstrapPool::even now contains " << even.size() << " items." << std::endl;
+    std::cout << "BootstrapPool::odd now contains " << odd.size() << " items." << std::endl;
 
     // Compute histograms.
     ProgressBar bar_hist {"Computing histograms", settings.iterations};

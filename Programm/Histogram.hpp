@@ -12,6 +12,8 @@ class Histogram {
         friend class boost::serialization::access;
 
     public:
+        Histogram();
+
         Histogram(double min, double max, size_t bins);
 
         Histogram &operator+=(Histogram &other);
@@ -54,8 +56,6 @@ class Histogram {
 #pragma clang diagnostic pop
 
     protected:
-        Histogram();
-
         double min;
         double max;
         std::vector<int> bins;

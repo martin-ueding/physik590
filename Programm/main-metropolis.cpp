@@ -15,9 +15,10 @@
 #include <boost/serialization/map.hpp>
 #include <boost/serialization/vector.hpp>
 
+#include <csignal>
 #include <fstream>
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 
 typedef std::map<unsigned, std::map<unsigned, BootstrappedQuantity>> BQMapMap;
 
@@ -41,6 +42,12 @@ void do_stuff(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &settings) {
     }
 }
 
+void signal_handler (int signo) {
+    if(signo == SIGFPE) {
+      std::cout << "Caught FPE" << std::endl;
+    }
+}
+
 /**
   Entry point for the metropolis program.
 
@@ -49,19 +56,17 @@ void do_stuff(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &settings) {
   @return Return code
   */
 int main(int argc, char **argv) {
+  signal(SIGFPE, (*signal_handler));
     Settings settings;
 
     parse_arguments(argc, argv, settings);
     settings.compute();
-
-
 
     std::cout << "ID of this run: " << settings.hash() << std::endl;
 
     MetropolisDriver m_driver {settings};
 
     BootstrapPool pool_store {m_driver, settings};
-
 
     {
         ProgressBar bar {"Serializing", 1};
@@ -70,6 +75,8 @@ int main(int argc, char **argv) {
         oa << pool_store;
         // archive and stream closed when destructors are called
     }
+
+    settings.load_filename = settings.generate_filename("pool.bin");
 
      // ... some time later restore the class instance to its orginal state
     BootstrapPool pool;
