@@ -10,6 +10,8 @@
 #include "ResultSet.hpp"
 #include "Settings.hpp"
 
+#include <boost/archive/text_oarchive.hpp>
+
 #include <fstream>
 #include <iostream>
 #include <iomanip>
@@ -56,6 +58,15 @@ int main(int argc, char **argv) {
     MetropolisDriver m_driver {settings};
 
     BootstrapPool pool {m_driver, settings};
+
+
+     {
+         std::ofstream ofs{settings.generate_filename("pool.bin")};
+        boost::archive::text_oarchive oa{ofs};
+        // write class instance to archive
+        oa << pool;
+        // archive and stream closed when destructors are called
+    }
 
     BootstrappedHistogram boot_hist {
         settings.position_hist_min, settings.position_hist_max,

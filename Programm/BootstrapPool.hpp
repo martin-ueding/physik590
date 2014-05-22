@@ -16,7 +16,6 @@
 #include <eigen3/Eigen/Dense>
 
 #include <atomic>
-#include <fstream>
 #include <map>
 #include <mutex>
 #include <vector>
