@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-bool parse_arguments(int argc, char **argv, Settings &settings) {
+void parse_arguments(int argc, char **argv, Settings &settings) {
     boost::program_options::options_description options {"Program options"};
     options.add_options()
     ("help,h", "Print usage and exit")
@@ -98,6 +98,9 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
     ("corr-tau-max",
      boost::program_options::value<double>(&settings.corr_tau_max)->default_value(settings.corr_tau_max),
      "Last τ to calculate C(τ) for.")
+    ("load",
+     boost::program_options::value<std::string>(&settings.load_filename)->default_value(""),
+     "Load this file")
     ;
     options.add(hist_options);
 
@@ -107,8 +110,6 @@ bool parse_arguments(int argc, char **argv, Settings &settings) {
 
     if (vm.count("help") > 0) {
         std::cout << options << std::endl;
-        return true;
+        exit(0);
     }
-
-    return false;
 }

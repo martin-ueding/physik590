@@ -7,10 +7,10 @@ project(Bachelorarbeit C CXX)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -pthread -std=c++11 -Wall -Wextra -Wpedantic")
 set(CMAKE_CXX_COMPILER "/usr/bin/g++")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -g -pthread -std=c++11 -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -O3 -pthread -std=c++11 -Wall -Werror")
 set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 
-find_package(Boost COMPONENTS filesystem program_options system REQUIRED)
+find_package(Boost COMPONENTS filesystem program_options serialization system REQUIRED)
 find_package(Threads REQUIRED)
 find_package(Eigen3)
 

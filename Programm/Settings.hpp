@@ -154,7 +154,7 @@ class Settings {
         unsigned position_hist_bins {40};
 
         double position_hist_min { -5};
-        double position_hist_max { -5};
+        double position_hist_max { 5};
 
         /**
           Number of bins for the action histogram.
@@ -186,6 +186,8 @@ class Settings {
         double corr_tau_max = 4;
 
         unsigned t_0 {1};
+
+        std::string load_filename;
 
     private:
         /**

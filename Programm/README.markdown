@@ -6,7 +6,10 @@ These Debian packages are needed to complile the prorgrams:
 
 - clang
 - cmake
-- libboost-program-options1.54-dev
+- libboost-filesystem-dev
+- libboost-program-options-dev
+- libboost-serialization-dev
+- libboost-system-dev
 - libcppunit-dev
 - libcrypto++-dev
 - libeigen3-dev

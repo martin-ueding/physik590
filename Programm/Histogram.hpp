@@ -3,10 +3,14 @@
 
 #pragma once
 
+#include <boost/archive/binary_oarchive.hpp>
+
 #include <string>
 #include <vector>
 
 class Histogram {
+        friend class boost::serialization::access;
+
     public:
         Histogram(double min, double max, size_t bins);
 
@@ -38,7 +42,20 @@ class Histogram {
             return bins.size();
         }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
+        template<class Archive>
+        void serialize(Archive &ar, const unsigned int version) {
+            ar &min;
+            ar &max;
+            ar &bins;
+            ar &points_pushed;
+        }
+#pragma clang diagnostic pop
+
     protected:
+        Histogram();
+
         double min;
         double max;
         std::vector<int> bins;

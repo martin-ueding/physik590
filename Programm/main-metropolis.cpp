@@ -10,16 +10,19 @@
 #include "ResultSet.hpp"
 #include "Settings.hpp"
 
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/serialization/map.hpp>
+#include <boost/serialization/vector.hpp>
+
+#include <csignal>
 #include <fstream>
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 
 typedef std::map<unsigned, std::map<unsigned, BootstrappedQuantity>> BQMapMap;
 
-/**
-  This method does some stuff, and I have yet to specify what exactly it does.
-  */
-void do_stuff(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &settings) {
+void insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &settings) {
     auto &C_t0 = C[settings.t_0];
     for (unsigned t : settings.correlation_ts) {
         if (t <= settings.t_0) {
@@ -36,27 +39,33 @@ void do_stuff(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &settings) {
     }
 }
 
-/**
-  Entry point for the metropolis program.
+void save_pool(std::shared_ptr<BootstrapPool> pool, Settings &settings) {
+    ProgressBar bar {"Serializing", 1};
+    std::ofstream ofs {settings.generate_filename("pool.bin")};
+    boost::archive::binary_oarchive oa {ofs};
+    oa << *pool;
+    //oa << settings;
+}
 
-  @param argc Argument count
-  @param argv Argument values
-  @return Return code
-  */
-int main(int argc, char **argv) {
-    Settings settings;
+void load_into_pool(std::shared_ptr<BootstrapPool> &pool, Settings &settings) {
+    ProgressBar bar {"Loading data", 1};
+    pool = std::unique_ptr<BootstrapPool> {new BootstrapPool {}};
+    std::ifstream ifs(settings.load_filename);
+    boost::archive::binary_iarchive ia(ifs);
+    ia >> *pool;
+    //ia >> settings;
 
-    if (parse_arguments(argc, argv, settings)) {
-        return 0;
-    }
-    settings.compute();
+    bar.close();
+    std::cout << "pool.even.size() " << pool->even.size() << std::endl;
+    std::cout << "pool.odd.size() " << pool->odd.size() << std::endl;
+    std::cout << "pool.histograms.size() " << pool->histograms.size() << std::endl;
+    std::cout << "pool.histograms[0].size() " << pool->histograms[0].size() << std::endl;
+    std::cout << "pool.histograms[0].get_min() " << pool->histograms[0].get_min() << std::endl;
+    std::cout << "pool.histograms[0].get_max() " << pool->histograms[0].get_max() << std::endl;
+    std::cout << "pool.histograms[0][0] " << pool->histograms[0][0] << std::endl;
+}
 
-    std::cout << "ID of this run: " << settings.hash() << std::endl;
-
-    MetropolisDriver m_driver {settings};
-
-    BootstrapPool pool {m_driver, settings};
-
+void analysis(BootstrapPool &pool, Settings &settings) {
     BootstrappedHistogram boot_hist {
         settings.position_hist_min, settings.position_hist_max,
         settings.position_hist_bins
@@ -98,8 +107,8 @@ int main(int argc, char **argv) {
         boot_hist.insert_histogram(sample.histogram);
 
 
-        do_stuff(sample.even, true, bs_E_n_t, settings);
-        do_stuff(sample.odd, false, bs_E_n_t, settings);
+        insert_eigenvalues(sample.even, true, bs_E_n_t, settings);
+        insert_eigenvalues(sample.odd, false, bs_E_n_t, settings);
 
 
         sample_bar.update(sample_id);
@@ -139,10 +148,38 @@ int main(int argc, char **argv) {
 
 
     boot_hist.write_histogram(settings.generate_filename("position-density.csv"));
+}
+
+/**
+  Entry point for the metropolis program.
+
+  @param argc Argument count
+  @param argv Argument values
+  @return Return code
+  */
+int main(int argc, char **argv) {
+    Settings settings;
+
+    parse_arguments(argc, argv, settings);
+    settings.compute();
+
+    std::cout << "ID of this run: " << settings.hash() << std::endl;
+
+    MetropolisDriver m_driver {settings};
+
+    std::shared_ptr<BootstrapPool> pool;
+
+    if (settings.load_filename == "") {
+        pool = std::unique_ptr<BootstrapPool> {new BootstrapPool {m_driver, settings}};
+        save_pool(pool, settings);
+    }
+    else {
+        load_into_pool(pool, settings);
+    }
+
+    std::cout << "ID of this run: " << settings.hash() << std::endl;
+
+    analysis(*pool, settings);
 
     return 0;
 }
-
-// Extract the correlation matrix function from the sample.
-// Compute the λ_n(t).
-// Calculate the E_n(t).
