@@ -121,7 +121,7 @@ void Analysis::save_c11() {
             c11_handle << i *settings.time_step << "\t" << c11[i].mean() << "\t" << c11[i].stddev() << std::endl;
         }
         catch (std::runtime_error e) {
-            std::cout << "Element " i << ": " << e.what() << std::endl;
+            std::cout << "Element " << i << ": " << e.what() << std::endl;
         }
     }
 }
