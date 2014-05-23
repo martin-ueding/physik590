@@ -8,6 +8,8 @@
 #include "BootstrapPool.hpp"
 #include "Settings.hpp"
 
+#include <atomic>
+
 typedef std::map<unsigned, std::map<unsigned, BootstrappedQuantity>> BQMapMap;
 
 class Analysis {
@@ -20,6 +22,7 @@ class Analysis {
         void save_eigenvalues();
         void save_c11();
         void save_histogram();
+        void worker(ProgressBar &bar);
 
         BootstrapPool &pool;
         Settings &settings;
@@ -33,4 +36,6 @@ class Analysis {
         BQMapMap bs_E_n_t;
 
         std::vector<BootstrappedQuantity> c11;
+
+        std::atomic<unsigned> sample_id_atom {0};
 };

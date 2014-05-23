@@ -7,6 +7,7 @@
 #include "GEVPSolver.hpp"
 
 #include <fstream>
+#include <thread>
 
 Analysis::Analysis(BootstrapPool &pool, Settings &settings) :
     pool {pool},
@@ -50,8 +51,20 @@ void Analysis::create_samples() {
     unsigned largest = *std::max_element(settings.correlation_ts.begin(), settings.correlation_ts.end());
     c11 = std::vector<BootstrappedQuantity>(largest + 2);
 
-    ProgressBar sample_bar {"Creating bootstrap samples", settings.bootstrap_samples};
-    for (unsigned sample_id {0u}; sample_id < settings.bootstrap_samples; sample_id++) {
+    ProgressBar bar {"Creating bootstrap samples", settings.bootstrap_samples};
+
+    std::vector<std::thread> workers;
+    for (unsigned i {0}; i < settings.max_cores; i++) {
+        workers.emplace_back([&](){worker(bar);});
+    }
+    for (unsigned i {0}; i < settings.max_cores; i++) {
+        workers[i].join();
+    }
+}
+
+void Analysis::worker(ProgressBar &bar) {
+    unsigned sample_id;
+    while ((sample_id = sample_id_atom++) < settings.bootstrap_samples) {
         BootstrapSample sample {pool};
 
         // Extract C_11.
@@ -69,7 +82,7 @@ void Analysis::create_samples() {
         insert_eigenvalues(sample.even, true, bs_E_n_t);
         insert_eigenvalues(sample.odd, false, bs_E_n_t);
 
-        sample_bar.update(sample_id);
+        bar.update(sample_id);
     }
 }
 
