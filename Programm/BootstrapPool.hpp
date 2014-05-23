@@ -72,16 +72,8 @@ class BootstrapPool {
             return trajectories.size();
         }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-parameter"
         template<class Archive>
-        void serialize(Archive &ar, const unsigned int version) {
-            ar &trajectories;
-            ar &even;
-            ar &odd;
-            ar &histograms;
-        }
-#pragma clang diagnostic pop
+        void serialize(Archive &ar, const unsigned int version);
 
         /**
           The original trajectories.
