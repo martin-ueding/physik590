@@ -24,7 +24,7 @@ class MetropolisDriver {
         /**
           Creates a new driver with the given settings.
 
-          @param settings[in] Collection of settings
+          @param[in] settings Collection of settings
           */
         MetropolisDriver(Settings settings);
 

@@ -9,4 +9,5 @@
 class HistogramComputable : public Computable, public BootstrappedHistogram {
     public:
         HistogramComputable(double min, double max, size_t bins);
+        ~HistogramComputable();
 };

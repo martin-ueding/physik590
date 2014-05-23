@@ -19,7 +19,7 @@ class MetropolisAlgorithm {
           To change the initial seeds of the random generators, specify a
           value.
 
-          @param trajectory Trajectory of the particle
+          @param x Trajectory of the particle
           @param s System to work with
           @param position_seed Seed for position generator
           @param accept_seed Seed for accept generator

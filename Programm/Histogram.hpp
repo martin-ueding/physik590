@@ -38,7 +38,7 @@ class Histogram {
             return max;
         }
 
-        unsigned size() {
+        size_t size() {
             return bins.size();
         }
 

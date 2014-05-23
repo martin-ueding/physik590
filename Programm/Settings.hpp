@@ -46,8 +46,8 @@ class Settings {
               1 3 5 7 n
               0 1 2 3 index
 
-          @param[in] n n
-          @return index
+          @param[in] i index
+          @return n
           */
         unsigned matrix_to_state(unsigned i, bool even);
 

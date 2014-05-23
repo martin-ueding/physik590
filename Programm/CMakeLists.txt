@@ -15,6 +15,7 @@ add_definitions("-std=c++11")
 add_definitions("-Werror")
 add_definitions("-Weverything")
 add_definitions("-Wno-c++98-compat")
+add_definitions("-Wno-documentation-unknown-command")
 
 find_package(Boost COMPONENTS filesystem program_options serialization system REQUIRED)
 find_package(Threads REQUIRED)

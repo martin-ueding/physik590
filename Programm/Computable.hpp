@@ -9,6 +9,7 @@
 
 class Computable {
     public:
+        virtual ~Computable();
         virtual void add_sample(BootstrapSample &sample) = 0;
         virtual std::string get_name();
 };

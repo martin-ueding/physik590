@@ -13,9 +13,9 @@
   Calculates the correlation matrix for a single trajectory.
 
   @param[in] x Trajectory
-  @param[in] size Size of the matrix
+  @param[in] settings Global settings
   @param[in] distance Distance to calculate
-  @param[in] even Calculate the even elements.
+  @param[in] even Calculate the even elements
   */
 Eigen::MatrixXd correlation(std::vector<double> &x, Settings &settings,
                             const unsigned distance, const bool even);

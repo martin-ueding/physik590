@@ -8,10 +8,10 @@
 
 class ProgressBar {
     public:
-        ProgressBar(std::string prefix, size_t max);
+        ProgressBar(std::string prefix, unsigned max);
         ~ProgressBar();
 
-        void update(int value) {
+        void update(unsigned value) {
             if (value % step_size == 0) {
                 print_update(value);
             }
@@ -20,14 +20,14 @@ class ProgressBar {
         void close();
 
     protected:
-        size_t max;
-        size_t step_size;
-        int printed_steps {0};
-        int max_steps {70};
+        unsigned max;
+        unsigned step_size;
+        unsigned printed_steps {0};
+        unsigned max_steps {70};
 
         bool is_closed {false};
 
-        void print_update(int value);
+        void print_update(unsigned value);
 
         std::chrono::time_point<std::chrono::steady_clock> start_time {std::chrono::steady_clock::now()};
 };

@@ -12,8 +12,7 @@
   function. That will be needed after printing the options.
 
   @param[in] argc Argument count
-  @param[int] argv Argument values
+  @param[in] argv Argument values
   @param[out] settings Settings instance
-  @return Whether program should be halted
   */
 void parse_arguments(int argc, char **argv, Settings &settings);
