@@ -8,5 +8,9 @@
 
 class Analysis {
     public:
-    Analysis(BootstrapPool &pool, Settings &settings);
+        Analysis(BootstrapPool &pool, Settings &settings);
+
+    protected:
+        BootstrapPool &pool;
+        Settings &settings;
 };

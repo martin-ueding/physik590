@@ -30,7 +30,9 @@ void insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &se
 }
 
 
-Analysis::Analysis(BootstrapPool &pool, Settings &settings) {
+Analysis::Analysis(BootstrapPool &pool, Settings &settings) :
+    pool {pool},
+settings {settings} {
     BootstrappedHistogram boot_hist {
         settings.position_hist_min, settings.position_hist_max,
         settings.position_hist_bins
