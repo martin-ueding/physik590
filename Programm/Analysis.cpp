@@ -63,14 +63,11 @@ void Analysis::create_samples() {
             c11[t].append(c_t_11);
         }
 
-
         // Extract histogram.
         boot_hist.insert_histogram(sample.histogram);
 
-
         insert_eigenvalues(sample.even, true, bs_E_n_t);
         insert_eigenvalues(sample.odd, false, bs_E_n_t);
-
 
         sample_bar.update(sample_id);
     }
