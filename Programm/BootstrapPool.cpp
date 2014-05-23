@@ -29,7 +29,7 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
 
     std::vector<std::thread> workers;
 
-    ProgressBar bar_corr {"Computing correlation matrices", trajectories.size()};
+    ProgressBar bar_corr {"Computing correlation matrices", static_cast<unsigned>(trajectories.size())};
     for (unsigned i {0}; i < settings.max_cores; i++) {
         workers.emplace_back(std::ref(*this), std::ref(settings), std::ref(bar_corr));
     }
