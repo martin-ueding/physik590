@@ -81,11 +81,11 @@ void Analysis::worker(ProgressBar &bar) {
 #ifndef NDEBUG
         if (sample_id == 1) {
             std::cout << std::endl;
-            std::cout << "even[10]:" << std::endl;
-            std::cout << sample.even[10] << std::endl;
+            std::cout << "even[39]:" << std::endl;
+            std::cout << sample.even[39] << std::endl;
             std::cout << std::endl;
-            std::cout << "odd[10]:" << std::endl;
-            std::cout << sample.odd[10] << std::endl;
+            std::cout << "odd[39]:" << std::endl;
+            std::cout << sample.odd[39] << std::endl;
             std::cout << std::endl;
         }
 #endif
