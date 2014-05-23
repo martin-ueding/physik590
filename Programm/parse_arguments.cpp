@@ -74,6 +74,12 @@ void parse_arguments(int argc, char **argv, Settings &settings) {
     ("corr-tau-max",
      boost::program_options::value<double>(&settings.corr_tau_max)->default_value(settings.corr_tau_max),
      "Last τ to calculate C(τ) for.")
+    ("exp-pot-steps",
+     boost::program_options::value<unsigned>(&settings.export_potential_steps)->default_value(settings.export_potential_steps),
+     "Steps for potential export.")
+    ("exp-pot-bound",
+     boost::program_options::value<double>(&settings.export_potential_bound)->default_value(settings.export_potential_bound),
+     "bounds for potential export.")
     ;
     options.add(group1);
 
@@ -87,6 +93,9 @@ void parse_arguments(int argc, char **argv, Settings &settings) {
     ("samples",
      boost::program_options::value<unsigned>(&settings.bootstrap_samples)->default_value(settings.bootstrap_samples),
      "Number of bootstrap samples to generate")
+    ("t0",
+     boost::program_options::value<unsigned>(&settings.t_0)->default_value(settings.t_0),
+     "Start time for GEVP.")
     ;
     options.add(group3);
 
