@@ -51,7 +51,7 @@ void Analysis::insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_
 
 void Analysis::create_samples() {
     unsigned largest = *std::max_element(settings.correlation_ts.begin(), settings.correlation_ts.end());
-    c11 = std::vector<BootstrappedQuantity>(largest + 2);
+    c11 = std::vector<BootstrappedQuantity>(largest + 1);
 
     ProgressBar bar {"Creating bootstrap samples", settings.bootstrap_samples};
 
