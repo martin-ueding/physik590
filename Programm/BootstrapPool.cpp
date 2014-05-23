@@ -88,7 +88,9 @@ void load_into_pool(std::shared_ptr<BootstrapPool> &pool, Settings &settings) {
     ia >> *pool;
     //ia >> settings;
 
+#ifndef NDEBUG
     bar.close();
+
     std::cout << "pool.even.size() " << pool->even.size() << std::endl;
     std::cout << "pool.odd.size() " << pool->odd.size() << std::endl;
     std::cout << "pool.histograms.size() " << pool->histograms.size() << std::endl;
@@ -96,4 +98,5 @@ void load_into_pool(std::shared_ptr<BootstrapPool> &pool, Settings &settings) {
     std::cout << "pool.histograms[0].get_min() " << pool->histograms[0].get_min() << std::endl;
     std::cout << "pool.histograms[0].get_max() " << pool->histograms[0].get_max() << std::endl;
     std::cout << "pool.histograms[0][0] " << pool->histograms[0][0] << std::endl;
+#endif
 }

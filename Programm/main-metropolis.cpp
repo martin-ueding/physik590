@@ -29,21 +29,21 @@ int main(int argc, char **argv) {
     parse_arguments(argc, argv, settings);
     settings.compute();
 
-    std::cout << "ID of this run: " << settings.hash() << std::endl;
 
     MetropolisDriver m_driver {settings};
 
     std::shared_ptr<BootstrapPool> pool;
 
     if (settings.load_filename == "") {
+        std::cout << "ID of this run: " << settings.hash() << std::endl;
         pool = std::unique_ptr<BootstrapPool> {new BootstrapPool {m_driver, settings}};
         save_pool(pool, settings);
     }
     else {
         load_into_pool(pool, settings);
+        std::cout << "ID of this analysis: " << settings.hash() << std::endl;
     }
 
-    std::cout << "ID of this run: " << settings.hash() << std::endl;
 
     Analysis analysis(*pool, settings);
 
