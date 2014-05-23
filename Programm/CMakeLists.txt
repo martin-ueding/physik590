@@ -9,7 +9,12 @@ project(Bachelorarbeit C CXX)
 
 set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 
-add_definitions("-march=native -pthread -std=c++11")
+add_definitions("-march=native")
+add_definitions("-pthread")
+add_definitions("-std=c++11")
+add_definitions("-Werror")
+add_definitions("-Weverything")
+add_definitions("-Wno-c++98-compat")
 
 find_package(Boost COMPONENTS filesystem program_options serialization system REQUIRED)
 find_package(Threads REQUIRED)
