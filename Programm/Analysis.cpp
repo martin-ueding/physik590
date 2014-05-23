@@ -3,7 +3,6 @@
 
 #include "Analysis.hpp"
 
-#include "BootstrappedHistogram.hpp"
 #include "BootstrapSample.hpp"
 #include "GEVPSolver.hpp"
 
@@ -11,17 +10,11 @@
 
 Analysis::Analysis(BootstrapPool &pool, Settings &settings) :
     pool {pool},
-settings {settings} {
-    BootstrappedHistogram boot_hist {
+settings {settings},
+     boot_hist {BootstrappedHistogram{
         settings.position_hist_min, settings.position_hist_max,
         settings.position_hist_bins
-    };
-
-    /**
-      The inner map is a mapping that goes through all E_n. The outter map
-      holds the E_n at different times t.
-      */
-    BQMapMap bs_E_n_t;
+    }} {
 
     for (unsigned t : settings.correlation_ts) {
         std::map<unsigned, BootstrappedQuantity> inner;
@@ -32,8 +25,30 @@ settings {settings} {
         bs_E_n_t.emplace(t, std::move(inner));
     }
 
+    create_samples();
+    save_eigenvalues();
+    save_c11();
+    save_histogram();
+}
+
+void Analysis::insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_t) {
+    auto &C_t0 = C[settings.t_0];
+    for (unsigned t : settings.correlation_ts) {
+        if (t <= settings.t_0) {
+            continue;
+        }
+        std::vector<double> lambda_i_t (GEVPSolver::eigenvalues(C[t], C_t0));
+
+        for (unsigned i {0}; i < lambda_i_t.size(); i++) {
+            double lambda = lambda_i_t[i];
+            bs_lambda_n_t[t][settings.matrix_to_state(i, even)].append(lambda);
+        }
+    }
+}
+
+void Analysis::create_samples() {
     unsigned largest = *std::max_element(settings.correlation_ts.begin(), settings.correlation_ts.end());
-    std::vector<BootstrappedQuantity> c11(largest + 2);
+    c11 = std::vector<BootstrappedQuantity>(largest + 2);
 
     ProgressBar sample_bar {"Creating bootstrap samples", settings.bootstrap_samples};
     for (unsigned sample_id {0u}; sample_id < settings.bootstrap_samples; sample_id++) {
@@ -59,9 +74,9 @@ settings {settings} {
 
         sample_bar.update(sample_id);
     }
-    sample_bar.close();
+}
 
-
+void Analysis::save_eigenvalues() {
     // Output to single files.
     for (unsigned n {1}; n <= settings.max_energyvalue(); n++) {
         std::ostringstream filename;
@@ -84,30 +99,17 @@ settings {settings} {
             handle << output_string;
         }
     }
+}
 
+void Analysis::save_c11() {
     std::ofstream c11_handle {settings.generate_filename("c11.csv")};
     c11_handle << settings.report();
     c11_handle << "# tau \t c11_val \t c11_err" << std::endl;
     for (unsigned i {0}; i < c11.size(); i++) {
         c11_handle << i *settings.time_step << "\t" << c11[i].mean() << "\t" << c11[i].stddev() << std::endl;
     }
+}
 
-
+void Analysis::save_histogram() {
     boot_hist.write_histogram(settings.generate_filename("position-density.csv"));
 }
-
-void Analysis::insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_t) {
-    auto &C_t0 = C[settings.t_0];
-    for (unsigned t : settings.correlation_ts) {
-        if (t <= settings.t_0) {
-            continue;
-        }
-        std::vector<double> lambda_i_t (GEVPSolver::eigenvalues(C[t], C_t0));
-
-        for (unsigned i {0}; i < lambda_i_t.size(); i++) {
-            double lambda = lambda_i_t[i];
-            bs_lambda_n_t[t][settings.matrix_to_state(i, even)].append(lambda);
-        }
-    }
-}
-
