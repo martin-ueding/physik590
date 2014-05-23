@@ -101,6 +101,9 @@ void parse_arguments(int argc, char **argv, Settings &settings) {
     ("load",
      boost::program_options::value<std::string>(&settings.load_filename)->default_value(""),
      "Load this file")
+    ("max-cores,j",
+     boost::program_options::value<unsigned>(&settings.max_cores)->default_value(settings.max_cores),
+     "Maximum number of parallel threads.")
     ;
     options.add(hist_options);
 

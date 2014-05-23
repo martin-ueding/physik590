@@ -24,15 +24,13 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
     even.resize(trajectories.size());
     odd.resize(trajectories.size());
 
-    unsigned cpu_count = std::thread::hardware_concurrency();
-
     std::vector<std::thread> workers;
 
     ProgressBar bar_corr {"Computing correlation matrices", trajectories.size()};
-    for (unsigned i {0}; i < cpu_count; i++) {
+    for (unsigned i {0}; i < settings.max_cores; i++) {
         workers.emplace_back(std::ref(*this), std::ref(settings), std::ref(bar_corr));
     }
-    for (unsigned i {0}; i < cpu_count; i++) {
+    for (unsigned i {0}; i < settings.max_cores; i++) {
         workers[i].join();
     }
     bar_corr.close();

@@ -4,6 +4,7 @@
 #pragma once
 
 #include <string>
+#include <thread>
 #include <vector>
 
 /**
@@ -188,6 +189,11 @@ class Settings {
         unsigned t_0 {1};
 
         std::string load_filename;
+
+        /**
+          Maximum number of CPU cores to use.
+          */
+        unsigned max_cores {std::thread::hardware_concurrency()};
 
     private:
         /**
