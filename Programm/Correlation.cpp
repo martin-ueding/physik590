@@ -14,7 +14,6 @@ Eigen::MatrixXd correlation(std::vector<double> &x, Settings &settings,
     Eigen::MatrixXd c {settings.correlation_size, settings.correlation_size};
     c.setZero();
 
-
     for (unsigned row {0u} ; row < c.rows(); row++) {
         unsigned power1 {settings.matrix_to_state(row, even)};
         assert(power1 > 0);

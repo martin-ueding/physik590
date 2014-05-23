@@ -75,7 +75,15 @@ void Analysis::worker(ProgressBar &bar) {
             Eigen::MatrixXd &c_t {pair.second};
             double c_t_11 {c_t(settings.state_to_matrix(1), settings.state_to_matrix(1))};
             c11[t].append(c_t_11);
+
         }
+
+#ifndef NDEBUG
+        if (sample_id == 1) {
+            std::cout << sample.even[10] << std::endl;
+        }
+#endif
+
 
         // Extract histogram.
         boot_hist.insert_histogram(sample.histogram);
