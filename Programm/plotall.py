@@ -54,7 +54,7 @@ def fit_eigenvalues(run, pattern):
 
         func = time_evolution
         try:
-            popt, pconv = op.curve_fit(func, tau_s, y_val_s, sigma=1/y_err_s)
+            popt, pconv = op.curve_fit(func, tau_s, y_val_s, sigma=y_err_s)
 
             fx = np.linspace(min(tau_s), max(tau_s), 1000)
             fy = func(fx, *popt)
