@@ -5,12 +5,15 @@
 # Licensed under The GNU Public License Version 2 (or later)
 
 import argparse
-import matplotlib.pyplot as pl
-import numpy as np
+import datetime
 import glob
 import os.path
+import re
+
 import scipy.optimize as op
-import datetime
+import matplotlib.pyplot as pl
+import numpy as np
+import unitprint
 
 def main():
     options = _parse_args()
@@ -25,7 +28,7 @@ def main():
         ])
 
     for run in runs:
-        print('Run:', run)
+        print('Run:', os.path.basename(os.path.dirname(run)))
 
         plotted = []
 
@@ -33,8 +36,10 @@ def main():
         plot_with(auto_plot_trajectory, 'trajectory-*.csv', run, plotted)
         plot_with(auto_plot_histogram, 'histogram-*.csv', run, plotted)
 
+        print('From C_11(t):')
         plot_correlations(run, '*-c11.csv')
 
+        print('From eigenvalues:')
         fit_eigenvalues(run, '*-eigenvalue-*.csv')
 
 def fit_eigenvalues(run, pattern):
@@ -52,9 +57,12 @@ def fit_eigenvalues(run, pattern):
         y_val_s = y_val[selection]
         y_err_s = y_err[selection]
 
+        number = re.search(r'-(\d+).csv', csv_file).group(1)
+
         func = time_evolution
         try:
             popt, pconv = op.curve_fit(func, tau_s, y_val_s, sigma=y_err_s)
+            d = np.sqrt(pconv.diagonal())
 
             fx = np.linspace(min(tau_s), max(tau_s), 1000)
             fy = func(fx, *popt)
@@ -70,8 +78,7 @@ def fit_eigenvalues(run, pattern):
             pl.savefig(csv_file.replace('.csv', '.pdf'))
             pl.clf()
 
-            print(os.path.basename(csv_file), 'E_n', popt[0])
-            #print(os.path.basename(csv_file), 'offset', popt[2])
+            print('E_{} - E_? ='.format(number), unitprint.siunitx(popt[0], d[0], error_digits=2))
         except RuntimeError as e:
             print(e)
 
@@ -104,18 +111,14 @@ def plot_correlations(run, pattern):
         corr_err = data[:, 2]
 
         cutoff = 4
-
         selection = t < cutoff
 
         popt, pconv = op.curve_fit(time_evolution, t[selection], corr_val[selection], sigma=corr_err[selection])
 
-        #print('popt:', popt)
-        #print(pconv)
-
         E1_val = popt[0]
         E1_err = np.sqrt(pconv.diagonal()[0])
 
-        print('E1 - E0 = {} +- {}'.format(E1_val, E1_err))
+        print('E_1 - E_0 =', unitprint.siunitx(E1_val, E1_err, error_digits=2))
 
         x = np.linspace(np.min(t[selection]), np.max(t[selection]), 100)
         y = time_evolution(x, *popt)
