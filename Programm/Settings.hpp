@@ -197,7 +197,11 @@ class Settings {
           */
         unsigned max_cores {std::thread::hardware_concurrency()};
 
-        unsigned t_0_mode {0};
+        /**
+          0. Set \f$ t_0 \f$ to a fixed value.
+          1. Set \f$ t_0 := t/2 \f$.
+          */
+        unsigned t_0_mode {1};
 
     protected:
         unsigned get_t_0_fixed();
