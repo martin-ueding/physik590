@@ -18,7 +18,7 @@ find_package(Eigen3)
 add_executable(metropolis
     main-metropolis.cpp
 
-    analysis.cpp
+    Analysis.cpp
     BootstrappedHistogram.cpp
     BootstrappedQuantity.cpp
     BootstrapPool.cpp

@@ -6,6 +6,7 @@
 #include "BootstrapPool.hpp"
 #include "Settings.hpp"
 
-namespace analysis {
-    void analysis(BootstrapPool &pool, Settings &settings);
-}
+class Analysis {
+    public:
+    Analysis(BootstrapPool &pool, Settings &settings);
+};

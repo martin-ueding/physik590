@@ -1,7 +1,7 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#include "analysis.hpp"
+#include "Analysis.hpp"
 #include "BootstrappedQuantity.hpp"
 #include "BootstrapPool.hpp"
 #include "GEVPSolver.hpp"
@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
 
     std::cout << "ID of this run: " << settings.hash() << std::endl;
 
-    analysis::analysis(*pool, settings);
+    Analysis analysis(*pool, settings);
 
     return 0;
 }

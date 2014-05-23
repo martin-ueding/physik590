@@ -1,7 +1,7 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-#include "analysis.hpp"
+#include "Analysis.hpp"
 
 #include "BootstrappedHistogram.hpp"
 #include "BootstrappedQuantity.hpp"
@@ -30,7 +30,7 @@ void insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &se
 }
 
 
-void analysis::analysis(BootstrapPool &pool, Settings &settings) {
+Analysis::Analysis(BootstrapPool &pool, Settings &settings) {
     BootstrappedHistogram boot_hist {
         settings.position_hist_min, settings.position_hist_max,
         settings.position_hist_bins
