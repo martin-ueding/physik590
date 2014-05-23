@@ -7,7 +7,7 @@
 #include <iostream>
 
 ProgressBar::ProgressBar(std::string prefix, unsigned max) : max {max} {
-    step_size = std::max(1ul, max / max_steps);
+    step_size = std::max(1u, max / max_steps);
     std::cout << prefix << " …" << std::endl;
 
     std::cout << "[";
