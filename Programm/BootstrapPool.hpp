@@ -11,7 +11,10 @@
 #include "ProgressBar.hpp"
 #include "Settings.hpp"
 
+#include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
+#include <boost/serialization/map.hpp>
+#include <boost/serialization/vector.hpp>
 #include <eigen3/Eigen/Core>
 #include <eigen3/Eigen/Dense>
 
@@ -107,3 +110,7 @@ class BootstrapPool {
         std::atomic<unsigned> t_id_atom {0};
         std::mutex mutex;
 };
+
+void save_pool(std::shared_ptr<BootstrapPool> pool, Settings &settings);
+
+void load_into_pool(std::shared_ptr<BootstrapPool> &pool, Settings &settings);

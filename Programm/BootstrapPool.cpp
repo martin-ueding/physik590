@@ -5,6 +5,7 @@
 
 #include "Correlation.hpp"
 
+#include <fstream>
 #include <thread>
 
 BootstrapPool::BootstrapPool() {
@@ -72,4 +73,30 @@ void BootstrapPool::operator()(Settings &settings, ProgressBar &bar_corr) {
 
         bar_corr.update(t_id);
     }
+}
+
+void save_pool(std::shared_ptr<BootstrapPool> pool, Settings &settings) {
+    ProgressBar bar {"Serializing", 1};
+    std::ofstream ofs {settings.generate_filename("pool.bin")};
+    boost::archive::binary_oarchive oa {ofs};
+    oa << *pool;
+    //oa << settings;
+}
+
+void load_into_pool(std::shared_ptr<BootstrapPool> &pool, Settings &settings) {
+    ProgressBar bar {"Loading data", 1};
+    pool = std::unique_ptr<BootstrapPool> {new BootstrapPool {}};
+    std::ifstream ifs(settings.load_filename);
+    boost::archive::binary_iarchive ia(ifs);
+    ia >> *pool;
+    //ia >> settings;
+
+    bar.close();
+    std::cout << "pool.even.size() " << pool->even.size() << std::endl;
+    std::cout << "pool.odd.size() " << pool->odd.size() << std::endl;
+    std::cout << "pool.histograms.size() " << pool->histograms.size() << std::endl;
+    std::cout << "pool.histograms[0].size() " << pool->histograms[0].size() << std::endl;
+    std::cout << "pool.histograms[0].get_min() " << pool->histograms[0].get_min() << std::endl;
+    std::cout << "pool.histograms[0].get_max() " << pool->histograms[0].get_max() << std::endl;
+    std::cout << "pool.histograms[0][0] " << pool->histograms[0][0] << std::endl;
 }
