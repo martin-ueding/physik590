@@ -106,7 +106,7 @@ void load_into_pool(std::shared_ptr<BootstrapPool> &pool, Settings &settings) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-parameter"
 template<class Archive>
-void BootstrapPool::serialize(Archive &ar, const unsigned int version) {
+void BootstrapPool::serialize(Archive &ar, const unsigned version) {
             ar &trajectories;
             ar &even;
             ar &odd;
