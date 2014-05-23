@@ -60,6 +60,8 @@ class Settings {
           */
         void compute();
 
+        unsigned get_t_0(unsigned t);
+
         unsigned algorithm_version {3};
 
         /**
@@ -194,6 +196,12 @@ class Settings {
           Maximum number of CPU cores to use.
           */
         unsigned max_cores {std::thread::hardware_concurrency()};
+
+        unsigned t_0_mode {0};
+
+    protected:
+        unsigned get_t_0_fixed();
+        unsigned get_t_0_half(unsigned t);
 
     private:
         /**

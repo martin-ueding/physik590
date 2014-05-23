@@ -69,6 +69,7 @@ std::string Settings::report() {
     oss << prefix << "export potential bound" << colon << export_potential_bound << std::endl;
     oss << prefix << "corr tau max" << colon << corr_tau_max << std::endl;
     oss << prefix << "t_0" << colon << t_0 << std::endl;
+    oss << prefix << "t_0 mode" << colon << t_0_mode << std::endl;
     oss << prefix << "----" << std::endl;
 
     return oss.str();
@@ -105,4 +106,23 @@ unsigned Settings::state_to_matrix(unsigned n) {
         throw std::range_error {"Correlation C_00 is not contained in the matrix."};
     }
     return (n - 1) / 2;
+}
+
+unsigned Settings::get_t_0(unsigned t) {
+    switch (t_0_mode) {
+        case 1:
+            return get_t_0_half(t);
+            break;
+        default:
+            return get_t_0_fixed();
+            break;
+    }
+}
+
+unsigned Settings::get_t_0_fixed() {
+    return t_0;
+}
+
+unsigned Settings::get_t_0_half(unsigned t) {
+    return t/2;
 }

@@ -33,11 +33,12 @@ settings {settings},
 }
 
 void Analysis::insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_t) {
-    auto &C_t0 = C[settings.t_0];
     for (unsigned t : settings.correlation_ts) {
-        if (t <= settings.t_0) {
+        unsigned t_0 = settings.get_t_0(t);
+        if (t <= t_0) {
             continue;
         }
+        auto &C_t0 = C[settings.t_0];
         std::vector<double> lambda_i_t (GEVPSolver::eigenvalues(C[t], C_t0));
 
         for (unsigned i {0}; i < lambda_i_t.size(); i++) {
