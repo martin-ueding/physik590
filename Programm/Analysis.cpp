@@ -12,19 +12,17 @@
 
 typedef std::map<unsigned, std::map<unsigned, BootstrappedQuantity>> BQMapMap;
 
-void insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_E_n_t, Settings &settings) {
+void insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_t, Settings &settings) {
     auto &C_t0 = C[settings.t_0];
     for (unsigned t : settings.correlation_ts) {
         if (t <= settings.t_0) {
             continue;
         }
         std::vector<double> lambda_i_t (GEVPSolver::eigenvalues(C[t], C_t0));
-        //std::vector<double> lambda_n_tplus1 {GEVPSolver::eigenvalues(sample.even[t+1], C_t0)};
 
         for (unsigned i {0}; i < lambda_i_t.size(); i++) {
-            //double E = - 1 / settings.time_step * std::log(lambda_n_tplus1[n] / lambda_n_t[n]);
-            double E = lambda_i_t[i];
-            bs_E_n_t[t][settings.matrix_to_state(i, even)].append(E);
+            double lambda = lambda_i_t[i];
+            bs_lambda_n_t[t][settings.matrix_to_state(i, even)].append(lambda);
         }
     }
 }
