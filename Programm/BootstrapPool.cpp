@@ -20,7 +20,9 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
     }
     bar.close();
 
+#ifndef NDEBUG
     std::cout << "BootstrapPool::trajectories now contains " << trajectories.size() << " items." << std::endl;
+#endif
 
     even.resize(trajectories.size());
     odd.resize(trajectories.size());
@@ -36,8 +38,10 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
     }
     bar_corr.close();
 
+#ifndef NDEBUG
     std::cout << "BootstrapPool::even now contains " << even.size() << " items." << std::endl;
     std::cout << "BootstrapPool::odd now contains " << odd.size() << " items." << std::endl;
+#endif
 
     // Compute histograms.
     ProgressBar bar_hist {"Computing histograms", settings.iterations};
