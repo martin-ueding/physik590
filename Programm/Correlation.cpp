@@ -21,6 +21,7 @@ Eigen::MatrixXd correlation(std::vector<double> &x, Settings &settings,
         for (unsigned col {0u}; col < c.cols(); col++) {
             unsigned power2 {settings.matrix_to_state(col, even)};
             assert(power2 > 0);
+            assert((power1 + power2) % 2 == 0);
             for (unsigned k {0u}; k < x.size(); ++k) {
                 double x1 {x[k]};
                 double x2 {x[Periodic::wrap(k + distance, x.size())]};
