@@ -153,7 +153,7 @@ class Settings {
           */
         unsigned position_hist_bins {40};
 
-        double position_hist_min {-5};
+        double position_hist_min { -5};
         double position_hist_max {5};
 
         /**
