@@ -117,7 +117,12 @@ void Analysis::save_c11() {
     c11_handle << settings.report();
     c11_handle << "# tau \t c11_val \t c11_err" << std::endl;
     for (unsigned i {0}; i < c11.size(); i++) {
-        c11_handle << i *settings.time_step << "\t" << c11[i].mean() << "\t" << c11[i].stddev() << std::endl;
+        try {
+            c11_handle << i *settings.time_step << "\t" << c11[i].mean() << "\t" << c11[i].stddev() << std::endl;
+        }
+        catch (std::runtime_error e) {
+            std::cout << "Element " i << ": " << e.what() << std::endl;
+        }
     }
 }
 
