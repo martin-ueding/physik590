@@ -81,6 +81,7 @@ void save_pool(std::shared_ptr<BootstrapPool> pool, Settings &settings) {
     std::ofstream ofs {settings.generate_filename("pool.bin")};
     boost::archive::binary_oarchive oa {ofs};
     oa << *pool;
+    oa << settings;
 }
 
 void load_into_pool(std::shared_ptr<BootstrapPool> &pool, Settings &settings) {
@@ -89,6 +90,7 @@ void load_into_pool(std::shared_ptr<BootstrapPool> &pool, Settings &settings) {
     std::ifstream ifs(settings.load_filename);
     boost::archive::binary_iarchive ia(ifs);
     ia >> *pool;
+    ia >> settings;
 
 #ifndef NDEBUG
     bar.close();

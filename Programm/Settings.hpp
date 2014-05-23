@@ -3,6 +3,9 @@
 
 #pragma once
 
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+
 #include <string>
 #include <thread>
 #include <vector>
@@ -14,6 +17,8 @@
   overwritten on the command line.
   */
 class Settings {
+    friend class boost::serialization::access;
+
     public:
         /**
           Generates a filename that contains the most important parameters.
@@ -61,6 +66,13 @@ class Settings {
         void compute();
 
         unsigned get_t_0(unsigned t);
+
+        template<class Archive>
+        void serialize(Archive &ar, const unsigned int version);
+
+        /*********************************************************************/
+        /*                              Members                              */
+        /*********************************************************************/
 
         unsigned algorithm_version {3};
 

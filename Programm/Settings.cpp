@@ -126,3 +126,29 @@ unsigned Settings::get_t_0_fixed() {
 unsigned Settings::get_t_0_half(unsigned t) {
     return t/2;
 }
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
+template<class Archive>
+void Settings::serialize(Archive &ar, const unsigned int version) {
+    ar &algorithm_version;
+    ar &time_sites;
+    ar &mass;
+    ar &time_step;
+    ar &mu_squared;
+    ar &inverse_scattering_length;
+    ar &gauss_width;
+    ar &initial_random_width;
+    ar &margin;
+    ar &pre_iterations;
+    ar &pre_rounds;
+    ar &iterations;
+    ar &rounds;
+    ar &iterations_between;
+    ar &position_seed;
+    ar &accept_seed;
+    ar &correlation_ts;
+    ar &correlation_size;
+    ar &corr_tau_max;
+}
+#pragma clang diagnostic pop
