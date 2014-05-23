@@ -4,29 +4,10 @@
 #include "Analysis.hpp"
 
 #include "BootstrappedHistogram.hpp"
-#include "BootstrappedQuantity.hpp"
 #include "BootstrapSample.hpp"
 #include "GEVPSolver.hpp"
 
 #include <fstream>
-
-typedef std::map<unsigned, std::map<unsigned, BootstrappedQuantity>> BQMapMap;
-
-void insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_t, Settings &settings) {
-    auto &C_t0 = C[settings.t_0];
-    for (unsigned t : settings.correlation_ts) {
-        if (t <= settings.t_0) {
-            continue;
-        }
-        std::vector<double> lambda_i_t (GEVPSolver::eigenvalues(C[t], C_t0));
-
-        for (unsigned i {0}; i < lambda_i_t.size(); i++) {
-            double lambda = lambda_i_t[i];
-            bs_lambda_n_t[t][settings.matrix_to_state(i, even)].append(lambda);
-        }
-    }
-}
-
 
 Analysis::Analysis(BootstrapPool &pool, Settings &settings) :
     pool {pool},
@@ -72,8 +53,8 @@ settings {settings} {
         boot_hist.insert_histogram(sample.histogram);
 
 
-        insert_eigenvalues(sample.even, true, bs_E_n_t, settings);
-        insert_eigenvalues(sample.odd, false, bs_E_n_t, settings);
+        insert_eigenvalues(sample.even, true, bs_E_n_t);
+        insert_eigenvalues(sample.odd, false, bs_E_n_t);
 
 
         sample_bar.update(sample_id);
@@ -114,3 +95,19 @@ settings {settings} {
 
     boot_hist.write_histogram(settings.generate_filename("position-density.csv"));
 }
+
+void Analysis::insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_t) {
+    auto &C_t0 = C[settings.t_0];
+    for (unsigned t : settings.correlation_ts) {
+        if (t <= settings.t_0) {
+            continue;
+        }
+        std::vector<double> lambda_i_t (GEVPSolver::eigenvalues(C[t], C_t0));
+
+        for (unsigned i {0}; i < lambda_i_t.size(); i++) {
+            double lambda = lambda_i_t[i];
+            bs_lambda_n_t[t][settings.matrix_to_state(i, even)].append(lambda);
+        }
+    }
+}
+

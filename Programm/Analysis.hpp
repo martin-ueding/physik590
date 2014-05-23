@@ -3,14 +3,19 @@
 
 #pragma once
 
+#include "BootstrappedQuantity.hpp"
 #include "BootstrapPool.hpp"
 #include "Settings.hpp"
+
+typedef std::map<unsigned, std::map<unsigned, BootstrappedQuantity>> BQMapMap;
 
 class Analysis {
     public:
         Analysis(BootstrapPool &pool, Settings &settings);
 
     protected:
+        void insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_t);
+
         BootstrapPool &pool;
         Settings &settings;
 };
