@@ -102,5 +102,8 @@ void load_into_pool(std::shared_ptr<BootstrapPool> &pool, Settings &settings) {
     std::cout << "pool.histograms[0].get_min() " << pool->histograms[0].get_min() << std::endl;
     std::cout << "pool.histograms[0].get_max() " << pool->histograms[0].get_max() << std::endl;
     std::cout << "pool.histograms[0][0] " << pool->histograms[0][0] << std::endl;
+
+    std::cout << std::endl;
+    std::cout << settings.report() << std::endl;
 #endif
 }
