@@ -41,31 +41,31 @@ void parse_arguments(int argc, char **argv, Settings &settings) {
     ("margin",
      boost::program_options::value<double>(&settings.margin)->default_value(settings.margin),
      "Random margin, Δ")
-    ("pre-iter",
-     boost::program_options::value<unsigned>(&settings.pre_iterations)->default_value(settings.pre_iterations),
-     "Iterations to relax the system")
-    ("pre-rounds",
-     boost::program_options::value<unsigned>(&settings.pre_rounds)->default_value(settings.pre_rounds),
-     "Rounds for a single x_j during relaxation")
     ("iter",
      boost::program_options::value<unsigned>(&settings.iterations)->default_value(settings.iterations),
      "Iterations for the histogram")
-    ("rounds",
-     boost::program_options::value<unsigned>(&settings.rounds)->default_value(settings.rounds),
-     "Rounds for a single x_j")
+    ("iter-pre",
+     boost::program_options::value<unsigned>(&settings.pre_iterations)->default_value(settings.pre_iterations),
+     "Iterations to relax the system")
     ("iter-between",
      boost::program_options::value<unsigned>(&settings.iterations_between)->default_value(settings.iterations_between),
      "Extra iterations between measurements")
-    ("position-seed",
+    ("rounds",
+     boost::program_options::value<unsigned>(&settings.rounds)->default_value(settings.rounds),
+     "Rounds for a single x_j")
+    ("rounds-pre",
+     boost::program_options::value<unsigned>(&settings.pre_rounds)->default_value(settings.pre_rounds),
+     "Rounds for a single x_j during relaxation")
+    ("seed-pos",
      boost::program_options::value<int>(&settings.position_seed)->default_value(settings.position_seed),
      "Seed for the random number generator used for positions")
-    ("accept-seed",
+    ("seed-accept",
      boost::program_options::value<int>(&settings.accept_seed)->default_value(settings.accept_seed),
      "Seed for the random number generator used for accepting new positions")
-    ("pos-hist-bins",
+    ("hist-bins-pos",
      boost::program_options::value<unsigned>(&settings.position_hist_bins)->default_value(settings.position_hist_bins),
      "Number of bins in the position histogram")
-    ("action-hist-bins",
+    ("hist-bins-action",
      boost::program_options::value<unsigned>(&settings.action_hist_bins)->default_value(settings.action_hist_bins),
      "Number of bins in the action histogram")
     ("corr-size",
