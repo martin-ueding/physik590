@@ -11,11 +11,12 @@
 
 Analysis::Analysis(BootstrapPool &pool, Settings &settings) :
     pool {pool},
-settings {settings},
-     boot_hist {BootstrappedHistogram{
+     settings {settings},
+boot_hist {BootstrappedHistogram{
         settings.position_hist_min, settings.position_hist_max,
         settings.position_hist_bins
-    }} {
+    }
+} {
 
     for (unsigned t : settings.correlation_ts) {
         std::map<unsigned, BootstrappedQuantity> inner;
@@ -56,7 +57,9 @@ void Analysis::create_samples() {
 
     std::vector<std::thread> workers;
     for (unsigned i {0}; i < settings.max_cores; i++) {
-        workers.emplace_back([&](){worker(bar);});
+        workers.emplace_back([&]() {
+            worker(bar);
+        });
     }
     for (unsigned i {0}; i < settings.max_cores; i++) {
         workers[i].join();

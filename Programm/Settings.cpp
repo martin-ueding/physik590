@@ -124,5 +124,6 @@ unsigned Settings::get_t_0_fixed() {
 }
 
 unsigned Settings::get_t_0_half(unsigned t) {
-    return t/2;
+    return t / 2;
 }
+
