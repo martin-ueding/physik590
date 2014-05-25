@@ -7,6 +7,7 @@
 #include "GEVPSolver.hpp"
 
 #include <fstream>
+#include <iomanip>
 #include <thread>
 
 Analysis::Analysis(BootstrapPool &pool, Settings &settings) :
@@ -109,7 +110,7 @@ void Analysis::save_eigenvalues() {
     for (unsigned n {1}; n <= settings.max_energyvalue(); n++) {
         std::ostringstream filename;
         std::ostringstream output;
-        filename << "eigenvalue-" << n << ".csv";
+        filename << "eigenvalue-" << std::setfill('0') << std::setw(2) << n << ".csv";
         for (unsigned t : settings.correlation_ts) {
             try {
                 double mean {bs_E_n_t[t][n].mean()};
