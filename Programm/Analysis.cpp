@@ -34,7 +34,8 @@ boot_hist {BootstrappedHistogram{
     save_histogram();
 }
 
-void Analysis::insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_t) {
+void Analysis::insert_eigenvalues(CorrFunc &C, bool even) {
+    std::map<unsigned, std::vector<double>> lambda_n_t;
     for (unsigned t : settings.correlation_ts) {
         unsigned t_0 = settings.get_t_0(t);
         if (t <= t_0) {
@@ -44,9 +45,15 @@ void Analysis::insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_
         std::vector<double> lambda_i_t (GEVPSolver::eigenvalues(C[t], C_t0));
 
         for (unsigned i {0}; i < lambda_i_t.size(); i++) {
-            double lambda = lambda_i_t[i];
-            bs_lambda_n_t[t][settings.matrix_to_state(i, even)].append(lambda);
+            double lambda {lambda_i_t[i]};
+            std::vector<double> &lambda_t {lambda_n_t[settings.matrix_to_state(i, even)]};
+            lambda_t.append(lambda);
         }
+    }
+
+    for (auto pair : lambda_n_t) {
+        unsigned n {pair.first};
+        std::vector<double> &lambda_t {pair.second};
     }
 }
 
@@ -98,8 +105,8 @@ void Analysis::worker(ProgressBar &bar) {
         // Extract histogram.
         boot_hist.insert_histogram(sample.histogram);
 
-        insert_eigenvalues(sample.even, true, bs_E_n_t);
-        insert_eigenvalues(sample.odd, false, bs_E_n_t);
+        insert_eigenvalues(sample.even, true);
+        insert_eigenvalues(sample.odd, false);
 
         bar.update(sample_id);
     }

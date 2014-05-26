@@ -10,14 +10,12 @@
 
 #include <atomic>
 
-typedef std::map<unsigned, std::map<unsigned, BootstrappedQuantity>> BQMapMap;
-
 class Analysis {
     public:
         Analysis(BootstrapPool &pool, Settings &settings);
 
     protected:
-        void insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_t);
+        void insert_eigenvalues(CorrFunc &C, bool even);
         void create_samples();
         void save_eigenvalues();
         void save_c11();
@@ -29,13 +27,8 @@ class Analysis {
 
         BootstrappedHistogram boot_hist;
 
-        /**
-          The inner map is a mapping that goes through all E_n. The outter map
-          holds the E_n at different times t.
-          */
-        BQMapMap bs_E_n_t;
-
         std::vector<BootstrappedQuantity> c11;
+        std::vector<BootstrappedQuantity> energies;
 
         std::atomic<unsigned> sample_id_atom {0};
 };
