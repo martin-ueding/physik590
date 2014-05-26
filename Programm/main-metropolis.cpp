@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
 
     parse_arguments(argc, argv, settings);
     settings.compute();
-
+    settings.store_json(settings.generate_filename("options.js"));
 
     MetropolisDriver m_driver {settings};
 

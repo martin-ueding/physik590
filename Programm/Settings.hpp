@@ -93,6 +93,8 @@ class Settings {
         }
 #pragma clang diagnostic pop
 
+        void store_json(std::string filename);
+
         /*********************************************************************/
         /*                              Members                              */
         /*********************************************************************/

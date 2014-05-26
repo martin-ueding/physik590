@@ -60,9 +60,11 @@ include_directories(${Boost_INCLUDE_DIRS})
 target_link_libraries(metropolis ${Boost_LIBRARIES})
 target_link_libraries(metropolis ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(metropolis crypto++)
+target_link_libraries(metropolis jsoncpp)
 
 target_link_libraries(metropolis-test ${Boost_LIBRARIES})
 target_link_libraries(metropolis-test cppunit)
 target_link_libraries(metropolis-test crypto++)
+target_link_libraries(metropolis-test jsoncpp)
 
 #target_link_libraries(metropolis gsl)

@@ -6,6 +6,7 @@ These Debian packages are needed to complile the prorgrams:
 
 - clang
 - cmake
+- jsoncpp-dev
 - libboost-filesystem-dev
 - libboost-program-options-dev
 - libboost-serialization-dev

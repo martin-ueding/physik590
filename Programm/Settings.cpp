@@ -6,13 +6,26 @@
 #include <boost/filesystem.hpp>
 #include <crypto++/hex.h>
 #include <crypto++/sha.h>
+#include <jsoncpp/json/value.h>
+#include <jsoncpp/json/writer.h>
 
 #include <sstream>
+#include <fstream>
 
 void Settings::compute() {
     for (unsigned i = 0; time_step * i < corr_tau_max; i++) {
         correlation_ts.push_back(i);
     }
+}
+
+void Settings::store_json(std::string filename) {
+    Json::Value root;
+
+    root["time_step"] = time_step;
+    root["iterations"] = iterations;
+
+    std::ofstream os {filename};
+    os << root;
 }
 
 std::string Settings::generate_filename(std::string name) {
