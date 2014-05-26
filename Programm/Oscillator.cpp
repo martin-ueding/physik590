@@ -8,9 +8,12 @@
 #include <iostream>
 #include <cmath>
 
+
 Oscillator::Oscillator(Settings &settings) :
-    settings {settings},
-gauss_width_squared {settings.gauss_width * settings.gauss_width} {
+    settings {settings} {
+    gauss_width_squared = settings.gauss_width * settings.gauss_width;
+    double pi {std::atan(1) * 4};
+    prefactor = 1. / std::sqrt(2. * pi *gauss_width_squared) * 2. * settings.inverse_scattering_length;
 }
 
 double Oscillator::action(std::vector<double> &x) {
@@ -52,5 +55,5 @@ void Oscillator::export_potential(std::string filename, std::string preamble,
 
 double Oscillator::potential(double x) {
     return 0.5 * settings.mu_squared * x * x
-           + 2 * settings.inverse_scattering_length * std::exp(-x * x / gauss_width_squared);
+           + prefactor * std::exp(-x * x / (2 * gauss_width_squared));
 }

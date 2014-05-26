@@ -74,4 +74,5 @@ class Oscillator {
     private:
         Settings &settings;
         double gauss_width_squared;
+        double prefactor;
 };
