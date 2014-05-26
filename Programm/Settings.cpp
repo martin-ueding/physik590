@@ -85,8 +85,8 @@ std::string Settings::generate_filename(std::string name) {
 }
 
 std::string Settings::report() {
-    std::regex newline {"\\n"};
-    std::string replacement {"\\n# "};
+    std::regex newline {"\n"};
+    std::string replacement {"\n# "};
     return std::regex_replace(get_json_string(), newline, replacement);
 }
 
