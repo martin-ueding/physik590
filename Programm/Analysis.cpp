@@ -28,10 +28,12 @@ boot_hist {BootstrappedHistogram{
         bs_E_n_t.emplace(t, std::move(inner));
     }
 
-    create_samples();
-    save_eigenvalues();
-    save_c11();
-    save_histogram();
+    if (settings.bootstrap_samples > 0) {
+        create_samples();
+        save_eigenvalues();
+        save_c11();
+        save_histogram();
+    }
 }
 
 void Analysis::insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_t) {
