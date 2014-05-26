@@ -36,7 +36,6 @@ int main(int argc, char **argv) {
 
     if (settings.load_filename == "") {
         std::cout << "ID of this run: " << settings.hash() << std::endl;
-        exit(0);
         pool = std::unique_ptr<BootstrapPool> {new BootstrapPool {m_driver, settings}};
         save_pool(pool, settings);
     }
