@@ -56,4 +56,5 @@ target_link_libraries(metropolis ${CMAKE_THREAD_LIBS_INIT})
 
 target_link_libraries(metropolis crypto++)
 
-#target_link_libraries(metropolis gsl)
+target_link_libraries(metropolis gsl)
+target_link_libraries(metropolis gslcblas)
