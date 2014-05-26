@@ -28,7 +28,6 @@ int main(int argc, char **argv) {
 
     parse_arguments(argc, argv, settings);
     settings.compute();
-    settings.store_json(settings.generate_filename("options.js"));
 
     MetropolisDriver m_driver {settings};
 
@@ -44,6 +43,7 @@ int main(int argc, char **argv) {
         std::cout << "ID of this analysis: " << settings.hash() << std::endl;
     }
 
+    settings.store_json(settings.generate_filename("options.js"));
 
     Analysis analysis(*pool, settings);
 
