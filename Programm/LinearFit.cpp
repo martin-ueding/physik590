@@ -3,9 +3,9 @@
 
 #include "LinearFit.hpp"
 
-#include <gsl_fit.h>
+#include <gsl/gsl_fit.h>
 
-LinearFit:: LinearFit(std::vector<double> x, std::vector<double> y,
+LinearFit::LinearFit(std::vector<double> x, std::vector<double> y,
                       std::vector<double> y_err) {
     /*
     int gsl_fit_wlinear(const double *x, const size_t xstride, const double *w,
@@ -18,10 +18,10 @@ LinearFit:: LinearFit(std::vector<double> x, std::vector<double> y,
 
     // Invert errors to give weights.
     std::vector<double> weights(y_err.size());
-    for (size_t i {0}; i != y.size(); ++y) {
+    for (size_t i {0}; i != y.size(); ++i) {
         weights[i] = 1 / y_err[i];
     }
 
-    gsl_fit_wlinear(x.data(), 1, weights.data(), 1, , y.data(), 1, x.size(),
+    gsl_fit_wlinear(x.data(), 1, weights.data(), 1, y.data(), 1, x.size(),
                     &c0, &c1, &cov00, &cov01, &cov11, &chisq);
 }

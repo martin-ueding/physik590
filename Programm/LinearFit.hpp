@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <vector>
+
 class LinearFit {
     public:
         LinearFit(std::vector<double> x, std::vector<double> y,
