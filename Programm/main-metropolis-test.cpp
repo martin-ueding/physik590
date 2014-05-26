@@ -1,21 +1,13 @@
 // Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 // Licensed under The GNU Public License Version 2 (or later)
 
-/**
-  @file
-  */
-
 #include <cppunit/TextTestRunner.h>
 
-#include "HarmonicOscillatorTest.hpp"
-#include "MetropolisAlgorithmTest.hpp"
-#include "PeriodicTest.hpp"
+#include "SettingsTest.hpp"
 
 int main() {
     CppUnit::TextTestRunner runner;
-    runner.addTest(PeriodicTest::suite());
-    runner.addTest(MetropolisAlgorithmTest::suite());
-    runner.addTest(HarmonicOscillatorTest::suite());
+    runner.addTest(SettingsTest::suite());
     runner.run();
     return 0;
 }
