@@ -34,6 +34,7 @@ add_executable(metropolis
     GEVPSolver.cpp
     Histogram.cpp
     HistogramComputable.cpp
+    LinearFit.cpp
     MetropolisAlgorithm.cpp
     MetropolisDriver.cpp
     Oscillator.cpp
