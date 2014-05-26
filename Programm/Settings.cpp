@@ -85,10 +85,7 @@ std::string Settings::generate_filename(std::string name) {
 }
 
 std::string Settings::report() {
-    std::string before {get_json_string()};
-    std::regex newline {"\n"};
-    std::string replacement {"\n# "};
-    return std::regex_replace(before, newline, replacement);
+    return "";
 }
 
 std::string Settings::hash() {
