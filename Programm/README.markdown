@@ -13,3 +13,4 @@ These Debian packages are needed to complile the prorgrams:
 - libcppunit-dev
 - libcrypto++-dev
 - libeigen3-dev
+- libgsl0-dev
