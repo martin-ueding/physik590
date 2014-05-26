@@ -5,6 +5,7 @@
 
 #include "BootstrapSample.hpp"
 #include "GEVPSolver.hpp"
+#include "LinearFit.hpp"
 
 #include <fstream>
 #include <iomanip>
@@ -54,6 +55,8 @@ void Analysis::insert_eigenvalues(CorrFunc &C, bool even) {
     for (auto pair : lambda_n_t) {
         unsigned n {pair.first};
         std::vector<double> &lambda_t {pair.second};
+
+        LinearFit fit {settings.correlation_ts, lambda_t};
     }
 }
 

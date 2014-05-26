@@ -7,6 +7,7 @@
 
 class LinearFit {
     public:
+        LinearFit(std::vector<double> x, std::vector<double> y);
         LinearFit(std::vector<double> x, std::vector<double> y,
                   std::vector<double> y_err);
 

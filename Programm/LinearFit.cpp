@@ -7,6 +7,14 @@
 
 #include <stdexcept>
 
+LinearFit::LinearFit(std::vector<double> x, std::vector<double> y) {
+    if (x.size() != y.size()) {
+        throw std::range_error("All input has to have same size.");
+    }
+    gsl_fit_linear(x.data(), 1, y.data(), 1, x.size(), &c0, &c1, &cov00,
+            &cov01, &cov11, &chisq);
+}
+
 LinearFit::LinearFit(std::vector<double> x, std::vector<double> y,
                       std::vector<double> y_err) {
     if (x.size() != y.size() || y.size() != y_err.size()) {
