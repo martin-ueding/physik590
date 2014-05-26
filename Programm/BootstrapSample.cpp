@@ -34,4 +34,14 @@ BootstrapSample::BootstrapSample(BootstrapPool &pool) :
 
         histogram += pool.histograms[i];
     }
+
+    // Normalize all correlation matrices.
+    for (auto &pair : even) {
+        pair.second /= pool.size();
+    }
+
+    // Normalize all correlation matrices.
+    for (auto &pair : odd) {
+        pair.second /= pool.size();
+    }
 }
