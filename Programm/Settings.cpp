@@ -9,8 +9,14 @@
 #include <jsoncpp/json/value.h>
 #include <jsoncpp/json/writer.h>
 
-#include <sstream>
 #include <fstream>
+#include <iostream>
+#include <iterator>
+#include <regex>
+#include <sstream>
+#include <string>
+
+#define JSON(var) root[ #var ] = (var);
 
 void Settings::compute() {
     for (unsigned i = 0; time_step * i < corr_tau_max; i++) {
@@ -19,13 +25,46 @@ void Settings::compute() {
 }
 
 void Settings::store_json(std::string filename) {
+    std::ofstream os {filename};
+    os << get_json_string();
+}
+
+std::string Settings::get_json_string() {
     Json::Value root;
 
-    root["time_step"] = time_step;
-    root["iterations"] = iterations;
+    JSON(accept_seed);
+    JSON(action_hist_bins);
+    JSON(algorithm_version);
+    JSON(bootstrap_samples);
+    JSON(corr_tau_max);
+    JSON(correlation_size);
+    JSON(export_potential_bound);
+    JSON(export_potential_steps);
+    JSON(gauss_width);
+    JSON(initial_random_width);
+    JSON(inverse_scattering_length);
+    JSON(iterations);
+    JSON(iterations_between);
+    JSON(margin);
+    JSON(mass);
+    JSON(mu_squared);
+    JSON(position_hist_bins);
+    JSON(position_seed);
+    JSON(pre_iterations);
+    JSON(pre_rounds);
+    JSON(rounds);
+    JSON(t_0);
+    JSON(t_0_mode);
+    JSON(time_sites);
+    JSON(time_step);
 
-    std::ofstream os {filename};
-    os << root;
+    for (auto t : correlation_ts) {
+        root["correlation_ts"].append(t);
+    }
+
+    std::ostringstream oss;
+    oss << root;
+    return oss.str();
 }
 
 std::string Settings::generate_filename(std::string name) {
@@ -38,54 +77,17 @@ std::string Settings::generate_filename(std::string name) {
     boost::filesystem::create_directories(oss.str());
 
     oss << "/";
-    oss << computed_hash.substr(0, 6);
+    oss << computed_hash;
     oss << "-";
     oss << name;
-
 
     return oss.str();
 }
 
 std::string Settings::report() {
-    std::string colon {": "};
-    std::string prefix {"# "};
-
-    std::ostringstream oss;
-
-    oss << prefix << "This run has the following parameters:" << std::endl;
-    oss << prefix << "Algorithm version" << colon << algorithm_version << std::endl;
-    oss << prefix << "time sites" << colon << time_sites << std::endl;
-    oss << prefix << "mass" << colon << mass << std::endl;
-    oss << prefix << "time step" << colon << time_step << std::endl;
-    oss << prefix << "mu squared" << colon << mu_squared << std::endl;
-    oss << prefix << "inverse scattering length" << colon << inverse_scattering_length << std::endl;
-    oss << prefix << "gauss width" << colon << gauss_width << std::endl;
-    oss << prefix << "initial random width" << colon << initial_random_width << std::endl;
-    oss << prefix << "margin" << colon << margin << std::endl;
-    oss << prefix << "pre iterations" << colon << pre_iterations << std::endl;
-    oss << prefix << "pre rounds" << colon << pre_rounds << std::endl;
-    oss << prefix << "iterations" << colon << iterations << std::endl;
-    oss << prefix << "rounds" << colon << rounds << std::endl;
-    oss << prefix << "iterations between" << colon << iterations_between << std::endl;
-    oss << prefix << "position seed" << colon << position_seed << std::endl;
-    oss << prefix << "accept seed" << colon << accept_seed << std::endl;
-    oss << prefix << "bootstrap samples" << colon << bootstrap_samples << std::endl;
-    oss << prefix << "position hist_bins" << colon << position_hist_bins << std::endl;
-    oss << prefix << "action hist_bins" << colon << action_hist_bins << std::endl;
-    oss << prefix << "correlation size" << colon << correlation_size << std::endl;
-    oss << prefix << "correlation ts" << colon;
-    for (unsigned i : correlation_ts) {
-        oss << i << " ";
-    }
-    oss << std::endl;
-    oss << prefix << "export potential steps" << colon << export_potential_steps << std::endl;
-    oss << prefix << "export potential bound" << colon << export_potential_bound << std::endl;
-    oss << prefix << "corr tau max" << colon << corr_tau_max << std::endl;
-    oss << prefix << "t_0" << colon << t_0 << std::endl;
-    oss << prefix << "t_0 mode" << colon << t_0_mode << std::endl;
-    oss << prefix << "----" << std::endl;
-
-    return oss.str();
+    std::regex newline {"\\n"};
+    std::string replacement {"\\n# "};
+    return std::regex_replace(get_json_string(), newline, replacement);
 }
 
 std::string Settings::hash() {
@@ -103,7 +105,7 @@ std::string Settings::hash() {
     encoder.Put(digest.get(), digest_size);
     encoder.MessageEnd();
 
-    return output;
+    return output.substr(0, 6);
 }
 
 unsigned Settings::max_energyvalue() {
