@@ -6,10 +6,13 @@
 #include <gsl/gsl_fit.h>
 
 #include <stdexcept>
+#include <sstream>
 
 LinearFit::LinearFit(std::vector<double> x, std::vector<double> y) {
     if (x.size() != y.size()) {
-        throw std::range_error("All input has to have same size.");
+        std::ostringstream oss;
+        oss << "All input has to have same size. You have " << x.size() << " and " << y.size() << ".";
+        throw std::range_error(oss.str());
     }
     gsl_fit_linear(x.data(), 1, y.data(), 1, x.size(), &c0, &c1, &cov00,
             &cov01, &cov11, &chisq);
@@ -18,6 +21,8 @@ LinearFit::LinearFit(std::vector<double> x, std::vector<double> y) {
 LinearFit::LinearFit(std::vector<double> x, std::vector<double> y,
                       std::vector<double> y_err) {
     if (x.size() != y.size() || y.size() != y_err.size()) {
+        std::ostringstream oss;
+        oss << "All input has to have same size. You have " << x.size() << ", " << y.size() << " and " << y_err.size() << ".";
         throw std::range_error("All input has to have same size.");
     }
 

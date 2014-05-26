@@ -23,27 +23,25 @@ boot_hist {BootstrappedHistogram{
     energies{std::vector<BootstrappedQuantity>(settings.max_energyvalue())}
 {
 
-    t.resize(settings.correlation_ts.size());
-    for (size_t i{0}; i != settings.correlation_ts.size(); ++i) {
-        t[i] = settings.time_step * settings.correlation_ts.size();
-    }
-
     create_samples();
     save_c11();
     save_histogram();
 
+    td::cout << std::setw(2) << "E_" << std::setw(15) << "Value" << std::setw(15) << "Error" << std::endl;
     for (size_t i{0}; i != energies.size(); ++i) {
-        std::cout << "E_" << i+1 << "\t" << energies[i].mean() << "\t" << energies[i].stddev() << std::endl;
+        std::cout << std::setw(2) << i+1 << std::setw(15) << energies[i].mean() << std::setw(15) << energies[i].stddev() << std::endl;
     }
 }
 
 void Analysis::insert_eigenvalues(CorrFunc &C, bool even) {
+    std::vector<double> used_times;
     std::map<unsigned, std::vector<double>> lambda_n_t;
     for (unsigned t : settings.correlation_ts) {
         unsigned t_0 = settings.get_t_0(t);
         if (t <= t_0) {
             continue;
         }
+        used_times.push_back(t * settings.time_step);
         auto &C_t0 = C[settings.t_0];
         std::vector<double> lambda_i_t (GEVPSolver::eigenvalues(C[t], C_t0));
 
@@ -64,8 +62,8 @@ void Analysis::insert_eigenvalues(CorrFunc &C, bool even) {
             lambda_t_err_transformed[i] = 1 / lambda_t[i];
         }
 
-        LinearFit fit {t, lambda_t_transformed, lambda_t_err_transformed};
-        energies[n-1].append(fit.c1);
+        LinearFit fit {used_times, lambda_t_transformed, lambda_t_err_transformed};
+        energies[n-1].append(- fit.c1);
     }
 }
 

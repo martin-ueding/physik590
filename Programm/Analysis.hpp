@@ -30,6 +30,4 @@ class Analysis {
         std::vector<BootstrappedQuantity> energies;
 
         std::atomic<unsigned> sample_id_atom {0};
-
-        std::vector<double> t;
 };
