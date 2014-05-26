@@ -17,7 +17,6 @@ class Analysis {
     protected:
         void insert_eigenvalues(CorrFunc &C, bool even);
         void create_samples();
-        void save_eigenvalues();
         void save_c11();
         void save_histogram();
         void worker(ProgressBar &bar);
@@ -31,4 +30,6 @@ class Analysis {
         std::vector<BootstrappedQuantity> energies;
 
         std::atomic<unsigned> sample_id_atom {0};
+
+        std::vector<double> t;
 };

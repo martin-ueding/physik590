@@ -7,6 +7,7 @@
 #include "GEVPSolver.hpp"
 #include "LinearFit.hpp"
 
+#include <cmath>
 #include <fstream>
 #include <iomanip>
 #include <thread>
@@ -18,21 +19,22 @@ boot_hist {BootstrappedHistogram{
         settings.position_hist_min, settings.position_hist_max,
         settings.position_hist_bins
     }
-} {
+},
+    energies{std::vector<BootstrappedQuantity>(settings.max_energyvalue())}
+{
 
-    for (unsigned t : settings.correlation_ts) {
-        std::map<unsigned, BootstrappedQuantity> inner;
-        for (unsigned n {0}; n < settings.max_energyvalue(); n++) {
-            inner.emplace(std::piecewise_construct, std::make_tuple(n), std::make_tuple());
-        }
-
-        bs_E_n_t.emplace(t, std::move(inner));
+    t.resize(settings.correlation_ts.size());
+    for (size_t i{0}; i != settings.correlation_ts.size(); ++i) {
+        t[i] = settings.time_step * settings.correlation_ts.size();
     }
 
     create_samples();
-    save_eigenvalues();
     save_c11();
     save_histogram();
+
+    for (size_t i{0}; i != energies.size(); ++i) {
+        std::cout << "E_" << i+1 << "\t" << energies[i].mean() << "\t" << energies[i].stddev() << std::endl;
+    }
 }
 
 void Analysis::insert_eigenvalues(CorrFunc &C, bool even) {
@@ -48,15 +50,22 @@ void Analysis::insert_eigenvalues(CorrFunc &C, bool even) {
         for (unsigned i {0}; i < lambda_i_t.size(); i++) {
             double lambda {lambda_i_t[i]};
             std::vector<double> &lambda_t {lambda_n_t[settings.matrix_to_state(i, even)]};
-            lambda_t.append(lambda);
+            lambda_t.push_back(lambda);
         }
     }
 
     for (auto pair : lambda_n_t) {
         unsigned n {pair.first};
         std::vector<double> &lambda_t {pair.second};
+        std::vector<double> lambda_t_transformed (lambda_t.size());
+        std::vector<double> lambda_t_err_transformed (lambda_t.size());
+        for (size_t i{0}; i != lambda_t.size(); ++i) {
+            lambda_t_transformed[i] = std::log(lambda_t[i]);
+            lambda_t_err_transformed[i] = 1 / lambda_t[i];
+        }
 
-        LinearFit fit {settings.correlation_ts, lambda_t};
+        LinearFit fit {t, lambda_t_transformed, lambda_t_err_transformed};
+        energies[n-1].append(fit.c1);
     }
 }
 
@@ -112,31 +121,6 @@ void Analysis::worker(ProgressBar &bar) {
         insert_eigenvalues(sample.odd, false);
 
         bar.update(sample_id);
-    }
-}
-
-void Analysis::save_eigenvalues() {
-    // Output to single files.
-    for (unsigned n {1}; n <= settings.max_energyvalue(); n++) {
-        std::ostringstream filename;
-        std::ostringstream output;
-        filename << "eigenvalue-" << std::setfill('0') << std::setw(2) << n << ".csv";
-        for (unsigned t : settings.correlation_ts) {
-            try {
-                double mean {bs_E_n_t[t][n].mean()};
-                double stddev {bs_E_n_t[t][n].stddev()};
-                output << t *settings.time_step << "\t" << mean << "\t" << stddev << std::endl;
-            }
-            catch (std::runtime_error e) {
-            }
-        }
-        std::string output_string {output.str()};
-        if (output_string.length() > 0) {
-            std::ofstream handle {settings.generate_filename(filename.str())};
-            handle << settings.report();
-            handle << "# tau \t c??_val \t c??_err" << std::endl;
-            handle << output_string;
-        }
     }
 }
 
