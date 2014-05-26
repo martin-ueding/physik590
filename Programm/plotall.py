@@ -36,13 +36,29 @@ def main():
         plot_with(auto_plot_trajectory, 'trajectory-*.csv', run, plotted)
         plot_with(auto_plot_histogram, 'histogram-*.csv', run, plotted)
 
+        print('From virial theorem:')
+        E_0 = find_E_0(run)
+
         print('From C_11(t):')
-        plot_correlations(run, '*-c11.csv')
+        plot_correlations(run, '*-c11.csv', E_0)
 
         print('From eigenvalues:')
-        fit_eigenvalues(run, '*-eigenvalue-*.csv')
+        fit_eigenvalues(run, '*-eigenvalue-*.csv', E_0)
 
-def fit_eigenvalues(run, pattern):
+def find_E_0(run):
+    pattern = '*-c11.csv'
+    csv_file = glob.glob(os.path.join(run, pattern))[0]
+    data = np.loadtxt(csv_file)
+    t = data[0, 0]
+    corr_val = data[0, 1]
+    corr_err = data[0, 2]
+
+    print('E_0 =', unitprint.siunitx(corr_val, corr_err))
+
+    return corr_val, corr_err
+        
+
+def fit_eigenvalues(run, pattern, E_0):
     for csv_file in sorted(glob.glob(os.path.join(run, pattern))):
         data = np.loadtxt(csv_file)
         if len(data) == 0:
@@ -78,7 +94,10 @@ def fit_eigenvalues(run, pattern):
             pl.savefig(csv_file.replace('.csv', '.pdf'))
             pl.clf()
 
-            print('E_{} - E_? ='.format(number), unitprint.siunitx(popt[0], d[0], error_digits=2))
+            E_n_val = popt[0] + E_0[0]
+            E_n_err = np.sqrt(d[0]**2 + E_0[1]**2)
+
+            print('E_{} ='.format(number), unitprint.siunitx(E_n_val, E_n_err, error_digits=2))
         except RuntimeError as e:
             print(e)
 
@@ -103,7 +122,7 @@ def time_evolution_with_offset(x, e_n, ampl, offset):
 def decay_with_offset(x, tau, ampl, offset):
     return decay(x, tau, ampl) + offset
 
-def plot_correlations(run, pattern):
+def plot_correlations(run, pattern, E0):
     for filename in glob.glob(os.path.join(run, pattern)):
         data = np.loadtxt(filename)
         t = data[:, 0]
@@ -118,7 +137,10 @@ def plot_correlations(run, pattern):
         E1_val = popt[0]
         E1_err = np.sqrt(pconv.diagonal()[0])
 
-        print('E_1 - E_0 =', unitprint.siunitx(E1_val, E1_err, error_digits=2))
+        E1_val += E0[0]
+        E1_err += np.sqrt(E1_err**2 + E0[1]**2)
+
+        print('E_1 =', unitprint.siunitx(E1_val, E1_err, error_digits=2))
 
         x = np.linspace(np.min(t[selection]), np.max(t[selection]), 100)
         y = time_evolution(x, *popt)
