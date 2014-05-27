@@ -59,14 +59,18 @@ def main():
         isl = parameters['inverse_scattering_length']
         if not isl in energies:
             energies[isl] = {}
-        energies[isl][parameters['gauss_width']] = result
+        for n, energy in result.items():
+            if not n in energies[isl]:
+                energies[isl][n] = []
+            energies[isl][n].append([parameters['gauss_width']] + list(energy))
 
     print(json.dumps(energies, sort_keys=True, indent=4))
 
     for isl, isl_data in sorted(energies.items()):
-        for gauss_width, gauss_width_data in sorted(isl_data.items()):
-            for n, energy in sorted(gauss_width_data.items()):
-                print(isl, gauss_width, n, unitprint.siunitx(*energy))
+        for n, n_data in sorted(isl_data.items()):
+            print('inverse_scattering_length', isl, 'n', n)
+            data = np.array(n_data)
+            print(data)
 
 def get_filename(run, ending):
     return os.path.join('out', run, run+ending)
