@@ -251,14 +251,11 @@ def _parse_args():
     """
     Parses the command line arguments.
 
-    If the logging module is imported, set the level according to the number of
-    ``-v`` given on the command line.
-
     :return: Namespace with arguments.
     :rtype: Namespace
     """
     parser = argparse.ArgumentParser(description="")
-    parser.add_argument("prefixes", nargs="*", help="Positional arguments.")
+    parser.add_argument("prefixes", nargs="*", help="Runs to analyze")
 
     options = parser.parse_args()
 
