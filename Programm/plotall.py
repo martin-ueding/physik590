@@ -55,9 +55,18 @@ def main():
 
         print('From eigenvalues:')
         result = fit_eigenvalues(dirname, '*-eigenvalue-*.csv', E_0)
-        energies[parameters["gauss_width"]] = result
 
-    print(energies)
+        isl = parameters['inverse_scattering_length']
+        if not isl in energies:
+            energies[isl] = {}
+        energies[isl][parameters['gauss_width']] = result
+
+    print(json.dumps(energies, sort_keys=True, indent=4))
+
+    for isl, isl_data in sorted(energies.items()):
+        for gauss_width, gauss_width_data in sorted(isl_data.items()):
+            for n, energy in sorted(gauss_width_data.items()):
+                print(isl, gauss_width, n, unitprint.siunitx(*energy))
 
 def get_filename(run, ending):
     return os.path.join('out', run, run+ending)
@@ -109,7 +118,7 @@ def fit_eigenvalues(dirname, pattern, E_0):
             pl.xlabel('imaginäre Zeit')
             pl.ylabel('Eigenwert')
             pl.yscale('log')
-            pl.savefig(csv_file.replace('.csv', '.pdf'))
+            #pl.savefig(csv_file.replace('.csv', '.pdf'))
             pl.clf()
 
             E_n_val = popt[0] + E_0[0]
@@ -163,7 +172,7 @@ def plot_correlations(dirname, pattern, E0):
         pl.xlabel(r'$\Delta\tau$')
         pl.ylabel(r'$\langle x(\tau) x(\tau + \Delta \tau) \rangle$')
         pl.yscale('log')
-        pl.savefig(filename.replace('.csv', '.pdf'))
+        #pl.savefig(filename.replace('.csv', '.pdf'))
         pl.clf()
 
 def needs_plotting(filename):
@@ -213,7 +222,7 @@ def plot_histogram(filename):
 
     ax.legend(loc='best')
 
-    fig.savefig(filename.replace('.csv', '.pdf'))
+    #fig.savefig(filename.replace('.csv', '.pdf'))
 
 def auto_plot_histogram(filename):
     data = np.genfromtxt(filename)
@@ -231,7 +240,7 @@ def auto_plot_histogram(filename):
     ax.set_ylabel(r'relative Häufigkeit')
     ax.grid(True)
 
-    fig.savefig(filename.replace('.csv', '.pdf'))
+    #fig.savefig(filename.replace('.csv', '.pdf'))
 
 def auto_plot_trajectory(filename):
     data = np.genfromtxt(filename)
@@ -243,7 +252,7 @@ def auto_plot_trajectory(filename):
     ax.set_xlabel(r'Zeit $j$')
     ax.set_ylabel(r'Position $x_j$')
     ax.grid(True)
-    fig.savefig(filename.replace('.csv', '.pdf'))
+    #fig.savefig(filename.replace('.csv', '.pdf'))
 
 def decay(x, tau, ampl):
     '''
