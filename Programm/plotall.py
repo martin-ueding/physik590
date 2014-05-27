@@ -43,10 +43,6 @@ def main():
 
         plotted = []
 
-        plot_with(auto_plot_histogram, 'histogram-position-*.csv', dirname, plotted)
-        plot_with(auto_plot_trajectory, 'trajectory-*.csv', dirname, plotted)
-        plot_with(auto_plot_histogram, 'histogram-*.csv', dirname, plotted)
-
         print('From virial theorem:')
         E_0 = find_E_0(run)
 
@@ -74,9 +70,20 @@ def main():
             np.savetxt(os.path.join('out', 'isl{}-n{}.csv'.format(isl, n)), data)
 
 def get_filename(run, ending):
+    '''
+    Builds up a filename.
+
+    :param str run: ID of the run
+    :param str ending: Suffix of the filename, just as in the C++ program
+    :returns: Complete filename
+    :rtype: str
+    '''
     return os.path.join('out', run, run+ending)
 
 def find_E_0(run):
+    '''
+
+    '''
     pattern = '-c11.csv'
     csv_file = get_filename(run, pattern)
     data = np.loadtxt(csv_file)
@@ -137,15 +144,6 @@ def fit_eigenvalues(dirname, pattern, E_0):
 
     return results
 
-def plot_with(function, pattern, dirname, plotted):
-    for csv_file in glob.glob(os.path.join(dirname, pattern)):
-        if csv_file in plotted:
-            continue
-        plotted.append(csv_file)
-        if needs_plotting(csv_file):
-            print('Plotting', csv_file)
-            function(csv_file)
-
 def plot_correlations(dirname, pattern, E0):
     for filename in glob.glob(os.path.join(dirname, pattern)):
         data = np.loadtxt(filename)
@@ -195,69 +193,6 @@ def needs_plotting(filename):
         return True
     pdf_time = datetime.datetime.fromtimestamp(os.path.getmtime(pdf_file))
     return csv_time > pdf_time
-
-def insert_theory(ax):
-    '''
-    Inserts the theoretical expectations of the position density into the
-    axes.
-    '''
-    x = np.linspace(-4, 4, 1000)
-    y = 0.59 * np.exp(- 1.1 * x**2)
-    ax.plot(x, y, label='Theorie diskret', linestyle='dashed', color='black')
-    y = 1/np.sqrt(np.pi) * np.exp(- x**2)
-    ax.plot(x, y, label='Theorie kontinuierlich', linestyle='dotted', color='black')
-
-def plot_histogram(filename):
-    data = np.genfromtxt(filename)
-
-    fig = pl.figure()
-    ax = fig.add_subplot(1, 1, 1)
-    bins = data[:, 0]
-    counts = data[:, 1]
-    width = bins[3] - bins[2]
-    selection = abs(bins) < 4
-
-    ax.plot(bins[selection], counts[selection], marker='+', linestyle='none', label='Metropolis')
-    ax.set_title(filename)
-    ax.set_xlabel(r'Position $x$')
-    ax.set_ylabel(r'relative Häufigkeit')
-    ax.grid(True)
-
-    insert_theory(ax)
-
-    ax.legend(loc='best')
-
-    #fig.savefig(filename.replace('.csv', '.pdf'))
-
-def auto_plot_histogram(filename):
-    data = np.genfromtxt(filename)
-
-    fig = pl.figure()
-    ax = fig.add_subplot(1, 1, 1)
-    bins = data[:, 0]
-    counts = data[:, 1]
-    width = bins[3] - bins[2]
-    counts /= width
-
-    ax.plot(bins, counts, marker='+', linestyle='none')
-    ax.set_title(filename)
-    ax.set_xlabel(r'Messgröße')
-    ax.set_ylabel(r'relative Häufigkeit')
-    ax.grid(True)
-
-    #fig.savefig(filename.replace('.csv', '.pdf'))
-
-def auto_plot_trajectory(filename):
-    data = np.genfromtxt(filename)
-
-    fig = pl.figure()
-    ax = fig.add_subplot(1, 1, 1)
-    ax.plot(data[:, 0], data[:, 1])
-    ax.set_title(filename)
-    ax.set_xlabel(r'Zeit $j$')
-    ax.set_ylabel(r'Position $x_j$')
-    ax.grid(True)
-    #fig.savefig(filename.replace('.csv', '.pdf'))
 
 def decay(x, tau, ampl):
     '''
