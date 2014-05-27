@@ -71,6 +71,7 @@ def main():
             print('inverse_scattering_length', isl, 'n', n)
             data = np.array(n_data)
             print(data)
+            # FIXME Sort first column of data first.
             np.savetxt(os.path.join('out', 'isl{}-n{}.csv'.format(isl, n)), data)
 
 def get_filename(run, ending):
