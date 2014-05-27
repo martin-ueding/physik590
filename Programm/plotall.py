@@ -122,18 +122,6 @@ def plot_with(function, pattern, dirname, plotted):
             print('Plotting', csv_file)
             function(csv_file)
 
-def decay(x, tau, ampl):
-    return ampl * np.exp(-x / tau)
-
-def time_evolution(x, e_n, ampl):
-    return ampl * np.exp(-e_n * x)
-
-def time_evolution_with_offset(x, e_n, ampl, offset):
-    return time_evolution(x, e_n, ampl) + offset
-
-def decay_with_offset(x, tau, ampl, offset):
-    return decay(x, tau, ampl) + offset
-
 def plot_correlations(dirname, pattern, E0):
     for filename in glob.glob(os.path.join(dirname, pattern)):
         data = np.loadtxt(filename)
@@ -234,6 +222,30 @@ def auto_plot_trajectory(filename):
     ax.set_ylabel(r'Position $x_j$')
     ax.grid(True)
     fig.savefig(filename.replace('.csv', '.pdf'))
+
+def decay(x, tau, ampl):
+    '''
+    Exponential decay fit function.
+    '''
+    return ampl * np.exp(-x / tau)
+
+def time_evolution(x, e_n, ampl):
+    '''
+    Time evolution fit function.
+    '''
+    return ampl * np.exp(-e_n * x)
+
+def time_evolution_with_offset(x, e_n, ampl, offset):
+    '''
+    Time evolution with constant offset fit function.
+    '''
+    return time_evolution(x, e_n, ampl) + offset
+
+def decay_with_offset(x, tau, ampl, offset):
+    '''
+    Exponential decay with constant offset fit function.
+    '''
+    return decay(x, tau, ampl) + offset
 
 def _parse_args():
     """
