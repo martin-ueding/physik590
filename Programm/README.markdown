@@ -14,7 +14,6 @@ These Debian packages are needed to complile the prorgrams:
 - libcppunit-dev
 - libcrypto++-dev
 - libeigen3-dev
-- libgsl0-dev
 
 To run `plotall.py`, you also need the following from [my PPA][PPA]:
 
