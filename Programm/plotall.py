@@ -7,6 +7,7 @@
 import argparse
 import datetime
 import glob
+import json
 import os.path
 import re
 
@@ -19,35 +20,46 @@ def main():
     options = _parse_args()
 
     if len(options.prefixes) == 0:
-        runs = sorted(glob.glob('out/*/'))
+        dirnames = sorted(glob.glob('out/*/'))
     else:
-        runs = sorted([
-            run
+        dirnames = sorted([
+            dirname
             for prefix in options.prefixes
-            for run in glob.glob('out/{}*/'.format(prefix))
+            for dirname in glob.glob('out/{}*/'.format(prefix))
         ])
 
-    for run in runs:
-        print('Run:', os.path.basename(os.path.dirname(run)))
+    for dirname in dirnames:
+        run = os.path.basename(os.path.dirname(dirname))
+        print('Run:', run)
+        options_filename = get_filename(run, '-options.js')
+        parameters = {}
+        if os.path.isfile(options_filename):
+            with open(options_filename) as f:
+                parameters = json.load(f)
+        else:
+            print(options_filename, 'does not exist.')
 
         plotted = []
 
-        plot_with(auto_plot_histogram, 'histogram-position-*.csv', run, plotted)
-        plot_with(auto_plot_trajectory, 'trajectory-*.csv', run, plotted)
-        plot_with(auto_plot_histogram, 'histogram-*.csv', run, plotted)
+        plot_with(auto_plot_histogram, 'histogram-position-*.csv', dirname, plotted)
+        plot_with(auto_plot_trajectory, 'trajectory-*.csv', dirname, plotted)
+        plot_with(auto_plot_histogram, 'histogram-*.csv', dirname, plotted)
 
         print('From virial theorem:')
         E_0 = find_E_0(run)
 
         print('From C_11(t):')
-        plot_correlations(run, '*-c11.csv', E_0)
+        plot_correlations(dirname, '*-c11.csv', E_0)
 
         print('From eigenvalues:')
-        fit_eigenvalues(run, '*-eigenvalue-*.csv', E_0)
+        fit_eigenvalues(dirname, '*-eigenvalue-*.csv', E_0)
+
+def get_filename(run, ending):
+    return os.path.join('out', run, run+ending)
 
 def find_E_0(run):
-    pattern = '*-c11.csv'
-    csv_file = glob.glob(os.path.join(run, pattern))[0]
+    pattern = '-c11.csv'
+    csv_file = get_filename(run, pattern)
     data = np.loadtxt(csv_file)
     t = data[0, 0]
     corr_val = data[0, 1]
@@ -58,8 +70,8 @@ def find_E_0(run):
     return corr_val, corr_err
         
 
-def fit_eigenvalues(run, pattern, E_0):
-    for csv_file in sorted(glob.glob(os.path.join(run, pattern))):
+def fit_eigenvalues(dirname, pattern, E_0):
+    for csv_file in sorted(glob.glob(os.path.join(dirname, pattern))):
         data = np.loadtxt(csv_file)
         if len(data) == 0:
             continue
@@ -101,8 +113,8 @@ def fit_eigenvalues(run, pattern, E_0):
         except RuntimeError as e:
             print(e)
 
-def plot_with(function, pattern, run, plotted):
-    for csv_file in glob.glob(os.path.join(run, pattern)):
+def plot_with(function, pattern, dirname, plotted):
+    for csv_file in glob.glob(os.path.join(dirname, pattern)):
         if csv_file in plotted:
             continue
         plotted.append(csv_file)
@@ -122,8 +134,8 @@ def time_evolution_with_offset(x, e_n, ampl, offset):
 def decay_with_offset(x, tau, ampl, offset):
     return decay(x, tau, ampl) + offset
 
-def plot_correlations(run, pattern, E0):
-    for filename in glob.glob(os.path.join(run, pattern)):
+def plot_correlations(dirname, pattern, E0):
+    for filename in glob.glob(os.path.join(dirname, pattern)):
         data = np.loadtxt(filename)
         t = data[:, 0]
         corr_val = data[:, 1]
