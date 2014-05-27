@@ -157,6 +157,14 @@ def plot_correlations(dirname, pattern, E0):
         pl.clf()
 
 def needs_plotting(filename):
+    '''
+    Determines whether a file needs to be replotted.
+
+    This is the case if the ``.pdf`` file is older than the corresponding
+    ``.csv`` file.
+
+    :param str filename: Name or path of the ``.csv`` file.
+    '''
     csv_time = datetime.datetime.fromtimestamp(os.path.getmtime(filename))
     pdf_file = filename.replace('.csv', '.pdf')
     if not os.path.isfile(pdf_file):
@@ -165,6 +173,10 @@ def needs_plotting(filename):
     return csv_time > pdf_time
 
 def insert_theory(ax):
+    '''
+    Inserts the theoretical expectations of the position density into the
+    axes.
+    '''
     x = np.linspace(-4, 4, 1000)
     y = 0.59 * np.exp(- 1.1 * x**2)
     ax.plot(x, y, label='Theorie diskret', linestyle='dashed', color='black')
