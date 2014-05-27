@@ -69,9 +69,8 @@ def main():
     for isl, isl_data in sorted(energies.items()):
         for n, n_data in sorted(isl_data.items()):
             print('inverse_scattering_length', isl, 'n', n)
-            data = np.array(n_data)
+            data = np.array(sorted(n_data))
             print(data)
-            # FIXME Sort first column of data first.
             np.savetxt(os.path.join('out', 'isl{}-n{}.csv'.format(isl, n)), data)
 
 def get_filename(run, ending):
