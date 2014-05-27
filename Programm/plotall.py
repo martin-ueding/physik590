@@ -19,6 +19,8 @@ import unitprint
 def main():
     options = _parse_args()
 
+    energies = {}
+
     if len(options.prefixes) == 0:
         dirnames = sorted(glob.glob('out/*/'))
     else:
@@ -52,7 +54,10 @@ def main():
         plot_correlations(dirname, '*-c11.csv', E_0)
 
         print('From eigenvalues:')
-        fit_eigenvalues(dirname, '*-eigenvalue-*.csv', E_0)
+        result = fit_eigenvalues(dirname, '*-eigenvalue-*.csv', E_0)
+        energies[parameters["gauss_width"]] = result
+
+    print(energies)
 
 def get_filename(run, ending):
     return os.path.join('out', run, run+ending)
@@ -71,6 +76,7 @@ def find_E_0(run):
         
 
 def fit_eigenvalues(dirname, pattern, E_0):
+    results = {}
     for csv_file in sorted(glob.glob(os.path.join(dirname, pattern))):
         data = np.loadtxt(csv_file)
         if len(data) == 0:
@@ -110,8 +116,12 @@ def fit_eigenvalues(dirname, pattern, E_0):
             E_n_err = np.sqrt(d[0]**2 + E_0[1]**2)
 
             print('E_{} ='.format(number), unitprint.siunitx(E_n_val, E_n_err, error_digits=2))
+
+            results[number] = E_n_val, E_n_err
         except RuntimeError as e:
             print(e)
+
+    return results
 
 def plot_with(function, pattern, dirname, plotted):
     for csv_file in glob.glob(os.path.join(dirname, pattern)):
