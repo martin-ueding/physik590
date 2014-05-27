@@ -69,6 +69,21 @@ def main():
             print(data)
             np.savetxt(os.path.join('out', 'isl{}-n{}.csv'.format(isl, n)), data)
 
+    for isl in energies.keys():
+        files = glob.glob('out/isl{}-*.csv'.format(isl))
+        files.sort()
+        for file_ in files:
+            try:
+                print(file_)
+                data = np.loadtxt(file_)
+                pl.errorbar(data[:, 0], data[:, 1], yerr=data[:, 2], label=os.path.basename(file_))
+            except IndexError:
+                pass
+        pl.grid(True)
+        pl.legend(loc='best', prop={'size': 6})
+        pl.savefig('out/isl{}-all.pdf'.format(isl))
+        pl.clf()
+
 def get_filename(run, ending):
     '''
     Builds up a filename.
