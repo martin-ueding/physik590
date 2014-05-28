@@ -110,9 +110,6 @@ def get_filename(run, ending):
     return os.path.join(run, run+ending)
 
 def find_E_0(run):
-    '''
-
-    '''
     pattern = '-c11.csv'
     csv_file = get_filename(run, pattern)
     data = np.loadtxt(csv_file)
