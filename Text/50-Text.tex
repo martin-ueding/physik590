@@ -337,7 +337,7 @@ Erwartungswert $\overline X$ durch den Mittelwert von $\mathbb X$ gegeben. Der
 Fehler $\Deltaup \overline X$ ist durch die Standardabweichung von $\mathbb X$
 gegeben.
 
-\section{GEVP-Methode}
+\chapter{Energiewerte}
 
 Beim harmonischen Oszillator kann die Grundzustandsenergie über den Virialsatz
 bestimmt werden \parencite[(4.13)]{Creutz/Statistical_Approach_QM}:
@@ -345,7 +345,8 @@ bestimmt werden \parencite[(4.13)]{Creutz/Statistical_Approach_QM}:
     E_0 = \mass^2 \bracket{x^2}.
 \]
 Die Größe $\bracket{x^2}$ ist in den noch zu definierenden
-Korrelationsfunktionen als $C_{11}(0)$ enthalten.
+Korrelationsfunktionen als $C_{11}(0)$ enthalten und muss nicht gesondert
+berechnet werden.
 
 Die Energie des ersten angeregten Zustands kann mit der Korrelation
 berechnet werden \parencite[(4.14)]{Creutz/Statistical_Approach_QM}:
@@ -360,7 +361,7 @@ Dies ist äquivalent zu einer abfallenden Exponentialfunktion, die an die
 Korrelationsfunktion $C_{11}(\tau) = \bracket{x(0) \, x(\tau)}$ angepasst wird.
 Sei die Anpassungsfunktion
 \[
-    f(\tau) := c_1 \exp\del{-\frac{\tau}{c_2}}.
+    f(\tau) := c_1 \exp\del{-\Deltaup E_1 \tau}.
 \]
 Die Korrelationen in \eqref{eq:Creutz_4.14} drücke ich durch $f$ aus. Somit
 erhalte ich:
@@ -368,11 +369,14 @@ erhalte ich:
     E_1 - E_0
     = \lim_{\tau \to \infty} \frac{-1}{\Deltaup \tau} \ln
     \del{\frac{f(\tau + \Deltaup \tau)}{f(\tau)}}
-    = \frac{1}{c_2}.
+    = \Deltaup E_1
 \]
 
-Energien für noch höhere Zustände können mit dem „Generalized Eigenvalue
-Problem“ (GEVP) errechnet werden.
+Mit $E_0$ aus dem Virialsatz $\Deltaup E_1$ aus den Korrelationen lässt sich
+$E_1$ bestimmen. Energien für noch höhere Zustände können mit dem „Generalized
+Eigenvalue Problem“ (GEVP) errechnet werden.
+
+\section{GEVP-Methode}
 
 \subsection{Interpolationsfelder}
 
@@ -431,7 +435,11 @@ die effektiven Energien
     \ln\del{\lambda_n(t, t_0)} }
 \]
 bestimmen \parencite[(2.4)]{Blossier/Eigenvalue}, die mit $t \to \infty$ gegen
-die Energie $E_n$ konvergieren \parencite[(2.3)]{Blossier/Eigenvalue}.
+die Energie $E_n$ konvergieren \parencite[(2.3)]{Blossier/Eigenvalue}. Diese
+$E_n$ sind jedoch die Differenz zum Grundzustand, so dass später noch $E_0$
+addiert werden muss.
+% XXX Sollte man hier nicht lieber von $\Deltaup E_n$ schreiben, da es
+% Energiedifferenzen zum Grundzustand sind? 
 
 \subsection{Lösung des GEVP durch Cholesky-Zerlegung}
 
@@ -445,7 +453,6 @@ ist, dass $\tens B$ positiv definit ist, was hier der Fall ist.
 % TODO Warum ist die positiv definit?
 \parencite{MacKinnon/GEVP}
 
-
 Damit kann das Problem umgeformt werden zu \parencite[(3.31)]{MacKinnon/GEVP}
 \[
     \sbr{\tens L^{-1} \tens A [\tens L^\dagger]^{-1}} \tens L^\dagger \vec x
@@ -458,7 +465,8 @@ Definiert man nun
     \eqnsep
     \tilde{\vec x} := \tens L^\dagger \vec x,
 \]
-lässt sich dies als normale Eigenwertproblem schreiben \parencite[(3.32)]{MacKinnon/GEVP}:
+lässt sich dies als normale Eigenwertproblem mit gleichem Eigenwert schreiben
+\parencite[(3.32)]{MacKinnon/GEVP}:
 \[
     \tilde{\tens A} \tilde{\vec x} = \lambda \tilde{\vec x}.
 \]
@@ -493,11 +501,12 @@ Oszillator ist
     x^2}_{H_\text{osz}} - \frac2{a_0} \delta(x).
 \]
 
-Dieser Operator löst (analog \br3) die zeitunabhängige Schrödingergleichung
+Dieser Operator muss (analog zu \br3) die zeitunabhängige Schrödingergleichung
 \begin{equation}
     \label{eq:Bus_3}
-    \del{H_\text{osz} - \frac2{a_0} \delta(x)} \Psi(x) = E \Psi(x).
+    \del{H_\text{osz} - \frac2{a_0} \delta(x)} \Psi(x) = E \Psi(x)
 \end{equation}
+lösen.
 
 Die Autoren entwickeln die unbekannte Wellenfunktion $\Psi$ nun nach den
 bekannten Wellenfunktionen des harmonischen Oszillators \br4:
@@ -508,7 +517,6 @@ bekannten Wellenfunktionen des harmonischen Oszillators \br4:
 Im eindimensionalen Fall gibt es keinen Drehimpuls $l$. Aber $\phi_n$ mit
 ungeradem $n$ tragen nicht bei, da diese bei $x = 0$ einen Nulldurchgang haben.
 Somit bleiben in der Summe nur die geraden $n$.
-
 
 Dies setze ich (analog zu \br5) in die Schrödingergleichung \eqref{eq:Bus_3}
 ein:
@@ -586,11 +594,11 @@ $n$ summieren lässt:
     = \frac{a_0}2.
 \]
 Ausgedrückt mit der Kopplungsstärke $1/a_0$ ist die Relation
-\[
+\begin{equation}
+    \label{eq:Energie-Delta}
     \frac{(2E-1)\Gamma\del{\frac 14(3-2E)}}{4 \Gamma\del{\frac 14(5-2E)}}
     = \frac1{a_0}.
-\]
-
+\end{equation}
 
 Dies ist in Abbildung~\ref{fig:E_a0} dargestellt.
 
@@ -601,7 +609,7 @@ Dies ist in Abbildung~\ref{fig:E_a0} dargestellt.
         \begin{axis}[
                 %grid=major,
                 width=\linewidth,
-                height=0.6\linewidth,
+                height=0.8\linewidth,
                 xmin=-5,
                 xmax=5,
                 xlabel=$1/a_0$,
@@ -619,6 +627,12 @@ Dies ist in Abbildung~\ref{fig:E_a0} dargestellt.
     \label{fig:E_a0}
 \end{figure}
 
+Mit \eqref{eq:Energie-Delta} lassen sich die zu zu erwartenden Energiewerte für
+die geraden Zustände berechnen, indem die möglichen $E$, die die Gleichung bei
+einem bestimmten $1/a_0$ lösen, bestimmt werden. Diese sind $E_n$ für $n = 0,
+2, \ldots$. Bei $1/a_0$ tritt keine Störung auf, die ungestörten
+Energiewerte $E_n = n + 1/2$ sind als Schnittpunkte zu erkennen.
+
 %\nocite{Thijssen/Computational_Physics}
 
 %\nocite{Young/Jackknife}
@@ -626,10 +640,7 @@ Dies ist in Abbildung~\ref{fig:E_a0} dargestellt.
 
 %\nocite{Stroustrup/C++4}
 
-% vim: ft=tex spell spelllang=de tw=79
-% Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
-
-\chapter{Implementierung}
+\chapter{Ergebnisse}
 
 % FIXME Dies irgendwie weniger aufdringlich unterbringen.
 \begin{small}
@@ -798,7 +809,6 @@ weicht merklich von der Kontinuumslösung ab.
 \end{figure}
 
 \subsection{Korrelationen}
-
 
 In einem Simulationsdurchlauf mit $\timestep = \num{0.1}$, $\timesites =
 \num{10000}$ und $\iterations = \num{10000}$ erhalte ich gute Korrelationen bis
