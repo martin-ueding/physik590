@@ -340,11 +340,36 @@ gegeben.
 \section{GEVP-Methode}
 
 Beim harmonischen Oszillator kann die Grundzustandsenergie über den Virialsatz
-bestimmt werden.
-% TODO Quellenangabe
+bestimmt werden \parencite[(4.13)]{Creutz/Statistical_Approach_QM}:
+\[
+    E_0 = \mass^2 \bracket{x^2}.
+\]
+Die Größe $\bracket{x^2}$ ist in den noch zu definierenden
+Korrelationsfunktionen als $C_{11}(0)$ enthalten.
 
-% XXX Hier passt eigentlich das aus der Implementierung rein zu E_1 aus [CF80]
-% rein.
+Die Energie des ersten angeregten Zustands kann mit der Korrelation
+berechnet werden \parencite[(4.14)]{Creutz/Statistical_Approach_QM}:
+\begin{equation}
+    \label{eq:Creutz_4.14}
+    E_1 = \lim_{\tau \to \infty} \frac{-1}{\Deltaup \tau} \ln
+    \del{\frac{\Bracket{x(0) \, x(\tau + \Deltaup \tau)}}{\Bracket{x(0) \,
+    x(\tau)}}} + E_0.
+\end{equation}
+
+Dies ist äquivalent zu einer abfallenden Exponentialfunktion, die an die
+Korrelationsfunktion $C_{11}(\tau) = \bracket{x(0) \, x(\tau)}$ angepasst wird.
+Sei die Anpassungsfunktion
+\[
+    f(\tau) := c_1 \exp\del{-\frac{\tau}{c_2}}.
+\]
+Die Korrelationen in \eqref{eq:Creutz_4.14} drücke ich durch $f$ aus. Somit
+erhalte ich:
+\[
+    E_1 - E_0
+    = \lim_{\tau \to \infty} \frac{-1}{\Deltaup \tau} \ln
+    \del{\frac{f(\tau + \Deltaup \tau)}{f(\tau)}}
+    = \frac{1}{c_2}.
+\]
 
 Energien für noch höhere Zustände können mit dem „Generalized Eigenvalue
 Problem“ (GEVP) errechnet werden.
@@ -361,9 +386,9 @@ sinnvoll.
 $x$ lässt sich durch die Ab- und Aufsteigeoperatoren $a$ bzw. $a^\dagger$
 ausdrücken: $x \propto a + a^\dagger$
 \parencite[(3.5a)]{Schwabl/Quantenmechanik}. Die Potenzen von $x$ enthalten
-demnach Potenzen von $a$, womit die Matrixelemente $\braket{0|a^i|n} = 0$
-sind, wenn $i < n$. Sie sind jedoch ebenfalls 0, wenn $i - n$ ungerade ist. Die größte
-Potenz von $a$ in $x^i$ ist $a^i$. Bei einer geraden Anzahl an Auf- und
+demnach Potenzen von $a$, womit die Matrixelemente $\braket{0|a^i|n} = 0$ sind,
+wenn $i < n$. Sie sind jedoch ebenfalls 0, wenn $i - n$ ungerade ist. Die
+größte Potenz von $a$ in $x^i$ ist $a^i$. Bei einer geraden Anzahl an Auf- und
 Absteigevorgängen kann es insgesamt keine ungerade Änderung der Quantenzahl $n$
 geben. Daher tragen für ein Matrixelement mit einer geraden Potenz von $x$ auch
 nur gerade Energieeigenzustände bei.
@@ -774,31 +799,6 @@ weicht merklich von der Kontinuumslösung ab.
 
 \subsection{Korrelationen}
 
-% TODO Grundzustandsenergie mit C_00.
-
-Die Energie des ersten angeregten Zustands kann mit der Korrelation
-berechnet werden \parencite[(4.14)]{Creutz/Statistical_Approach_QM}:
-\begin{equation}
-    \label{eq:Creutz_4.14}
-    E_1 = \lim_{\tau \to \infty} \frac{-1}{\Deltaup \tau} \ln
-    \del{\frac{\Bracket{x(0) \, x(\tau + \Deltaup \tau)}}{\Bracket{x(0) \,
-    x(\tau)}}} + E_0.
-\end{equation}
-
-Dies ist äquivalent zu einer abfallenden Exponentialfunktion, die an die
-Korrelationsfunktion $C_{11}(\tau) = \bracket{x(0) \, x(\tau)}$ angepasst wird.
-Sei die Anpassungsfunktion
-\[
-    f(\tau) := c_1 \exp\del{-\frac{\tau}{c_2}}.
-\]
-Die Korrelationen in \eqref{eq:Creutz_4.14} drücke ich durch $f$ aus. Somit
-erhalte ich:
-\[
-    E_1 - E_0
-    = \lim_{\tau \to \infty} \frac{-1}{\Deltaup \tau} \ln
-    \del{\frac{f(\tau + \Deltaup \tau)}{f(\tau)}}
-    = \frac{1}{c_2}.
-\]
 
 In einem Simulationsdurchlauf mit $\timestep = \num{0.1}$, $\timesites =
 \num{10000}$ und $\iterations = \num{10000}$ erhalte ich gute Korrelationen bis
