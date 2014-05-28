@@ -1,8 +1,8 @@
 % Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 
-\chapter{Methoden}
+\chapter{Pfadintegrale}
 
-\section{Pfadintegral}
+\section{Einleitung}
 
 Feynmans Pfadintegralformalismus erlaubt es ein quantenmechanisches System mit
 $n$ Freiheitsgraden in ein klassisches System mit $n+1$ Freiheitsgraden zu
@@ -246,33 +246,6 @@ S(x_j') - S(x_j)$ definiert habe, $\Theta$ die Heaviside Stufenfunktion und
 $N_0$ das Volumen des Konfigurationsraumes ist. Mit dieser Gleichung kann
 nachvollzogen werden, dass $W$ die geforderten Bedingungen erfüllt.
 
-\section{Bootstrap Methode}
-
-% TODO Bootstrap Methode beschreiben.
-
-Der Fehler zu einem statistischen Schätzwert ist in der Regel nicht einfach
-anzugeben. Für Größen wie den Mittelwert ist es unter Annahme einer
-zugrundeliegenden Verteilung möglich, nicht jedoch für komplexere Größen. Eine
-Möglichkeit, eine Fehlerabschätzung zu beliebigen Schätzwerten zu erhalten, ist
-die \emph{Bootstrap Methode}. Bei dieser werden aus der gegebenen Probe neue
-Proben erstellt und eine Metaanalyse durchgeführt.
-
-Sei $X$ eine Zufallsgröße, $\bracket X$ der Erwartungs- und $\overline X$ der
-Schätzwert. Aus einer Stichprobenmenge $\mathbb M$ kann nun die Zufallsgröße
-berechnet werden: $\overline X = X(\mathbb M)$. Im Grenzwert erhält man den
-Erwartungswert, also $\lim_{|\mathbb M| \to \infty} \overline X = \bracket X$.
-
-Aus der wirklich erhobenen Stichprobenmenge erzeugt man nun $\bootstrapsamples$
-weitere Mengen $\mathbb M_i$ durch Ziehen mit Zurücklegen. Für jede dieser
-Mengen errechnet man die Zufallsgröße und erhält die Menge der Schätzwerte
-\[
-    \mathbb X = \{ X(\mathbb M_i) \colon 1 \leq i \leq N_\text P \}.
-\]
-% TODO Quellenangabe für „normalverteilt“.
-Diese Schätzwerte sind annähernd normalverteilt. Somit ist der so errechnete
-Erwartungswert $\overline X$ durch den Mittelwert von $\mathbb X$ gegeben. Der
-Fehler $\Deltaup \overline X$ ist durch die Standardabweichung von $\mathbb X$
-gegeben.
 
 \chapter{Energiewerte}
 
@@ -589,6 +562,35 @@ Energiewerte $E_n = n + 1/2$ sind als Schnittpunkte zu erkennen.
 %\nocite{Oser/Bootstrap}
 
 %\nocite{Stroustrup/C++4}
+
+\chapter{Bootstrap Methode}
+
+% TODO Dies reicht für ein einzelnes Kapitel nicht aus, jedoch passt es auch
+% irgendwie noch an keinen Ort so richtig.
+
+Der Fehler zu einem statistischen Schätzwert ist in der Regel nicht einfach
+anzugeben. Für Größen wie den Mittelwert ist es unter Annahme einer
+zugrundeliegenden Verteilung möglich, nicht jedoch für komplexere Größen. Eine
+Möglichkeit, eine Fehlerabschätzung zu beliebigen Schätzwerten zu erhalten, ist
+die \emph{Bootstrap Methode}. Bei dieser werden aus der gegebenen Probe neue
+Proben erstellt und eine Metaanalyse durchgeführt.
+
+Sei $X$ eine Zufallsgröße, $\bracket X$ der Erwartungs- und $\overline X$ der
+Schätzwert. Aus einer Stichprobenmenge $\mathbb M$ kann nun die Zufallsgröße
+berechnet werden: $\overline X = X(\mathbb M)$. Im Grenzwert erhält man den
+Erwartungswert, also $\lim_{|\mathbb M| \to \infty} \overline X = \bracket X$.
+
+Aus der wirklich erhobenen Stichprobenmenge erzeugt man nun $\bootstrapsamples$
+weitere Mengen $\mathbb M_i$ durch Ziehen mit Zurücklegen. Für jede dieser
+Mengen errechnet man die Zufallsgröße und erhält die Menge der Schätzwerte
+\[
+    \mathbb X = \{ X(\mathbb M_i) \colon 1 \leq i \leq N_\text P \}.
+\]
+% TODO Quellenangabe für „normalverteilt“.
+Diese Schätzwerte sind annähernd normalverteilt. Somit ist der so errechnete
+Erwartungswert $\overline X$ durch den Mittelwert von $\mathbb X$ gegeben. Der
+Fehler $\Deltaup \overline X$ ist durch die Standardabweichung von $\mathbb X$
+gegeben.
 
 \chapter{Ergebnisse}
 
