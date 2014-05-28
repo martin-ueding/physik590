@@ -2,69 +2,6 @@
 
 \chapter{Methoden}
 
-\section{Harmonischer Oszillator}
-
-Der harmonische Oszillator ist ein elementares quantenmechanisches System, das
-durch den Hamiltonoperator
-\[
-    \hat H = \frac{1}{2m} \hat p^2 + \frac{m}{2} \omega^2 \hat x^2
-\]
-bestimmt wird \parencite[(3.1)]{Schwabl/Quantenmechanik}. Die Energieeigenwerte
-lassen sich durch Operatormethoden am elegantesten berechnen. Dazu führe ich
-die dimensionslose Länge
-\[
-    \xi := \sqrt{\frac{m\omega}{\hbar}} x
-\]
-ein. Im Ortsraum ist $\hat p = - \iup \hbar \pd{}x$. Der dimensionslose Impuls
-ist demnach $\hat \pi^2 = - \hbar\omega m \pd[2]{}\xi$. Somit kann der
-Hamiltonoperator umgeschrieben werden zu:
-\[
-    \hat H = \frac{\hbar\omega}2 \del{\xi^2 - \dpd[2]{}\xi}.
-\]
-
-Mit den Leiteroperatoren
-\[
-    \hat a := \frac1{\sqrt2} \del{\hat \xi + \iup \hat \pi}
-    \quad\text{und}\quad
-    \hat a^\dagger := \frac1{\sqrt2} \del{\hat \xi - \iup \hat \pi}
-\]
-kann der Hamiltonoperator kompakt als
-\[
-    \hat H = \hbar\omega \sbr{\hat a^\dagger \hat a + \frac12}
-\]
-geschrieben werden \parencite[(3.8)]{Schwabl/Quantenmechanik}. Dabei habe ich
-schon den Kommutator $[\hat a, \hat a^\dagger] = 1$ ausgenutzt. Der Operator
-$\hat a^\dagger \hat a$ ist der Beseztungszahloperator $\hat n$. In der
-Energieeigenbasis $\{ \ket n \}_{n \in \N_0}$ sind die Eigenwerte von $\hat n$
-durch $n$ gegeben, so dass die Energieeigenwerte
-\[
-    E_n = \hbar\omega \sbr{n + \frac 12}
-\]
-gegeben sind.
-
-Im Ortsraum sind die Lösungen der Schrödungergleichung gegeben durch
-\parencite[(4.159)]{nolting-theo5}:
-\[
-    \psi_n(\xi) = \del{\frac{m\omega}{\hbar\piup}}^{\frac14} (n! 2^n)^{-\frac12}
-    \exp\del{- \frac{\xi^2}2} H_n(\xi),
-\]
-wobei $H_n$ die Hermite-Polynome sind. Im Grundzustand ist die Wellenfunktion
-also gegeben durch:
-\[
-    \psi_0(\xi) = \piup^{-\frac14} \exp\del{-
-    \frac{\xi^2}2}.
-\]
-Die zugehörige Aufenthaltswahrscheinlichkeit ist
-\[
-    |\psi_0(\xi)|^2 = \frac1{\sqrt\piup} \exp(-x^2).
-\]
-
-Die Wellenfunktion und Aufenthaltswahrscheinlichkeit gilt nur für das
-Kontinuum. Für ein Zeitgitter ergeben sich andere Werte, dazu mehr in
-Abschnitt~\ref{sec:wellenfunktion_auf_gitter}.
-
-% TODO Abschnitt mit Gitter.
-
 \section{Pfadintegral}
 
 Feynmans Pfadintegralformalismus erlaubt es ein quantenmechanisches System mit
