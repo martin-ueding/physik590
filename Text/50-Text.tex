@@ -297,17 +297,21 @@ berechnet werden \parencite[(4.14)]{Creutz/Statistical_Approach_QM}:
 Dies ist äquivalent zu einer abfallenden Exponentialfunktion, die an die
 Korrelationsfunktion $C_{11}(\tau) = \bracket{x(0) \, x(\tau)}$ angepasst wird.
 Sei die Anpassungsfunktion
-\[
+\begin{equation}
+    \label{eq:fit-function-time-evolution}
     f(\tau) := c_1 \exp\del{-\Deltaup E_1 \tau}.
-\]
+\end{equation}
 Die Korrelationen in \eqref{eq:Creutz_4.14} drücke ich durch $f$ aus. Somit
 erhalte ich:
 \[
     E_1 - E_0
     = \lim_{\tau \to \infty} \frac{-1}{\Deltaup \tau} \ln
     \del{\frac{f(\tau + \Deltaup \tau)}{f(\tau)}}
-    = \Deltaup E_1
+    = \Deltaup E_1.
 \]
+Die Anpassungsfunktion ist somit gültig und darf anstelle des Grenzwertes
+benutzt werden. Auf diese Weise kann ich viele Messdaten in die Berechnung von
+$\Deltaup E_1$ einbeziehen.
 
 Mit $E_0$ aus dem Virialsatz $\Deltaup E_1$ aus den Korrelationen lässt sich
 $E_1$ bestimmen. Energien für noch höhere Zustände können mit dem „Generalized
@@ -338,8 +342,8 @@ nur gerade Energieeigenzustände bei.
 
 Mit den Interpolationsfeldern $O_i$ lassen sich die Korrelationsfunktionen
 \[
-    C_{ij}(t) := \Bracket{O_i(t) \, O_j^*(t)}
-    = \Bracket{x^i(0) \, x^j(t)}
+    C_{ij}(\tau) := \Bracket{O_i(\tau) \, O_j^*(\tau)}
+    = \Bracket{x^i(0) \, x^j(\tau)}
 \]
 definieren \parencite[(2.1)]{Blossier/Eigenvalue}.
 
@@ -352,31 +356,40 @@ Um das System numerisch stabiler zu bekommen, wird die Korrelationsmatrix in
 einen nur geraden und einen nur ungeraden Teil zerlegt, also beide $i$ und $j$
 gerade bzw. ungerade. Da wie vorher beschrieben auch nur gerade bzw. ungerade
 Energieeigenzustände beitragen, kann man so sogar gerade und ungerade Zustände
-trennen.
+trennen. 
 
 Das generalisierte Eigenwertproblem, aus dessen Eigenwerte die Energien
 extrahiert werde können, ist durch
 \[
-    \tens C(t) \, \vec v_n(t, t_0) = \lambda_n(t, t_0) \, \tens C(t_0) \, \vec v_n(t,
+    \tens C(\tau) \, \vec v_n(\tau, \tau_0) = \lambda_n(\tau, \tau_0) \, \tens
+    C(\tau_0) \, \vec v_n(t,
     t_0)
     \eqnsep
     n = 1, \ldots, N
     \eqnsep
-    t > t_0
+    \tau > \tau_0
 \]
 gegeben \parencite[(2.1)]{Blossier/Eigenvalue}. Aus den Eigenwerten lassen sich
 die effektiven Energien
 \[
-    E_n^\text{eff}(t, t_0) = - \partial_t \ln\del{\lambda_n(t, t_0)} \equiv -
-    \frac 1\timestep \sbr{ \ln\del{\lambda_n(t+\timestep, t_0)} -
-    \ln\del{\lambda_n(t, t_0)} }
+    E_n^\text{eff}(\tau, \tau_0) = - \partial_\tau \ln\del{\lambda_n(t, \tau_0)} \equiv -
+    \frac 1\timestep \sbr{ \ln\del{\lambda_n(t+\timestep, \tau_0)} -
+    \ln\del{\lambda_n(\tau, \tau_0)} }
 \]
-bestimmen \parencite[(2.4)]{Blossier/Eigenvalue}, die mit $t \to \infty$ gegen
+bestimmen \parencite[(2.4)]{Blossier/Eigenvalue}, die mit $\tau \to \infty$ gegen
 die Energie $E_n$ konvergieren \parencite[(2.3)]{Blossier/Eigenvalue}. Diese
 $E_n$ sind jedoch die Differenz zum Grundzustand, so dass später noch $E_0$
 addiert werden muss.
 % XXX Sollte man hier nicht lieber von $\Deltaup E_n$ schreiben, da es
 % Energiedifferenzen zum Grundzustand sind? 
+
+Auch hier kann ich die Anpassungsfunktion
+\eqref{eq:fit-function-time-evolution} mit $f(\tau) = \lambda_n(\tau, \tau_0)$
+benutzen, um die entsprechende Energie aus den berechneten Eigenwerten zu
+erhalten. Es muss $\tau > \tau_0$ gelten. Die Abweichungen vom Grenzwert werden
+besonders klein, wenn $\tau_0 \geq \tau/2$ gilt
+\parencite[5]{Blossier/Eigenvalue}. Daher wähle ich in meiner Implementierung
+$\tau_0 := \tau/2$.
 
 \subsection{Lösung des GEVP durch Cholesky-Zerlegung}
 
