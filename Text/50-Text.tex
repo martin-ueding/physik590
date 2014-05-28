@@ -631,6 +631,8 @@ Abbildung~\ref{fig:relaxiert} aus.
 
 \subsection{Aufenthaltswahrscheinlichkeit}
 
+% TODO Beschreiben, wie die Aufenthaltswahrscheinlichkeit berechnet wird.
+
 In Abbildung~\ref{fig:histogram_01} ist die Aufenthaltswahrscheinlichkeit für
 eine recht feine Zeitauflösung $\timestep$ dargestellt. Die erwartete
 Verteilung unterscheidet sich kaum von der Kontinuumslösung. Am Maximum der
@@ -771,7 +773,7 @@ Anpassung an diese Daten erhalte ich $1/c_2 = E_1 - E_0 = \num{0.995 +-
     \centering
     \tikzsetnextfilename{84DAA2-correlation}
     \begin{tikzpicture}
-        \begin{axis}[
+        \begin{semilogyaxis}[
                 width=\linewidth,
                 height=0.55\linewidth,
                 xlabel={$\tau$},
@@ -791,7 +793,7 @@ Anpassung an diese Daten erhalte ich $1/c_2 = E_1 - E_0 = \num{0.995 +-
                 y explicit
             ] table[y error index=2] {_build/84DAA2-data.csv};
             \addplot[black] table {_build/84DAA2-fit.csv};
-        \end{axis}
+        \end{semilogyaxis}
     \end{tikzpicture}
     \caption{%
         Korrelationsfunktion $C_{11}(\tau) = \bracket{x(0) \, x(\tau)}$ gegen
