@@ -60,6 +60,8 @@ def main():
                 energies[isl][n] = []
             energies[isl][n].append([parameters['gauss_width']] + list(energy))
 
+        print()
+
     print(json.dumps(energies, sort_keys=True, indent=4))
 
     for isl, isl_data in sorted(energies.items()):
@@ -72,17 +74,29 @@ def main():
     for isl in energies.keys():
         files = glob.glob('isl{}-*.csv'.format(isl))
         files.sort()
+        n = 0
+        n_max = len(files)
+        even_fig = pl.figure()
+        even_ax = even_fig.add_subplot(1, 1, 1)
+        odd_fig = pl.figure()
+        odd_ax = odd_fig.add_subplot(1, 1, 1)
         for file_ in files:
+            n += 1
+            if n > 8:
+                continue
             try:
                 print(file_)
                 data = np.loadtxt(file_)
-                pl.errorbar(data[:, 0], data[:, 1], yerr=data[:, 2], label=os.path.basename(file_))
-            except IndexError:
-                pass
-        pl.grid(True)
-        pl.legend(loc='best', prop={'size': 6})
-        pl.savefig('isl{}-all.pdf'.format(isl))
-        pl.clf()
+                ax = even_ax if n % 2 == 0 else odd_ax
+                ax.errorbar(data[:, 0], data[:, 1], yerr=data[:, 2], label=os.path.basename(file_), color=str((n-1)/n_max))
+            except IndexError as e:
+                print(e)
+        even_ax.grid(True)
+        even_ax.legend(loc='best', prop={'size': 6})
+        even_fig.savefig('isl{}-even.pdf'.format(isl))
+        odd_ax.grid(True)
+        odd_ax.legend(loc='best', prop={'size': 6})
+        odd_fig.savefig('isl{}-odd.pdf'.format(isl))
 
 def get_filename(run, ending):
     '''
@@ -145,7 +159,8 @@ def fit_eigenvalues(dirname, pattern, E_0):
             pl.xlabel('imaginäre Zeit')
             pl.ylabel('Eigenwert')
             pl.yscale('log')
-            #pl.savefig(csv_file.replace('.csv', '.pdf'))
+            if needs_plotting(csv_file):
+                pl.savefig(csv_file.replace('.csv', '.pdf'))
             pl.clf()
 
             E_n_val = popt[0] + E_0[0]
@@ -155,6 +170,10 @@ def fit_eigenvalues(dirname, pattern, E_0):
 
             results[number] = E_n_val, E_n_err
         except RuntimeError as e:
+            print(e)
+        except AttributeError as e:
+            # This error probably occurs when the ``pconv`` matrix is just
+            # ``nan``.
             print(e)
 
     return results
@@ -190,7 +209,8 @@ def plot_correlations(dirname, pattern, E0):
         pl.xlabel(r'$\Delta\tau$')
         pl.ylabel(r'$\langle x(\tau) x(\tau + \Delta \tau) \rangle$')
         pl.yscale('log')
-        #pl.savefig(filename.replace('.csv', '.pdf'))
+        if needs_plotting(filename):
+            pl.savefig(filename.replace('.csv', '.pdf'))
         pl.clf()
 
 def needs_plotting(filename):
