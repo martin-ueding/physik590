@@ -441,7 +441,7 @@ Oszillator ist
 Dieser Operator muss (analog zu \br3) die zeitunabhängige Schrödingergleichung
 \begin{equation}
     \label{eq:Bus_3}
-    \del{H_\text{osz} - \frac2{a_0} \delta(x)} \Psi(x) = E \Psi(x)
+    \sbr{H_\text{osz} - \frac2{a_0} \delta(x)} \Psi(x) = E \Psi(x)
 \end{equation}
 lösen.
 
@@ -458,11 +458,11 @@ Somit bleiben in der Summe nur die geraden $n$.
 Dies setze ich (analog zu \br5) in die Schrödingergleichung \eqref{eq:Bus_3}
 ein:
 \[
-    \del{H_\text{osz} - E - \frac2{a_0} \delta(x)}
+    \sbr{H_\text{osz} - E - \frac2{a_0} \delta(x)}
     \sum_{n=0}^\infty c_n \phi_n(x)
     = 0
     \iff
-    \sum_{n=0}^\infty (E_n - E) c_n \phi_n(x)
+    \sum_{n=0}^\infty [E_n - E] c_n \phi_n(x)
     \frac2{a_0} \delta(x)
     \sum_{n=0}^\infty c_n \phi_n(x)
     = 0
@@ -472,7 +472,7 @@ Dies wird nun auf $\phi_m^*$ projiziert, i.\,e. Multiplikation von rechts und
 Integration über $x$:
 \[
     \int_{-\infty}^\infty \dif x \, \sum_{n=0}^\infty
-    (E_n - E) c_n \phi_m^*(x) \phi_n(x)
+    [E_n - E] c_n \phi_m^*(x) \phi_n(x)
     - 
     \int_{-\infty}^\infty \dif x \,  \frac2{a_0} \phi_m^*(x) \delta(x)
     \sum_{n=0}^\infty c_n \phi_n(x) = 0
@@ -527,13 +527,13 @@ den harmonischen Oszillator ein:
 Mit Mathematica lässt sich diese Summe berechnen, wenn man nur über die geraden
 $n$ summieren lässt:
 \[
-    \frac{2 \Gamma\del{\frac 14(5-2E)}}{(2E-1)\Gamma\del{\frac 14(3-2E)}}
+    \frac{2 \Gamma\del{\frac 14[5-2E]}}{[2E-1]\Gamma\del{\frac 14[3-2E]}}
     = \frac{a_0}2.
 \]
 Ausgedrückt mit der Kopplungsstärke $1/a_0$ ist die Relation
 \begin{equation}
     \label{eq:Energie-Delta}
-    \frac{(2E-1)\Gamma\del{\frac 14(3-2E)}}{4 \Gamma\del{\frac 14(5-2E)}}
+    \frac{[2E-1]\Gamma\del{\frac 14[3-2E]}}{4 \Gamma\del{\frac 14[5-2E]}}
     = \frac1{a_0}.
 \end{equation}
 
