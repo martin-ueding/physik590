@@ -134,11 +134,15 @@ Dies ist in Abbildung~\ref{fig:E_a0} dargestellt.
     \begin{tikzpicture}
         \begin{axis}[
                 %grid=major,
+                width=\linewidth,
+                height=0.6\linewidth,
                 xmin=-5,
                 xmax=5,
                 xlabel=$1/a_0$,
                 ylabel=$E$,
-                minor y tick num=4,
+                xtick={-1,0,1},
+                ytick={0.5,1.5,...,9.5},
+                grid=major,
             ]
             \addplot[black] table {_build/gamma_data.txt};
         \end{axis}
