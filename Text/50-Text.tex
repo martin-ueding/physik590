@@ -810,6 +810,75 @@ Anpassung an diese Daten erhalte ich $\Deltaup E_1 = E_1 - E_0 = \num{0.995 +-
 
 % TODO Höhere Energiezustände mit GEVP Methode.
 
+Mit dem Virialsatz erhalte ich $E_0 = \num{0.4989 +- 0.0002}$. Mit der
+einfachen Korrelation $C_{11}(t)$ erhalte ich $E_1 = \num{1.50387 +- 0.00070}$.
+Aus den Eigenwerten des GEVP erhalte ich nach Anpassung:
+
+\begin{tabular}{lS}
+    $E_{1}$ & 1.50504 +- 0.00040 \\
+    $E_{2}$ & 0.5255 +- 0.0098 \\
+    $E_{3}$ & 3.4783 +- 0.0056 \\
+    $E_{4}$ & 2.523 +- 0.017 \\
+    $E_{5}$ & 5.057 +- 0.053 \\
+    $E_{6}$ & 4.477 +- 0.041 \\
+    $E_{7}$ & 6.699 +- 0.064 \\
+    $E_{8}$ & 6.358 +- 0.097 \\
+    $E_{9}$ & 10.75 +- 0.61 \\
+    $E_{10}$ & 14.5 +- 3.5 \\
+    $E_{11}$ & 1.266 +- 0.070 \\
+    $E_{12}$ & 1.27 +- 0.11
+\end{tabular}
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{1C5A92-eigenwerte}
+    \begin{tikzpicture}
+        \begin{semilogyaxis}[
+                width=\linewidth,
+                height=0.55\linewidth,
+                xlabel={$\tau$},
+                ylabel={$\lambda_n(\tau)$},
+                grid=major,
+                legend entries={
+                    {$n = 1$},
+                    {$n = 3$},
+                    {$n = 5$},
+                },
+            ]
+            \addplot[black!100!white] table {CSV/lambdas/1C5A92-eigenvalue-01-fit.csv};
+            \addplot[black!60!white] table {CSV/lambdas/1C5A92-eigenvalue-03-fit.csv};
+            \addplot[black!30!white] table {CSV/lambdas/1C5A92-eigenvalue-05-fit.csv};
+            \addplot[
+                black!100!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {CSV/lambdas/1C5A92-eigenvalue-01.csv};
+            \addplot[
+                black!60!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {CSV/lambdas/1C5A92-eigenvalue-03.csv};
+            \addplot[
+                black!30!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {CSV/lambdas/1C5A92-eigenvalue-05.csv};
+        \end{semilogyaxis}
+    \end{tikzpicture}
+    \caption{%
+    }
+    \label{fig:1C5A92-eigenwerte}
+\end{figure}
+
 \section{Anharmonischer Oszillator}
 
 Ab hier wird dem harmonischen Potential ein $\delta$-Potential überlagert. In
