@@ -50,7 +50,7 @@ def main():
         plot_correlations(dirname, '*-c11.csv', E_0)
 
         print('From eigenvalues:')
-        result = fit_eigenvalues(dirname, '*-eigenvalue-*.csv', E_0)
+        result = fit_eigenvalues(dirname, '*-eigenvalue-??.csv', E_0)
 
         isl = parameters['inverse_scattering_length']
         if not isl in energies:
@@ -158,7 +158,10 @@ def fit_eigenvalues(dirname, pattern, E_0):
             pl.yscale('log')
             if needs_plotting(csv_file):
                 pl.savefig(csv_file.replace('.csv', '.pdf'))
+                np.savetxt(csv_file.replace('.csv', '-fit.csv'), np.column_stack([fx, fy]))
             pl.clf()
+
+
 
             E_n_val = popt[0] + E_0[0]
             E_n_err = np.sqrt(d[0]**2 + E_0[1]**2)
