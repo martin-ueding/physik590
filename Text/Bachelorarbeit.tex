@@ -37,6 +37,8 @@
     }
 }
 
+\usepackage{datetime}
+
 \newcommand\timesites{N}
 \newcommand\timestep{a}
 \newcommand\margin{\Delta}
@@ -73,7 +75,7 @@
 }
 
 \lowertitleback{%
-    Stand: \today
+    Stand: \today, \currenttime
 }
 
 \begin{document}
@@ -83,7 +85,6 @@
 \include{40-Implementierung}
 
 \begin{appendix}
-    \include{80-Herleitungen}
 \end{appendix}
 
 \include{95-Literatur}

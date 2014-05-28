@@ -443,6 +443,156 @@ Für die Implementierung der Cholesky-Zerlegung benutze ich die Funktion
 Eigen. Das normale Eigenwertproblem löse ich anschließend mit der Klasse
 \texttt{Eigen::EigenSolver} \parencite{Eigen/EigenSolver}.
 
+\section{Eindimensionale Wellenfunktion mit $\delta$-Störung}
+
+% TODO Einleitung für diesen Teil schreiben.
+
+\newcommand\br[1]{\parencite[(#1)]{Busch/Two_Cold}}
+
+In \citetitle{Busch/Two_Cold} leiten die Autoren eine analytische Lösung für
+einen anharmonischen Oszillator her, bei welchem der Störterm eine
+Deltadistribution ist. Damit berechnen sie dann Wellenfunktionen und
+Energiewerte.
+
+Die Herleitung für den eindimensionalen Fall wird als analog zum
+dreidimensionalen Fall beschrieben. Anstelle des dreidimensionalen Potentials
+$\sqrt 2 \piup a_0 \delta^{(3)}(\vec r) \pd{}r r$ soll einfach nur $V(x_1 -
+x_2) = - 2/a_0 \delta(x_1 - x_2)$ benutzt werden
+\parencite[Fußnote~20]{Busch/Two_Cold}.
+
+Ich beginne meine Herleitung nach der Separation von Schwerpunkts- und
+Relativbewegung analog zu \br2. Der Hamiltonoperator für den anharmonischen
+Oszillator ist
+\[
+    H_\text{rel} = \underbrace{- \frac12 \nabla_x^2 + \frac 12
+    x^2}_{H_\text{osz}} - \frac2{a_0} \delta(x).
+\]
+
+Dieser Operator löst (analog \br3) die zeitunabhängige Schrödingergleichung
+\begin{equation}
+    \label{eq:Bus_3}
+    \del{H_\text{osz} - \frac2{a_0} \delta(x)} \Psi(x) = E \Psi(x).
+\end{equation}
+
+Die Autoren entwickeln die unbekannte Wellenfunktion $\Psi$ nun nach den
+bekannten Wellenfunktionen des harmonischen Oszillators \br4:
+\[
+    \Psi(x) = \sum_{n=0}^\infty c_n \phi_n(x).
+\]
+
+Im eindimensionalen Fall gibt es keinen Drehimpuls $l$. Aber $\phi_n$ mit
+ungeradem $n$ tragen nicht bei, da diese bei $x = 0$ einen Nulldurchgang haben.
+Somit bleiben in der Summe nur die geraden $n$.
+
+
+Dies setze ich (analog zu \br5) in die Schrödingergleichung \eqref{eq:Bus_3}
+ein:
+\[
+    \del{H_\text{osz} - E - \frac2{a_0} \delta(x)}
+    \sum_{n=0}^\infty c_n \phi_n(x)
+    = 0
+    \iff
+    \sum_{n=0}^\infty (E_n - E) c_n \phi_n(x)
+    \frac2{a_0} \delta(x)
+    \sum_{n=0}^\infty c_n \phi_n(x)
+    = 0
+\]
+
+Dies wird nun auf $\phi_m^*$ projiziert, i.\,e. Multiplikation von rechts und
+Integration über $x$:
+\[
+    \int_{-\infty}^\infty \dif x \, \sum_{n=0}^\infty
+    (E_n - E) c_n \phi_m^*(x) \phi_n(x)
+    - 
+    \int_{-\infty}^\infty \dif x \,  \frac2{a_0} \phi_m^*(x) \delta(x)
+    \sum_{n=0}^\infty c_n \phi_n(x) = 0
+\]
+
+Mit der Orthogonalitätsrelation für die Eigenfunktionen
+\[
+    \int_{-\infty}^\infty \dif x \phi_m^*(x) \phi_n(x) = \braket{m|n} =
+    \delta_{mn}
+\]
+folgt für die Schrödingergleichung
+\[
+    (E_m - E) c_m - \frac2{a_0} \phi_m^*(0) \sum_{n=0}^\infty c_n \phi_n(0) =
+    0.
+\]
+
+Über den Index $n$ wird summiert, dieser ist außerdem für alle $m$ gleich.
+Somit kann dieser Teil in eine Konstante $A$ verschoben werden. Daraus folgt
+der Ansatz
+\[
+    c_m = A \frac{\phi_m^*(0)}{E_m - E}
+\]
+analog zu \br7. Diesen Ansatz setze ich in die Gleichung ein und erhalte:
+\[
+    \sum_{n=0}^\infty \frac{\phi_n^*(0) \phi_n(0)}{E_n - E} = \frac{a_0}2.
+\]
+
+Als nächsten Schritt werden die Eigenfunktionen des harmonischen Oszillators
+$\phi_n$ eingesetzt. An der Stelle $x = 0$ verschwindet der Exponentialterm:
+\[
+    \sum_{n=0}^\infty \frac{1}{2^n n! \sqrt\piup} \frac{H_n^*(0) H_n(0)}{E_n -
+    E} = \frac{a_0}2
+\]
+
+Mit dem Wert der Hermitepolynome am Ursprung,
+\[
+    H_n(0) = \frac{2^n \sqrt\piup}{\Gamma\del{\frac{1-n}2}},
+\]
+folgt:
+\[
+    \sum_{n=0}^\infty \frac{2^n \sqrt\piup}{n!} \frac{1}{E_n -
+    E} \Gamma\del{\frac{1-n}2}^{-2} = \frac{a_0}2
+\]
+
+In die obige Gleichung setze ich die bekannten Energiewerte $E_n = n + 1/2$ für
+den harmonischen Oszillator ein:
+\[
+    \sum_{n=0}^\infty \frac{2^n \sqrt\piup}{n!} \frac{1}{\frac 12 + n -
+    E} \Gamma\del{\frac{1-n}2}^{-2} = \frac{a_0}2
+\]
+
+Mit Mathematica lässt sich diese Summe berechnen, wenn man nur über die geraden
+$n$ summieren lässt:
+\[
+    \frac{2 \Gamma\del{\frac 14(5-2E)}}{(2E-1)\Gamma\del{\frac 14(3-2E)}}
+    = \frac{a_0}2.
+\]
+Ausgedrückt mit der Kopplungsstärke $1/a_0$ ist die Relation
+\[
+    \frac{(2E-1)\Gamma\del{\frac 14(3-2E)}}{4 \Gamma\del{\frac 14(5-2E)}}
+    = \frac1{a_0}.
+\]
+
+
+Dies ist in Abbildung~\ref{fig:E_a0} dargestellt.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{E_a0}
+    \begin{tikzpicture}
+        \begin{axis}[
+                %grid=major,
+                width=\linewidth,
+                height=0.6\linewidth,
+                xmin=-5,
+                xmax=5,
+                xlabel=$1/a_0$,
+                ylabel=$E$,
+                xtick={-1,0,1},
+                ytick={0.5,1.5,...,9.5},
+                grid=major,
+            ]
+            \addplot[black] table {_build/gamma_data.txt};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Energie $E$ in Abhängigkeit von der Kopplungsstärke $1/a_0$.
+    }
+    \label{fig:E_a0}
+\end{figure}
 
 %\nocite{Thijssen/Computational_Physics}
 

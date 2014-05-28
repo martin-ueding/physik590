@@ -244,14 +244,18 @@ Anpassung an diese Daten erhalte ich $1/c_2 = E_1 - E_0 = \num{0.995 +-
 
 \section{Anharmonischer Oszillator}
 
-Ab hier wird dem harmonischen Potential ein Gaußpotential überlagert. Je nach
-Amplitude $\gaussheight$ und Breite $\gausswidth$ der Normalverteilung ergibt
-sich ein anderes Potential. In Abbildung~\ref{fig:gausspotential} ist das
-Gesamtpotential gezeigt.
+Ab hier wird dem harmonischen Potential ein $\delta$-Potential überlagert. In
+der Simulation wird dies durch schmale Normalverteilungen angenähert. Deren
+Integral ist auf eins normiert und die Verteilungen haben eine Breite
+$\gausswidth$. Je nach Breite ergibt sich ein anderes Potential. In
+Abbildung~\ref{fig:gausspotential-positiv} ist das Gesamtpotential für eine
+positive Kopplungsstärke $1/a_0$ gezeigt.
+Abbildung~\ref{fig:gausspotential-negativ} enthält das Potential für eine
+negative Kopplungsstärke.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{gausspotential}
+    \tikzsetnextfilename{gausspotential-positiv}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
@@ -260,14 +264,43 @@ Gesamtpotential gezeigt.
                 ylabel={$V(x)$},
                 grid=major,
             ]
-            \addplot[black] table {CSV/FF7AA0-potential.csv};
+            \addplot[black] table {CSV/gauss-potential/pos/00C58F-potential.csv};
+            \addplot[black] table {CSV/gauss-potential/pos/18B9E2-potential.csv};
+            \addplot[black] table {CSV/gauss-potential/pos/53D7EB-potential.csv};
+            \addplot[black] table {CSV/gauss-potential/pos/6FC501-potential.csv};
+            \addplot[black] table {CSV/gauss-potential/pos/DF05AB-potential.csv};
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        Überlagerung von harmonischem Potential mit Gaußpotential. $\mu^2 =
-        \num{1}$, $\gaussheight = \num{10}$, $\gausswidth = \num{1.0}$.
+        Überlagerung von harmonischem Potential mit Gaußpotential für
+        verschiedene Breiten der Gaußfunktion $\gausswidth$. $\mu^2 = \num{1}$,
+        $1/a_0 = \num{1}$.
     }
-    \label{fig:gausspotential}
+    \label{fig:gausspotential-positiv}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{gausspotential-negativ}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.55\linewidth,
+                xlabel={$x$},
+                ylabel={$V(x)$},
+                grid=major,
+            ]
+            \addplot[black] table {CSV/gauss-potential/neg/029833-potential.csv};
+            \addplot[black] table {CSV/gauss-potential/neg/156D90-potential.csv};
+            \addplot[black] table {CSV/gauss-potential/neg/4DD6F0-potential.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Überlagerung von harmonischem Potential mit Gaußpotential für
+        verschiedene Breiten der Gaußfunktion $\gausswidth$. $\mu^2 = \num{1}$,
+        $1/a_0 = \num{-1}$.
+    }
+    \label{fig:gausspotential-negativ}
 \end{figure}
 
 Mit dem veränderten Potential können alle vorherigen Rechnungen wiederholt
