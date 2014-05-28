@@ -22,12 +22,12 @@ def main():
     energies = {}
 
     if len(options.prefixes) == 0:
-        dirnames = sorted(glob.glob('out/*/'))
+        dirnames = sorted(glob.glob('*/'))
     else:
         dirnames = sorted([
             dirname
             for prefix in options.prefixes
-            for dirname in glob.glob('out/{}*/'.format(prefix))
+            for dirname in glob.glob('{}*/'.format(prefix))
         ])
 
     for dirname in dirnames:
@@ -67,10 +67,10 @@ def main():
             print('inverse_scattering_length', isl, 'n', n)
             data = np.array(sorted(n_data))
             print(data)
-            np.savetxt(os.path.join('out', 'isl{}-n{}.csv'.format(isl, n)), data)
+            np.savetxt(os.path.join('isl{}-n{}.csv'.format(isl, n)), data)
 
     for isl in energies.keys():
-        files = glob.glob('out/isl{}-*.csv'.format(isl))
+        files = glob.glob('isl{}-*.csv'.format(isl))
         files.sort()
         for file_ in files:
             try:
@@ -81,7 +81,7 @@ def main():
                 pass
         pl.grid(True)
         pl.legend(loc='best', prop={'size': 6})
-        pl.savefig('out/isl{}-all.pdf'.format(isl))
+        pl.savefig('isl{}-all.pdf'.format(isl))
         pl.clf()
 
 def get_filename(run, ending):
@@ -93,7 +93,7 @@ def get_filename(run, ending):
     :returns: Complete filename
     :rtype: str
     '''
-    return os.path.join('out', run, run+ending)
+    return os.path.join(run, run+ending)
 
 def find_E_0(run):
     '''
