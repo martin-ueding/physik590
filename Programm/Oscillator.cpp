@@ -9,11 +9,10 @@
 #include <cmath>
 
 
-Oscillator::Oscillator(Settings &settings) :
-    settings {settings} {
+Oscillator::Oscillator(Settings &settings) : settings {settings} {
     gauss_width_squared = settings.gauss_width * settings.gauss_width;
     double pi {std::atan(1) * 4};
-    prefactor = 1. / std::sqrt(2. * pi *gauss_width_squared) * 2. * settings.inverse_scattering_length;
+    prefactor = 1. / std::sqrt(2. * pi * gauss_width_squared) * 2. * settings.inverse_scattering_length;
 }
 
 double Oscillator::action(std::vector<double> &x) {
