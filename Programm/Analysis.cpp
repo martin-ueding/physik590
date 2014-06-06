@@ -43,7 +43,7 @@ void Analysis::insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_
         if (t <= t_0) {
             continue;
         }
-        auto &C_t0 = C[t_0];
+        auto &C_t0 = C[settings.t_0];
         std::vector<double> lambda_i_t (GEVPSolver::eigenvalues(C[t], C_t0));
 
         for (unsigned i {0}; i < lambda_i_t.size(); i++) {
@@ -133,7 +133,8 @@ void Analysis::save_c11() {
     std::ofstream c11_handle {settings.generate_filename("c11.csv")};
     c11_handle << settings.report();
     c11_handle << "# tau \t c11_val \t c11_err" << std::endl;
-    for (unsigned i {0}; i < c11.size(); i++) {
+    //for (unsigned i {0}; i < c11.size(); i++) {
+    for (unsigned i : settings.correlation_ts) {
         try {
             c11_handle << i *settings.time_step << "\t" << c11[i].mean() << "\t" << c11[i].stddev() << std::endl;
         }
@@ -148,7 +149,8 @@ void Analysis::save_c22() {
     std::ofstream c22_handle {settings.generate_filename("c22.csv")};
     c22_handle << settings.report();
     c22_handle << "# tau \t c22_val \t c22_err" << std::endl;
-    for (unsigned i {0}; i < c22.size(); i++) {
+    //for (unsigned i {0}; i < c22.size(); i++) {
+    for (unsigned i : settings.correlation_ts) {
         try {
             c22_handle << i *settings.time_step << "\t" << c22[i].mean() << "\t" << c22[i].stddev() << std::endl;
         }
