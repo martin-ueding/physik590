@@ -227,7 +227,7 @@ class Settings {
         unsigned export_potential_steps {1000};
         double export_potential_bound {5.0};
 
-        double corr_tau_max = 4;
+        double corr_tau_max {4};
 
         unsigned t_0 {1};
 
@@ -245,6 +245,8 @@ class Settings {
         unsigned t_0_mode {1};
 
         unsigned bootstrap_min {0};
+
+        unsigned corr_tau_count {20};
 
     protected:
         unsigned get_t_0_fixed();

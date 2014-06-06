@@ -61,6 +61,7 @@ std::string Settings::get_json_string() {
     JSON(time_sites);
     JSON(time_step);
     JSON(bootstrap_min);
+    JSON(corr_tau_count);
 
     for (auto t : correlation_ts) {
         root["correlation_ts"].append(t);

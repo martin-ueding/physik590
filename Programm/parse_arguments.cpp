@@ -74,6 +74,9 @@ void parse_arguments(int argc, char **argv, Settings &settings) {
     ("corr-tau-max",
      boost::program_options::value<double>(&settings.corr_tau_max)->default_value(settings.corr_tau_max),
      "Last τ to calculate C(τ) for.")
+    ("corr-tau-count",
+     boost::program_options::value<unsigned>(&settings.corr_tau_count)->default_value(settings.corr_tau_count),
+     "Number of steps for C(τ).")
     ("exp-pot-steps",
      boost::program_options::value<unsigned>(&settings.export_potential_steps)->default_value(settings.export_potential_steps),
      "Steps for potential export.")
