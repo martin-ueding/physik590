@@ -99,6 +99,9 @@ void parse_arguments(int argc, char **argv, Settings &settings) {
     ("t0-mode",
      boost::program_options::value<unsigned>(&settings.t_0_mode)->default_value(settings.t_0_mode),
      "t_0 mode. See API doc of Settings for details.")
+    ("boot-min",
+     boost::program_options::value<unsigned>(&settings.bootstrap_min)->default_value(settings.bootstrap_min),
+     "First sample from bootstrap")
     ;
     options.add(group3);
 

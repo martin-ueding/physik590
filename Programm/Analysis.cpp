@@ -32,6 +32,7 @@ boot_hist {BootstrappedHistogram{
         create_samples();
         save_eigenvalues();
         save_c11();
+        save_c22();
         save_histogram();
     }
 }
@@ -55,6 +56,7 @@ void Analysis::insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_
 void Analysis::create_samples() {
     unsigned largest = *std::max_element(settings.correlation_ts.begin(), settings.correlation_ts.end());
     c11 = std::vector<BootstrappedQuantity>(largest + 1);
+    c22 = std::vector<BootstrappedQuantity>(largest + 1);
 
     ProgressBar bar {"Creating bootstrap samples", settings.bootstrap_samples};
 
@@ -72,7 +74,7 @@ void Analysis::create_samples() {
 void Analysis::worker(ProgressBar &bar) {
     unsigned sample_id;
     while ((sample_id = sample_id_atom++) < settings.bootstrap_samples) {
-        BootstrapSample sample {pool};
+        BootstrapSample sample {pool, settings};
 
         // Extract C_11.
         CorrFunc &odd {sample.odd};
@@ -81,8 +83,17 @@ void Analysis::worker(ProgressBar &bar) {
             Eigen::MatrixXd &c_t {pair.second};
             double c_t_11 {c_t(settings.state_to_matrix(1), settings.state_to_matrix(1))};
             c11[t].append(c_t_11);
-
         }
+
+        // Extract C_22.
+        CorrFunc &even {sample.even};
+        for (std::pair<const unsigned, Eigen::MatrixXd> &pair : even) {
+            unsigned t {pair.first};
+            Eigen::MatrixXd &c_t {pair.second};
+            double c_t_22 {c_t(settings.state_to_matrix(1), settings.state_to_matrix(1))};
+            c22[t].append(c_t_22);
+        }
+
 
 #ifndef NDEBUG
         if (sample_id == 1) {
@@ -139,6 +150,21 @@ void Analysis::save_c11() {
     for (unsigned i {0}; i < c11.size(); i++) {
         try {
             c11_handle << i *settings.time_step << "\t" << c11[i].mean() << "\t" << c11[i].stddev() << std::endl;
+        }
+        catch (std::runtime_error e) {
+            std::cout << "Element " << i << ": " << e.what() << std::endl;
+        }
+    }
+}
+
+// XXX
+void Analysis::save_c22() {
+    std::ofstream c22_handle {settings.generate_filename("c22.csv")};
+    c22_handle << settings.report();
+    c22_handle << "# tau \t c22_val \t c22_err" << std::endl;
+    for (unsigned i {0}; i < c22.size(); i++) {
+        try {
+            c22_handle << i *settings.time_step << "\t" << c22[i].mean() << "\t" << c22[i].stddev() << std::endl;
         }
         catch (std::runtime_error e) {
             std::cout << "Element " << i << ": " << e.what() << std::endl;

@@ -21,6 +21,7 @@ class Analysis {
         void create_samples();
         void save_eigenvalues();
         void save_c11();
+        void save_c22();
         void save_histogram();
         void worker(ProgressBar &bar);
 
@@ -36,6 +37,7 @@ class Analysis {
         BQMapMap bs_E_n_t;
 
         std::vector<BootstrappedQuantity> c11;
+        std::vector<BootstrappedQuantity> c22;
 
         std::atomic<unsigned> sample_id_atom {0};
 };

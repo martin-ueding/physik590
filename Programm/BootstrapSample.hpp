@@ -4,6 +4,7 @@
 #pragma once
 
 #include "BootstrapPool.hpp"
+#include "Settings.hpp"
 
 #include <random>
 #include <vector>
@@ -13,7 +14,7 @@ class BootstrapSample {
         /**
           Creates a a new sample from the given pool.
           */
-        BootstrapSample(BootstrapPool &pool);
+        BootstrapSample(BootstrapPool &pool, Settings &settings);
 
         /**
           Combined correlation matrix function from all the summands.

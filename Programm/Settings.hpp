@@ -242,6 +242,8 @@ class Settings {
           */
         unsigned t_0_mode {1};
 
+        unsigned bootstrap_min {0};
+
     protected:
         unsigned get_t_0_fixed();
         unsigned get_t_0_half(unsigned t);

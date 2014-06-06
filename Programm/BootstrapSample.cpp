@@ -3,7 +3,7 @@
 
 #include "BootstrapSample.hpp"
 
-BootstrapSample::BootstrapSample(BootstrapPool &pool) :
+BootstrapSample::BootstrapSample(BootstrapPool &pool, Settings &settings) :
     histogram {pool.histograms[0].get_min(), pool.histograms[0].get_max(), pool.histograms[0].size()} {
     for (auto & p : pool.even[0]) {
         Eigen::MatrixXd m {p.second.rows(), p.second.cols()};
@@ -17,9 +17,10 @@ BootstrapSample::BootstrapSample(BootstrapPool &pool) :
         odd.insert(CorrFunc::value_type {p.first, m});
     }
 
-    std::uniform_int_distribution<size_t> dist {0, pool.size() - 1};
+    std::uniform_int_distribution<size_t> dist {settings.bootstrap_min, pool.size() - 1};
+    unsigned count = pool.size() - settings.bootstrap_min;
 
-    for (unsigned index_id {0}; index_id < pool.size(); index_id++) {
+    for (unsigned index_id {0}; index_id < count; index_id++) {
         unsigned i = dist(pool.engine);
 
         auto &even_element = pool.even[i];
