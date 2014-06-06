@@ -24,7 +24,7 @@
 
 void Settings::compute() {
     unsigned step_size = (corr_tau_max / time_step) / corr_tau_count;
-    for (unsigned i = 0; correlation_ts.size() < corr_tau_count; i += step_size) {
+    for (unsigned i = t_0; correlation_ts.size() < corr_tau_count; i += step_size) {
         correlation_ts.push_back(i);
         assert(i < time_sites);
     }
