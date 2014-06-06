@@ -11,6 +11,7 @@
 #include <jsoncpp/json/value.h>
 #include <jsoncpp/json/writer.h>
 
+#include <cassert>
 #include <cmath>
 #include <fstream>
 #include <iostream>
@@ -22,8 +23,10 @@
 #define JSON(var) root[ #var ] = (var);
 
 void Settings::compute() {
-    for (unsigned i = 0; time_step * i < corr_tau_max; i++) {
+    unsigned step_size = (corr_tau_max / time_step) / corr_tau_count;
+    for (unsigned i = 0; correlation_ts.size() < corr_tau_count; i += step_size) {
         correlation_ts.push_back(i);
+        assert(i < time_sites);
     }
 }
 
@@ -142,7 +145,13 @@ unsigned Settings::get_t_0_fixed() {
 }
 
 unsigned Settings::get_t_0_half(unsigned t) {
-    return t / 2;
+    double t0 = t / 2;
+    for (unsigned t0_candidate : correlation_ts) {
+        if (t0_candidate >= t0) {
+            return t0_candidate;
+        }
+    }
+    throw std::range_error{"t_0 cannot be found in correlation_ts"};
 }
 
 void Settings::estimate_memory_usage() {

@@ -94,20 +94,6 @@ void Analysis::worker(ProgressBar &bar) {
             c22[t].append(c_t_22);
         }
 
-
-#ifndef NDEBUG
-        if (sample_id == 1) {
-            std::cout << std::endl;
-            std::cout << "even[39]:" << std::endl;
-            std::cout << sample.even[39] << std::endl;
-            std::cout << std::endl;
-            std::cout << "odd[39]:" << std::endl;
-            std::cout << sample.odd[39] << std::endl;
-            std::cout << std::endl;
-        }
-#endif
-
-
         // Extract histogram.
         boot_hist.insert_histogram(sample.histogram);
 
