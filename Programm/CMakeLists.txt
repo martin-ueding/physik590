@@ -43,6 +43,7 @@ add_executable(metropolis
     ProgressBar.cpp
     ResultSet.cpp
     Settings.cpp
+    SizePrinter.cpp
     VectorHelper.cpp
 
     )
@@ -52,6 +53,7 @@ add_executable(metropolis-test
 
     Settings.cpp
     SettingsTest.cpp
+    SizePrinter.cpp
 
     )
 

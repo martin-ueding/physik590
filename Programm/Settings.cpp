@@ -3,12 +3,15 @@
 
 #include "Settings.hpp"
 
+#include "SizePrinter.hpp"
+
 #include <boost/filesystem.hpp>
 #include <crypto++/hex.h>
 #include <crypto++/sha.h>
 #include <jsoncpp/json/value.h>
 #include <jsoncpp/json/writer.h>
 
+#include <cmath>
 #include <fstream>
 #include <iostream>
 #include <iterator>
@@ -141,3 +144,12 @@ unsigned Settings::get_t_0_half(unsigned t) {
     return t / 2;
 }
 
+void Settings::estimate_memory_usage() {
+    size_t correlation_entries = 2 * correlation_ts.size() * std::pow(correlation_size, 2) * iterations;
+    size_t trajectory_entries = iterations * time_sites;
+    size_t total = correlation_entries + trajectory_entries;
+
+    SizePrinter printer;
+
+    std::cout << "Estimated memory with " << total << " double: " << printer.format(total * sizeof(double)) << std::endl;
+}

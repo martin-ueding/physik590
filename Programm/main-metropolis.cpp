@@ -34,6 +34,7 @@ int main(int argc, char **argv) {
     std::shared_ptr<BootstrapPool> pool;
 
     if (settings.load_filename == "") {
+        settings.estimate_memory_usage();
         std::cout << "ID of this run: " << settings.hash() << std::endl;
         pool = std::unique_ptr<BootstrapPool> {new BootstrapPool {m_driver, settings}};
         save_pool(pool, settings);
