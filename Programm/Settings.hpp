@@ -242,7 +242,7 @@ class Settings {
           0. Set \f$ t_0 \f$ to a fixed value.
           1. Set \f$ t_0 := t/2 \f$.
           */
-        unsigned t_0_mode {1};
+        unsigned t_0_mode {0};
 
         unsigned bootstrap_min {0};
 

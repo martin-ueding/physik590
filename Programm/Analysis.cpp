@@ -43,7 +43,7 @@ void Analysis::insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_
         if (t <= t_0) {
             continue;
         }
-        auto &C_t0 = C[settings.t_0];
+        auto &C_t0 = C[t_0];
         std::vector<double> lambda_i_t (GEVPSolver::eigenvalues(C[t], C_t0));
 
         for (unsigned i {0}; i < lambda_i_t.size(); i++) {
