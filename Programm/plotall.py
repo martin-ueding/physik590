@@ -166,6 +166,7 @@ def fit_eigenvalues(dirname, pattern, E_0):
             E_n_val = popt[0] + E_0[0]
             E_n_err = np.sqrt(d[0]**2 + E_0[1]**2)
 
+            print('E_{} - E_0 ='.format(number), unitprint.siunitx(popt[0], d[0], error_digits=2))
             print('E_{} ='.format(number), unitprint.siunitx(E_n_val, E_n_err, error_digits=2))
 
             results[number] = E_n_val, E_n_err
@@ -196,6 +197,7 @@ def plot_correlations(dirname, pattern, E0):
         E1_val += E0[0]
         E1_err += np.sqrt(E1_err**2 + E0[1]**2)
 
+        print('E_1 - E_0 =', unitprint.siunitx(popt[0], np.sqrt(pconv.diagonal()[0]), error_digits=2))
         print('E_1 =', unitprint.siunitx(E1_val, E1_err, error_digits=2))
 
         x = np.linspace(np.min(t[selection]), np.max(t[selection]), 100)
