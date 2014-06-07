@@ -24,6 +24,12 @@
 
 void Settings::compute() {
     unsigned step_size = (corr_tau_max / time_step) / corr_tau_count;
+
+    // The 0 is needed to calculate <x^2> = C_11(0) and E_0.
+    if (t_0 > 0) {
+        correlation_ts.push_back(0);
+    }
+
     for (unsigned i = t_0; correlation_ts.size() < corr_tau_count; i += step_size) {
         correlation_ts.push_back(i);
         assert(i < time_sites);
