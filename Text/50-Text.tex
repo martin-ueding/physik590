@@ -23,12 +23,12 @@ eingeführt, was man auch \emph{Wick-Rotation} nennt. Diese hat die Eigenschaft,
 ein quantenmechanisches System in ein Thermodynamisches zu überführen
 \parencite[24]{Stetz/AQT}.
 
-Schreibt man $\int [\dif x]$ für eine Integration über alle
+Schreibt man $\int \funcmeasure{\dif x}$ für eine Integration über alle
 Trajektorien $x(\tau)$, die $x(0) = x_\text A$ und $x(T) = x_\text E$ erfüllen,
 so kann die Summe umgeschrieben werden zu
 \parencite[(2.1)]{Creutz/Statistical_Approach_QM}:
 \[
-    \int [\dif x] \, \exp\del{-\frac{S(x)}\hbar}.
+    \int \funcmeasure{\dif x} \, \exp\del{-\frac{S(x)}\hbar}.
 \]
 $S$ ist hier ein Funktional der Trajektorie $x$. Dieser Integrand wird nur in
 der Nähe der minimalen Wirkung Beiträge liefern. Dies reduziert den Bereich des
@@ -45,7 +45,7 @@ Diskretisiert man die Weltlinien, so wird es möglich, die Integration über all
 Weltlinien auszuführen. Das Integrationsmaß wird bei einer Unterteilung in
 $\timesites+1$ (also $0, \ldots, \timesites$) Zeitpunkte zu:
 \[
-    \int [\dif x]
+    \int \funcmeasure{\dif x}
     \quad\leadsto\quad
     \prod_{j = 1}^{\timesites-1} \int_{-\infty}^\infty \dif x_j.
 \]
@@ -82,7 +82,8 @@ Schätzwert für die gewünschte Größe gibt
 Trajektorie $\vec x^{(k)}$ zu erhalten, wird durch
 \begin{equation}
     \label{eq:p_x_k}
-    p\del{\vec x^{(k)}} = \frac{\exp\del{-S\del{\vec x^{(k)}}}}{\int [\dif x]
+    p\del{\vec x^{(k)}} = \frac{\exp\del{-S\del{\vec x^{(k)}}}}{\int
+        \funcmeasure{\dif x}
     \, \exp\del{-S(\vec x)}}
 \end{equation}
 gegeben \parencite[(3.6)]{Creutz/Statistical_Approach_QM}. Werden $\iterations$
