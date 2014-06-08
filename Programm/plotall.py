@@ -10,12 +10,13 @@ import glob
 import json
 import os.path
 import re
+import sys
 
-import scipy.optimize as op
 import matplotlib.pyplot as pl
 import numpy as np
-import unitprint
 import prettytable
+import scipy.optimize as op
+import unitprint
 
 def main():
     options = _parse_args()
@@ -62,6 +63,9 @@ def main():
             energies[isl][n].append([parameters['gauss_width']] + list(energy))
 
         print()
+
+    if len(energies) <= 1:
+        sys.exit(0)
 
     print(json.dumps(energies, sort_keys=True, indent=4))
 
