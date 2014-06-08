@@ -116,8 +116,8 @@ $j$ wechselt. Aufgrund der diskreten Zeit entspricht ein Zeitschritt einem
 % FIXME Hier klarer machen, was die x indiziert und was ganze Trajektorien
 % indiziert.
 
-Die Matrixelemente müssen $W_{ij} \geq 0$, sowie muss $\sum_j W_{ij} = 1$
-gelten, da jeder Zustand in einen nächsten (oder sich selbst) übergehen muss
+Die Matrixelemente müssen $W_{ij} \geq 0$ und $\sum_j W_{ij} = 1$ erfüllen, da
+jeder Zustand in einen nächsten (oder sich selbst) übergehen muss
 \parencite[(3.8)]{Creutz/Statistical_Approach_QM}. Da die $x_j$ aus $\R$
 stammen, muss die Übergangsmatrix eine Wahrscheinlichkeitsdichte sein. Die
 analogen Bedingungen sind dann $W(x_i, x_j) \geq 0$ und $\int \dif x_j \,
@@ -129,7 +129,7 @@ W(x_i, x_j) = 1$ für alle $x_i$
 % Forderungen an W
 
 Die Übergangswahrscheinlichkeit über einen Zwischenschritt wird durch
-Integration über die Zwischenposition,
+Integration über die Zwischenposition $x_j$,
 \[
     W^{(2)}(x_i, x_k) = \int \dif x_j \, W(x_i, x_j) W(x_j, x_k),
 \]
@@ -144,7 +144,7 @@ Eigenschaften von $W$ lässt sich zeigen\footnote{Siehe
 \parencite[Anhang~B]{Creutz/Statistical_Approach_QM}.}, dass es eine
 Zustandsverteilungsdichte $P$ gibt, so dass sie linker Eigenvektor von
 $W^{(\infty)}$ ist. Das $W$, das für die Pfadintegrale benötigt wird, soll gerade
-$p(x)$ aus \eqref{eq:p_x_k} als Eigenvektor haben. Somit sind die
+$p(\vec x)$ aus \eqref{eq:p_x_k} als Eigenvektor haben. Somit sind die
 Anforderungen an $W$ die folgenden \parencite[(3.18)]{Creutz/Statistical_Approach_QM}:
 \begin{itemize}
     \item
