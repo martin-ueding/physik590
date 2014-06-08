@@ -15,6 +15,7 @@ import scipy.optimize as op
 import matplotlib.pyplot as pl
 import numpy as np
 import unitprint
+import prettytable
 
 def main():
     options = _parse_args()
@@ -124,6 +125,7 @@ def find_E_0(run):
 
 def fit_eigenvalues(dirname, pattern, E_0):
     results = {}
+    table = prettytable.PrettyTable(['n', 'E_n - E_0', 'E_n'])
     for csv_file in sorted(glob.glob(os.path.join(dirname, pattern))):
         data = np.loadtxt(csv_file)
         if len(data) == 0:
@@ -165,9 +167,12 @@ def fit_eigenvalues(dirname, pattern, E_0):
 
             E_n_val = popt[0] + E_0[0]
             E_n_err = np.sqrt(d[0]**2 + E_0[1]**2)
+            table.add_row([
+                number,
+                unitprint.siunitx(popt[0], d[0], error_digits=2),
+                unitprint.siunitx(E_n_val, E_n_err, error_digits=2),
+            ])
 
-            print('E_{} - E_0 ='.format(number), unitprint.siunitx(popt[0], d[0], error_digits=2))
-            print('E_{} ='.format(number), unitprint.siunitx(E_n_val, E_n_err, error_digits=2))
 
             results[number] = E_n_val, E_n_err
         except RuntimeError as e:
@@ -176,6 +181,8 @@ def fit_eigenvalues(dirname, pattern, E_0):
             # This error probably occurs when the ``pconv`` matrix is just
             # ``nan``.
             print(e)
+
+    print(table)
 
     return results
 
