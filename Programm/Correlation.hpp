@@ -17,5 +17,6 @@
   @param[in] distance Distance to calculate
   @param[in] even Calculate the even elements
   */
-Eigen::MatrixXd correlation(std::vector<double> &x, Settings &settings,
-                            const unsigned distance, const bool even);
+Eigen::MatrixXd correlation(std::vector<double> &x,
+        std::vector<std::vector<double>> &powers, Settings &settings, const
+        unsigned distance, const bool even);

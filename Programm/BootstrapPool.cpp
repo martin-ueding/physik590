@@ -64,9 +64,34 @@ void BootstrapPool::operator()(Settings &settings, ProgressBar &bar_corr) {
     while ((t_id = t_id_atom++) < trajectories.size()) {
         CorrFunc map_even;
         CorrFunc map_odd;
+
+        // Compute the powers of the trajectory so that the power function does not
+        // need to be invoked that often. I have not tested, but I assume that this
+        // is a hotspot.
+
+        std::vector<std::vector<double>> powers_even(settings.correlation_size);
+        std::vector<std::vector<double>> powers_odd(settings.correlation_size);
+
+        for (unsigned row {0u}; row < settings.correlation_size; row++) {
+            unsigned power_even {settings.matrix_to_state(row, true)};
+            unsigned power_odd {settings.matrix_to_state(row, false)};
+            assert(power_even > 0);
+            assert(power_odd > 0);
+
+            // Bring the memory to the required size.
+            powers_even[row].resize(trajectories[t_id].size());
+            powers_odd[row].resize(trajectories[t_id].size());
+
+            // Take the power from all the x[k].
+            for (unsigned k {0u}; k < trajectories[t_id].size(); ++k) {
+                powers_even[row][k] = std::pow(trajectories[t_id][k], power_even);
+                powers_odd[row][k] = std::pow(trajectories[t_id][k], power_odd);
+            }
+        }
+
         for (unsigned distance : settings.correlation_ts) {
-            map_even.emplace(distance, correlation(trajectories[t_id], settings, distance, true));
-            map_odd.emplace(distance, correlation(trajectories[t_id], settings, distance, false));
+            map_even.emplace(distance, correlation(trajectories[t_id], powers_even, settings, distance, true));
+            map_odd.emplace(distance, correlation(trajectories[t_id], powers_odd, settings, distance, false));
         }
         std::lock_guard<std::mutex> {mutex};
         even[t_id] = map_even;
