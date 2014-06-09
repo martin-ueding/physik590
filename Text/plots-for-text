@@ -14,8 +14,8 @@ import unitprint
 def gamma_data():
     gamma = scipy.special.gamma
     def f(E):
-        return 2 * gamma(0.25 * (5 - 2 * E)) / (2 * E - 1) / gamma(0.25 * (3 - 2 * E))
-    E = np.linspace(-1, 9.50001, 1000)
+        return 4 * gamma(0.25 * (5 - 2 * E)) / (2 * E - 1) / gamma(0.25 * (3 - 2 * E))
+    E = np.linspace(-3, 9.50001, 1000)
     a0 = f(E)
 
     x = 1/a0
