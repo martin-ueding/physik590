@@ -541,8 +541,9 @@ Dies ist in Abbildung~\ref{fig:E_a0} dargestellt.
                 xlabel=$1/a_0$,
                 ylabel=$E$,
                 xtick={-1,0,1},
-                ytick={0.5,1.5,...,9.5},
-                grid=major,
+                ytick={-2.5,-1.5,...,9.5},
+                minor y tick num=1,
+                xmajorgrids=true,
             ]
             \addplot[black] table {_build/gamma_data.csv};
         \end{axis}
