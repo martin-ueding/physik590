@@ -20,7 +20,7 @@ def gamma_data():
 
     x = 1/a0
 
-    limit = 10
+    limit = 5
 
     x[x > limit] = limit
     x[x < -limit] = limit
