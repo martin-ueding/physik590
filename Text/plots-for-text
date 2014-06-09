@@ -25,7 +25,7 @@ def gamma_data():
     x[x > limit] = limit
     x[x < -limit] = limit
 
-    np.savetxt('_build/gamma_data.txt', np.column_stack([x, E]))
+    np.savetxt('_build/gamma_data.csv', np.column_stack([x, E]))
 
 def histogram_theory_continous():
     x = np.linspace(-5, 5, 1000);
