@@ -250,9 +250,28 @@ möchte ich mit $\rounds$ bezeichnen.
 \]
 als Wahrscheinlichkeitsdichte für diesen Algorithmus an
 \parencite[(3.28)]{Creutz/Statistical_Approach_QM}, wobei ich $\Deltaup S :=
-S(x_j') - S(x_j)$ definiert habe, $\Theta$ die Heaviside Stufenfunktion und
-$N_0$ das Volumen des Konfigurationsraumes ist. Mit dieser Gleichung kann
-nachvollzogen werden, dass $W$ die geforderten Bedingungen erfüllt.
+S(\ldots, x_j', \ldots) - S(\ldots, x_j, \ldots)$ definiert habe, $\Theta$ die
+Heaviside Stufenfunktion und $N_0$ das Volumen des Konfigurationsraumes ist.
+Mit dieser Gleichung kann nachvollzogen werden, dass $W$ die geforderten
+Bedingungen erfüllt.
+
+Die Entropieänderung $\Deltaup S$ beim Übergang von $x_j$ zu $x_j'$ wird
+effizient dadurch berechnet, dass nur die Entropie der Schritte von $j-1$ zu
+$j$ und von $j$ zu $j+1$ berechnet werden. Dazu definiere ich die Entropie für
+einen Gitterschritt:
+\[
+    S_\text{Schritt}(x_j, x_j') :=
+    \frac{\timestep \mass}2 \sbr{ \frac{\sbr{x_j' - x_j}^2}{\timestep^2} + V(x_j)}
+\]
+
+Damit kann ich die Entropieänderung zwischen zwei Weltlinien, die sich in nur
+einer Koordinate unterscheiden, schnell berechnen:
+\[
+    \Deltaup S =
+    \sbr{S_\text{Schritt}(x_{j-1}, x_{j}') + S_\text{Schritt}(x_{j}', x_{j+1})}
+    -
+    \sbr{S_\text{Schritt}(x_{j-1}, x_{j}) + S_\text{Schritt}(x_{j}, x_{j+1})}.
+\]
 
 \chapter{Energiewerte}
 
@@ -647,8 +666,6 @@ Abbildung~\ref{fig:relaxiert} aus.
     }
     \label{fig:relaxiert}
 \end{figure}
-
-% TODO Geschickte Berechnung der Änderung in der Entropie.
 
 \section{Harmonischer Oszillator}
 
