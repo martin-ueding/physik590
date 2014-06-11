@@ -109,19 +109,17 @@ Die Weltlinien des einen Oszillators, die aus den $\timesites$ Koordinaten
 $\{x_j\}$ bestehen, können auch als Koordinaten für $\timesites$ Teilchen
 interpretiert werden. Somit ist eine Trajektorie ein Zustand dieses
 Vielteilchensystems. Man kann nun eine Übergangsmatrix $W_{ij}$ definieren, die
-die Wahrscheinlichkeit angibt, dass das System vom Zustand $i$ in den Zustand
-$j$ wechselt. Aufgrund der diskreten Zeit entspricht ein Zeitschritt einem
-Übergangsschritt.
-
-% FIXME Hier klarer machen, was die x indiziert und was ganze Trajektorien
-% indiziert.
+die Wahrscheinlichkeit angibt, dass das System vom Zustand $\vec x^{(i)}$ in
+den Zustand $\vec x^{(j)}$ wechselt. Aufgrund der diskreten Zeit entspricht ein
+Zeitschritt einem Übergangsschritt.
 
 Die Matrixelemente müssen $W_{ij} \geq 0$ und $\sum_j W_{ij} = 1$ erfüllen, da
 jeder Zustand in einen nächsten (oder sich selbst) übergehen muss
 \parencite[(3.8)]{Creutz/Statistical_Approach_QM}. Da die $x_j$ aus $\R$
-stammen, muss die Übergangsmatrix eine Wahrscheinlichkeitsdichte sein. Die
-analogen Bedingungen sind dann $W(x_i, x_j) \geq 0$ und $\int \dif x_j \,
-W(x_i, x_j) = 1$ für alle $x_i$
+stammen und somit die $\vec x^{(k)}$ aus $\R^N$ stammen, muss die
+Übergangsmatrix eine Wahrscheinlichkeitsdichte sein. Die analogen Bedingungen
+sind dann $W(\vec x^{(i)}, \vec x^{(j)}) \geq 0$ und $\int \dif \vec x^{(j)} \,
+W(\vec x^{(i)}, \vec x^{(j)}) = 1$ für alle $\vec x^{(i)}$
 \parencite[(3.9)]{Creutz/Statistical_Approach_QM}.
 
 % Verkettung von Schritten
@@ -131,12 +129,15 @@ W(x_i, x_j) = 1$ für alle $x_i$
 Die Übergangswahrscheinlichkeit über einen Zwischenschritt wird durch
 Integration über die Zwischenposition $x_j$,
 \[
-    W^{(2)}(x_i, x_k) = \int \dif x_j \, W(x_i, x_j) W(x_j, x_k),
+    W^{(2)}\del{\vec x^{(i)}, \vec x^{(k)}} = \int \dif x^{(j)} \, W\del{\vec
+    x^{(i)}, \vec x^{(j)}} W\del{\vec x^{(j)}, \vec x^{(k)}},
 \]
 ermittelt \parencite[(3.9)]{Creutz/Statistical_Approach_QM}. Daraus lässt die
 Rekursionsformel
 \[
-    W^{(n)}(x_i, x_k) = \int \dif x_j \, W^{(n-1)}(x_i, x_j) W(x_j, x_k),
+    W^{(n)}\del{\vec x^{(i)}, \vec x^{(k)}} = \int \dif \vec x^{(j)} \,
+    W^{(n-1)}\del{\vec x^{(i)},
+    \vec x^{(j)}} W\del{\vec x^{(j)}, \vec x^{(k)}},
 \]
 konstruieren \parencite[(3.10)]{Creutz/Statistical_Approach_QM}. Aufgrund der
 Eigenschaften von $W$ lässt sich zeigen\footnote{Siehe
@@ -148,24 +149,27 @@ $p(\vec x)$ aus \eqref{eq:p_x_k} als Eigenvektor haben. Somit sind die
 Anforderungen an $W$ die folgenden \parencite[(3.18)]{Creutz/Statistical_Approach_QM}:
 \begin{itemize}
     \item
-        $W(x_i, x_j) > 0$ falls $p(x_i) > 0$ und $p(x_j) > 0$,
+        $W\del{\vec x^{(i)}, \vec x^{(j)}} > 0$ falls $p\del{\vec x^{(i)}} > 0$
+        und $p\del{\vec x^{(j)}} > 0$,
     \item
-        $\int \dif x_j \, W(x_i, x_j) = 1$,
+        $\int \dif \vec x^{(j)} \, W\del{\vec x^{(i)}, \vec x^{(j)}} = 1$,
     \item
-        $p(x_j) = \int \dif x_i \, p(x_i) W(x_i, x_j)$.
+        $p\del{\vec x^{(j)}} = \int \dif \vec x^{(i)} \, p\del{\vec x^{(i)}}
+        W\del{\vec x^{(i)}, \vec x^{(j)}}$.
 \end{itemize}
 
 % Detailed Balance
 
 Um die Bedingungen zu erfüllen, ist die Wahl von $W$ so, dass
 \[
-    \frac{W(x_i, x_j)}{W(x_j, x_i)} = \frac{p(x_j)}{p(x_i)}
+    \frac{W\del{\vec x^{(i)}, \vec x^{(j)}}}{W\del{\vec x^{(j)}, \vec x^{(i)}}}
+    = \frac{p\del{\vec x^{(j)}}}{p\del{\vec x^{(i)}}}
 \]
 gilt, möglich \parencite[(3.23)]{Creutz/Statistical_Approach_QM}. In der Quelle
 wird die Relation „detailed balance condition“ genannt. Dieses
 \emph{detailiertes Gleichgewicht} sagt aus, dass es sich bei $p$ um einen
-Gleichgewichtszustand handelt, da Anzahl der Übergänge von $x_i$ nach $x_j$
-genauso groß sind wie in der Rückrichtung
+Gleichgewichtszustand handelt, da Anzahl der Übergänge von $\vec x^{(i)}$ nach
+$\vec x^{(j)}$ genauso groß sind wie in der Rückrichtung
 \parencite[85]{Schwabl/Quantenmechanik_fuer_Fortgeschrittene}.
 
 Im Algorithmus geht nicht die ganze Trajektorie $\vec x$ in einem Schritt auf
@@ -177,13 +181,14 @@ geändert. Mit \eqref{eq:p_x_k} kann man daher die Beziehung
 \parencite[(3.25)]{Creutz/Statistical_Approach_QM}
 \[
     \frac{W(\vec x, \tilde{\vec x})}{W(\tilde{\vec x}, \vec x)}
-    = \frac{\exp(-S(x_j'))}{\exp(-S(x_j))},
+    = \frac{\exp\del{-S(x_1, \ldots, x_j', \ldots, x_N)}}{\exp\del{-S(x_1, \ldots, x_j,
+    \ldots, x_N)}},
 \]
-herleiten, welche durch die Wahl $W(x_j, x_j') \propto \exp(-S(x_j'))$ zu
-erfüllen ist \parencite[(3.27)]{Creutz/Statistical_Approach_QM}. Dieser
-Algorithmus wird „heat bath algorithm“ bezeichnet und hat den Nachteil, dass
-es schwer ist, $x_j'$ entsprechend der Verteilung $\exp(-S(x_j'))$ zu ziehen
-\parencite[438]{Creutz/Statistical_Approach_QM}.
+herleiten, welche durch die Wahl $W(x_j, x_j') \propto \exp(-S(\ldots, x_j',
+\ldots))$ zu erfüllen ist \parencite[(3.27)]{Creutz/Statistical_Approach_QM}.
+Dieser Algorithmus wird „heat bath algorithm“ bezeichnet und hat den Nachteil,
+dass es schwer ist, $x_j'$ entsprechend der Verteilung $\exp(-S(\ldots, x_j',
+\ldots))$ zu ziehen \parencite[438]{Creutz/Statistical_Approach_QM}.
 
 \subsection{Metropolis Algorithmus}
 
