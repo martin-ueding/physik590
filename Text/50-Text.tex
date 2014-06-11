@@ -402,9 +402,9 @@ lässt sich dies als normale Eigenwertproblem mit gleichem Eigenwert schreiben
 \]
 
 Für die Implementierung der Cholesky-Zerlegung benutze ich die Funktion
-\texttt{Eigen::MatrixBase::llt()} \parencite{Eigen/LLT} aus der C++ Bibliothek
-Eigen. Das normale Eigenwertproblem löse ich anschließend mit der Klasse
-\texttt{Eigen::EigenSolver} \parencite{Eigen/EigenSolver}.
+\texttt{MatrixBase::llt()} \parencite{Eigen/LLT} aus der C++ Bibliothek Eigen.
+Das normale Eigenwertproblem löse ich anschließend mit der Klasse
+\texttt{EigenSolver} \parencite{Eigen/EigenSolver}.
 
 \section{Eindimensionale Wellenfunktion mit \texorpdfstring{$\delta$}{delta}-Störung}
 
