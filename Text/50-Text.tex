@@ -343,8 +343,7 @@ Das generalisierte Eigenwertproblem, aus dessen Eigenwerte die Energien
 extrahiert werde können, ist durch
 \[
     \tens C(\tau) \, \vec v_n(\tau, \tau_0) = \lambda_n(\tau, \tau_0) \, \tens
-    C(\tau_0) \, \vec v_n(t,
-    t_0)
+    C(\tau_0) \, \vec v_n(\tau, \tau_0)
     \eqnsep
     n = 1, \ldots, N
     \eqnsep
@@ -353,8 +352,8 @@ extrahiert werde können, ist durch
 gegeben \parencite[(2.1)]{Blossier/Eigenvalue}. Aus den Eigenwerten lassen sich
 die effektiven Energien
 \[
-    E_n^\text{eff}(\tau, \tau_0) = - \partial_\tau \ln\del{\lambda_n(t, \tau_0)} \equiv -
-    \frac 1\timestep \sbr{ \ln\del{\lambda_n(t+\timestep, \tau_0)} -
+    E_n^\text{eff}(\tau, \tau_0) = - \partial_\tau \ln\del{\lambda_n(\tau, \tau_0)} \equiv -
+    \frac 1\timestep \sbr{ \ln\del{\lambda_n(\tau+\timestep, \tau_0)} -
     \ln\del{\lambda_n(\tau, \tau_0)} }
 \]
 bestimmen \parencite[(2.4)]{Blossier/Eigenvalue}, die mit $\tau \to \infty$ gegen
