@@ -364,16 +364,13 @@ extrahiert werde können, ist durch
 gegeben \parencite[(2.1)]{Blossier/Eigenvalue}. Aus den Eigenwerten lassen sich
 die effektiven Energien
 \[
-    E_n^\text{eff}(\tau, \tau_0) = - \partial_\tau \ln\del{\lambda_n(\tau, \tau_0)} \equiv -
+    \Deltaup E_n^\text{eff}(\tau, \tau_0) = - \partial_\tau \ln\del{\lambda_n(\tau, \tau_0)} \equiv -
     \frac 1\timestep \sbr{ \ln\del{\lambda_n(\tau+\timestep, \tau_0)} -
     \ln\del{\lambda_n(\tau, \tau_0)} }
 \]
-bestimmen \parencite[(2.4)]{Blossier/Eigenvalue}, die mit $\tau \to \infty$ gegen
-die Energie $E_n$ konvergieren \parencite[(2.3)]{Blossier/Eigenvalue}. Diese
-$E_n$ sind jedoch die Differenz zum Grundzustand, so dass später noch $E_0$
-addiert werden muss.
-% XXX Sollte man hier nicht lieber von $\Deltaup E_n$ schreiben, da es
-% Energiedifferenzen zum Grundzustand sind? 
+bestimmen \parencite[(2.4)]{Blossier/Eigenvalue}, die mit $\tau \to \infty$
+gegen die Energiedifferenz $E_n - E_n$ konvergieren
+\parencite[(2.3)]{Blossier/Eigenvalue}.
 
 Auch hier kann ich die Anpassungsfunktion
 \eqref{eq:fit-function-time-evolution} mit $f(\tau) = \lambda_n(\tau, \tau_0)$
