@@ -326,7 +326,19 @@ Mit den Interpolationsfeldern $O_i$ lassen sich die Korrelationsfunktionen
     C_{ij}(\tau) := \Bracket{O_i(\tau) \, O_j^*(\tau)}
     = \Bracket{x^i(0) \, x^j(\tau)}
 \]
-definieren \parencite[(2.1)]{Blossier/Eigenvalue}.
+definieren \parencite[(2.1)]{Blossier/Eigenvalue}. Darüber hinaus lassen sich
+die Korrelationsfunktionen durch die Matrixelemente von den
+Interpolationsfeldern darstellen:
+\[
+    \Bracket{O_i(\tau) \, O_j^*(\tau)}
+    = \sum_{n=1}^\infty \eup^{-E_n \tau} \psi_{ni} \psi_{nj}^*
+    \eqnsep
+    i, j = 1, \ldots, N.
+\]
+Die Matrixelemente sind definiert als $\psi_{ni} := (\psi_n)_i = \braket{0 |
+\hat O_i | n}$, wobei $E_n < E_{n+1}$ gelten muss
+\parencite[(2.1)]{Blossier/Eigenvalue}. Die Energiebeziehung ist beim
+harmonischen Oszillator erfüllt.
 
 Da $\bracket{x} = 0$ aufgrund der Symmetrie des Potentials zu erwarten ist,
 werden die Mittelwerte über ungerade Größen, also mit $i + j$ ungerade,
@@ -370,6 +382,13 @@ erhalten. Es muss $\tau > \tau_0$ gelten. Die Abweichungen vom Grenzwert werden
 besonders klein, wenn $\tau_0 \geq \tau/2$ gilt
 \parencite[5]{Blossier/Eigenvalue}. In meiner Implementierung hatte ich
 allerdings die besten Ergebnisse mit $t_0 = \timestep$ erhalten.
+
+In jeder geraden Potenz von $x \propto a + a^\dagger$ steckt eine Kombination
+der Leiteroperatoren, so dass $\braket{0 | x^{2i} | 0} \neq 0$ gilt. Die
+Korrelationsfunktionen waren jedoch ohne das Matrixelement mit $\ket 0$
+definiert. Daher wird der größte gerade Eigenwert $\lambda_2$ für $\tau \to
+\infty$ nicht verschwinden. Dieser Eigenwert muss verworfen werden, $E_2$
+steckt somit in $\lambda_4$.
 
 \subsection{Lösung des GEVP durch Cholesky-Zerlegung}
 
