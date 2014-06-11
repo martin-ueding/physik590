@@ -30,23 +30,5 @@ std::vector<double> GEVPSolver::eigenvalues(Eigen::MatrixXd &a, Eigen::MatrixXd 
     // iterators.
     sort(eigenvalues_vector.rbegin(), eigenvalues_vector.rend());
 
-    /*
-    std::cout << "A" << std::endl;
-    std::cout << a << std::endl;
-    std::cout << "B" << std::endl;
-    std::cout << b << std::endl;
-    std::cout << "L" << std::endl;
-    std::cout << l << std::endl;
-    std::cout << "L dagger" << std::endl;
-    std::cout << l_dagger << std::endl;
-    std::cout << "L dagger inverse" << std::endl;
-    std::cout << l_dagger_inverse << std::endl;
-    std::cout << "L inverse" << std::endl;
-    std::cout << l_inverse << std::endl;
-    std::cout << "Eigenvalues" << std::endl;
-    std::cout << eigenvalues << std::endl;
-
-    */
-
     return eigenvalues_vector;
 }

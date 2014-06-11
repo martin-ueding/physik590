@@ -46,9 +46,12 @@ void Analysis::insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_
         auto &C_t0 = C[t_0];
         std::vector<double> lambda_i_t (GEVPSolver::eigenvalues(C[t], C_t0));
 
-        for (unsigned i {0}; i < lambda_i_t.size(); i++) {
-            double lambda = lambda_i_t[i];
-            bs_lambda_n_t[t][settings.matrix_to_state(i, even)].append(lambda);
+        // Remove the first even eigenvalue here since that does not give an
+        // energy eigenvalue.
+        unsigned cutoff {even ? 1u : 0u};
+        for (unsigned i {cutoff}; i < lambda_i_t.size(); i++) {
+            double lambda {lambda_i_t[i]};
+            bs_lambda_n_t[t][settings.matrix_to_state(i - cutoff, even)].append(lambda);
         }
     }
 }

@@ -121,7 +121,7 @@ std::string Settings::hash() {
 }
 
 unsigned Settings::max_energyvalue() {
-    return 2 * correlation_size;
+    return 2 * correlation_size - 1;
 }
 
 unsigned Settings::matrix_to_state(unsigned i, bool even) {
