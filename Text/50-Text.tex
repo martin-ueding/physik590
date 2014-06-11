@@ -536,13 +536,13 @@ den harmonischen Oszillator ein:
 Mit Mathematica lässt sich diese Summe berechnen, wenn man nur über die geraden
 $n$ summieren lässt:
 \[
-    \frac{2 \Gamma\del{\frac 14[5-2E]}}{[2E-1]\Gamma\del{\frac 14[3-2E]}}
+    - \frac{2 \Gamma\del{\frac 14[5-2E]}}{[2E-1]\Gamma\del{\frac 14[3-2E]}}
     = \frac{a_0}2.
 \]
 Ausgedrückt mit der Kopplungsstärke $1/a_0$ ist die Relation
 \begin{equation}
     \label{eq:Energie-Delta}
-    \frac{[2E-1]\Gamma\del{\frac 14[3-2E]}}{4 \Gamma\del{\frac 14[5-2E]}}
+    - \frac{[2E-1]\Gamma\del{\frac 14[3-2E]}}{4 \Gamma\del{\frac 14[5-2E]}}
     = \frac1{a_0}.
 \end{equation}
 
@@ -579,8 +579,6 @@ die geraden Zustände berechnen, indem die möglichen $E$, die die Gleichung bei
 einem bestimmten $1/a_0$ lösen, bestimmt werden. Diese sind $E_n$ für $n = 0,
 2, \ldots$. Bei $1/a_0$ tritt keine Störung auf, die ungestörten
 Energiewerte $E_n = n + 1/2$ sind als Schnittpunkte zu erkennen.
-
-%\nocite{Thijssen/Computational_Physics}
 
 %\nocite{Young/Jackknife}
 %\nocite{Oser/Bootstrap}
@@ -1004,5 +1002,25 @@ Aufenthaltswahrscheinlichkeit.
     }
     \label{fig:histogram_gauss}
 \end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{SSS}
+        {$n$} & {$1/a_0 = -1$} & {$1/a_0 = 1$} \\
+        \midrule
+        0 & 1.08389 & -1.94107 \\
+        2 & 2.93722 & 2.00491 \\
+        4 & 4.86274 & 4.11354 \\
+        6 & 6.81576 & 6.17101 \\
+        8 & 8.78334 & 8.20837
+    \end{tabular}
+    \caption{%
+        Theoretische Energiewerte für den anharmonischen Oszillator im
+        Kontinuum, abgelesen aus Abbildung~\ref{fig:E_a0}.
+    }
+    \label{tab:E_a0}
+\end{table}
+
+
 
 % vim: ft=tex spell spelllang=de tw=79
