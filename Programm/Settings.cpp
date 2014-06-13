@@ -34,6 +34,8 @@ void Settings::compute() {
         correlation_ts.push_back(i);
         assert(i < time_sites);
     }
+
+    margin = 2 * std::sqrt(time_step);
 }
 
 void Settings::store_json(std::string filename) {
