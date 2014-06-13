@@ -64,7 +64,7 @@ def main():
 
         print()
 
-    if len(energies) <= 1:
+    if len(energies.items()) <= 1:
         sys.exit(0)
 
     print(json.dumps(energies, sort_keys=True, indent=4))
@@ -143,6 +143,10 @@ def fit_eigenvalues(dirname, pattern, E_0):
         tau_s = tau[selection]
         y_val_s = y_val[selection]
         y_err_s = y_err[selection]
+
+        y_min = 1e-7
+
+        y_val_s[y_val_s < y_min] = y_min
 
         number = re.search(r'-(\d+).csv', csv_file).group(1)
 
