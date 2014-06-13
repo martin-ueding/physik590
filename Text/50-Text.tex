@@ -367,7 +367,7 @@ Um das System numerisch stabiler zu bekommen, wird die Korrelationsmatrix in
 einen nur geraden und einen nur ungeraden Teil zerlegt, also beide $i$ und $j$
 gerade bzw. ungerade. Da wie vorher beschrieben auch nur gerade bzw. ungerade
 Energieeigenzustände beitragen, kann man so sogar gerade und ungerade Zustände
-trennen. 
+trennen.
 
 Das generalisierte Eigenwertproblem, aus dessen Eigenwerte die Energien
 extrahiert werde können, ist durch
@@ -500,7 +500,7 @@ Integration über $x$:
 \[
     \int_{-\infty}^\infty \dif x \, \sum_{n=0}^\infty
     [E_n - E] c_n \phi_m^*(x) \phi_n(x)
-    - 
+    -
     \int_{-\infty}^\infty \dif x \,  \frac2{a_0} \phi_m^*(x) \delta(x)
     \sum_{n=0}^\infty c_n \phi_n(x) = 0
 \]
@@ -848,29 +848,20 @@ Anpassung an diese Daten erhalte ich $\Deltaup E_{0,1} = E_1 - E_0 = \num{0.995
 
 % TODO Höhere Energiezustände mit GEVP Methode.
 
-% TODO Aus welchem Run sind die Daten hier?
-Mit dem Virialsatz erhalte ich $E_0 = \num{0.4989 +- 0.0002}$. Mit der
-einfachen Korrelation $C_{11}(t)$ erhalte ich $E_1 = \num{1.50387 +- 0.00070}$.
-Aus den Eigenwerten des GEVP erhalte ich nach Anpassung:
-
-\begin{tabular}{lS}
-    $E_{1}$ & 1.50504 +- 0.00040 \\
-    $E_{2}$ & 0.5255 +- 0.0098 \\
-    $E_{3}$ & 3.4783 +- 0.0056 \\
-    $E_{4}$ & 2.523 +- 0.017 \\
-    $E_{5}$ & 5.057 +- 0.053 \\
-    $E_{6}$ & 4.477 +- 0.041 \\
-    $E_{7}$ & 6.699 +- 0.064 \\
-    $E_{8}$ & 6.358 +- 0.097 \\
-    $E_{9}$ & 10.75 +- 0.61 \\
-    $E_{10}$ & 14.5 +- 3.5 \\
-    $E_{11}$ & 1.266 +- 0.070 \\
-    $E_{12}$ & 1.27 +- 0.11
-\end{tabular}
+In einem Simulationslauf mit $\timesites = \num{1000}$, $\timestep =
+\num{0.1}$, $\margin = \num{0.632456}$, $\iterations = \num{100000}$,
+$\bootstrapsamples = \num{1000}$, $\mass = \num{1}$ und Korrelationen bis
+$x^{12}$ errechne ich die Eigenwerte bis $\tau = \num{6}$ aus. Diese ungeraden
+und geraden Eigenwerte sind in den Abbildungen
+\ref{fig:77130C-eigenwerte-ungerade} bzw. \ref{fig:77130C-eigenwerte-gerade}
+dargestellt. Mit dem Virialsatz erhalte ich $E_0 = \num{0.4989 +- 0.0002}$. Mit
+der einfachen Korrelation $C_{11}(t)$ erhalte ich $E_1 = \num{1.50387 +-
+0.00070}$. Die Energiewerte aus der Anpassung des GEVP sind in
+Tabelle~\ref{tab:77130C-eigenwerte} aufgelistet.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{1C5A92-eigenwerte}
+    \tikzsetnextfilename{77130C-eigenwerte-ungerade}
     \begin{tikzpicture}
         \begin{semilogyaxis}[
                 width=\linewidth,
@@ -884,9 +875,9 @@ Aus den Eigenwerten des GEVP erhalte ich nach Anpassung:
                     {$n = 5$},
                 },
             ]
-            \addplot[black!100!white] table {CSV/lambdas/1C5A92-eigenvalue-01-fit.csv};
-            \addplot[black!60!white] table {CSV/lambdas/1C5A92-eigenvalue-03-fit.csv};
-            \addplot[black!30!white] table {CSV/lambdas/1C5A92-eigenvalue-05-fit.csv};
+            \addplot[black!100!white] table {CSV/lambdas/77130C-eigenvalue-01-fit.csv};
+            \addplot[black!60!white] table {CSV/lambdas/77130C-eigenvalue-03-fit.csv};
+            \addplot[black!30!white] table {CSV/lambdas/77130C-eigenvalue-05-fit.csv};
             \addplot[
                 black!100!white,
                 only marks,
@@ -894,7 +885,7 @@ Aus den Eigenwerten des GEVP erhalte ich nach Anpassung:
                 error bars/.cd,
                 y dir=both,
                 y explicit
-            ] table[y error index=2] {CSV/lambdas/1C5A92-eigenvalue-01.csv};
+            ] table[y error index=2] {CSV/lambdas/77130C-eigenvalue-01.csv};
             \addplot[
                 black!60!white,
                 only marks,
@@ -902,7 +893,7 @@ Aus den Eigenwerten des GEVP erhalte ich nach Anpassung:
                 error bars/.cd,
                 y dir=both,
                 y explicit
-            ] table[y error index=2] {CSV/lambdas/1C5A92-eigenvalue-03.csv};
+            ] table[y error index=2] {CSV/lambdas/77130C-eigenvalue-03.csv};
             \addplot[
                 black!30!white,
                 only marks,
@@ -910,7 +901,7 @@ Aus den Eigenwerten des GEVP erhalte ich nach Anpassung:
                 error bars/.cd,
                 y dir=both,
                 y explicit
-            ] table[y error index=2] {CSV/lambdas/1C5A92-eigenvalue-05.csv};
+            ] table[y error index=2] {CSV/lambdas/77130C-eigenvalue-05.csv};
         \end{semilogyaxis}
     \end{tikzpicture}
     \caption{%
@@ -920,8 +911,90 @@ Aus den Eigenwerten des GEVP erhalte ich nach Anpassung:
         mit $\iterations = \num{100000}$, $\bootstrapsamples = \num{1000}$,
         $\timesites = \num{1000}$, $\timestep = \num{0.1}$, $\mu = \num{1}$.
     }
-    \label{fig:1C5A92-eigenwerte}
+    \label{fig:77130C-eigenwerte-ungerade}
 \end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{77130C-eigenwerte-gerade}
+    \begin{tikzpicture}
+        \begin{semilogyaxis}[
+                width=\linewidth,
+                height=0.55\linewidth,
+                xlabel={$\tau$},
+                ylabel={$\lambda_n(\tau)$},
+                grid=major,
+                legend entries={
+                    {$n = 2$},
+                    {$n = 4$},
+                    {$n = 6$},
+                },
+            ]
+            \addplot[black!100!white] table {CSV/lambdas/77130C-eigenvalue-02-fit.csv};
+            \addplot[black!60!white] table {CSV/lambdas/77130C-eigenvalue-04-fit.csv};
+            \addplot[black!30!white] table {CSV/lambdas/77130C-eigenvalue-06-fit.csv};
+            \addplot[
+                black!100!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {CSV/lambdas/77130C-eigenvalue-02.csv};
+            \addplot[
+                black!60!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {CSV/lambdas/77130C-eigenvalue-04.csv};
+            \addplot[
+                black!30!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {CSV/lambdas/77130C-eigenvalue-06.csv};
+        \end{semilogyaxis}
+    \end{tikzpicture}
+    \caption{%
+        Eigenwertfunktionen $\lambda_n(\tau)$ für die ersten geraden
+        Eigenwerten. An die Daten wurde jeweils eine abfallende
+        Exponentialfunktion angepasst. Die Daten stammen aus einem Durchlauf
+        mit $\iterations = \num{100000}$, $\bootstrapsamples = \num{1000}$,
+        $\timesites = \num{1000}$, $\timestep = \num{0.1}$, $\mu = \num{1}$.
+    }
+    \label{fig:77130C-eigenwerte-gerade}
+\end{figure}
+
+\begin{table}
+    \centering
+    \begin{tabular}{SS}
+        {$n$} & {$E_n$} \\
+        \midrule
+        1 & 1.50602 +- 0.00041 \\
+        2 &   2.426 +- 0.020 \\
+        3 &   3.435 +- 0.022 \\
+        4 &   4.323 +- 0.061 \\
+        5 &   5.009 +- 0.088 \\
+        6 &    6.30 +- 0.13 \\
+        7 &   6.905 +- 0.094 \\
+        8 &    19.2 +- 8.1 \\
+        9 &    12.5 +- 1.5 \\
+        10 &    1.28 +- 0.11 \\
+        11 &   1.175 +- 0.069
+    \end{tabular}
+    \caption{%
+        Energiewerte aus dem GEVP.
+    }
+    \label{tab:77130C-eigenwerte}
+\end{table}
+
+Für kleine $n$ entsprechen die Werte der Erwartung, $E_n = n + \num{0.5}$, die
+Abweichung nimmt jedoch nach $n = 7$ schnell zu. Um dort bessere Werte zu
+bekommen, bräuchte es noch mehr Iterationen.
 
 \section{Anharmonischer Oszillator}
 
