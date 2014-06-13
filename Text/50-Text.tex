@@ -850,18 +850,17 @@ Anpassung an diese Daten erhalte ich $\Deltaup E_{0,1} = E_1 - E_0 = \num{0.995
 
 In einem Simulationslauf mit $\timesites = \num{1000}$, $\timestep =
 \num{0.1}$, $\margin = \num{0.632456}$, $\iterations = \num{100000}$,
-$\bootstrapsamples = \num{1000}$, $\mass = \num{1}$ und Korrelationen bis
+$\bootstrapsamples = \num{10000}$, $\mass = \num{1}$ und Korrelationen bis
 $x^{12}$ errechne ich die Eigenwerte bis $\tau = \num{6}$ aus. Diese ungeraden
 und geraden Eigenwerte sind in den Abbildungen
-\ref{fig:77130C-eigenwerte-ungerade} bzw. \ref{fig:77130C-eigenwerte-gerade}
+\ref{fig:ED7AA2-eigenwerte-ungerade} bzw. \ref{fig:ED7AA2-eigenwerte-gerade}
 dargestellt. Mit dem Virialsatz erhalte ich $E_0 = \num{0.4989 +- 0.0002}$. Mit
-der einfachen Korrelation $C_{11}(t)$ erhalte ich $E_1 = \num{1.50387 +-
-0.00070}$. Die Energiewerte aus der Anpassung des GEVP sind in
-Tabelle~\ref{tab:77130C-eigenwerte} aufgelistet.
+der einfachen Korrelation $C_{11}(t)$ erhalte ich $E_1 = \num{1.50390 +- 0.00069}$. Die Energiewerte aus der Anpassung des GEVP sind in
+Tabelle~\ref{tab:ED7AA2-eigenwerte} aufgelistet.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{77130C-eigenwerte-ungerade}
+    \tikzsetnextfilename{ED7AA2-eigenwerte-ungerade}
     \begin{tikzpicture}
         \begin{semilogyaxis}[
                 width=\linewidth,
@@ -875,9 +874,9 @@ Tabelle~\ref{tab:77130C-eigenwerte} aufgelistet.
                     {$n = 5$},
                 },
             ]
-            \addplot[black!100!white] table {CSV/lambdas/77130C-eigenvalue-01-fit.csv};
-            \addplot[black!60!white] table {CSV/lambdas/77130C-eigenvalue-03-fit.csv};
-            \addplot[black!30!white] table {CSV/lambdas/77130C-eigenvalue-05-fit.csv};
+            \addplot[black!100!white] table {CSV/lambdas/ED7AA2-eigenvalue-01-fit.csv};
+            \addplot[black!60!white] table {CSV/lambdas/ED7AA2-eigenvalue-03-fit.csv};
+            \addplot[black!30!white] table {CSV/lambdas/ED7AA2-eigenvalue-05-fit.csv};
             \addplot[
                 black!100!white,
                 only marks,
@@ -885,7 +884,7 @@ Tabelle~\ref{tab:77130C-eigenwerte} aufgelistet.
                 error bars/.cd,
                 y dir=both,
                 y explicit
-            ] table[y error index=2] {CSV/lambdas/77130C-eigenvalue-01.csv};
+            ] table[y error index=2] {CSV/lambdas/ED7AA2-eigenvalue-01.csv};
             \addplot[
                 black!60!white,
                 only marks,
@@ -893,7 +892,7 @@ Tabelle~\ref{tab:77130C-eigenwerte} aufgelistet.
                 error bars/.cd,
                 y dir=both,
                 y explicit
-            ] table[y error index=2] {CSV/lambdas/77130C-eigenvalue-03.csv};
+            ] table[y error index=2] {CSV/lambdas/ED7AA2-eigenvalue-03.csv};
             \addplot[
                 black!30!white,
                 only marks,
@@ -901,22 +900,22 @@ Tabelle~\ref{tab:77130C-eigenwerte} aufgelistet.
                 error bars/.cd,
                 y dir=both,
                 y explicit
-            ] table[y error index=2] {CSV/lambdas/77130C-eigenvalue-05.csv};
+            ] table[y error index=2] {CSV/lambdas/ED7AA2-eigenvalue-05.csv};
         \end{semilogyaxis}
     \end{tikzpicture}
     \caption{%
         Eigenwertfunktionen $\lambda_n(\tau)$ für die ersten ungeraden
         Eigenwerten. An die Daten wurde jeweils eine abfallende
         Exponentialfunktion angepasst. Die Daten stammen aus einem Durchlauf
-        mit $\iterations = \num{100000}$, $\bootstrapsamples = \num{1000}$,
+        mit $\iterations = \num{100000}$, $\bootstrapsamples = \num{10000}$,
         $\timesites = \num{1000}$, $\timestep = \num{0.1}$, $\mu = \num{1}$.
     }
-    \label{fig:77130C-eigenwerte-ungerade}
+    \label{fig:ED7AA2-eigenwerte-ungerade}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{77130C-eigenwerte-gerade}
+    \tikzsetnextfilename{ED7AA2-eigenwerte-gerade}
     \begin{tikzpicture}
         \begin{semilogyaxis}[
                 width=\linewidth,
@@ -930,9 +929,9 @@ Tabelle~\ref{tab:77130C-eigenwerte} aufgelistet.
                     {$n = 6$},
                 },
             ]
-            \addplot[black!100!white] table {CSV/lambdas/77130C-eigenvalue-02-fit.csv};
-            \addplot[black!60!white] table {CSV/lambdas/77130C-eigenvalue-04-fit.csv};
-            \addplot[black!30!white] table {CSV/lambdas/77130C-eigenvalue-06-fit.csv};
+            \addplot[black!100!white] table {CSV/lambdas/ED7AA2-eigenvalue-02-fit.csv};
+            \addplot[black!60!white] table {CSV/lambdas/ED7AA2-eigenvalue-04-fit.csv};
+            \addplot[black!30!white] table {CSV/lambdas/ED7AA2-eigenvalue-06-fit.csv};
             \addplot[
                 black!100!white,
                 only marks,
@@ -940,7 +939,7 @@ Tabelle~\ref{tab:77130C-eigenwerte} aufgelistet.
                 error bars/.cd,
                 y dir=both,
                 y explicit
-            ] table[y error index=2] {CSV/lambdas/77130C-eigenvalue-02.csv};
+            ] table[y error index=2] {CSV/lambdas/ED7AA2-eigenvalue-02.csv};
             \addplot[
                 black!60!white,
                 only marks,
@@ -948,7 +947,7 @@ Tabelle~\ref{tab:77130C-eigenwerte} aufgelistet.
                 error bars/.cd,
                 y dir=both,
                 y explicit
-            ] table[y error index=2] {CSV/lambdas/77130C-eigenvalue-04.csv};
+            ] table[y error index=2] {CSV/lambdas/ED7AA2-eigenvalue-04.csv};
             \addplot[
                 black!30!white,
                 only marks,
@@ -956,17 +955,17 @@ Tabelle~\ref{tab:77130C-eigenwerte} aufgelistet.
                 error bars/.cd,
                 y dir=both,
                 y explicit
-            ] table[y error index=2] {CSV/lambdas/77130C-eigenvalue-06.csv};
+            ] table[y error index=2] {CSV/lambdas/ED7AA2-eigenvalue-06.csv};
         \end{semilogyaxis}
     \end{tikzpicture}
     \caption{%
         Eigenwertfunktionen $\lambda_n(\tau)$ für die ersten geraden
         Eigenwerten. An die Daten wurde jeweils eine abfallende
         Exponentialfunktion angepasst. Die Daten stammen aus einem Durchlauf
-        mit $\iterations = \num{100000}$, $\bootstrapsamples = \num{1000}$,
+        mit $\iterations = \num{100000}$, $\bootstrapsamples = \num{10000}$,
         $\timesites = \num{1000}$, $\timestep = \num{0.1}$, $\mu = \num{1}$.
     }
-    \label{fig:77130C-eigenwerte-gerade}
+    \label{fig:ED7AA2-eigenwerte-gerade}
 \end{figure}
 
 \begin{table}
@@ -974,22 +973,22 @@ Tabelle~\ref{tab:77130C-eigenwerte} aufgelistet.
     \begin{tabular}{SS}
         {$n$} & {$E_n$} \\
         \midrule
-        1 & 1.50602 +- 0.00041 \\
-        2 &   2.426 +- 0.020 \\
-        3 &   3.435 +- 0.022 \\
-        4 &   4.323 +- 0.061 \\
-        5 &   5.009 +- 0.088 \\
-        6 &    6.30 +- 0.13 \\
-        7 &   6.905 +- 0.094 \\
-        8 &    19.2 +- 8.1 \\
-        9 &    12.5 +- 1.5 \\
-        10 &    1.28 +- 0.11 \\
-        11 &   1.175 +- 0.069
+         1 & 1.50331 +- 0.00075 \\
+         2 &   2.429 +- 0.020   \\
+         3 &   3.433 +- 0.027   \\
+         4 &   4.320 +- 0.064   \\
+         5 &   4.990 +- 0.095   \\
+         6 &    6.29 +- 0.14    \\
+         7 &   6.869 +- 0.100   \\
+         8 &    18.5 +- 8.1     \\
+         9 &    12.4 +- 1.5     \\
+        10 &    1.28 +- 0.11    \\
+        11 &   1.186 +- 0.060  
     \end{tabular}
     \caption{%
         Energiewerte aus dem GEVP.
     }
-    \label{tab:77130C-eigenwerte}
+    \label{tab:ED7AA2-eigenwerte}
 \end{table}
 
 Für kleine $n$ entsprechen die Werte der Erwartung, $E_n = n + \num{0.5}$, die
