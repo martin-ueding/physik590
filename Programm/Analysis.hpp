@@ -21,7 +21,6 @@ class Analysis {
         void create_samples();
         void save_eigenvalues();
         void save_c11();
-        void save_c22();
         void save_histogram();
         void worker(ProgressBar &bar);
 

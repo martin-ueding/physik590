@@ -5,6 +5,7 @@
 
 import argparse
 import json
+import os.path
 
 import prettytable
 
@@ -23,7 +24,11 @@ def main():
     ])
 
     for run in options.runs:
-        with open('{run}/{run}-options.js'.format(run=run)) as f:
+        filename = '{run}/{run}-options.js'.format(run=run)
+        if not os.path.isfile(filename):
+            continue
+
+        with open(filename) as f:
             info = json.load(f)
 
         table.add_row([
