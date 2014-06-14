@@ -2,7 +2,9 @@
 
 # Dependencies
 
-These Debian packages are needed to complile the prorgrams:
+These Debian/Ubuntu packages are needed to compile the programs:
+
+## metropolis
 
 - clang
 - cmake
@@ -15,8 +17,15 @@ These Debian packages are needed to complile the prorgrams:
 - libcrypto++-dev
 - libeigen3-dev
 
-To run `plotall.py`, you also need the following from [my PPA][PPA]:
+## metropolis-index
 
-- python3-unitprint
+- python3-prettytable
+
+## metropolis-plotall
+
+- python3-unitprint (available from [my PPA][PPA])
+- python3-prettytable
 
 [PPA]: https://launchpad.net/~martin-ueding/+archive/stable
+
+<!-- vim: set spell: -->
