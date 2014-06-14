@@ -70,3 +70,13 @@ target_link_libraries(metropolis-test crypto++)
 target_link_libraries(metropolis-test jsoncpp)
 
 #target_link_libraries(metropolis gsl)
+
+install(TARGETS metropolis DESTINATION bin)
+install(PROGRAMS
+
+    metropolis-build-env-set-up
+    metropolis-index
+    metropolis-plotall
+    metropolis-sweep
+
+    DESTINATION bin)
