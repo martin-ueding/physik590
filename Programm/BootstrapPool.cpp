@@ -20,6 +20,10 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
     }
     bar.close();
 
+    std::cout << "Accept rate:             " << driver.ma.get_accept_rate() << std::endl;
+    std::cout << "Accept rate negative:    " << driver.ma.get_accept_rate_negative() << std::endl;
+    std::cout << "Accept rate exponential: " << driver.ma.get_accept_rate_exponential() << std::endl;
+
 #ifndef NDEBUG
     std::cout << "BootstrapPool::trajectories now contains " << trajectories.size() << " items." << std::endl;
 #endif

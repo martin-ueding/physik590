@@ -6,11 +6,10 @@
 #include "VectorHelper.hpp"
 
 MetropolisDriver::MetropolisDriver(Settings settings) :
+ma {MetropolisAlgorithm {x, system, settings.position_seed, settings.accept_seed}},
     settings {settings},
          system {Oscillator {settings}},
-         x {std::vector<double>(settings.time_sites)},
-ma {MetropolisAlgorithm {x, system, settings.position_seed, settings.accept_seed}} {
-
+         x {std::vector<double>(settings.time_sites)} {
     system.export_potential(settings.generate_filename("potential.csv"), settings.report(), settings);
 
     VectorHelper vh;

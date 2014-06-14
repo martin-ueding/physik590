@@ -30,9 +30,10 @@ class MetropolisDriver {
 
         std::vector<double> next();
 
+        MetropolisAlgorithm ma;
+
     protected:
         Settings settings;
         Oscillator system;
         std::vector<double> x;
-        MetropolisAlgorithm ma;
 };
