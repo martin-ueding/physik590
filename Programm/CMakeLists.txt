@@ -69,8 +69,6 @@ target_link_libraries(metropolis-test cppunit)
 target_link_libraries(metropolis-test crypto++)
 target_link_libraries(metropolis-test jsoncpp)
 
-#target_link_libraries(metropolis gsl)
-
 install(TARGETS metropolis DESTINATION bin)
 install(PROGRAMS
 
