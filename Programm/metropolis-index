@@ -12,7 +12,7 @@ import unitprint
 
 def p(s):
     f = float(s)
-    return unitprint.siunitx(f)
+    return unitprint.siunitx(f, allowed_hang=10)
 
 def main():
     options = _parse_args()
