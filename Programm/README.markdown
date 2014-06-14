@@ -13,9 +13,14 @@ These Debian/Ubuntu packages are needed to compile the programs:
 - libboost-program-options-dev
 - libboost-serialization-dev
 - libboost-system-dev
-- libcppunit-dev
 - libcrypto++-dev
 - libeigen3-dev
+
+## metropolis-test
+
+Same as `metropolis`, but additionally:
+
+- libcppunit-dev
 
 ## metropolis-index
 
