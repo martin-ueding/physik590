@@ -29,6 +29,8 @@ def main():
         'margin',
     ])
 
+    rows = []
+
     for run in options.runs:
         filename = '{run}/{run}-options.js'.format(run=run)
         if not os.path.isfile(filename):
@@ -37,7 +39,7 @@ def main():
         with open(filename) as f:
             info = json.load(f)
 
-        table.add_row([
+        rows.append([
             run,
             p(info['iterations']),
             p(info['inverse_scattering_length']),
@@ -48,6 +50,33 @@ def main():
             p(info['correlation_ts'][-1] * info['time_step']),
             p(info['margin']),
         ])
+
+    for j in range(len(rows[0])):
+        max_pre = 0
+        max_post = 0
+        for i in range(len(rows)):
+            if '.' in rows[i][j]:
+                parts = rows[i][j].split('.')
+            else:
+                parts = [rows[i][j], '']
+            max_pre = max(len(parts[0]), max_pre)
+            max_post = max(len(parts[1]) + 1, max_post)
+        for i in range(len(rows)):
+            parts = rows[i][j].split('.')
+            if '.' in rows[i][j]:
+                parts = rows[i][j].split('.')
+            else:
+                parts = [rows[i][j], '']
+            new_parts = []
+            if len(parts[0]) < max_pre:
+                new_parts.append(' '*(max_pre - len(parts[0])))
+            new_parts.append(rows[i][j])
+            if len(parts[1]) < max_post:
+                new_parts.append(' '*(max_post - len(parts[1])))
+            rows[i][j] = ''.join(new_parts)
+
+    for row in rows:
+        table.add_row(row)
 
     print(table)
 
