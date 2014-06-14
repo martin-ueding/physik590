@@ -8,6 +8,11 @@ import json
 import os.path
 
 import prettytable
+import unitprint
+
+def p(s):
+    f = float(s)
+    return unitprint.siunitx(f)
 
 def main():
     options = _parse_args()
@@ -21,6 +26,7 @@ def main():
         'time_sites',
         'time_step',
         'corr_max',
+        'margin',
     ])
 
     for run in options.runs:
@@ -33,13 +39,14 @@ def main():
 
         table.add_row([
             run,
-            info['iterations'],
-            info['inverse_scattering_length'],
-            info['gauss_width'],
-            info['correlation_size'],
-            info['time_sites'],
-            info['time_step'],
-            info['correlation_ts'][-1] * info['time_step'],
+            p(info['iterations']),
+            p(info['inverse_scattering_length']),
+            p(info['gauss_width']),
+            p(info['correlation_size']),
+            p(info['time_sites']),
+            p(info['time_step']),
+            p(info['correlation_ts'][-1] * info['time_step']),
+            p(info['margin']),
         ])
 
     print(table)
