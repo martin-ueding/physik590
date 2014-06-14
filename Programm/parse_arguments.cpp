@@ -38,9 +38,9 @@ void parse_arguments(int argc, char **argv, Settings &settings) {
     ("irw",
      boost::program_options::value<double>(&settings.initial_random_width)->default_value(settings.initial_random_width),
      "Initial random width")
-    ("margin",
+    /*("margin",
      boost::program_options::value<double>(&settings.margin)->default_value(settings.margin),
-     "Random margin, Δ")
+     "Random margin, Δ")*/
     ("iter",
      boost::program_options::value<unsigned>(&settings.iterations)->default_value(settings.iterations),
      "Iterations for the histogram")
@@ -126,4 +126,6 @@ void parse_arguments(int argc, char **argv, Settings &settings) {
         std::cout << options << std::endl;
         exit(0);
     }
+
+
 }
