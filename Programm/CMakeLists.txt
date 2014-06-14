@@ -73,6 +73,7 @@ install(TARGETS metropolis DESTINATION bin)
 install(PROGRAMS
 
     metropolis-build-env-set-up
+    metropolis-energy-differences
     metropolis-index
     metropolis-plotall
     metropolis-sweep
