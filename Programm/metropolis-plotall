@@ -56,6 +56,7 @@ def main():
         result = fit_eigenvalues(dirname, '*-eigenvalue-??.csv', E_0)
 
         data.append([
+            run,
             parameters['gauss_width'],
             parameters['time_step'],
             unitprint.siunitx(*E_0),
@@ -69,6 +70,7 @@ def main():
         print()
 
     table = prettytable.PrettyTable([
+        'run',
         'width',
         'step',
         'E_0',
@@ -80,6 +82,7 @@ def main():
     ])
     for row in data:
         table.add_row(row)
+    table.sortby = 'width'
     print(table)
 
     sys.exit(0)
