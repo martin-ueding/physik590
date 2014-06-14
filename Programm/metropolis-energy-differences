@@ -1,0 +1,47 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+
+import argparse
+import numpy as np
+
+def main():
+    options = _parse_args()
+
+    e_minus1 = [
+        1.08389,
+        2.93722,
+        4.86274,
+        6.81576,
+        8.78334,
+    ]
+    e_plus1 = [
+        -1.94107,
+        2.00491,
+        4.11354,
+        6.17101,
+        8.20837,
+    ]
+
+    diff_minus1 = np.diff(e_minus1)
+    diff_plus1 = np.diff(e_plus1)
+
+    print(diff_minus1)
+
+
+
+def _parse_args():
+    """
+    Parses the command line arguments.
+
+    :return: Namespace with arguments.
+    :rtype: Namespace
+    """
+    parser = argparse.ArgumentParser(description="")
+    options = parser.parse_args()
+
+    return options
+
+if __name__ == "__main__":
+    main()
