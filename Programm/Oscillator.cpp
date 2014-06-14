@@ -54,5 +54,5 @@ void Oscillator::export_potential(std::string filename, std::string preamble,
 
 double Oscillator::potential(double x) {
     return 0.5 * settings.mu_squared * x * x
-           + prefactor * std::exp(-x * x / (2 * gauss_width_squared));
+           - prefactor * std::exp(-x * x / (2 * gauss_width_squared));
 }
