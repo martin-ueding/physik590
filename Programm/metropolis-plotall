@@ -69,8 +69,8 @@ def main():
         print()
 
     table = prettytable.PrettyTable([
-        'gauss_width',
-        'time_step',
+        'width',
+        'step',
         'E_0',
         'E_2',
         'E_4',
