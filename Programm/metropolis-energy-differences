@@ -27,8 +27,12 @@ def main():
     diff_minus1 = np.diff(e_minus1)
     diff_plus1 = np.diff(e_plus1)
 
+    print('Energies 1/a_0 = -1:')
+    print(e_minus1)
     print('Energy differences 1/a_0 = -1:')
     print(diff_minus1)
+    print('Energies 1/a_0 = 1:')
+    print(e_plus1)
     print('Energy differences 1/a_0 = 1:')
     print(diff_plus1)
 
