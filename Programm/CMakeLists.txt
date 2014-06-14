@@ -18,7 +18,7 @@ add_definitions("-Wdocumentation")
 
 find_package(Boost COMPONENTS filesystem program_options serialization system REQUIRED)
 find_package(Threads REQUIRED)
-find_package(Eigen3)
+find_package(Eigen3 REQUIRED)
 
 add_executable(metropolis
     main-metropolis.cpp
