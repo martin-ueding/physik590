@@ -21,7 +21,8 @@ import unitprint
 def main():
     options = _parse_args()
 
-    energies = {}
+
+    data = []
 
     if len(options.prefixes) == 0:
         dirnames = sorted(glob.glob('*/'))
@@ -54,15 +55,34 @@ def main():
         print('From eigenvalues:')
         result = fit_eigenvalues(dirname, '*-eigenvalue-??.csv', E_0)
 
-        isl = parameters['inverse_scattering_length']
-        if not isl in energies:
-            energies[isl] = {}
-        for n, energy in result.items():
-            if not n in energies[isl]:
-                energies[isl][n] = []
-            energies[isl][n].append([parameters['gauss_width']] + list(energy))
+        data.append([
+            parameters['gauss_width'],
+            parameters['time_step'],
+            unitprint.siunitx(*E_0),
+            unitprint.siunitx(*result['02']),
+            unitprint.siunitx(*result['04']),
+            unitprint.siunitx(result['02'][0] - E_0[0], np.sqrt(result['02'][1]**2 + E_0[1]**2)),
+            unitprint.siunitx(result['04'][0] - E_0[0], np.sqrt(result['04'][1]**2 + E_0[1]**2)),
+            unitprint.siunitx(result['04'][0] - result['02'][0], np.sqrt(result['04'][1]**2 + result['02'][1]**2)),
+        ])
 
         print()
+
+    table = prettytable.PrettyTable([
+        'gauss_width',
+        'time_step',
+        'E_0',
+        'E_2',
+        'E_4',
+        'E_2 - E_0',
+        'E_4 - E_0',
+        'E_4 - E_2',
+    ])
+    for row in data:
+        table.add_row(row)
+    print(table)
+
+    sys.exit(0)
 
     if len(energies.items()) <= 1:
         sys.exit(0)
