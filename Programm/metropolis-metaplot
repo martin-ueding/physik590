@@ -1,0 +1,52 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+
+import argparse
+
+import matplotlib.pyplot as pl
+import mpl_toolkits.mplot3d.axes3d as p3
+import numpy as np
+import prettytable
+import scipy.optimize as op
+import unitprint
+
+def main():
+    options = _parse_args()
+
+    #pl.pcolormesh(raw_data[:, :-1])
+    #pl.colorbar() 
+
+    raw_data = np.loadtxt(options.filename)
+
+    fig = pl.figure()
+    ax = p3.Axes3D(fig)
+    ax.scatter(raw_data[:, 0], raw_data[:, 1], raw_data[:, 3], marker=".")
+    ax.set_xlabel("Gauss Width")
+    ax.set_ylabel("Time Step")
+    ax.set_zlabel("$E_0$")
+    ax.set_title(r"Zufallszahlen aus der Einheitssphäre, 3D")
+    print('Before')
+    fig.show()
+    print('After')
+    help(fig.show)
+    fig.savefig("out-3a-3D.pdf")
+    fig.savefig("out-3a-3D.png")
+
+def _parse_args():
+    """
+    Parses the command line arguments.
+
+    :return: Namespace with arguments.
+    :rtype: Namespace
+    """
+    parser = argparse.ArgumentParser(description="")
+    parser.add_argument('filename')
+
+    options = parser.parse_args()
+
+    return options
+
+if __name__ == "__main__":
+    main()

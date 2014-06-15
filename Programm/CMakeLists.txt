@@ -75,6 +75,7 @@ install(PROGRAMS
     metropolis-build-env-set-up
     metropolis-energy-differences
     metropolis-index
+    metropolis-metaplot
     metropolis-plotall
     metropolis-sweep
 
