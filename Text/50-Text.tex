@@ -1110,4 +1110,19 @@ Aufenthaltswahrscheinlichkeit.
     \label{tab:E_a0}
 \end{table}
 
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{mesh}
+    \begin{tikzpicture}
+        \begin{axis}
+            \addplot3[surf, mesh/ordering=y varies]
+            table {CSV/raw_data.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        %
+    }
+    \label{fig:}
+\end{figure}
+
 % vim: ft=tex spell spelllang=de tw=79
