@@ -72,6 +72,7 @@ target_link_libraries(metropolis-test jsoncpp)
 install(TARGETS metropolis DESTINATION bin)
 install(PROGRAMS
 
+    metropolis-3d-meta
     metropolis-build-env-set-up
     metropolis-energy-differences
     metropolis-index

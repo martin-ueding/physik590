@@ -1,0 +1,7 @@
+#!/usr/bin/gnuplot
+
+set xlabel "Gauss Width"
+set ylabel "Time Step"
+set zlabel "E_0"
+
+splot "raw_data.csv"
