@@ -12,7 +12,7 @@ import prettytable
 import scipy.optimize as op
 import unitprint
 
-def make_col(data, col, ylabel, outfile):
+def make_col(data, col, ylabel, outfile, harmonic, anharmonic):
     time_groups = {}
     for row in range(len(data[:, 1])):
         time_step = data[row, 1]
@@ -20,6 +20,10 @@ def make_col(data, col, ylabel, outfile):
             time_groups[time_step] = []
         time_groups[time_step].append((data[row, 0], data[row, col], data[row, col+1]))
 
+    x_min = 0
+    x_max = -1000
+
+    i = 0
     for time_step, items in sorted(time_groups.items()):
         items = np.array(items)
         items.sort(0)
@@ -27,9 +31,22 @@ def make_col(data, col, ylabel, outfile):
         y_val = items[:, 1]
         y_err = items[:, 2]
 
-        pl.errorbar(gauss_width, y_val, yerr=y_err, label='a = {:f}'.format(time_step), marker='|')
+        x_min = min(x_min, np.min(gauss_width))
+        x_max = max(x_max, np.max(gauss_width))
 
-    pl.xlabel(r'$G_\sigma$')
+        pl.errorbar(gauss_width + i * x_max / 200, y_val, yerr=y_err, label='a = {:f}'.format(time_step), marker='|')
+
+
+        i += 1
+
+    x = np.array([x_min, x_max])
+    ones = np.array([1, 1])
+
+    pl.plot(x, ones * harmonic,   color='gray')
+    pl.plot(x, ones * anharmonic, color='black')
+
+    pl.title(r'{} gegen $\sigma$'.format(ylabel))
+    pl.xlabel(r'$\sigma$')
     pl.ylabel(ylabel)
     pl.grid(True)
     pl.margins(0.1)
@@ -46,11 +63,12 @@ def main():
 
     data = np.loadtxt(options.filename)
 
-    make_col(data, 2, r'$E_0$', 'E0.pdf')
-    make_col(data, 4, r'$E_2$', 'E2.pdf')
-    make_col(data, 6, r'$E_2 - E_0$', 'E2-E0.pdf')
-    make_col(data, 8, r'$E_4 - E_0$', 'E4-E0.pdf')
-    make_col(data, 10, r'$E_4 - E_2$', 'E4-E2.pdf')
+    make_col(data, 2, r'$E_0$', 'E0.pdf', 0.5, 1.08389)
+    make_col(data, 4, r'$E_2$', 'E2.pdf', 2.5, 2.93722)
+    make_col(data, 6, r'$E_4$', 'E4.pdf', 4.5, 4.86274)
+    make_col(data, 8, r'$E_2 - E_0$', 'E2-E0.pdf', 2, 1.85333)
+    make_col(data, 10, r'$E_4 - E_0$', 'E4-E0.pdf', 4, 3.77885)
+    make_col(data, 12, r'$E_4 - E_2$', 'E4-E2.pdf', 2, 1.92552)
 
 
 def _parse_args():
