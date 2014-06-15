@@ -21,8 +21,8 @@ import unitprint
 def main():
     options = _parse_args()
 
-
     data = []
+    raw_data = []
 
     if len(options.prefixes) == 0:
         dirnames = sorted(glob.glob('*/'))
@@ -67,6 +67,15 @@ def main():
             unitprint.siunitx(result['04'][0] - result['02'][0], np.sqrt(result['04'][1]**2 + result['02'][1]**2)),
         ])
 
+        raw_data.append([
+            parameters['gauss_width'],
+            parameters['time_step']
+        ] + list(E_0) + list(result['02']) + list(result['04']) + [
+            result['02'][0] - E_0[0], np.sqrt(result['02'][1]**2 + E_0[1]**2),
+            result['04'][0] - E_0[0], np.sqrt(result['04'][1]**2 + E_0[1]**2),
+            result['04'][0] - result['02'][0], np.sqrt(result['04'][1]**2 + result['02'][1]**2),
+        ])
+
         print()
 
     table = prettytable.PrettyTable([
@@ -84,6 +93,9 @@ def main():
         table.add_row(row)
     table.sortby = 'width'
     print(table)
+
+    raw_data = np.array(raw_data)
+    np.savetxt('raw_data.csv', raw_data)
 
     sys.exit(0)
 
