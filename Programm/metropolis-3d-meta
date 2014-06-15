@@ -4,4 +4,6 @@ set xlabel "Gauss Width"
 set ylabel "Time Step"
 set zlabel "E_0"
 
+set grid
+
 splot "raw_data.csv"
