@@ -22,7 +22,7 @@ def main():
 
     fig = pl.figure()
     ax = p3.Axes3D(fig)
-    ax.scatter(raw_data[:, 0], raw_data[:, 1], raw_data[:, 3], marker=".")
+    ax.scatter(raw_data[:, 0], raw_data[:, 1], raw_data[:, 2], marker=".")
     ax.set_xlabel("Gauss Width")
     ax.set_ylabel("Time Step")
     ax.set_zlabel("$E_0$")
