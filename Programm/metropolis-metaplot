@@ -12,20 +12,13 @@ import prettytable
 import scipy.optimize as op
 import unitprint
 
-def main():
-    options = _parse_args()
-
-    #pl.pcolormesh(raw_data[:, :-1])
-    #pl.colorbar() 
-
-    data = np.loadtxt(options.filename)
-
+def make_col(data, col, ylabel):
     time_groups = {}
     for row in range(len(data[:, 1])):
         time_step = data[row, 1]
         if not time_step in time_groups:
             time_groups[time_step] = []
-        time_groups[time_step].append((data[row, 0], data[row, 2], data[row, 3]))
+        time_groups[time_step].append((data[row, 0], data[row, col], data[row, col+1]))
 
     for time_step, items in sorted(time_groups.items()):
         items = np.array(items)
@@ -39,10 +32,22 @@ def main():
         pl.errorbar(gauss_width, y_val, yerr=y_err, label='a = {:f}'.format(time_step), marker='|')
 
     pl.xlabel(r'$G_\sigma$')
-    pl.ylabel(r'$E_0$')
+    pl.ylabel(ylabel)
     pl.grid(True)
     pl.legend(loc='best')
     pl.show()
+    pl.clf
+
+def main():
+    options = _parse_args()
+
+    #pl.pcolormesh(raw_data[:, :-1])
+    #pl.colorbar() 
+
+    data = np.loadtxt(options.filename)
+
+    make_col(data, 2, r'$E_0')
+
 
 def _parse_args():
     """
