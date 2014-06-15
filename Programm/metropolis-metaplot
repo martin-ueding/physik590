@@ -33,7 +33,7 @@ def make_col(data, col, ylabel, outfile):
     pl.ylabel(ylabel)
     pl.grid(True)
     pl.margins(0.1)
-    pl.legend(loc='best')
+    pl.legend(loc='best', prop={'size': 6})
     #pl.show()
     pl.savefig(outfile)
     pl.clf()
