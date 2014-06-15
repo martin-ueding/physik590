@@ -1118,8 +1118,14 @@ Aufenthaltswahrscheinlichkeit.
         \begin{axis}[
                 xlabel={$\gausswidth$},
                 ylabel={$\timestep$},
+                colorbar,
+                grid=major,
             ]
-            \addplot3[surf, mesh/ordering=y varies]
+            \addplot3[
+                mesh,
+                scatter,
+                mesh/ordering=y varies,
+            ]
             table {CSV/raw_data.csv};
         \end{axis}
     \end{tikzpicture}
