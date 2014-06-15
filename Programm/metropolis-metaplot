@@ -18,21 +18,31 @@ def main():
     #pl.pcolormesh(raw_data[:, :-1])
     #pl.colorbar() 
 
-    raw_data = np.loadtxt(options.filename)
+    data = np.loadtxt(options.filename)
 
-    fig = pl.figure()
-    ax = p3.Axes3D(fig)
-    ax.scatter(raw_data[:, 0], raw_data[:, 1], raw_data[:, 2], marker=".")
-    ax.set_xlabel("Gauss Width")
-    ax.set_ylabel("Time Step")
-    ax.set_zlabel("$E_0$")
-    ax.set_title(r"Zufallszahlen aus der Einheitssphäre, 3D")
-    print('Before')
-    fig.show()
-    print('After')
-    help(fig.show)
-    fig.savefig("out-3a-3D.pdf")
-    fig.savefig("out-3a-3D.png")
+    time_groups = {}
+    for row in range(len(data[:, 1])):
+        time_step = data[row, 1]
+        if not time_step in time_groups:
+            time_groups[time_step] = []
+        time_groups[time_step].append((data[row, 0], data[row, 2], data[row, 3]))
+
+    for time_step, items in sorted(time_groups.items()):
+        items = np.array(items)
+        print(items)
+        items.sort(0)
+        print(items)
+        gauss_width = items[:, 0]
+        y_val = items[:, 1]
+        y_err = items[:, 2]
+
+        pl.errorbar(gauss_width, y_val, yerr=y_err, label='a = {:f}'.format(time_step), marker='|')
+
+    pl.xlabel(r'$G_\sigma$')
+    pl.ylabel(r'$E_0$')
+    pl.grid(True)
+    pl.legend(loc='best')
+    pl.show()
 
 def _parse_args():
     """
