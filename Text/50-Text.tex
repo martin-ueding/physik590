@@ -1114,7 +1114,10 @@ Aufenthaltswahrscheinlichkeit.
     \centering
     \tikzsetnextfilename{mesh}
     \begin{tikzpicture}
-        \begin{axis}
+        \begin{axis}[
+                xlabel={$\gausswidth$},
+                ylabel={$\timestep$},
+            ]
             \addplot3[surf, mesh/ordering=y varies]
             table {CSV/raw_data.csv};
         \end{axis}
