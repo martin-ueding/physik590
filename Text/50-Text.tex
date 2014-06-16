@@ -1075,14 +1075,16 @@ Aufenthaltswahrscheinlichkeit.
                 y dir=both,
                 y explicit
             ] table[y error index=2] {CSV/10D74E-position-density.csv};
+            \addplot[black] table {_build/histogram_theory_01.csv};
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        Aufenthaltswahrscheinlichkeit. $\timestep = \num{0.1}$,
-        $\initialrandomwidth = \margin = \num{0.632}$, $\mu^2 = \num{1}$,
-        $\timesites = \num{1500}$, $\iterations = \num{10000}$,
-        $\bootstrapsamples = \num{1000}$, $1/1_0 = \num{-1}$, $\gausswidth =
-        \num{0.1}$.
+        Aufenthaltswahrscheinlichkeit für den anharmonischen Oszillator. Zum
+        Vergleich die Erwartung für den harmonischen Oszillator mit gleichen
+        Parametern. $\timestep = \num{0.1}$, $\initialrandomwidth = \margin =
+        \num{0.632}$, $\mu^2 = \num{1}$, $\timesites = \num{1500}$,
+        $\iterations = \num{10000}$, $\bootstrapsamples = \num{1000}$, $1/1_0 =
+        \num{-1}$, $\gausswidth = \num{0.1}$.
     }
     \label{fig:histogram_gauss}
 \end{figure}
