@@ -33,7 +33,7 @@ def make_col(data, col, ylabel, outfile, harmonic, anharmonic):
         x_min = min(x_min, np.min(gauss_width))
         x_max = max(x_max, np.max(gauss_width))
 
-        pl.errorbar(gauss_width + i * x_max / 200, y_val, yerr=y_err, label='a = {:f}'.format(time_step), marker='|', linestyle='none')
+        pl.errorbar(gauss_width + i * x_max / 200, y_val, yerr=y_err, label='a = {:f}'.format(time_step), marker='|')
 
 
         i += 1
