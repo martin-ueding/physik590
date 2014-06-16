@@ -224,6 +224,7 @@ def fit_eigenvalues(dirname, pattern, E_0):
             # This error probably occurs when the ``pconv`` matrix is just
             # ``nan``.
             print(e)
+            results[number] = 0, 0
 
     print(table)
 
