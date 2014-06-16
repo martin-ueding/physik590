@@ -1109,15 +1109,16 @@ Aufenthaltswahrscheinlichkeit.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{mesh}
+    \tikzsetnextfilename{mesh-e0}
     \begin{tikzpicture}
         \begin{axis}[
                 xlabel={$\gausswidth$},
                 ylabel={$\timestep$},
                 colormap/blackwhite,
+                zlabel={$E_0$},
                 colorbar,
                 grid=major,
-                view={-30}{30},
+                view={-15}{15},
             ]
             \addplot3[
                 mesh,
@@ -1128,9 +1129,37 @@ Aufenthaltswahrscheinlichkeit.
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        %
+        Energie des Grundzustands in Abhängigkeit von der Zeitauflösung
+        $\timestep$ und der Breite $\gausswidth$ der Normalverteilung.
     }
-    \label{fig:mesh}
+    \label{fig:mesh-e0}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{mesh-e2-e0}
+    \begin{tikzpicture}
+        \begin{axis}[
+                xlabel={$\gausswidth$},
+                ylabel={$\timestep$},
+                zlabel={$E_2 - E_0$},
+                colorbar,
+                grid=major,
+                view={-15}{15},
+            ]
+            \addplot3[
+                surf,
+                mesh/ordering=y varies,
+            ]
+            table[z index=8] {CSV/raw_data.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Energiedifferenz des zweiten angeregten Zustands in Abhängigkeit von
+        der Zeitauflösung $\timestep$ und der Breite $\gausswidth$ der
+        Normalverteilung.
+    }
+    \label{fig:mesh-e2-e0}
 \end{figure}
 
 % vim: ft=tex spell spelllang=de tw=79
