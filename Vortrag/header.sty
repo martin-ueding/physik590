@@ -1,0 +1,245 @@
+% Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
+
+% This is my general purpose LaTeX header file for writing German documents.
+% Ideally, you include this using a simple ``\input{header.tex}`` in your main
+% document and start with ``\title`` and ``\begin{document}`` afterwards.
+
+% If you need to add additional packages, I recommend not doing this in this
+% file, but in your main document. That way, you can just drop in a new
+% ``header.tex`` and get all the new commands without having to merge manually.
+
+% Since this file encorporates a CC-BY-SA fragment, this whole files is
+% licensed under the CC-BY-SA license.
+
+\ProvidesPackage{header}
+
+\usepackage{graphicx}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                Locale, date                                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{babel}
+\usepackage[iso]{isodate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                          Margins and other spacing                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[parfill]{parskip}
+\usepackage{setspace}
+\usepackage[activate]{microtype}
+
+\setlength{\columnsep}{2cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                    Color                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\colorlet{darkred}{red!70!black}
+\colorlet{darkblue}{blue!70!black}
+\colorlet{darkgreen}{green!40!black}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                         Font and font like settings                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% This replaces all fonts with Bitstream Charter, Bitstream Vera Sans and
+% Bitstream Vera Mono. Math will be rendered in Charter.
+\usepackage[charter, greekuppercase=italicized]{mathdesign}
+\usepackage{beramono}
+\usepackage{berasans}
+
+% Bold, sans-serif tensors. This fragment is taken from “egreg” from
+% http://tex.stackexchange.com/a/82747/8945 and licensed under `CC-BY-SA
+% <https://creativecommons.org/licenses/by-sa/3.0/>`_.
+
+% Bold vectors.
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                               Input encoding                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                         Hyperrefs and PDF metadata                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{hyperref}
+
+% This sets the author in the properties of the PDF as well. If you want to
+% change it, just override it with another ``\hypersetup`` call.
+\hypersetup{
+    breaklinks=false,
+    citecolor=darkgreen,
+    colorlinks=true,
+    linkcolor=darkblue,
+    menucolor=black,
+    pdfauthor={Martin Ueding},
+    urlcolor=darkblue,
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                               Math Operators                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% AMS environments like ``align`` and theorems like ``proof``.
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+% Common math constructs like partial derivatives.
+\usepackage{commath}
+
+% Physical units.
+\usepackage[output-decimal-marker={,}]{siunitx}
+
+% Since I use mathdesign with italic uppercase greek characters, the Ohm unit will be displayed with an italic Ω by default. Units have to be roman, so this forces it the right way.
+\DeclareSIUnit{\ohm}{$\Omegaup$}
+\DeclareSIUnit{\division}{DIV}
+\DeclareSIUnit{\voltss}{$\mathrm{V_{SS}}$}
+\DeclareSIUnit{\gauss}{G}
+
+% Word like operators.
+\DeclareMathOperator{\acosh}{arcosh}
+\DeclareMathOperator{\arcosh}{arcosh}
+\DeclareMathOperator{\arcsinh}{arsinh}
+\DeclareMathOperator{\arsinh}{arsinh}
+\DeclareMathOperator{\asinh}{arsinh}
+\DeclareMathOperator{\card}{card}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\sech}{sech}
+\renewcommand{\Im}{\mathop{{}\mathrm{Im}}\nolimits}
+\renewcommand{\Re}{\mathop{{}\mathrm{Re}}\nolimits}
+
+% Fourier transform.
+\DeclareMathOperator{\fourier}{\ensuremath{\mathcal{F}}}
+
+% Roman versions of “e” and “i” to serve as Euler's number and the imaginary
+% constant.
+\newcommand{\eup}{\mathrm e}
+\newcommand{\iup}{\mathrm i}
+
+% Symbols for the various mathematical fields (natural numbers, integers,
+% rational numbers, real numbers, complex numbers).
+\newcommand{\C}{\ensuremath{\mathbb C}}
+\newcommand{\N}{\ensuremath{\mathbb N}}
+\newcommand{\Q}{\ensuremath{\mathbb Q}}
+\newcommand{\R}{\ensuremath{\mathbb R}}
+\newcommand{\Z}{\ensuremath{\mathbb Z}}
+
+% Shape like operators.
+\DeclareMathOperator{\dalambert}{\Box}
+\DeclareMathOperator{\laplace}{\bigtriangleup}
+\newcommand{\curl}{\vnabla \times}
+\newcommand{\divergence}[1]{\inner{\vnabla}{#1}}
+\newcommand{\Divergence}[1]{\Inner{\vnabla}{#1}}
+\newcommand{\vnabla}{\vec \nabla}
+
+\newcommand{\half}{\frac 12}
+
+% Unit vector (German „Einheitsvektor“).
+\newcommand{\ev}{\hat{\vec e}}
+
+% Mathematician's notation for the inner (scalar, dot) product.
+\newcommand{\bracket}[1]{\langle #1 \rangle}
+\newcommand{\Bracket}[1]{\left\langle #1 \right\rangle}
+\newcommand{\inner}[2]{\bracket{#1, #2}}
+\newcommand{\Inner}[2]{\Bracket{#1, #2}}
+
+% Placeholders.
+\newcommand{\fehlt}{\textcolor{darkred}{Hier fehlen noch Inhalte.}}
+\newcommand{\messwert}{\textcolor{blue}{\square}}
+\newcommand{\punkte}{\phantom{xxxxx}}
+
+% Separator for equations on a single line.
+\newcommand{\eqnsep}{,\quad}
+
+% Quantum Mechanics.
+\usepackage{braket}
+
+% Thermodynamic partial derivative.
+\newcommand\tdpd[3]{\del{\dpd{#1}{#2}}_{#3}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                  Headings                                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% This will set fancy headings to the top of the page. The page number will be
+% accompanied by the total number of pages. That way, you will know if any page
+% is missing.
+%
+% If you do not want this for your document, you can just use
+% ``\pagestyle{plain}``.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            Bibliography (BibTeX)                            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\IfFileExists{../../central-bibtex/Central}
+{\newcommand{\bibliographyfile}{../../central-bibtex/Central}}
+{
+    \IfFileExists{central-bibtex/Central}
+    {\newcommand{\bibliographyfile}{central-bibtex/Central}}
+    {\newcommand{\bibliographyfile}{../../zentrale_BibTeX/Central}}
+}
+
+
+\usepackage[
+    backend=bibtex,
+    style=authoryear-icomp,
+    %isbn=false,
+    %pagetracker=false,
+    %maxbibnames=50,
+    %maxcitenames=2,
+    %autocite=inline,
+    %block=space,
+    %backref=false,
+    %backrefstyle=three+,
+    %date=short,
+    hyperref=true
+]{biblatex}
+
+\setlength{\bibitemsep}{.7em}
+\setlength{\bibhang}{4ex}
+
+\IfFileExists{\bibliographyfile}{
+    \bibliography{\bibliographyfile}
+    \AtEndDocument{\printbibliography}
+}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                Abbreviations                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\dhabk}{\mbox{d.\,h.}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                  Licences                                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{ccicons}
+
+\newcommand{\ccbysadetext}{%
+    \begin{small}
+        Dieses Werk bzw. Inhalt steht unter einer
+        \href{http://creativecommons.org/licenses/by-sa/3.0/deed.de}{%
+            Creative Commons Namensnennung - Weitergabe unter gleichen
+        Bedingungen 3.0 Unported Lizenz}.
+    \end{small}
+}
+
+\newcommand{\ccbysadetitle}{%
+    Lizenz: \href{http://creativecommons.org/licenses/by-sa/3.0/deed.de}
+    {CC-BY-SA 3.0 \ccbysa}
+}
+
+\newcommand\erklaerungFehlerNotation{%
+    In dieser Notation bedeutet \num{1.234 +- 0.005}, dass der Wert
+    $\num{1.234} \pm \num{0.005}$ ist. Die Ziffern in Klammern sind die
+    Fehlerangabe. Um den Fehler zu erhalten, wird diese von rechts über die
+    Zahl gelegt, alle anderen Stellen werden auf 0 gesetzt.
+}
