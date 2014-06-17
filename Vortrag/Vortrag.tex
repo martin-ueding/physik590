@@ -1,20 +1,122 @@
 \documentclass[11pt, ngerman, fleqn]{beamer}
 
+\usetheme{Berlin}
+
 \usepackage{header}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{
+    compat=1.9,
+    width=0.8\linewidth,
+    xticklabel style={/pgf/number format/use comma},
+    yticklabel style={/pgf/number format/use comma},
+}
+\usepgfplotslibrary{external}
+\tikzexternalize[mode=list and make]
+\tikzsetexternalprefix{_build/Abbildung-}
+
+\newcommand\bootstrapsamples{N_\text P}
+\newcommand\gausswidth{\sigma}
+\newcommand\initialrandomwidth{\tilde \Delta}
+\newcommand\iterations{M}
+\newcommand\margin{\Delta}
+\newcommand\mass{\mu}
+\newcommand\preiterations{M'}
+\newcommand\rounds{\bar n}
+\newcommand\timesites{N}
+\newcommand\timestep{a}
+
+\newcommand\funcmeasure{\mathcal D \vec x}
+
+
+\hypersetup{
+    pdftitle={%
+        Harmonischer Oszillator in der Pfadintegralformulierung in Euklidischer
+        Raum-Zeit mit gitterfeldtheoretischen Methoden
+    }
+}
+
 
 \title{ Gitterfeldtheoretische Behandlung des Harmonischen Oszillators in der Pfadintegralformulierung in Euklidischer Raum-Zeit }
 \author{
-    Martin Ueding \\ \small{\href{mailto:mu@martin-ueding.de}{mu@martin-ueding.de}}
+    Martin Ueding \\ mu@martin-ueding.de
 }
 
 \begin{document}
 
-\maketitle
+\begin{frame}
+    \titlepage
+\end{frame}
 
-%\newpage
-%\tableofcontents
-%\newpage
+\begin{frame}
+    \tableofcontents
+\end{frame}
 
+\section{Pfadintegrale}
+
+\section{Energiewerte}
+
+\subsection{Generalisiertes Eigenwertproblem}
+
+\subsection{Eindimensionale Wellenfunktion mit $\delta$-Störung}
+
+
+\section{Ergebnisse}
+
+\subsection{Harmonischer Oszillator}
+
+\begin{frame}
+    \frametitle{Test Titel}
+   Test 
+\end{frame}
+
+\begin{frame}
+        \tikzsetnextfilename{ED7AA2-eigenwerte-ungerade}
+        \begin{tikzpicture}
+            \begin{semilogyaxis}[
+                    width=\linewidth,
+                    height=0.55\linewidth,
+                    xlabel={$\tau$},
+                    ylabel={$\lambda_n(\tau)$},
+                    grid=major,
+                    legend entries={
+                        {$n = 1$},
+                        {$n = 3$},
+                        {$n = 5$},
+                    },
+                ]
+                \addplot[black!100!white] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-01-fit.csv};
+                \addplot[black!60!white] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-03-fit.csv};
+                \addplot[black!30!white] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-05-fit.csv};
+                \addplot[
+                    black!100!white,
+                    only marks,
+                    mark=|,
+                    error bars/.cd,
+                    y dir=both,
+                    y explicit
+                ] table[y error index=2] {../Text/CSV/lambdas/ED7AA2-eigenvalue-01.csv};
+
+                \addplot[
+                    black!60!white,
+                    only marks,
+                    mark=|,
+                    error bars/.cd,
+                    y dir=both,
+                    y explicit
+                ] table[y error index=2] {../Text/CSV/lambdas/ED7AA2-eigenvalue-03.csv};
+                \addplot[
+                    black!30!white,
+                    only marks,
+                    mark=|,
+                    error bars/.cd,
+                    y dir=both,
+                    y explicit
+                ] table[y error index=2] {../Text/CSV/lambdas/ED7AA2-eigenvalue-05.csv};
+            \end{semilogyaxis}
+        \end{tikzpicture}
+\end{frame}
 
 \end{document}
 
