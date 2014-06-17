@@ -12,62 +12,43 @@ BootstrapPool::BootstrapPool() {
 }
 
 BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
-    // Fill pool with trajectories.
     ProgressBar bar {"Populating bootstrap pool", settings.iterations};
-    for (unsigned i {0}; i < settings.iterations; ++i) {
-        trajectories.push_back(driver.next());
-        bar.update(i);
-    }
-    bar.close();
-
-    std::cout << "Accept rate:             " << driver.ma.get_accept_rate() << std::endl;
-    std::cout << "Accept rate negative:    " << driver.ma.get_accept_rate_negative() << std::endl;
-    std::cout << "Accept rate exponential: " << driver.ma.get_accept_rate_exponential() << std::endl;
-
-#ifndef NDEBUG
-    std::cout << "BootstrapPool::trajectories now contains " << trajectories.size() << " items." << std::endl;
-#endif
-
-    even.resize(trajectories.size());
-    odd.resize(trajectories.size());
 
     std::vector<std::thread> workers;
 
-    ProgressBar bar_corr {"Computing correlation matrices", static_cast<unsigned>(trajectories.size())};
+    even.resize(settings.iterations);
+    odd.resize(settings.iterations);
+
     for (unsigned i {0}; i < settings.max_cores; i++) {
-        workers.emplace_back(std::ref(*this), std::ref(settings), std::ref(bar_corr));
+        //driver.ma.re_seed(i + 10);
+        workers.emplace_back(std::ref(*this), std::ref(settings), std::ref(bar), driver);
     }
     for (unsigned i {0}; i < settings.max_cores; i++) {
         workers[i].join();
     }
-    bar_corr.close();
-
-#ifndef NDEBUG
-    std::cout << "BootstrapPool::even now contains " << even.size() << " items." << std::endl;
-    std::cout << "BootstrapPool::odd now contains " << odd.size() << " items." << std::endl;
-#endif
-
-    // Compute histograms.
-    ProgressBar bar_hist {"Computing histograms", settings.iterations};
-    for (unsigned t_id {0}; t_id < trajectories.size(); t_id++) {
-        Histogram h {settings.position_hist_min, settings.position_hist_max, settings.position_hist_bins};
-
-        for (auto x_j : trajectories[t_id]) {
-            h(x_j);
-        }
-
-        histograms.push_back(h);
-
-        bar_hist.update(t_id);
-    }
-    bar_hist.close();
+    bar.close();
 }
 
-void BootstrapPool::operator()(Settings &settings, ProgressBar &bar_corr) {
+void BootstrapPool::operator()(Settings &settings, ProgressBar &bar_corr, MetropolisDriver driver) {
+    bool has_printed {false};
     unsigned t_id;
-    while ((t_id = t_id_atom++) < trajectories.size()) {
+    while ((t_id = t_id_atom++) < settings.iterations) {
         CorrFunc map_even;
         CorrFunc map_odd;
+
+        std::vector<double> trajectory = driver.next();
+
+        if (!has_printed) {
+            std::lock_guard<std::mutex> {mutex};
+            std::cout << trajectory[0] << std::endl;
+            return;
+        }
+
+        Histogram h {settings.position_hist_min, settings.position_hist_max, settings.position_hist_bins};
+        for (auto x_j : trajectory) {
+            h(x_j);
+        }
+        histograms.push_back(h);
 
         // Compute the powers of the trajectory so that the power function does not
         // need to be invoked that often. I have not tested, but I assume that this
@@ -83,19 +64,19 @@ void BootstrapPool::operator()(Settings &settings, ProgressBar &bar_corr) {
             assert(power_odd > 0);
 
             // Bring the memory to the required size.
-            powers_even[row].resize(trajectories[t_id].size());
-            powers_odd[row].resize(trajectories[t_id].size());
+            powers_even[row].resize(settings.time_sites);
+            powers_odd[row].resize(settings.time_sites);
 
             // Take the power from all the x[k].
-            for (unsigned k {0u}; k < trajectories[t_id].size(); ++k) {
-                powers_even[row][k] = std::pow(trajectories[t_id][k], power_even);
-                powers_odd[row][k] = std::pow(trajectories[t_id][k], power_odd);
+            for (unsigned k {0u}; k < settings.time_sites; ++k) {
+                powers_even[row][k] = std::pow(trajectory[k], power_even);
+                powers_odd[row][k] = std::pow(trajectory[k], power_odd);
             }
         }
 
         for (unsigned distance : settings.correlation_ts) {
-            map_even.emplace(distance, correlation(trajectories[t_id], powers_even, settings, distance, true));
-            map_odd.emplace(distance, correlation(trajectories[t_id], powers_odd, settings, distance, false));
+            map_even.emplace(distance, correlation(trajectory, powers_even, settings, distance, true));
+            map_odd.emplace(distance, correlation(trajectory, powers_odd, settings, distance, false));
         }
         std::lock_guard<std::mutex> {mutex};
         even[t_id] = map_even;
@@ -103,6 +84,10 @@ void BootstrapPool::operator()(Settings &settings, ProgressBar &bar_corr) {
 
         bar_corr.update(t_id);
     }
+
+    std::cout << "Accept rate:             " << driver.ma.get_accept_rate() << std::endl;
+    std::cout << "Accept rate negative:    " << driver.ma.get_accept_rate_negative() << std::endl;
+    std::cout << "Accept rate exponential: " << driver.ma.get_accept_rate_exponential() << std::endl;
 }
 
 void save_pool(std::shared_ptr<BootstrapPool> pool, Settings &settings) {

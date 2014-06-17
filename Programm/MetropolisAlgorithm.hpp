@@ -43,6 +43,8 @@ class MetropolisAlgorithm {
 
         void reset_accept_rate();
 
+        void re_seed(int seed);
+
     private:
         /**
           System to work with.

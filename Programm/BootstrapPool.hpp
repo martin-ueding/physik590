@@ -63,30 +63,24 @@ class BootstrapPool {
           */
         BootstrapPool(MetropolisDriver &driver, Settings &settings);
 
-        void operator()(Settings &settings, ProgressBar &bar_corr);
+        void operator()(Settings &settings, ProgressBar &bar_corr, MetropolisDriver driver);
 
         /**
           Gives the size of the pool.
           */
         size_t size() {
-            return trajectories.size();
+            return histograms.size();
         }
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-parameter"
         template<class Archive>
         void serialize(Archive &ar, const unsigned version) {
-            ar &trajectories;
             ar &even;
             ar &odd;
             ar &histograms;
         }
 #pragma clang diagnostic pop
-
-        /**
-          The original trajectories.
-          */
-        std::vector<std::vector<double>> trajectories;
 
         /**
           Pool of even correlation matrix function summands.

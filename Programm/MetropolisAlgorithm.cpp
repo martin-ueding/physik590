@@ -75,3 +75,8 @@ double MetropolisAlgorithm::get_accept_rate_negative() {
 double MetropolisAlgorithm::get_accept_rate_exponential() {
     return (double) accepted_exponential / samples;
 }
+
+void MetropolisAlgorithm::re_seed(int seed) {
+    position_engine.seed(seed);
+    accept_engine.seed(seed);
+}
