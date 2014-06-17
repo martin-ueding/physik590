@@ -39,6 +39,9 @@ void BootstrapPool::worker(Settings &settings, ProgressBar &bar_corr, Metropolis
         CorrList list_even;
         CorrList list_odd;
 
+        list_even.reserve(settings.correlation_ts.size());
+        list_odd.reserve(settings.correlation_ts.size());
+
         std::vector<double> trajectory = driver.next();
 
         Histogram h {settings.position_hist_min, settings.position_hist_max, settings.position_hist_bins};
