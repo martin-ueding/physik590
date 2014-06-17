@@ -20,8 +20,9 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
     odd.resize(settings.iterations);
 
     for (unsigned i {0}; i < settings.max_cores; i++) {
-        //driver.ma.re_seed(i + 10);
-        workers.emplace_back(std::ref(*this), std::ref(settings), std::ref(bar), driver);
+        workers.emplace_back([this, &settings, &bar, driver, i]() {
+                worker(settings, bar, driver, i);
+                });
     }
     for (unsigned i {0}; i < settings.max_cores; i++) {
         workers[i].join();
@@ -29,9 +30,10 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
     bar.close();
 }
 
-void BootstrapPool::operator()(Settings &settings, ProgressBar &bar_corr, MetropolisDriver driver) {
+void BootstrapPool::worker(Settings &settings, ProgressBar &bar_corr, MetropolisDriver driver, int seed) {
     bool has_printed {false};
     unsigned t_id;
+    driver.ma.re_seed(seed + 10);
     while ((t_id = t_id_atom++) < settings.iterations) {
         CorrFunc map_even;
         CorrFunc map_odd;
@@ -40,7 +42,7 @@ void BootstrapPool::operator()(Settings &settings, ProgressBar &bar_corr, Metrop
 
         if (!has_printed) {
             std::lock_guard<std::mutex> {mutex};
-            std::cout << trajectory[0] << std::endl;
+            std::cout << std::endl << &driver << " " << &driver.ma << " " << &driver.x << " " << &trajectory[0] << " " << trajectory[0] << std::endl;
             return;
         }
 

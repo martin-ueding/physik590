@@ -63,7 +63,7 @@ class BootstrapPool {
           */
         BootstrapPool(MetropolisDriver &driver, Settings &settings);
 
-        void operator()(Settings &settings, ProgressBar &bar_corr, MetropolisDriver driver);
+        void worker(Settings &settings, ProgressBar &bar_corr, MetropolisDriver driver, int seed);
 
         /**
           Gives the size of the pool.
