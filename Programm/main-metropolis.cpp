@@ -31,7 +31,9 @@ int main(int argc, char **argv) {
 
     settings.estimate_memory_usage();
 
+    ProgressBar driver_bar {"Creating thermalized state", settings.pre_iterations};
     MetropolisDriver m_driver {settings};
+    driver_bar.close();
 
     std::shared_ptr<BootstrapPool> pool;
 
