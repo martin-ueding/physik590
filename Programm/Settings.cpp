@@ -137,29 +137,29 @@ unsigned Settings::state_to_matrix(unsigned n) {
     return (n - 1) / 2;
 }
 
-unsigned Settings::get_t_0(unsigned t) {
-    switch (t_0_mode) {
-        case 1:
-            return get_t_0_half(t);
-            break;
-        default:
-            return get_t_0_fixed();
-            break;
-    }
-}
-
-unsigned Settings::get_t_0_fixed() {
+unsigned Settings::get_t_0_id_fixed() {
     return t_0;
 }
 
-unsigned Settings::get_t_0_half(unsigned t) {
+unsigned Settings::get_t_0_id_half(unsigned t) {
     double t0 = t / 2;
-    for (unsigned t0_candidate : correlation_ts) {
-        if (t0_candidate >= t0) {
-            return t0_candidate;
+    for (unsigned i = 0; i != correlation_ts.size(); i++) {
+        if (correlation_ts[i] >= t0) {
+            return i;
         }
     }
     throw std::range_error{"t_0 cannot be found in correlation_ts"};
+}
+
+unsigned Settings::get_t_0_id(unsigned t_id) {
+    switch (t_0_mode) {
+        case 1:
+            return get_t_0_id_half(t_id);
+            break;
+        default:
+            return get_t_0_id_fixed();
+            break;
+    }
 }
 
 void Settings::estimate_memory_usage() {

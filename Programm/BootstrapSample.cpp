@@ -3,18 +3,12 @@
 
 #include "BootstrapSample.hpp"
 
-BootstrapSample::BootstrapSample(BootstrapPool &pool, Settings &settings) :
-    histogram {pool.histograms[0].get_min(), pool.histograms[0].get_max(), pool.histograms[0].size()} {
-    for (auto & p : pool.even[0]) {
-        Eigen::MatrixXd m {p.second.rows(), p.second.cols()};
-        m.setZero();
-        even.insert(CorrFunc::value_type {p.first, m});
-    }
-
-    for (auto & p : pool.odd[0]) {
-        Eigen::MatrixXd m {p.second.rows(), p.second.cols()};
-        m.setZero();
-        odd.insert(CorrFunc::value_type {p.first, m});
+BootstrapSample::BootstrapSample(BootstrapPool &pool, Settings &settings) : histogram {pool.histograms[0].get_min(), pool.histograms[0].get_max(), pool.histograms[0].size()} {
+    Eigen::MatrixXd m {settings.correlation_size, settings.correlation_size};
+    m.setZero();
+    for (unsigned i = 0; i != settings.correlation_ts.size(); i++) {
+        even.push_back(m);
+        odd.push_back(m);
     }
 
     std::uniform_int_distribution<size_t> dist {settings.bootstrap_min, pool.size() - 1};
@@ -23,26 +17,24 @@ BootstrapSample::BootstrapSample(BootstrapPool &pool, Settings &settings) :
     for (unsigned index_id {0}; index_id < count; index_id++) {
         unsigned i = dist(pool.engine);
 
-        auto &even_element = pool.even[i];
-        for (auto & p : even_element) {
-            even[p.first] += p.second;
+        for (unsigned j = 0; j != settings.correlation_ts.size(); j++) {
+            even[j] += pool.even[i][j];
         }
 
-        auto &odd_element = pool.odd[i];
-        for (auto & p : odd_element) {
-            odd[p.first] += p.second;
+        for (unsigned j = 0; j != settings.correlation_ts.size(); j++) {
+            even[j] += pool.odd[i][j];
         }
 
         histogram += pool.histograms[i];
     }
 
     // Normalize all correlation matrices.
-    for (auto &pair : even) {
-        pair.second /= pool.size();
+    for (auto &matrix : even) {
+        matrix /= pool.size();
     }
 
     // Normalize all correlation matrices.
-    for (auto &pair : odd) {
-        pair.second /= pool.size();
+    for (auto &matrix : odd) {
+        matrix /= pool.size();
     }
 }

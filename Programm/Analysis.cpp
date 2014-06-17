@@ -19,13 +19,13 @@ boot_hist {BootstrappedHistogram{
     }
 } {
 
-    for (unsigned t : settings.correlation_ts) {
+    for (unsigned t_id = 0; t_id != settings.correlation_ts.size(); t_id++) {
         std::map<unsigned, BootstrappedQuantity> inner;
         for (unsigned n {0}; n < settings.max_energyvalue(); n++) {
             inner.emplace(std::piecewise_construct, std::make_tuple(n), std::make_tuple());
         }
 
-        bs_E_n_t.emplace(t, std::move(inner));
+        bs_E_n_t.push_back(std::move(inner));
     }
 
     if (settings.bootstrap_samples > 0) {
@@ -36,21 +36,21 @@ boot_hist {BootstrappedHistogram{
     }
 }
 
-void Analysis::insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_t) {
-    for (unsigned t : settings.correlation_ts) {
-        unsigned t_0 = settings.get_t_0(t);
-        if (t <= t_0) {
+void Analysis::insert_eigenvalues(CorrList &C, bool even, BQMapMap &bs_lambda_n_t) {
+    for (unsigned t_id = 0; t_id != settings.correlation_ts.size(); t_id++) {
+        unsigned t_0_id = settings.get_t_0_id(t_id);
+        if (t_id <= t_0_id) {
             continue;
         }
-        auto &C_t0 = C[t_0];
-        std::vector<double> lambda_i_t (GEVPSolver::eigenvalues(C[t], C_t0));
+        auto &C_t0 = C[t_0_id];
+        std::vector<double> lambda_i_t (GEVPSolver::eigenvalues(C[t_id], C_t0));
 
         // Remove the first even eigenvalue here since that does not give an
         // energy eigenvalue.
         unsigned cutoff {even ? 1u : 0u};
         for (unsigned i {cutoff}; i < lambda_i_t.size(); i++) {
             double lambda {lambda_i_t[i]};
-            bs_lambda_n_t[t][settings.matrix_to_state(i - cutoff, even)].append(lambda);
+            bs_lambda_n_t[t_id][settings.matrix_to_state(i - cutoff, even)].append(lambda);
         }
     }
 }
@@ -78,10 +78,10 @@ void Analysis::worker(ProgressBar &bar) {
         BootstrapSample sample {pool, settings};
 
         // Extract C_11.
-        CorrFunc &odd {sample.odd};
-        for (std::pair<const unsigned, Eigen::MatrixXd> &pair : odd) {
-            unsigned t {pair.first};
-            Eigen::MatrixXd &c_t {pair.second};
+        CorrList &odd {sample.odd};
+        for (unsigned t_id = 0; t_id != settings.correlation_ts.size(); t_id++) {
+            unsigned t {settings.correlation_ts[t_id]};
+            Eigen::MatrixXd &c_t {odd[t_id]};
             double c_t_11 {c_t(settings.state_to_matrix(1), settings.state_to_matrix(1))};
             c11[t].append(c_t_11);
         }
@@ -102,11 +102,11 @@ void Analysis::save_eigenvalues() {
         std::ostringstream filename;
         std::ostringstream output;
         filename << "eigenvalue-" << std::setfill('0') << std::setw(2) << n << ".csv";
-        for (unsigned t : settings.correlation_ts) {
+        for (unsigned t_id = 0; t_id != settings.correlation_ts.size(); t_id++) {
             try {
-                double mean {bs_E_n_t[t][n].mean()};
-                double stddev {bs_E_n_t[t][n].stddev()};
-                output << t *settings.time_step << "\t" << mean << "\t" << stddev << std::endl;
+                double mean {bs_E_n_t[t_id][n].mean()};
+                double stddev {bs_E_n_t[t_id][n].stddev()};
+                output << settings.correlation_ts[t_id] *settings.time_step << "\t" << mean << "\t" << stddev << std::endl;
             }
             catch (std::runtime_error e) {
             }

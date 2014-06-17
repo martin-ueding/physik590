@@ -65,7 +65,7 @@ class Settings {
           */
         void compute();
 
-        unsigned get_t_0(unsigned t);
+        unsigned get_t_0_id(unsigned t);
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-parameter"
@@ -249,8 +249,8 @@ class Settings {
         unsigned corr_tau_count {20};
 
     protected:
-        unsigned get_t_0_fixed();
-        unsigned get_t_0_half(unsigned t);
+        unsigned get_t_0_id_fixed();
+        unsigned get_t_0_id_half(unsigned t);
 
     private:
         /**

@@ -45,7 +45,7 @@ namespace boost {
 #pragma clang diagnostic pop
 }
 
-typedef std::map<unsigned, Eigen::MatrixXd> CorrFunc;
+typedef std::vector<Eigen::MatrixXd> CorrList;
 
 /**
   The base set of trajectories that are used for bootstrapping later on.
@@ -89,12 +89,12 @@ class BootstrapPool {
           given distance. The matrix only contrains correlations for \c i and
           \c j that are even.
           */
-        std::vector<CorrFunc> even;
+        std::vector<CorrList> even;
 
         /**
           Same as \ref even, just for odd \c i and \c j.
           */
-        std::vector<CorrFunc> odd;
+        std::vector<CorrList> odd;
 
         std::vector<Histogram> histograms;
 

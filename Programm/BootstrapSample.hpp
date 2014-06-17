@@ -19,12 +19,12 @@ class BootstrapSample {
         /**
           Combined correlation matrix function from all the summands.
           */
-        CorrFunc even;
+        CorrList even;
 
         /**
           Similar to \ref even.
           */
-        CorrFunc odd;
+        CorrList odd;
 
         /**
           Histogram combined from all the summand histograms.

@@ -36,8 +36,8 @@ void BootstrapPool::worker(Settings &settings, ProgressBar &bar_corr, Metropolis
     unsigned t_id;
     driver.ma.re_seed(seed + 10);
     while ((t_id = t_id_atom++) < settings.iterations) {
-        CorrFunc map_even;
-        CorrFunc map_odd;
+        CorrList list_even;
+        CorrList list_odd;
 
         std::vector<double> trajectory = driver.next();
 
@@ -72,12 +72,12 @@ void BootstrapPool::worker(Settings &settings, ProgressBar &bar_corr, Metropolis
         }
 
         for (unsigned distance : settings.correlation_ts) {
-            map_even.emplace(distance, correlation(trajectory, powers_even, settings, distance, true));
-            map_odd.emplace(distance, correlation(trajectory, powers_odd, settings, distance, false));
+            list_even.push_back(correlation(trajectory, powers_even, settings, distance, true));
+            list_odd.push_back(correlation(trajectory, powers_odd, settings, distance, false));
         }
         std::lock_guard<std::mutex> {mutex};
-        even[t_id] = map_even;
-        odd[t_id] = map_odd;
+        even[t_id] = list_even;
+        odd[t_id] = list_odd;
 
         bar_corr.update(t_id);
     }

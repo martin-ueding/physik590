@@ -10,14 +10,14 @@
 
 #include <atomic>
 
-typedef std::map<unsigned, std::map<unsigned, BootstrappedQuantity>> BQMapMap;
+typedef std::vector<std::map<unsigned, BootstrappedQuantity>> BQMapMap;
 
 class Analysis {
     public:
         Analysis(BootstrapPool &pool, Settings &settings);
 
     protected:
-        void insert_eigenvalues(CorrFunc &C, bool even, BQMapMap &bs_lambda_n_t);
+        void insert_eigenvalues(CorrList &C, bool even, BQMapMap &bs_lambda_n_t);
         void create_samples();
         void save_eigenvalues();
         void save_c11();
