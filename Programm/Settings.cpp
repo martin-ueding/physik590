@@ -164,8 +164,7 @@ unsigned Settings::get_t_0_half(unsigned t) {
 
 void Settings::estimate_memory_usage() {
     size_t correlation_entries = 2 * correlation_ts.size() * std::pow(correlation_size, 2) * iterations;
-    size_t trajectory_entries = iterations * time_sites;
-    size_t total = correlation_entries + trajectory_entries;
+    size_t total = correlation_entries;
 
     SizePrinter printer;
 
