@@ -103,6 +103,9 @@ class BootstrapPool {
     protected:
         std::atomic<unsigned> t_id_atom {0};
         std::mutex mutex;
+
+        std::ostringstream accept_rate_output;
+        std::mutex accept_rate_mutex;
 };
 
 void save_pool(std::shared_ptr<BootstrapPool> pool, Settings &settings);

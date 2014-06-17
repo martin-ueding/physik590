@@ -28,10 +28,11 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
         workers[i].join();
     }
     bar.close();
+
+    std::cout << accept_rate_output.str();
 }
 
 void BootstrapPool::worker(Settings &settings, ProgressBar &bar_corr, MetropolisDriver driver, int seed) {
-    bool has_printed {false};
     unsigned t_id;
     driver.ma.re_seed(seed + 10);
     while ((t_id = t_id_atom++) < settings.iterations) {
@@ -39,12 +40,6 @@ void BootstrapPool::worker(Settings &settings, ProgressBar &bar_corr, Metropolis
         CorrFunc map_odd;
 
         std::vector<double> trajectory = driver.next();
-
-        if (!has_printed) {
-            std::lock_guard<std::mutex> {mutex};
-            std::cout << std::endl << &driver << " " << &driver.ma << " " << &driver.x << " " << &trajectory[0] << " " << trajectory[0] << std::endl;
-            return;
-        }
 
         Histogram h {settings.position_hist_min, settings.position_hist_max, settings.position_hist_bins};
         for (auto x_j : trajectory) {
@@ -87,9 +82,10 @@ void BootstrapPool::worker(Settings &settings, ProgressBar &bar_corr, Metropolis
         bar_corr.update(t_id);
     }
 
-    std::cout << "Accept rate:             " << driver.ma.get_accept_rate() << std::endl;
-    std::cout << "Accept rate negative:    " << driver.ma.get_accept_rate_negative() << std::endl;
-    std::cout << "Accept rate exponential: " << driver.ma.get_accept_rate_exponential() << std::endl;
+    std::lock_guard<std::mutex> {accept_rate_mutex};
+    accept_rate_output << "Accept rate:             " << driver.ma.get_accept_rate() << std::endl;
+    accept_rate_output << "Accept rate negative:    " << driver.ma.get_accept_rate_negative() << std::endl;
+    accept_rate_output << "Accept rate exponential: " << driver.ma.get_accept_rate_exponential() << std::endl;
 }
 
 void save_pool(std::shared_ptr<BootstrapPool> pool, Settings &settings) {
