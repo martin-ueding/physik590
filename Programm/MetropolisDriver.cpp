@@ -6,7 +6,7 @@
 #include "VectorHelper.hpp"
 
 MetropolisDriver::MetropolisDriver(Settings settings) :
-ma {MetropolisAlgorithm {x, system, settings.position_seed, settings.accept_seed}},
+ma {MetropolisAlgorithm {system, settings.position_seed, settings.accept_seed}},
          x {std::vector<double>(settings.time_sites)} ,
     settings {settings},
          system {Oscillator {settings}} {
@@ -20,16 +20,16 @@ ma {MetropolisAlgorithm {x, system, settings.position_seed, settings.accept_seed
     vh.save_plot_file(x, settings.generate_filename("trajectory-02-random.csv"), settings.report());
 
     for (unsigned i = 0; i < settings.pre_iterations - settings.iterations_between; i++) {
-        ma.iteration(settings.pre_rounds, settings.margin);
+        ma.iteration(x, settings.pre_rounds, settings.margin);
     }
     vh.save_plot_file(x, settings.generate_filename("trajectory-04-more_iterations.csv"), settings.report());
 }
 
 std::vector<double> MetropolisDriver::next() {
     for (unsigned j = 0; j < settings.iterations_between; j++) {
-        ma.iteration(settings.rounds, settings.margin);
+        ma.iteration(x, settings.rounds, settings.margin);
     }
-    ma.iteration(settings.rounds, settings.margin);
+    ma.iteration(x, settings.rounds, settings.margin);
 
     return x;
 }

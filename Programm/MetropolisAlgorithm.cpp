@@ -7,9 +7,9 @@
 
 #include <cmath>
 
-MetropolisAlgorithm::MetropolisAlgorithm(std::vector<double> &x, Oscillator &s,
+MetropolisAlgorithm::MetropolisAlgorithm(Oscillator &s,
         int position_seed, int accept_seed) :
-    x(x), system(s),
+    system(s),
     position_engine(std::mt19937 {position_seed}),
 accept_engine(std::mt19937 {accept_seed}) {
 }
@@ -30,7 +30,7 @@ bool MetropolisAlgorithm::accept_action_difference(double action_difference) {
     }
 }
 
-void MetropolisAlgorithm::iteration(int rounds, double margin) {
+void MetropolisAlgorithm::iteration(std::vector<double> &x, int rounds, double margin) {
     for (unsigned int j {0}; j < x.size(); j++) {
         // Wrap j around to create periodic boundary conditions.
         unsigned int j_plus_one {Periodic::wrap(j + 1, x.size())};

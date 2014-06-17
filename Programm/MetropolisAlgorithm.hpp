@@ -19,23 +19,18 @@ class MetropolisAlgorithm {
           To change the initial seeds of the random generators, specify a
           value.
 
-          @param x Trajectory of the particle
           @param s System to work with
           @param position_seed Seed for position generator
           @param accept_seed Seed for accept generator
           */
-        MetropolisAlgorithm(std::vector<double> &x, Oscillator &s,
-                            int position_seed, int accept_seed);
+        MetropolisAlgorithm(Oscillator &s, int position_seed, int accept_seed);
 
         /**
           Does a single iteration.
-          */
-        void iteration(int rounds, double margin);
 
-        /**
-          Positions @f$ \{ x_j \} @f$.
+          @param x Trajectory of the particle
           */
-        std::vector<double> &x;
+        void iteration(std::vector<double> &x, int rounds, double margin);
 
         double get_accept_rate();
         double get_accept_rate_negative();
