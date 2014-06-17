@@ -179,13 +179,7 @@
 %                            Bibliography (BibTeX)                            %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\IfFileExists{../../central-bibtex/Central}
-{\newcommand{\bibliographyfile}{../../central-bibtex/Central}}
-{
-    \IfFileExists{central-bibtex/Central}
-    {\newcommand{\bibliographyfile}{central-bibtex/Central}}
-    {\newcommand{\bibliographyfile}{../../zentrale_BibTeX/Central}}
-}
+\newcommand{\bibliographyfile}{../Text/central-bibtex/Central}
 
 
 \usepackage[
@@ -206,10 +200,7 @@
 \setlength{\bibitemsep}{.7em}
 \setlength{\bibhang}{4ex}
 
-\IfFileExists{\bibliographyfile}{
-    \bibliography{\bibliographyfile}
-    \AtEndDocument{\printbibliography}
-}{}
+\bibliography{\bibliographyfile}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                Abbreviations                                %

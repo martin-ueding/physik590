@@ -74,54 +74,66 @@
 
 \begin{frame}
     \frametitle{Test Titel}
-   Test 
+    Test 
+
+    \begin{itemize}
+        \item Test
+        \item Item
+    \end{itemize}
+
+    \parencite{penrose-road_to_reality}
 \end{frame}
 
 \begin{frame}
-        \tikzsetnextfilename{ED7AA2-eigenwerte-ungerade}
-        \begin{tikzpicture}
-            \begin{semilogyaxis}[
-                    width=\linewidth,
-                    height=0.55\linewidth,
-                    xlabel={$\tau$},
-                    ylabel={$\lambda_n(\tau)$},
-                    grid=major,
-                    legend entries={
-                        {$n = 1$},
-                        {$n = 3$},
-                        {$n = 5$},
-                    },
-                ]
-                \addplot[black!100!white] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-01-fit.csv};
-                \addplot[black!60!white] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-03-fit.csv};
-                \addplot[black!30!white] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-05-fit.csv};
-                \addplot[
-                    black!100!white,
-                    only marks,
-                    mark=|,
-                    error bars/.cd,
-                    y dir=both,
-                    y explicit
-                ] table[y error index=2] {../Text/CSV/lambdas/ED7AA2-eigenvalue-01.csv};
+    \frametitle{Ungerade Eigenwerte}
+    \tikzsetnextfilename{ED7AA2-eigenwerte-ungerade}
+    \begin{tikzpicture}
+        \begin{semilogyaxis}[
+                width=\linewidth,
+                height=0.55\linewidth,
+                xlabel={$\tau$},
+                ylabel={$\lambda_n(\tau)$},
+                grid=major,
+                legend entries={
+                    {$n = 1$},
+                    {$n = 3$},
+                    {$n = 5$},
+                },
+            ]
+            \addplot[black!100!white] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-01-fit.csv};
+            \addplot[black!60!white] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-03-fit.csv};
+            \addplot[black!30!white] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-05-fit.csv};
+            \addplot[
+                black!100!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {../Text/CSV/lambdas/ED7AA2-eigenvalue-01.csv};
 
-                \addplot[
-                    black!60!white,
-                    only marks,
-                    mark=|,
-                    error bars/.cd,
-                    y dir=both,
-                    y explicit
-                ] table[y error index=2] {../Text/CSV/lambdas/ED7AA2-eigenvalue-03.csv};
-                \addplot[
-                    black!30!white,
-                    only marks,
-                    mark=|,
-                    error bars/.cd,
-                    y dir=both,
-                    y explicit
-                ] table[y error index=2] {../Text/CSV/lambdas/ED7AA2-eigenvalue-05.csv};
-            \end{semilogyaxis}
-        \end{tikzpicture}
+            \addplot[
+                black!60!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {../Text/CSV/lambdas/ED7AA2-eigenvalue-03.csv};
+            \addplot[
+                black!30!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {../Text/CSV/lambdas/ED7AA2-eigenvalue-05.csv};
+        \end{semilogyaxis}
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+    \printbibliography
 \end{frame}
 
 \end{document}
