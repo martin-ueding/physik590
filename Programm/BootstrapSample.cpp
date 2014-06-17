@@ -22,7 +22,7 @@ BootstrapSample::BootstrapSample(BootstrapPool &pool, Settings &settings) : hist
         }
 
         for (unsigned j = 0; j != settings.correlation_ts.size(); j++) {
-            even[j] += pool.odd[i][j];
+            odd[j] += pool.odd[i][j];
         }
 
         histogram += pool.histograms[i];
