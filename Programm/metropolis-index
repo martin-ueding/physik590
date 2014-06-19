@@ -28,7 +28,8 @@ def main():
         'corr_max',
         'Δ',
         'irw',
-        'Pre Iter',
+        'Pre',
+        'Betw',
     ])
 
     rows = []
@@ -53,6 +54,7 @@ def main():
             p(info['margin']),
             p(info['initial_random_width']),
             p(info['pre_iterations']),
+            p(info['iterations_between']),
         ])
 
     for j in range(len(rows[0])):
