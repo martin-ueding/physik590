@@ -20,13 +20,15 @@ def main():
     table = prettytable.PrettyTable([
         'ID',
         'iter',
-        'isl',
-        'gauss_width',
+        '1/a_0',
+        'σ',
         'corr_size',
-        'time_sites',
-        'time_step',
+        'N',
+        'a',
         'corr_max',
-        'margin',
+        'Δ',
+        'irw',
+        'Pre Iter',
     ])
 
     rows = []
@@ -49,6 +51,8 @@ def main():
             p(info['time_step']),
             p(info['correlation_ts'][-1] * info['time_step']),
             p(info['margin']),
+            p(info['initial_random_width']),
+            p(info['pre_iterations']),
         ])
 
     for j in range(len(rows[0])):
@@ -57,10 +61,11 @@ def main():
         for i in range(len(rows)):
             if '.' in rows[i][j]:
                 parts = rows[i][j].split('.')
+                max_post = max(len(parts[1]) + 1, max_post)
             else:
                 parts = [rows[i][j], '']
+                max_post = max(len(parts[1]), max_post)
             max_pre = max(len(parts[0]), max_pre)
-            max_post = max(len(parts[1]) + 1, max_post)
         for i in range(len(rows)):
             parts = rows[i][j].split('.')
             if '.' in rows[i][j]:
