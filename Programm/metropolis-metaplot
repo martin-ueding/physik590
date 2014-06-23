@@ -5,6 +5,7 @@
 
 import argparse
 
+import colorsys
 import matplotlib.pyplot as pl
 import mpl_toolkits.mplot3d.axes3d as p3
 import numpy as np
@@ -12,18 +13,28 @@ import prettytable
 import scipy.optimize as op
 import unitprint
 
+def coloriter(n):
+    for x in range(n):
+        yield colorsys.hsv_to_rgb(x*1.0/n, 1.0, .8)
+
 def make_col(data, col, ylabel, outfile, harmonic, anharmonic):
+    group_by(data, col, r'$\sigma$', ylabel, 'sigma-'+outfile, harmonic, anharmonic, 1, 0, 'a')
+    group_by(data, col, r'$a$', ylabel, 'a-'+outfile, harmonic, anharmonic, 0, 1, '\sigma')
+
+def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col, free_col, legend):
     time_groups = {}
-    for row in range(len(data[:, 1])):
-        time_step = data[row, 1]
+    data = data[data[:, free_col].argsort()]
+    for row in range(len(data[:, group_col])):
+        time_step = data[row, group_col]
         if not time_step in time_groups:
             time_groups[time_step] = []
-        time_groups[time_step].append((data[row, 0], data[row, col], data[row, col+1]))
+        time_groups[time_step].append((data[row, free_col], data[row, col], data[row, col+1]))
 
     x_min = 0
     x_max = -1000
 
     i = 0
+    ci = coloriter(len(time_groups.items()))
     for time_step, items in sorted(time_groups.items()):
         items = np.array(items)
         gauss_width = items[:, 0]
@@ -33,7 +44,7 @@ def make_col(data, col, ylabel, outfile, harmonic, anharmonic):
         x_min = min(x_min, np.min(gauss_width))
         x_max = max(x_max, np.max(gauss_width))
 
-        pl.errorbar(gauss_width + i * x_max / 200, y_val, yerr=y_err, label='a = {:f}'.format(time_step), marker='|')
+        pl.errorbar(gauss_width + i * x_max / 200, y_val, yerr=y_err, label='${} = {:f}$'.format(legend, time_step), marker='|', color=next(ci))
 
 
         i += 1
@@ -41,11 +52,11 @@ def make_col(data, col, ylabel, outfile, harmonic, anharmonic):
     x = np.array([x_min, x_max])
     ones = np.array([1, 1])
 
-    pl.plot(x, ones * harmonic,   color='gray')
-    pl.plot(x, ones * anharmonic, color='black')
+    pl.plot(x, ones * harmonic,   linestyle='--', color='gray')
+    pl.plot(x, ones * anharmonic, linestyle='--', color='black')
 
-    pl.title(r'{} gegen $\sigma$'.format(ylabel))
-    pl.xlabel(r'$\sigma$')
+    pl.title(r'{} gegen {}'.format(ylabel, xlabel))
+    pl.xlabel(xlabel)
     pl.ylabel(ylabel)
     pl.grid(True)
     pl.margins(0.1)
