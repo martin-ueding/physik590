@@ -68,7 +68,7 @@ def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col
 
         np.savetxt('{}-{}.csv'.format(outfile, time_step), np.column_stack([gauss_width, y_val, y_err]))
 
-        i += 1
+        #i += 1
 
         # Fit a function to some of the data points
         s = gauss_width >= fit_min
@@ -81,6 +81,7 @@ def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col
             ])
 
             pl.plot(plot_x, plot_y, color=color, linestyle='dotted')
+            np.savetxt(outfile+'-fit-{}.csv'.format(time_step), np.column_stack([plot_x, plot_y]))
 
     x = np.array([x_min, x_max])
     ones = np.array([1, 1])
@@ -88,7 +89,16 @@ def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col
     pl.plot(x, ones * harmonic, linestyle='--', color='gray')
     pl.plot(x, ones * anharmonic, linestyle='--', color='black')
 
-    np.savetxt(outfile+'-meta.csv', np.array(meta_fit))
+    meta_fit = np.array(meta_fit)
+    for lower_bound in meta_fit[:, 0]:
+        s = meta_fit[:, 0] >= lower_bound
+        if len(meta_fit[:, 0][s]) >= 3:
+            popt, pconv = op.curve_fit(quadratic, meta_fit[:, 0][s], meta_fit[:, 1][s])
+            plot_x = np.linspace(0, np.max(meta_fit[:, 0]), 1000)
+            plot_y = quadratic(plot_x, *popt)
+
+        np.savetxt(outfile+'-meta-daten.csv', meta_fit)
+        np.savetxt(outfile+'-meta-fit-{}.csv'.format(lower_bound), np.column_stack([plot_x, plot_y]))
 
     pl.title(r'{} gegen {}'.format(ylabel, xlabel))
     pl.xlabel(xlabel)
