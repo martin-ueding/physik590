@@ -46,13 +46,14 @@ def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col
 
         pl.errorbar(gauss_width + i * x_max / 200, y_val, yerr=y_err, label='${} = {:f}$'.format(legend, time_step), marker='|', color=next(ci))
 
+        np.savetxt('{}-{}.csv'.format(outfile, time_step), np.column_stack([gauss_width, y_val, y_err]))
 
         i += 1
 
     x = np.array([x_min, x_max])
     ones = np.array([1, 1])
 
-    pl.plot(x, ones * harmonic,   linestyle='--', color='gray')
+    pl.plot(x, ones * harmonic, linestyle='--', color='gray')
     pl.plot(x, ones * anharmonic, linestyle='--', color='black')
 
     pl.title(r'{} gegen {}'.format(ylabel, xlabel))
@@ -62,7 +63,7 @@ def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col
     pl.margins(0.1)
     pl.legend(loc='best', prop={'size': 6})
     #pl.show()
-    pl.savefig(outfile)
+    pl.savefig(outfile+'.pdf')
     pl.clf()
 
 def main():
@@ -73,12 +74,12 @@ def main():
 
     data = np.loadtxt(options.filename)
 
-    make_col(data, 2, r'$E_0$', 'E0.pdf', 0.5, 1.08389)
-    make_col(data, 4, r'$E_2$', 'E2.pdf', 2.5, 2.93722)
-    make_col(data, 6, r'$E_4$', 'E4.pdf', 4.5, 4.86274)
-    make_col(data, 8, r'$E_2 - E_0$', 'E2-E0.pdf', 2, 1.85333)
-    make_col(data, 10, r'$E_4 - E_0$', 'E4-E0.pdf', 4, 3.77885)
-    make_col(data, 12, r'$E_4 - E_2$', 'E4-E2.pdf', 2, 1.92552)
+    make_col(data, 2, r'$E_0$', 'E0', 0.5, 1.08389)
+    make_col(data, 4, r'$E_2$', 'E2', 2.5, 2.93722)
+    make_col(data, 6, r'$E_4$', 'E4', 4.5, 4.86274)
+    make_col(data, 8, r'$E_2 - E_0$', 'E2-E0', 2, 1.85333)
+    make_col(data, 10, r'$E_4 - E_0$', 'E4-E0', 4, 3.77885)
+    make_col(data, 12, r'$E_4 - E_2$', 'E4-E2', 2, 1.92552)
 
 
 def _parse_args():
