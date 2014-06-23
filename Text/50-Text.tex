@@ -1051,6 +1051,8 @@ negative Kopplungsstärke.
     \label{fig:gausspotential-negativ}
 \end{figure}
 
+\subsection{Aufenthaltswahrscheinlichkeit}
+
 Mit dem veränderten Potential können alle vorherigen Rechnungen wiederholt
 werden. Abbildung~\ref{fig:histogram_gauss} zeigt die
 Aufenthaltswahrscheinlichkeit.
@@ -1087,6 +1089,8 @@ Aufenthaltswahrscheinlichkeit.
     }
     \label{fig:histogram_gauss}
 \end{figure}
+
+\subsection{Grundzustand}
 
 \begin{table}[htbp]
     \centering
@@ -1133,6 +1137,148 @@ Aufenthaltswahrscheinlichkeit.
     }
     \label{fig:mesh-e0}
 \end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{minus1}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.8\linewidth,
+                xlabel={$a$},
+                ylabel={$E_0$},
+                grid=major,
+                legend entries={
+                    {$a = \num{0.01}$},
+                    {$a = \num{0.05}$},
+                    {$a = \num{0.1}$},
+                    {$a = \num{0.2}$},
+                    {$a = \num{0.3}$},
+                    {$a = \num{0.4}$},
+                    {$a = \num{0.5}$},
+                    {$a = \num{0.7}$},
+                    {$a = \num{1}$},
+                },
+            ]
+            \addplot[black!100!white] table {CSV/-1/a-E0-fit-0.01.csv};
+            \addplot[black!100!white] table {CSV/-1/a-E0-fit-0.05.csv};
+            \addplot[black!100!white] table {CSV/-1/a-E0-fit-0.1.csv};
+            \addplot[black!100!white] table {CSV/-1/a-E0-fit-0.2.csv};
+            \addplot[black!100!white] table {CSV/-1/a-E0-fit-0.3.csv};
+            \addplot[black!100!white] table {CSV/-1/a-E0-fit-0.4.csv};
+            \addplot[black!100!white] table {CSV/-1/a-E0-fit-0.5.csv};
+            \addplot[black!100!white] table {CSV/-1/a-E0-fit-0.7.csv};
+            \addplot[black!100!white] table {CSV/-1/a-E0-fit-1.0.csv};
+            \addplot[
+                black!100!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {CSV/-1/a-E0-0.01.csv};
+            \addplot[
+                black!100!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {CSV/-1/a-E0-0.05.csv};
+            \addplot[
+                black!100!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {CSV/-1/a-E0-0.1.csv};
+            \addplot[
+                black!100!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {CSV/-1/a-E0-0.2.csv};
+            \addplot[
+                black!100!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {CSV/-1/a-E0-0.3.csv};
+            \addplot[
+                black!100!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {CSV/-1/a-E0-0.4.csv};
+            \addplot[
+                black!100!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {CSV/-1/a-E0-0.5.csv};
+            \addplot[
+                black!100!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {CSV/-1/a-E0-0.7.csv};
+            \addplot[
+                black!100!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {CSV/-1/a-E0-1.0.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+    }
+    \label{fig:minus1}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{minus1-meta}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.8\linewidth,
+                xlabel={$a$},
+                ylabel={$E_0$},
+                grid=major,
+                legend entries={
+                    {\num{0.3}},
+                },
+            ]
+            \addplot[black!100!white] table {CSV/-1/a-E0-meta-fit-0.3.csv};
+            \addplot[
+                black!100!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {CSV/-1/a-E0-meta-daten.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+    }
+    \label{fig:minus1-meta}
+\end{figure}
+
+\subsection{Angeregte Zustände}
 
 \begin{figure}[htbp]
     \centering
