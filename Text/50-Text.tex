@@ -990,7 +990,7 @@ Abweichung nimmt jedoch nach $n = 7$ schnell zu. Um dort bessere Werte zu
 bekommen, bräuchte es noch mehr Iterationen.
 
 \FloatBarrier
-\section{Anharmonischer Oszillator}
+\section{Oszillator mit Störung}
 
 Ab hier wird dem harmonischen Potential ein $\delta$-Potential überlagert. In
 der Simulation wird dies durch schmale Normalverteilungen angenähert. Deren
@@ -1080,10 +1080,10 @@ Aufenthaltswahrscheinlichkeit.
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        Aufenthaltswahrscheinlichkeit für den anharmonischen Oszillator. Zum
-        Vergleich die Erwartung für den harmonischen Oszillator mit gleichen
-        Parametern. $\timestep = \num{0.1}$, $\initialrandomwidth = \margin =
-        \num{0.632}$, $\mu^2 = \num{1}$, $\timesites = \num{1500}$,
+        Aufenthaltswahrscheinlichkeit für den gestörten Oszillator. Zum
+        Vergleich die Erwartung für den harmonischen Oszillator mit ansonsten
+        gleichen Parametern. $\timestep = \num{0.1}$, $\initialrandomwidth =
+        \margin = \num{0.632}$, $\mu^2 = \num{1}$, $\timesites = \num{1500}$,
         $\iterations = \num{10000}$, $\bootstrapsamples = \num{1000}$, $1/1_0 =
         \num{-1}$, $\gausswidth = \num{0.1}$.
     }
@@ -1104,8 +1104,8 @@ Aufenthaltswahrscheinlichkeit.
         8 & 8.78334 & 8.20837
     \end{tabular}
     \caption{%
-        Theoretische Energiewerte für den anharmonischen Oszillator im
-        Kontinuum, abgelesen aus Abbildung~\ref{fig:E_a0}.
+        Theoretische Energiewerte für den gestörten Oszillator im Kontinuum,
+        abgelesen aus Abbildung~\ref{fig:E_a0}.
     }
     \label{tab:E_a0}
 \end{table}
