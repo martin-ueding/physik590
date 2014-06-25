@@ -1119,6 +1119,27 @@ Tabelle~\label{tab:E_a0} zusammengestellt.
     \label{tab:E_a0}
 \end{table}
 
+Die Werte in der Tabelle sind für das Kontinuum gültig, daher muss $\timestep
+\to 0$ und $\gausswidth \to 0$ vollzogen werden. Im Grenzfall $\timestep \to 0$
+muss jedoch $\timesites \to \infty$ gehen, so dass $\timestep \timesites = T$
+konstant bleibt. Andernfalls kommt es zu unerwünschten Korrelationen, die die
+Energiewerte verfälschen. Dadurch steigt die benötigte Rechenleistung an, es
+kann nur bis zu einem gewissen $\timestep$ gerechnet werden. Beim Grenzwert
+$\gausswidth \to 0$ wird die überlagerte Normalverteilung beliebig schmal. Ist
+sie zu schmal, ist die Wahrscheinlichkeit, dass Zufallszahlen in ihrer Breite
+gezogen werden, zu klein. Daher erwarte ich, dass für extrem kleine
+$\gausswidth$ der Grundzustand wieder erreicht wird.
+
+Für verschiedene Werte von $\timestep$ und $\gausswidth$ habe ich Simulationen
+laufen lassen. Die gemeinsamen Parameter sind dabei $\iterations =
+\num{10000}$, $1/a_0 = \num{-1}$, $\timestep \timesites = T = \num{150}$,
+$\preiterations = \num{50}$, $\iterationsbetween = \num{2}$,
+$\initialrandomwidth = \num{0.632}$. $\margin$ wurde auf $2 \sqrt{\timestep}$
+gesetzt.
+
+Die Daten aus den Simulationsdurchläufen sind in Abbildung~\ref{fig:mesh-e0}
+zusammengefasst.
+
 \begin{figure}[htbp]
     \centering
     \tikzsetnextfilename{mesh-e0}
