@@ -64,7 +64,7 @@ def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col
 
         color = next(ci)
 
-        pl.errorbar(gauss_width + i * x_max / 200, y_val, yerr=y_err, label='${} = {:f}$'.format(legend, time_step), marker='|', color=color)
+        pl.errorbar(gauss_width + i * x_max / 200, y_val, yerr=y_err, label='${} = {:f}$'.format(legend, time_step), marker='|', color=color, linestyle=options.linestyle)
 
         np.savetxt('{}-{}.csv'.format(outfile, time_step), np.column_stack([gauss_width, y_val, y_err]))
 
@@ -80,7 +80,7 @@ def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col
                 time_step, quadratic(0, *popt)
             ])
 
-            pl.plot(plot_x, plot_y, color=color, linestyle='dotted')
+            pl.plot(plot_x, plot_y, color=color, linestyle=options.fit_linestyle)
             np.savetxt(outfile+'-fit-{}.csv'.format(time_step), np.column_stack([plot_x, plot_y]))
 
     x = np.array([x_min, x_max])
@@ -111,6 +111,7 @@ def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col
     pl.clf()
 
 def main():
+    global options
     options = _parse_args()
 
     #pl.pcolormesh(raw_data[:, :-1])
@@ -135,6 +136,8 @@ def _parse_args():
     """
     parser = argparse.ArgumentParser(description="")
     parser.add_argument('filename')
+    parser.add_argument('--linestyle', default='solid')
+    parser.add_argument('--fit-linestyle', default='solid')
 
     options = parser.parse_args()
 
