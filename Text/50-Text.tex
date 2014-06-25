@@ -1260,27 +1260,31 @@ Aufenthaltswahrscheinlichkeit.
                 ylabel={$E_0$},
                 grid=major,
                 legend entries={
-                    {\num{0.3}},
+                    {Daten},
+                    {Theorie},
                 },
             ]
-            \addplot[black!100!white] table {CSV/-1/a-E0-meta-fit-0.3.csv};
+
             \addplot[
                 black!100!white,
                 only marks,
-                mark=|,
+                mark=*,
                 %error bars/.cd,
                 %y dir=both,
                 %y explicit
             ] table[y error index=2] {CSV/-1/a-E0-meta-daten.csv};
 
             \addplot[
-                mark=*,
+                mark=o,
+                only marks,
             ] table {
                 0 1.08389
             };
+
         \end{axis}
     \end{tikzpicture}
     \caption{%
+        Abbildung~\ref{fig:minus1}
     }
     \label{fig:minus1-meta}
 \end{figure}
