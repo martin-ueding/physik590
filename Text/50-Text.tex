@@ -1010,12 +1010,19 @@ ist das Gesamtpotential für eine positive Kopplungsstärke gezeigt.
                 xlabel={$x$},
                 ylabel={$V(x)$},
                 grid=major,
+                legend entries={
+                    {$\sigma = \num{1.0}$},
+                    {$\sigma = \num{0.8}$},
+                    {$\sigma = \num{0.5}$},
+                    {$\sigma = \num{0.3}$},
+                    {$\sigma = \num{0.1}$},
+                },
             ]
-            \addplot[black] table {CSV/gauss-potential/pos/00C58F-potential.csv};
-            \addplot[black] table {CSV/gauss-potential/pos/18B9E2-potential.csv};
-            \addplot[black] table {CSV/gauss-potential/pos/53D7EB-potential.csv};
-            \addplot[black] table {CSV/gauss-potential/pos/6FC501-potential.csv};
-            \addplot[black] table {CSV/gauss-potential/pos/DF05AB-potential.csv};
+            \addplot[black] table {CSV/gauss-potential/pos/18B9E2-potential.csv}; % 1.00
+            \addplot[black] table {CSV/gauss-potential/pos/DF05AB-potential.csv}; % 0.800
+            \addplot[black] table {CSV/gauss-potential/pos/00C58F-potential.csv}; % 0.500
+            \addplot[black] table {CSV/gauss-potential/pos/53D7EB-potential.csv}; % 0.300
+            \addplot[black] table {CSV/gauss-potential/pos/6FC501-potential.csv}; % 0.100
         \end{axis}
     \end{tikzpicture}
     \caption{%
@@ -1134,11 +1141,9 @@ Für verschiedene Werte von $\timestep$ und $\gausswidth$ habe ich Simulationen
 laufen lassen. Die gemeinsamen Parameter sind dabei $\iterations =
 \num{10000}$, $1/a_0 = \num{-1}$, $\timestep \timesites = T = \num{150}$,
 $\preiterations = \num{50}$, $\iterationsbetween = \num{2}$,
-$\initialrandomwidth = \num{0.632}$. $\margin$ wurde auf $2 \sqrt{\timestep}$
-gesetzt.
-
-Die Daten aus den Simulationsdurchläufen sind in Abbildung~\ref{fig:mesh-e0}
-zusammengefasst.
+$\initialrandomwidth = \num{0.632}$. Ebenfalls wurde immer $\margin = 2
+\sqrt{\timestep}$ gesetzt. Die Daten aus den Simulationsdurchläufen sind in
+Abbildung~\ref{fig:mesh-e0} für einen Überblick zusammengefasst.
 
 \begin{figure}[htbp]
     \centering
@@ -1168,30 +1173,47 @@ zusammengefasst.
     \label{fig:mesh-e0}
 \end{figure}
 
+Für alle $\timestep$ ist zu erkennen, dass für große und kleine $\gausswidth$
+die Grundzustandsenergie $E_0$ gegen die $\num{0.5}$ des harmonischen
+Oszillators geht. Es ist jedoch verwunderlich, dass die Energiewerte, die dem
+Kontinuumswert von \num{1.08} am nächsten kommen, bei $\sigma \approx
+\num{0.3}$ liegen. Außerdem sinkt die Grundzustandsenergie mit kleinem
+$\timestep$ ebenfalls enorm, teilweise sogar unter \num{0.5}. Diesen Effekt
+konnte ich auch für den harmonischen Oszillator beobachten, es ist also
+unabhängig von der Störung.
+
+Der Grenzwert $\timestep \to 0$ soll zuerst gebildet werden, daher betrachte
+ich die Daten zuerst als Scharen von $\gausswidth$, also
+${E_0}_\gausswidth(\timestep)$. In Abbildung~\ref{fig:minus1-grob} sind die
+großen Werte für $\gausswidth$ dargestellt.
+
 \begin{figure}[htbp]
     \centering
     \tikzsetnextfilename{minus1-grob}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
-                height=0.8\linewidth,
+                height=0.6\linewidth,
                 xlabel={$a$},
                 ylabel={$E_0$},
                 grid=major,
                 legend entries={
-                    {$a = \num{0.4}$},
-                    {$a = \num{0.5}$},
-                    {$a = \num{0.7}$},
-                    {$a = \num{1.0}$},
+                    {$\sigma = \num{0.4}$},
+                    {$\sigma = \num{0.5}$},
+                    {$\sigma = \num{0.7}$},
+                    {$\sigma = \num{1.0}$},
                 },
                 legend pos=south east,
                 myerrorbar/.style={
+                    %dotted,
+                    %mark options=solid,
                     only marks,
                     error bars/y dir=both,
                     error bars/y explicit,
+                    %error bars/error mark options=solid,
                 },
                 myfit/.style={
-                    dashed,
+                    solid,
                 },
             ]
 
@@ -1201,19 +1223,19 @@ zusammengefasst.
                 myerrorbar,
             ] table[y error index=2] {CSV/-1/a-E0-0.4.csv};
             \addplot[
-                black!80!white,
-                mark=square,
+                black!100!white,
+                mark=*,
                 myerrorbar,
             ] table[y error index=2] {CSV/-1/a-E0-0.5.csv};
             \addplot[
-                black!60!white,
+                black!100!white,
                 myerrorbar,
-                mark=diamond,
+                mark=square,
             ] table[y error index=2] {CSV/-1/a-E0-0.7.csv};
             \addplot[
-                black!40!white,
+                black!100!white,
                 myerrorbar,
-                mark=triangle,
+                mark=square*,
             ] table[y error index=2] {CSV/-1/a-E0-1.0.csv};
 
             % FIXME Graustufensequenz nehmen
@@ -1225,9 +1247,25 @@ zusammengefasst.
         \end{axis}
     \end{tikzpicture}
     \caption{%
+        Projektion der Daten aus Abbildung~\ref{fig:mesh-e0} mit
+        Anpassungsfunktionen. Es sind nur die großen Werte von $\gausswidth$
+        dargestellt.
     }
     \label{fig:minus1-grob}
 \end{figure}
+
+Für alle Werte von $\gausswidth$ ist der starke Abfall bei kleinen $\timestep$
+zu erkennen. An die Werte mit $\timestep \geq \num{0.05}$ habe ich eine
+Funktion zweiten Grades angepasst, um bis $\timestep = 0$ extrapolieren zu
+können. Je schmaler die Normalverteilung wird, desto größer wird die
+Grundzustandsenergie. Dies geht allerdings nur bis $\gausswidth = \num{0.4}$,
+danach sinken die Energien, zumindest für große $\timestep$, wieder.
+
+Die zweite Hälfte der Daten ist als Projektion in
+Abbildung~\ref{fig:minus1-fein} dargestellt. Hier ist der gleiche Abfall bei
+kleinen $\timestep$ zu erkennen. Bei $\timestep = \num{0.05}$ ist die Energie
+wieder am höchsten, bei größeren $\timestep$ jedoch deutlich kleiner. Auch an
+diese Daten wurden Funktionen zweiten Gerades angepasst.
 
 \begin{figure}[htbp]
     \centering
@@ -1235,47 +1273,52 @@ zusammengefasst.
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
-                height=0.8\linewidth,
+                height=0.6\linewidth,
                 xlabel={$a$},
                 ylabel={$E_0$},
                 grid=major,
                 legend entries={
-                    {$a = \num{0.30}$},
-                    {$a = \num{0.20}$},
-                    {$a = \num{0.10}$},
-                    {$a = \num{0.05}$},
-                    {$a = \num{0.01}$},
+                    {$\gausswidth = \num{0.30}$},
+                    {$\gausswidth = \num{0.20}$},
+                    {$\gausswidth = \num{0.10}$},
+                    {$\gausswidth = \num{0.05}$},
+                    {$\gausswidth = \num{0.01}$},
                 },
                 legend pos=south east,
                 myerrorbar/.style={
-                    mark=|,
+                    only marks,
                     error bars/y dir=both,
                     error bars/y explicit,
                 },
                 myfit/.style={
-                    dashed,
+                    solid,
                 },
             ]
 
             \addplot[
                 black!100!white,
                 myerrorbar,
+                mark=|,
             ] table[y error index=2] {CSV/-1/a-E0-0.01.csv};
             \addplot[
                 black!100!white,
                 myerrorbar,
+                mark=square*,
             ] table[y error index=2] {CSV/-1/a-E0-0.05.csv};
             \addplot[
                 black!100!white,
                 myerrorbar,
+                mark=square,
             ] table[y error index=2] {CSV/-1/a-E0-0.1.csv};
             \addplot[
                 black!100!white,
                 myerrorbar,
+                mark=*,
             ] table[y error index=2] {CSV/-1/a-E0-0.2.csv};
             \addplot[
                 black!100!white,
                 myerrorbar,
+                mark=o,
             ] table[y error index=2] {CSV/-1/a-E0-0.3.csv};
 
             % FIXME Graustufensequenz nehmen
@@ -1288,9 +1331,16 @@ zusammengefasst.
         \end{axis}
     \end{tikzpicture}
     \caption{%
+        Projektion der Daten aus Abbildung~\ref{fig:mesh-e0} mit
+        Anpassungsfunktionen. Es sind nur die kleinen Werte von $\gausswidth$
+        dargestellt.
     }
     \label{fig:minus1-fein}
 \end{figure}
+
+Die für $\timestep = 0$ extrapolierten Werte sollten den Grenzwert
+$\gausswidth \to 0$ ermöglichen. Die Punkte sind in
+Abbildung~\ref{fig:minus1-meta} zusammengestellt.
 
 \begin{figure}[htbp]
     \centering
@@ -1298,8 +1348,8 @@ zusammengefasst.
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
-                height=0.8\linewidth,
-                xlabel={$a$},
+                height=0.6\linewidth,
+                xlabel={$\gausswidth$},
                 ylabel={$E_0$},
                 grid=major,
                 legend entries={
@@ -1327,10 +1377,17 @@ zusammengefasst.
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        Abbildung~\ref{fig:minus1}
+        Für $\timestep = 0$ extrapolierte Daten aus
+        Abbildungen~\ref{fig:minus1-grob} und \ref{fig:minus1-fein}.
     }
     \label{fig:minus1-meta}
 \end{figure}
+
+Im Grenzwert $\gausswidth \to 0$ sollte sich der Wert $E_0 = \num{1.08}$
+einstellen, dieser ist im Diagram bei $\gausswidth = 0$ eingezeichnet. Die
+rechte Flanke bei $\gausswidth \geq \num{0.3}$ ist jedoch zu steil. Die linke
+Flanke fällt jedoch zu schnell ab. Durch das Verhalten bei $\gausswidth <
+\num{0.1}$ lässt sich nicht genau sagen, wie zu extrapolieren ist.
 
 \subsection{Angeregte Zustände}
 
