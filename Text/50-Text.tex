@@ -1117,6 +1117,7 @@ Aufenthaltswahrscheinlichkeit.
         \begin{axis}[
                 xlabel={$\gausswidth$},
                 ylabel={$\timestep$},
+                % XXX Farbpalette umkehren
                 colormap/blackwhite,
                 zlabel={$E_0$},
                 colorbar,
@@ -1160,6 +1161,7 @@ Aufenthaltswahrscheinlichkeit.
                     {$a = \num{1}$},
                 },
             ]
+            % FIXME Graustufensequenz nehmen
             \addplot[black!100!white] table {CSV/-1/a-E0-fit-0.01.csv};
             \addplot[black!100!white] table {CSV/-1/a-E0-fit-0.05.csv};
             \addplot[black!100!white] table {CSV/-1/a-E0-fit-0.1.csv};
