@@ -1003,30 +1003,6 @@ negative Kopplungsstärke.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{gausspotential-positiv}
-    \begin{tikzpicture}
-        \begin{axis}[
-                width=\linewidth,
-                height=0.55\linewidth,
-                xlabel={$x$},
-                ylabel={$V(x)$},
-                grid=major,
-            ]
-            \addplot[black] table {CSV/gauss-potential/neg/029833-potential.csv};
-            \addplot[black] table {CSV/gauss-potential/neg/156D90-potential.csv};
-            \addplot[black] table {CSV/gauss-potential/neg/4DD6F0-potential.csv};
-        \end{axis}
-    \end{tikzpicture}
-    \caption{%
-        Überlagerung von harmonischem Potential mit Gaußpotential für
-        verschiedene Breiten der Gaußfunktion $\gausswidth$. $\mu^2 = \num{1}$,
-        $1/a_0 = \num{1}$.
-    }
-    \label{fig:gausspotential-positiv}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
     \tikzsetnextfilename{gausspotential-negativ}
     \begin{tikzpicture}
         \begin{axis}[
@@ -1049,6 +1025,30 @@ negative Kopplungsstärke.
         $1/a_0 = \num{-1}$.
     }
     \label{fig:gausspotential-negativ}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{gausspotential-positiv}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.55\linewidth,
+                xlabel={$x$},
+                ylabel={$V(x)$},
+                grid=major,
+            ]
+            \addplot[black] table {CSV/gauss-potential/neg/029833-potential.csv};
+            \addplot[black] table {CSV/gauss-potential/neg/156D90-potential.csv};
+            \addplot[black] table {CSV/gauss-potential/neg/4DD6F0-potential.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Überlagerung von harmonischem Potential mit Gaußpotential für
+        verschiedene Breiten der Gaußfunktion $\gausswidth$. $\mu^2 = \num{1}$,
+        $1/a_0 = \num{1}$.
+    }
+    \label{fig:gausspotential-positiv}
 \end{figure}
 
 \subsection{Aufenthaltswahrscheinlichkeit}
