@@ -1159,6 +1159,13 @@ Aufenthaltswahrscheinlichkeit.
                     {$a = \num{0.7}$},
                     {$a = \num{1}$},
                 },
+                myerrorbar/.style={
+                    only marks,
+                    mark=|,
+                    error bars/.cd,
+                    y dir=both,
+                    y explicit,
+                },
             ]
             % FIXME Graustufensequenz nehmen
             \addplot[black!100!white] table {CSV/-1/a-E0-fit-0.01.csv};
@@ -1172,75 +1179,39 @@ Aufenthaltswahrscheinlichkeit.
             \addplot[black!100!white] table {CSV/-1/a-E0-fit-1.0.csv};
             \addplot[
                 black!100!white,
-                only marks,
-                mark=|,
-                error bars/.cd,
-                y dir=both,
-                y explicit
+                myerrorbar,
             ] table[y error index=2] {CSV/-1/a-E0-0.01.csv};
             \addplot[
                 black!100!white,
-                only marks,
-                mark=|,
-                error bars/.cd,
-                y dir=both,
-                y explicit
+                myerrorbar,
             ] table[y error index=2] {CSV/-1/a-E0-0.05.csv};
             \addplot[
                 black!100!white,
-                only marks,
-                mark=|,
-                error bars/.cd,
-                y dir=both,
-                y explicit
+                myerrorbar,
             ] table[y error index=2] {CSV/-1/a-E0-0.1.csv};
             \addplot[
                 black!100!white,
-                only marks,
-                mark=|,
-                error bars/.cd,
-                y dir=both,
-                y explicit
+                myerrorbar,
             ] table[y error index=2] {CSV/-1/a-E0-0.2.csv};
             \addplot[
                 black!100!white,
-                only marks,
-                mark=|,
-                error bars/.cd,
-                y dir=both,
-                y explicit
+                myerrorbar,
             ] table[y error index=2] {CSV/-1/a-E0-0.3.csv};
             \addplot[
                 black!100!white,
-                only marks,
-                mark=|,
-                error bars/.cd,
-                y dir=both,
-                y explicit
+                myerrorbar,
             ] table[y error index=2] {CSV/-1/a-E0-0.4.csv};
             \addplot[
                 black!100!white,
-                only marks,
-                mark=|,
-                error bars/.cd,
-                y dir=both,
-                y explicit
+                myerrorbar,
             ] table[y error index=2] {CSV/-1/a-E0-0.5.csv};
             \addplot[
                 black!100!white,
-                only marks,
-                mark=|,
-                error bars/.cd,
-                y dir=both,
-                y explicit
+                myerrorbar,
             ] table[y error index=2] {CSV/-1/a-E0-0.7.csv};
             \addplot[
                 black!100!white,
-                only marks,
-                mark=|,
-                error bars/.cd,
-                y dir=both,
-                y explicit
+                myerrorbar,
             ] table[y error index=2] {CSV/-1/a-E0-1.0.csv};
         \end{axis}
     \end{tikzpicture}
