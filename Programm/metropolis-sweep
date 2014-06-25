@@ -4,39 +4,30 @@
 # Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
-import concurrent.futures
 import os
 import subprocess
+import tempfile
+
+condor_job = '''
+executable = /usr/local/bin/metropolis
+arguments = --iter 10000 --corr-size 5 --time-step {time_step:f} --time-sites {time_sites:d} --iter-pre 2000 --iter-between 10 --irw 0 --inv-scatt-len -1 --gauss-width {gauss_width:f}
+log    = ID-$(Cluster).$(Process)-log.txt
+output = ID-$(Cluster).$(Process)-out.txt
+universe = vanilla
+request_cpus = 4
+queue
+'''
 
 def main():
-    with concurrent.futures.ProcessPoolExecutor(4) as executor:
-        futures = []
-        for X in [0.6, 0.4, 0.2, 1.0]:
-            p1 = ['--margin', str(X)]
-            for X in [1000, 500, 2000]:
-                p2 = ['-t', str(X)]
-                for X in [1, 2, 3]:
-                    p3 = ['-s', str(X)]
-                    for X in [1, 2, 3]:
-                        p4 = ['-c', str(X)]
-                        for X in [0.1]:
-                            p5 = ['--margin', str(X)]
-                            for X in [0.1, 0.2, 0.05]:
-                                p5 = ['-a', str(X)]
-                                for X in [300, 1000]:
-                                    p6 = ['-i', str(X)]
+    for sigma in [0.01, 0.05, 0.1, 0.2, 0.3, 0.4]:
+        for a in [0.005, 0.01, 0.05, 0.1, 0.2, 0.3]:
+            tf = tempfile.TemporaryFile('w')
+            N = max(int(150 / a), 1000)
+            tf.write(condor_job.format(time_step=a, gauss_width=sigma, time_sites=N))
+            tf.seek(0)
 
-                                    mods = p1 + p2 + p3 + p4 + p5 + p6
-                                    futures.append(executor.submit(run, mods[:]))
-
-        for future in futures:
-            future.result()
-
-def run(mods):
-    command = ['./metropolis'] + mods
-    print(' '.join(command))
-    output = subprocess.check_output(command).decode()
-    return output
+            subprocess.check_call('condor_submit', stdin=tf)
+            print()
 
 if __name__ == '__main__':
     main()
