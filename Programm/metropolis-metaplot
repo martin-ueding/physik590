@@ -90,15 +90,16 @@ def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col
     pl.plot(x, ones * anharmonic, linestyle='--', color='black')
 
     meta_fit = np.array(meta_fit)
-    for lower_bound in meta_fit[:, 0]:
-        s = meta_fit[:, 0] >= lower_bound
-        if len(meta_fit[:, 0][s]) >= 3:
-            popt, pconv = op.curve_fit(quadratic, meta_fit[:, 0][s], meta_fit[:, 1][s])
-            plot_x = np.linspace(0, np.max(meta_fit[:, 0]), 1000)
-            plot_y = quadratic(plot_x, *popt)
+    if len(meta_fit) > 0:
+        for lower_bound in np.atleast_2d(meta_fit)[:, 0]:
+            s = meta_fit[:, 0] >= lower_bound
+            if len(meta_fit[:, 0][s]) >= 3:
+                popt, pconv = op.curve_fit(quadratic, meta_fit[:, 0][s], meta_fit[:, 1][s])
+                plot_x = np.linspace(0, np.max(meta_fit[:, 0]), 1000)
+                plot_y = quadratic(plot_x, *popt)
 
-        np.savetxt(outfile+'-meta-daten.csv', meta_fit)
-        np.savetxt(outfile+'-meta-fit-{}.csv'.format(lower_bound), np.column_stack([plot_x, plot_y]))
+            np.savetxt(outfile+'-meta-daten.csv', meta_fit)
+            np.savetxt(outfile+'-meta-fit-{}.csv'.format(lower_bound), np.column_stack([plot_x, plot_y]))
 
     pl.title(r'{} gegen {}'.format(ylabel, xlabel))
     pl.xlabel(xlabel)
