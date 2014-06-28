@@ -20,7 +20,7 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
     odd.resize(settings.iterations);
 
     for (unsigned i {0}; i < settings.max_cores; i++) {
-        workers.emplace_back([this, &settings, &bar, driver, i]() {
+        workers.emplace_back([this, settings, &bar, driver, i]() {
                 worker(settings, bar, driver, i);
                 });
     }
@@ -32,7 +32,7 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
     std::cout << accept_rate_output.str();
 }
 
-void BootstrapPool::worker(Settings &settings, ProgressBar &bar_corr, MetropolisDriver driver, int seed) {
+void BootstrapPool::worker(Settings settings, ProgressBar &bar_corr, MetropolisDriver driver, int seed) {
     unsigned t_id;
     driver.ma.re_seed(seed + 10);
     while ((t_id = t_id_atom++) < settings.iterations) {
