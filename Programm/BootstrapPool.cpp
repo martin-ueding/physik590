@@ -50,9 +50,9 @@ void BootstrapPool::worker(Settings settings, ProgressBar &bar_corr, MetropolisD
         }
         histograms.push_back(h);
 
-        // Compute the powers of the trajectory so that the power function does not
-        // need to be invoked that often. I have not tested, but I assume that this
-        // is a hotspot.
+        // Compute the powers of the trajectory so that the power function does
+        // not need to be invoked that often. I have not tested, but I assume
+        // that this is a hotspot.
 
         std::vector<std::vector<double>> powers_even(settings.correlation_size);
         std::vector<std::vector<double>> powers_odd(settings.correlation_size);

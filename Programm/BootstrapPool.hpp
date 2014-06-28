@@ -98,6 +98,8 @@ class BootstrapPool {
 
         std::vector<Histogram> histograms;
 
+        std::vector<double> e0_virial;
+
         std::mt19937 engine;
 
     protected:
