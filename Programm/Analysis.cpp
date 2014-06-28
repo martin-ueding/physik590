@@ -33,6 +33,9 @@ boot_hist {BootstrappedHistogram{
         save_eigenvalues();
         save_c11();
         save_histogram();
+
+        std::ofstream of {settings.generate_filename("E0-Virial.txt")};
+        of << e0_virial.mean() << "\t" << e0_virial.stddev() << std::endl;
     }
 }
 
@@ -91,6 +94,8 @@ void Analysis::worker(ProgressBar &bar) {
 
         insert_eigenvalues(sample.even, true, bs_E_n_t);
         insert_eigenvalues(sample.odd, false, bs_E_n_t);
+
+        e0_virial.append(sample.e0_virial);
 
         bar.update(sample_id);
     }

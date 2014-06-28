@@ -30,4 +30,6 @@ class BootstrapSample {
           Histogram combined from all the summand histograms.
           */
         Histogram histogram;
+
+        double e0_virial {0};
 };

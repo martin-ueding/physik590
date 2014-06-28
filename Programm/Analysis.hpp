@@ -39,4 +39,6 @@ class Analysis {
         std::vector<BootstrappedQuantity> c22;
 
         std::atomic<unsigned> sample_id_atom {0};
+
+        BootstrappedQuantity e0_virial;
 };
