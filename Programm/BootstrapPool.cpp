@@ -18,6 +18,7 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
 
     even.resize(settings.iterations);
     odd.resize(settings.iterations);
+    e0_virial.resize(settings.iterations);
 
     for (unsigned i {0}; i < settings.max_cores; i++) {
         workers.emplace_back([this, settings, &bar, driver, i]() {
@@ -81,10 +82,32 @@ void BootstrapPool::worker(Settings settings, ProgressBar &bar_corr, MetropolisD
             list_odd.push_back(correlation(trajectory, powers_odd, settings, distance, false));
         }
 
+        // Compute the ground state energy with the virial theorem.
+        double gauss_width_squared = settings.gauss_width * settings.gauss_width;
+        double pi {std::atan(1) * 4};
+        double prefactor = 1. / std::sqrt(2. * pi * gauss_width_squared) * 2. * settings.inverse_scattering_length;
+
+        std::vector<double> &squares = powers_even[0];
+        double mean_squared{0};
+        double mean_gauss{0};
+        double mean_gauss_x2{0};
+        for (double square : squares) {
+            mean_squared += square;
+            mean_gauss += std::exp(-square/gauss_width_squared);
+            mean_gauss_x2 += std::exp(-square/gauss_width_squared) * square;
+        }
+        mean_squared /= squares.size();
+        mean_gauss /= squares.size();
+        mean_gauss_x2 /= squares.size();
+
+        double e0 = settings.mu_squared * mean_squared + prefactor *
+            (1/gauss_width_squared * mean_gauss_x2 - mean_gauss);
+
         // Insert data into mutual data structures.
         std::lock_guard<std::mutex> {mutex};
         even[t_id] = list_even;
         odd[t_id] = list_odd;
+        e0_virial[t_id] = e0;
 
         bar_corr.update(t_id);
     }
