@@ -31,7 +31,7 @@ BootstrapSample::BootstrapSample(BootstrapPool &pool, Settings &settings) : hist
         e0_virial += pool.e0_virial[i];
     }
 
-    e0_virial += count;
+    e0_virial /= count;
 
     // Normalize all correlation matrices.
     for (auto &matrix : even) {
