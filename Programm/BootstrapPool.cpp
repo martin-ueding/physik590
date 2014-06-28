@@ -36,14 +36,16 @@ void BootstrapPool::worker(Settings settings, ProgressBar &bar_corr, MetropolisD
     unsigned t_id;
     driver.ma.re_seed(seed + 10);
     while ((t_id = t_id_atom++) < settings.iterations) {
+        // Reserve space for correlation lists.
         CorrList list_even;
         CorrList list_odd;
-
         list_even.reserve(settings.correlation_ts.size());
         list_odd.reserve(settings.correlation_ts.size());
 
+        // Retrieve the next trajectory.
         std::vector<double> trajectory = driver.next();
 
+        // Compute the histogram.
         Histogram h {settings.position_hist_min, settings.position_hist_max, settings.position_hist_bins};
         for (auto x_j : trajectory) {
             h(x_j);
@@ -53,7 +55,6 @@ void BootstrapPool::worker(Settings settings, ProgressBar &bar_corr, MetropolisD
         // Compute the powers of the trajectory so that the power function does
         // not need to be invoked that often. I have not tested, but I assume
         // that this is a hotspot.
-
         std::vector<std::vector<double>> powers_even(settings.correlation_size);
         std::vector<std::vector<double>> powers_odd(settings.correlation_size);
 
@@ -74,10 +75,13 @@ void BootstrapPool::worker(Settings settings, ProgressBar &bar_corr, MetropolisD
             }
         }
 
+        // Compute the correlations.
         for (unsigned distance : settings.correlation_ts) {
             list_even.push_back(correlation(trajectory, powers_even, settings, distance, true));
             list_odd.push_back(correlation(trajectory, powers_odd, settings, distance, false));
         }
+
+        // Insert data into mutual data structures.
         std::lock_guard<std::mutex> {mutex};
         even[t_id] = list_even;
         odd[t_id] = list_odd;
