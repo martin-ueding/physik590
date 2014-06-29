@@ -34,49 +34,52 @@ def main():
         ])
 
     for dirname in dirnames:
-        run = os.path.basename(os.path.dirname(dirname))
-        print('Run:', run)
-        options_filename = get_filename(run, '-options.js')
-        parameters = {}
-        if os.path.isfile(options_filename):
-            with open(options_filename) as f:
-                parameters = json.load(f)
-        else:
-            print(options_filename, 'does not exist.')
+        try:
+            run = os.path.basename(os.path.dirname(dirname))
+            print('Run:', run)
+            options_filename = get_filename(run, '-options.js')
+            parameters = {}
+            if os.path.isfile(options_filename):
+                with open(options_filename) as f:
+                    parameters = json.load(f)
+            else:
+                print(options_filename, 'does not exist.')
 
-        plotted = []
+            plotted = []
 
-        print('From virial theorem:')
-        E_0 = find_E_0(run)
+            print('From virial theorem:')
+            E_0 = find_E_0(run)
 
-        print('From C_11(t):')
-        plot_correlations(dirname, '*-c11.csv', E_0)
+            print('From C_11(t):')
+            plot_correlations(dirname, '*-c11.csv', E_0)
 
-        print('From eigenvalues:')
-        result = fit_eigenvalues(dirname, '*-eigenvalue-??.csv', E_0)
+            print('From eigenvalues:')
+            result = fit_eigenvalues(dirname, '*-eigenvalue-??.csv', E_0)
 
-        data.append([
-            run,
-            parameters['gauss_width'],
-            parameters['time_step'],
-            unitprint.siunitx(*E_0),
-            unitprint.siunitx(*result['02']),
-            unitprint.siunitx(*result['04']),
-            unitprint.siunitx(result['02'][0] - E_0[0], np.sqrt(result['02'][1]**2 + E_0[1]**2)),
-            unitprint.siunitx(result['04'][0] - E_0[0], np.sqrt(result['04'][1]**2 + E_0[1]**2)),
-            unitprint.siunitx(result['04'][0] - result['02'][0], np.sqrt(result['04'][1]**2 + result['02'][1]**2)),
-        ])
+            data.append([
+                run,
+                parameters['gauss_width'],
+                parameters['time_step'],
+                unitprint.siunitx(*E_0),
+                unitprint.siunitx(*result['02']),
+                unitprint.siunitx(*result['04']),
+                unitprint.siunitx(result['02'][0] - E_0[0], np.sqrt(result['02'][1]**2 + E_0[1]**2)),
+                unitprint.siunitx(result['04'][0] - E_0[0], np.sqrt(result['04'][1]**2 + E_0[1]**2)),
+                unitprint.siunitx(result['04'][0] - result['02'][0], np.sqrt(result['04'][1]**2 + result['02'][1]**2)),
+            ])
 
-        raw_data.append([
-            parameters['gauss_width'],
-            parameters['time_step']
-        ] + list(E_0) + list(result['02']) + list(result['04']) + [
-            result['02'][0] - E_0[0], np.sqrt(result['02'][1]**2 + E_0[1]**2),
-            result['04'][0] - E_0[0], np.sqrt(result['04'][1]**2 + E_0[1]**2),
-            result['04'][0] - result['02'][0], np.sqrt(result['04'][1]**2 + result['02'][1]**2),
-        ])
+            raw_data.append([
+                parameters['gauss_width'],
+                parameters['time_step']
+            ] + list(E_0) + list(result['02']) + list(result['04']) + [
+                result['02'][0] - E_0[0], np.sqrt(result['02'][1]**2 + E_0[1]**2),
+                result['04'][0] - E_0[0], np.sqrt(result['04'][1]**2 + E_0[1]**2),
+                result['04'][0] - result['02'][0], np.sqrt(result['04'][1]**2 + result['02'][1]**2),
+            ])
 
-        print()
+            print()
+        except FileNotFoundError as e:
+            print(e)
 
     table = prettytable.PrettyTable([
         'run',
@@ -206,10 +209,11 @@ def fit_eigenvalues(dirname, pattern, E_0):
                 np.savetxt(csv_file.replace('.csv', '-fit.csv'), np.column_stack([fx, fy]))
             pl.clf()
 
-
+            d[np.isnan(d)] = 0
 
             E_n_val = popt[0] + E_0[0]
             E_n_err = np.sqrt(d[0]**2 + E_0[1]**2)
+            print(popt[0], d[0])
             table.add_row([
                 number,
                 unitprint.siunitx(popt[0], d[0], error_digits=2),
