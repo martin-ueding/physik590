@@ -5,8 +5,8 @@
 
 #include "Settings.hpp"
 
-#include <string>
-#include <vector>
+#include <boost/serialization/string.hpp>
+#include <boost/serialization/vector.hpp>
 
 /**
   Models a one particle system.

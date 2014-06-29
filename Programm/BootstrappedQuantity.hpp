@@ -3,9 +3,10 @@
 
 #pragma once
 
-#include <string>
+#include <boost/serialization/string.hpp>
+#include <boost/serialization/vector.hpp>
+
 #include <utility>
-#include <vector>
 #include <mutex>
 
 /**

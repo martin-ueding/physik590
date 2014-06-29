@@ -9,9 +9,10 @@
 #include "PositionDensity.hpp"
 #include "ProgressBar.hpp"
 
+#include <boost/serialization/map.hpp>
+#include <boost/serialization/vector.hpp>
+
 #include <memory>
-#include <vector>
-#include <map>
 
 class ResultSet {
     public:

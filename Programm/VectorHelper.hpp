@@ -3,8 +3,9 @@
 
 #pragma once
 
+#include <boost/serialization/vector.hpp>
+
 #include <random>
-#include <vector>
 
 /**
   Helper for std::vector<double>.

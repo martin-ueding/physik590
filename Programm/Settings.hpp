@@ -5,10 +5,10 @@
 
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
+#include <boost/serialization/string.hpp>
+#include <boost/serialization/vector.hpp>
 
-#include <string>
 #include <thread>
-#include <vector>
 
 /**
   Holds the parameters for a simulation.

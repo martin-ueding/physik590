@@ -19,9 +19,7 @@
 #include <eigen3/Eigen/Dense>
 
 #include <atomic>
-#include <map>
 #include <mutex>
-#include <vector>
 
 namespace boost {
     template<class Archive, typename _Scalar, int _Rows, int _Cols, int _Options, int _MaxRows, int _MaxCols>

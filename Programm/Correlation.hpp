@@ -5,9 +5,8 @@
 
 #include "Settings.hpp"
 
+#include <boost/serialization/vector.hpp>
 #include <eigen3/Eigen/Dense>
-
-#include <vector>
 
 /**
   Calculates the correlation matrix for a single trajectory.

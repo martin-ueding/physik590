@@ -7,7 +7,7 @@
 #include "MetropolisAlgorithm.hpp"
 #include "Settings.hpp"
 
-#include <vector>
+#include <boost/serialization/vector.hpp>
 
 /**
   Driver for the MetropolisAlgorithm.

@@ -6,8 +6,9 @@
 #include "BootstrapPool.hpp"
 #include "Settings.hpp"
 
+#include <boost/serialization/vector.hpp>
+
 #include <random>
-#include <vector>
 
 class BootstrapSample {
     public:

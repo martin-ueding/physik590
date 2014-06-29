@@ -5,8 +5,9 @@
 
 #include "Oscillator.hpp"
 
+#include <boost/serialization/string.hpp>
+
 #include <random>
-#include <string>
 
 /**
   Class that holds the Metropolis algorithm.

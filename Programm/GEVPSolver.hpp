@@ -5,7 +5,7 @@
 
 #include <eigen3/Eigen/Dense>
 
-#include <vector>
+#include <boost/serialization/vector.hpp>
 
 class GEVPSolver {
     public:

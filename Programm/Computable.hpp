@@ -5,7 +5,7 @@
 
 #include "BootstrapSample.hpp"
 
-#include <string>
+#include <boost/serialization/string.hpp>
 
 class Computable {
     public:

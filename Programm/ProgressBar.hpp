@@ -3,7 +3,8 @@
 
 #pragma once
 
-#include <string>
+#include <boost/serialization/string.hpp>
+
 #include <chrono>
 
 class ProgressBar {

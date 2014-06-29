@@ -4,9 +4,8 @@
 #pragma once
 
 #include <boost/archive/binary_oarchive.hpp>
-
-#include <string>
-#include <vector>
+#include <boost/serialization/string.hpp>
+#include <boost/serialization/vector.hpp>
 
 class Histogram {
         friend class boost::serialization::access;
