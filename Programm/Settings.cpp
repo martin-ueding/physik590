@@ -11,6 +11,7 @@
 #include <jsoncpp/json/value.h>
 #include <jsoncpp/json/writer.h>
 
+#include <algorithm>
 #include <cassert>
 #include <cmath>
 #include <fstream>
@@ -23,16 +24,15 @@
 #define JSON(var) root[ #var ] = (var);
 
 void Settings::compute() {
-    unsigned step_size = (corr_tau_max / time_step) / corr_tau_count;
+    unsigned step_size = std::max(static_cast<unsigned>((corr_tau_max / time_step) / corr_tau_count), 1u);
 
     // The 0 is needed to calculate <x^2> = C_11(0) and E_0.
     if (t_0 > 0) {
         correlation_ts.push_back(0);
     }
 
-    for (unsigned i = t_0; correlation_ts.size() < corr_tau_count; i += step_size) {
+    for (unsigned i = t_0; correlation_ts.size() < corr_tau_count && i < time_sites; i += step_size) {
         correlation_ts.push_back(i);
-        assert(i < time_sites);
     }
 
     margin = 2 * std::sqrt(time_step);
