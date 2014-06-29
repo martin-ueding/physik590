@@ -122,8 +122,13 @@ void save_pool(std::shared_ptr<BootstrapPool> pool, Settings &settings) {
     ProgressBar bar {"Serializing", 1};
     std::ofstream ofs {settings.generate_filename("pool.bin")};
     boost::archive::binary_oarchive oa {ofs};
-    oa << *pool;
-    oa << settings;
+    try {
+        oa << *pool;
+        oa << settings;
+    }
+    catch (boost::archive::archive_exception ex) {
+        std::cout << ex.what() << std::endl;
+    }
 }
 
 void load_into_pool(std::shared_ptr<BootstrapPool> &pool, Settings &settings) {
