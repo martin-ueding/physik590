@@ -10,16 +10,16 @@ import tempfile
 
 condor_job = '''
 executable = /usr/local/bin/metropolis
-arguments = --iter 10000 --corr-size 5 --time-step {time_step:f} --time-sites {time_sites:d} --iter-pre 2000 --iter-between 10 --irw 0 --inv-scatt-len -1 --gauss-width {gauss_width:f}
+arguments = --iter 10000 --corr-size 5 --time-step {time_step:f} --time-sites {time_sites:d} --iter-pre 2000 --iter-between 10 --irw 0 --inv-scatt-len -1 --gauss-width {gauss_width:f} --max-cores 1
 log    = ID-$(Cluster).$(Process)-log.txt
 output = ID-$(Cluster).$(Process)-out.txt
 universe = vanilla
-request_cpus = 4
+request_cpus = 1
 queue
 '''
 
 def main():
-    for sigma in [0.01, 0.05, 0.1, 0.2, 0.3, 0.4]:
+    for sigma in [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5]:
         for a in [0.005, 0.01, 0.05, 0.1, 0.2, 0.3]:
             tf = tempfile.TemporaryFile('w')
             N = max(int(150 / a), 1000)
