@@ -19,6 +19,7 @@ BootstrapPool::BootstrapPool(MetropolisDriver &driver, Settings &settings) {
     even.resize(settings.iterations);
     odd.resize(settings.iterations);
     e0_virial.resize(settings.iterations);
+    histograms.resize(settings.iterations);
 
     for (unsigned i {0}; i < settings.max_cores; i++) {
         workers.emplace_back([this, settings, &bar, driver, i]() {
@@ -51,7 +52,6 @@ void BootstrapPool::worker(Settings settings, ProgressBar &bar_corr, MetropolisD
         for (auto x_j : trajectory) {
             h(x_j);
         }
-        histograms.push_back(h);
 
         // Compute the powers of the trajectory so that the power function does
         // not need to be invoked that often. I have not tested, but I assume
@@ -105,6 +105,7 @@ void BootstrapPool::worker(Settings settings, ProgressBar &bar_corr, MetropolisD
 
         // Insert data into mutual data structures.
         std::lock_guard<std::mutex> {mutex};
+        histograms[t_id] = h;
         even[t_id] = list_even;
         odd[t_id] = list_odd;
         e0_virial[t_id] = e0;
