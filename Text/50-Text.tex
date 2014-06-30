@@ -277,13 +277,22 @@ einer Koordinate unterscheiden, schnell berechnen:
 \chapter{Energiewerte}
 
 Beim harmonischen Oszillator kann die Grundzustandsenergie über den Virialsatz
-bestimmt werden \parencite[(4.13)]{Creutz/Statistical_Approach_QM}:
+bestimmt werden. Dieser besagt allgemein
+$\bracket{\vec F \vec r} + 2 \bracket{T} = 0$ \parencite[551]{Kuypers/Mechanik}. $\vec F \vec r$ kann auch als $-
+[\vnabla V] \vec r$ geschrieben werden. In einer Dimension
+ist das, wie in \parencite[(2.29)]{Creutz/Statistical_Approach_QM},
 \[
-    E_0 = \mass^2 \bracket{x^2}.
+    T = \frac12 m \bracket{v^2} = \frac12 \bracket{x V'(x)}.
 \]
-Die Größe $\bracket{x^2}$ ist in den noch zu definierenden
-Korrelationsfunktionen als $C_{11}(0)$ enthalten und muss nicht gesondert
-berechnet werden.
+Ist das Potential durch $V(x) = \mu^2 x^2/2$ wie beim harmonischen Oszillator
+gegeben, so gilt $2 \bracket T = \mu^2 \bracket{x^2}$. Da die komplette Energie
+$T + V$ ist, muss gelten:
+\[
+    \bracket E = \bracket T + \bracket V
+    = \frac12 \mu^2 \bracket{x^2} + \frac12 \mu^2 \bracket{x^2}
+    = \mu^2 \bracket{x^2},
+\]
+wie auch in \parencite[(4.13)]{Creutz/Statistical_Approach_QM} benutzt.
 
 Die Energie des ersten angeregten Zustands kann mit der Korrelation
 berechnet werden \parencite[(4.14)]{Creutz/Statistical_Approach_QM}:
@@ -603,6 +612,22 @@ Energiewerte $E_n = n + 1/2$ sind als Schnittpunkte zu erkennen.
 
 %\nocite{Stroustrup/C++4}
 
+\subsection{Virialsatz}
+
+Die Energie kann aus den Daten wieder mit dem Virialsatz bestimmt werden,
+jedoch ist jetzt das Potential:
+\[
+    V(x) = \frac12 \mu^2 x^2 - \frac{2}{a_0} \frac1{\sqrt{2\piup}\sigma} \exp\del{-\frac{x^2}{\sigma^2}}.
+\]
+Somit sagt der Virialsatz aus:
+\[
+    \bracket T = \frac12 \mu^2 \bracket{x^2} + \frac{2}{a_0} \frac1{\sqrt{2\piup}\sigma^3} \Bracket{\exp\del{-\frac{x^2}{\sigma^2}} x^2}.
+\]
+Zusammen mit dem zeitlichen Mittelwert der potentiellen Energie gibt dies die
+Gesamtenergie:
+\[
+    \bracket E = \mu^2 \bracket{x^2} + \frac{2}{a_0} \frac1{\sqrt{2\piup}\sigma} \sbr{\frac1{\sigma^2} \Bracket{\exp\del{-\frac{x^2}{\sigma^2}} x^2} - \Bracket{\exp\del{-\frac{x^2}{\sigma^2}}}}.
+\]
 
 \chapter{Ergebnisse}
 
