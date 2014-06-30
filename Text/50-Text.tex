@@ -952,17 +952,18 @@ Ab hier wird dem harmonischen Potential ein $\delta$-Potential überlagert. In
 der Simulation wird dies durch schmale Normalverteilungen angenähert. Deren
 Integral ist auf eins normiert und die Verteilungen haben eine Breite
 $\gausswidth$. Je nach Breite ergibt sich ein anderes Potential.
-Abbildung~\ref{fig:gausspotential-negativ} enthält das Potential für eine
-negative Kopplungsstärke $1/a_0$. In Abbildung~\ref{fig:gausspotential-positiv}
-ist das Gesamtpotential für eine positive Kopplungsstärke gezeigt.
+Abbildung~\ref{fig:gausspotential} enthält das Potential für eine
+negative und positive Kopplungsstärke $1/a_0$.
 
 \begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.49\linewidth}
     \centering
     \tikzsetnextfilename{gausspotential-negativ}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
-                height=0.55\linewidth,
+                height=\linewidth,
                 xlabel={$x$},
                 ylabel={$V(x)$},
                 grid=major,
@@ -981,37 +982,34 @@ ist das Gesamtpotential für eine positive Kopplungsstärke gezeigt.
             \addplot[black] table {CSV/gauss-potential/pos/6FC501-potential.csv}; % 0.100
         \end{axis}
     \end{tikzpicture}
-    \caption{%
-        Überlagerung von harmonischem Potential mit Gaußpotential für
-        verschiedene Breiten der Gaußfunktion $\gausswidth$. $\mu^2 = \num{1}$,
-        $1/a_0 = \num{-1}$.
-    }
-    \label{fig:gausspotential-negativ}
-\end{figure}
-
-\begin{figure}[htbp]
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\linewidth}
     \centering
     \tikzsetnextfilename{gausspotential-positiv}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
-                height=0.55\linewidth,
+                height=\linewidth,
                 xlabel={$x$},
                 ylabel={$V(x)$},
                 grid=major,
+                yticklabel pos=right,
             ]
             \addplot[black] table {CSV/gauss-potential/neg/029833-potential.csv};
             \addplot[black] table {CSV/gauss-potential/neg/156D90-potential.csv};
             \addplot[black] table {CSV/gauss-potential/neg/4DD6F0-potential.csv};
         \end{axis}
     \end{tikzpicture}
+    \end{minipage}
     \caption{%
         Überlagerung von harmonischem Potential mit Gaußpotential für
-        verschiedene Breiten der Gaußfunktion $\gausswidth$. $\mu^2 = \num{1}$,
-        $1/a_0 = \num{1}$.
+        verschiedene Breiten der Gaußfunktion $\gausswidth$. $\mu^2 = \num{1}$.
+        Links: $1/a_0 = \num{-1}$, rechts: $1/a_0 = \num{+1}$.
     }
-    \label{fig:gausspotential-positiv}
+    \label{fig:gausspotential}
 \end{figure}
+
 
 \subsection{Aufenthaltswahrscheinlichkeit}
 
@@ -1053,7 +1051,7 @@ Aufenthaltswahrscheinlichkeit.
 \end{figure}
 
 Das gestörte Potential, das in der Mitte etwas höher ist
-(Abbildung~\ref{fig:gausspotential-negativ}), senkt die
+(Abbildung~\ref{fig:gausspotential}, links), senkt die
 Aufenthaltswahrscheinlichkeit im Vergleich zum harmonischen Oszillator.
 
 \subsection{Grundzustand}
