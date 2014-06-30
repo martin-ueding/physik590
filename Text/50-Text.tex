@@ -601,34 +601,6 @@ Energiewerte $E_n = n + 1/2$ sind als Schnittpunkte zu erkennen.
 
 %\nocite{Stroustrup/C++4}
 
-\chapter{Bootstrap Methode}
-
-% TODO Dies reicht für ein einzelnes Kapitel nicht aus, jedoch passt es auch
-% irgendwie noch an keinen Ort so richtig.
-
-Der Fehler zu einem statistischen Schätzwert ist in der Regel nicht einfach
-anzugeben. Für Größen wie den Mittelwert ist es unter Annahme einer
-zugrundeliegenden Verteilung möglich, nicht jedoch für komplexere Größen. Eine
-Möglichkeit, eine Fehlerabschätzung zu beliebigen Schätzwerten zu erhalten, ist
-die \emph{Bootstrap Methode}. Bei dieser werden aus der gegebenen Probe neue
-Proben erstellt und eine Metaanalyse durchgeführt.
-
-Sei $X$ eine Zufallsgröße, $\bracket X$ der Erwartungs- und $\overline X$ der
-Schätzwert. Aus einer Stichprobenmenge $\mathbb M$ kann nun die Zufallsgröße
-berechnet werden: $\overline X = X(\mathbb M)$. Im Grenzwert erhält man den
-Erwartungswert, also $\lim_{|\mathbb M| \to \infty} \overline X = \bracket X$.
-
-Aus der wirklich erhobenen Stichprobenmenge erzeugt man nun $\bootstrapsamples$
-weitere Mengen $\mathbb M_i$ durch Ziehen mit Zurücklegen. Für jede dieser
-Mengen errechnet man die Zufallsgröße und erhält die Menge der Schätzwerte
-\[
-    \mathbb X = \{ X(\mathbb M_i) \colon 1 \leq i \leq N_\text P \}.
-\]
-% TODO Quellenangabe für „normalverteilt“.
-Diese Schätzwerte sind annähernd normalverteilt. Somit ist der so errechnete
-Erwartungswert $\overline X$ durch den Mittelwert von $\mathbb X$ gegeben. Der
-Fehler $\Deltaup \overline X$ ist durch die Standardabweichung von $\mathbb X$
-gegeben.
 
 \chapter{Ergebnisse}
 
@@ -1377,5 +1349,37 @@ Flanke fällt jedoch zu schnell ab. Durch das Verhalten bei $\gausswidth <
     }
     \label{fig:mesh-e2-e0}
 \end{figure}
+
+\begin{appendix}
+    \chapter{Bootstrap Methode}
+    % TODO Dies reicht für ein einzelnes Kapitel nicht aus, jedoch passt es
+    % auch irgendwie noch an keinen Ort so richtig.
+
+    Der Fehler zu einem statistischen Schätzwert ist in der Regel nicht einfach
+    anzugeben. Für Größen wie den Mittelwert ist es unter Annahme einer
+    zugrundeliegenden Verteilung möglich, nicht jedoch für komplexere Größen.
+    Eine Möglichkeit, eine Fehlerabschätzung zu beliebigen Schätzwerten zu
+    erhalten, ist die \emph{Bootstrap Methode}. Bei dieser werden aus der
+    gegebenen Probe neue Proben erstellt und eine Metaanalyse durchgeführt.
+
+    Sei $X$ eine Zufallsgröße, $\bracket X$ der Erwartungs- und $\overline X$
+    der Schätzwert. Aus einer Stichprobenmenge $\mathbb M$ kann nun die
+    Zufallsgröße berechnet werden: $\overline X = X(\mathbb M)$. Im Grenzwert
+    erhält man den Erwartungswert, also $\lim_{|\mathbb M| \to \infty}
+    \overline X = \bracket X$.
+
+    Aus der wirklich erhobenen Stichprobenmenge erzeugt man nun
+    $\bootstrapsamples$ weitere Mengen $\mathbb M_i$ durch Ziehen mit
+    Zurücklegen. Für jede dieser Mengen errechnet man die Zufallsgröße und
+    erhält die Menge der Schätzwerte
+    \[
+        \mathbb X = \{ X(\mathbb M_i) \colon 1 \leq i \leq N_\text P \}.
+    \]
+    % TODO Quellenangabe für „normalverteilt“.
+    Diese Schätzwerte sind annähernd normalverteilt. Somit ist der so
+    errechnete Erwartungswert $\overline X$ durch den Mittelwert von $\mathbb
+    X$ gegeben. Der Fehler $\Deltaup \overline X$ ist durch die
+    Standardabweichung von $\mathbb X$ gegeben.
+\end{appendix}
 
 % vim: ft=tex spell spelllang=de tw=79
