@@ -1257,18 +1257,8 @@ diese Daten wurden Funktionen zweiten Gerades angepasst.
             \addplot[
                 black!100!white,
                 myerrorbar,
-                mark=|,
-            ] table[y error index=2] {CSV/-1/a-E0-0.01.csv};
-            \addplot[
-                black!100!white,
-                myerrorbar,
-                mark=square*,
-            ] table[y error index=2] {CSV/-1/a-E0-0.05.csv};
-            \addplot[
-                black!100!white,
-                myerrorbar,
-                mark=square,
-            ] table[y error index=2] {CSV/-1/a-E0-0.1.csv};
+                mark=o,
+            ] table[y error index=2] {CSV/-1/a-E0-0.3.csv};
             \addplot[
                 black!100!white,
                 myerrorbar,
@@ -1277,8 +1267,18 @@ diese Daten wurden Funktionen zweiten Gerades angepasst.
             \addplot[
                 black!100!white,
                 myerrorbar,
-                mark=o,
-            ] table[y error index=2] {CSV/-1/a-E0-0.3.csv};
+                mark=square,
+            ] table[y error index=2] {CSV/-1/a-E0-0.1.csv};
+            \addplot[
+                black!100!white,
+                myerrorbar,
+                mark=square*,
+            ] table[y error index=2] {CSV/-1/a-E0-0.05.csv};
+            \addplot[
+                black!100!white,
+                myerrorbar,
+                mark=|,
+            ] table[y error index=2] {CSV/-1/a-E0-0.01.csv};
 
             % FIXME Graustufensequenz nehmen
             \addplot[myfit, black!100!white] table {CSV/-1/a-E0-fit-0.01.csv};
