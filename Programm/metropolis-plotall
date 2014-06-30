@@ -153,12 +153,23 @@ def get_filename(run, ending):
     return os.path.join(run, run+ending)
 
 def find_E_0(run):
-    pattern = '-c11.csv'
-    csv_file = get_filename(run, pattern)
-    data = np.loadtxt(csv_file)
-    t = data[0, 0]
-    corr_val = data[0, 1]
-    corr_err = data[0, 2]
+    pattern1 = '-E0-Virial.txt'
+    pattern2 = '-c11.csv'
+    csv_file = get_filename(run, pattern1)
+
+    if os.path.isfile(csv_file):
+        data = np.loadtxt(csv_file)
+        corr_val = data[0]
+        corr_err = data[1]
+
+        print('Found explicit virial theorem value!')
+
+    else:
+        csv_file = get_filename(run, pattern2)
+        data = np.loadtxt(csv_file)
+        t = data[0, 0]
+        corr_val = data[0, 1]
+        corr_err = data[0, 2]
 
     print('E_0 =', unitprint.siunitx(corr_val, corr_err))
 
