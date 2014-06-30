@@ -10,7 +10,7 @@ import tempfile
 
 condor_job = '''
 executable = /usr/local/bin/metropolis
-arguments = --iter 10000 --corr-size 5 --time-step {time_step:f} --time-sites {time_sites:d} --iter-pre 2000 --iter-between 10 --irw 0 --inv-scatt-len -1 --gauss-width {gauss_width:f} --max-cores 1
+arguments = --iter 10000 --corr-size 5 --time-step {time_step:f} --time-sites {time_sites:d} --iter-pre 2000 --iter-between 10 --irw 0 --inv-scatt-len 1 --gauss-width {gauss_width:f} --max-cores 1
 log    = ID-$(Cluster).$(Process)-log.txt
 output = ID-$(Cluster).$(Process)-out.txt
 universe = vanilla
