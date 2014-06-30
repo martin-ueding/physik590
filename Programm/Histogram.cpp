@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 
 Histogram::Histogram() {
 }
@@ -25,6 +26,11 @@ void Histogram::operator()(double value) {
 }
 
 Histogram &Histogram::operator+=(Histogram &other) {
+    if (bins.size() != other.bins.size()) {
+        std::ostringstream oss;
+        oss << "Cannot add histograms of size " << bins.size() << " and " << other.bins.size() << ".";
+        throw std::runtime_error{oss.str()};
+    }
     for (unsigned i {0}; i < bins.size(); i++) {
         bins[i] += other.bins[i];
     }
