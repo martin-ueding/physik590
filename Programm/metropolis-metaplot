@@ -36,12 +36,12 @@ def quadratic(x, a, b, c):
 
 def make_col(data, col, ylabel, outfile, harmonic, anharmonic):
     group_by(data, col, r'$\sigma$', ylabel, 'sigma-'+outfile, harmonic, anharmonic, 1, 0, 'a', 0, 1000)
-    group_by(data, col, r'$a$', ylabel, 'a-'+outfile, harmonic, anharmonic, 0, 1, r'\sigma', 0, 1000)
+    group_by(data, col, r'$a$', ylabel, 'a-'+outfile, harmonic, anharmonic, 0, 1, r'\sigma', 0.01, 1000)
 
 def bootstrap_fit(function, x, y, yerr):
     origins = []
 
-    for sample_id in range(10):
+    for sample_id in range(len(x)):
         boot_x = []
         boot_y = []
         boot_yerr = []
@@ -112,15 +112,8 @@ def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col
 
     meta_fit = np.array(meta_fit)
     if len(meta_fit) > 0:
-        for lower_bound in np.atleast_2d(meta_fit)[:, 0]:
-            s = meta_fit[:, 0] >= lower_bound
-            if len(meta_fit[:, 0][s]) >= 3:
-                popt, pconv = op.curve_fit(quadratic, meta_fit[:, 0][s], meta_fit[:, 1][s])
-                plot_x = np.linspace(0, np.max(meta_fit[:, 0]), 1000)
-                plot_y = quadratic(plot_x, *popt)
-
-            np.savetxt(outfile+'-meta-daten.csv', meta_fit)
-            np.savetxt(outfile+'-meta-fit-{}.csv'.format(lower_bound), np.column_stack([plot_x, plot_y]))
+        val0, err0 = bootstrap_fit(quadratic, meta_fit[:, 0], meta_fit[:, 1], meta_fit[:, 2])
+        print(outfile, unitprint.siunitx(val0, err0))
 
     pl.title(r'{} gegen {}'.format(ylabel, xlabel))
     pl.xlabel(xlabel)
