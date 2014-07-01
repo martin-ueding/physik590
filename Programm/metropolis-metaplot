@@ -36,7 +36,7 @@ def quadratic(x, a, b, c):
 
 def make_col(data, col, ylabel, outfile, harmonic, anharmonic):
     group_by(data, col, r'$\sigma$', ylabel, 'sigma-'+outfile, harmonic, anharmonic, 1, 0, 'a', 0, 1000)
-    group_by(data, col, r'$a$', ylabel, 'a-'+outfile, harmonic, anharmonic, 0, 1, r'\sigma', 0.01, 1000)
+    group_by(data, col, r'$a$', ylabel, 'a-'+outfile, harmonic, anharmonic, 0, 1, r'\sigma', 0, 1000)
 
 def bootstrap_fit(function, x, y, yerr):
     origins = []
