@@ -1106,22 +1106,23 @@ Tabelle~\ref{tab:E_a0} zusammengestellt.
     \label{tab:E_a0}
 \end{table}
 
-Die Werte in der Tabelle sind für das Kontinuum gültig, daher muss $\timestep
-\to 0$ und $\gausswidth \to 0$ vollzogen werden. Im Grenzfall $\timestep \to 0$
-muss jedoch $\timesites \to \infty$ gehen, so dass $\timestep \timesites = T$
-konstant bleibt. Andernfalls kommt es zu unerwünschten Korrelationen, die die
-Energiewerte verfälschen. Dadurch steigt die benötigte Rechenleistung an, es
-kann nur bis zu einem gewissen $\timestep$ gerechnet werden. Beim Grenzwert
-$\gausswidth \to 0$ wird die überlagerte Normalverteilung beliebig schmal. Ist
-sie zu schmal, ist die Wahrscheinlichkeit, dass Zufallszahlen in ihrer Breite
-gezogen werden, zu klein. Daher erwarte ich, dass für extrem kleine
-$\gausswidth$ der Grundzustand wieder erreicht wird.
+Die Werte in der Tabelle~\ref{tab:E_a0} sind für das Kontinuum gültig, daher
+muss $\timestep \to 0$ und $\gausswidth \to 0$ vollzogen werden. Im Grenzfall
+$\timestep \to 0$ muss jedoch $\timesites \to \infty$ gehen, so dass $\timestep
+\timesites = T$ konstant bleibt. Andernfalls kommt es zu unerwünschten
+Korrelationen, die die Energiewerte verfälschen. Dadurch steigt die benötigte
+Rechenleistung an, es kann nur bis zu einem gewissen $\timestep$ gerechnet
+werden. Beim Grenzwert $\gausswidth \to 0$ wird die überlagerte
+Normalverteilung beliebig schmal. Ist sie zu schmal, ist die
+Wahrscheinlichkeit, dass Zufallszahlen in ihrer Breite gezogen werden, zu
+klein. Daher erwarte ich, dass für extrem kleine $\gausswidth$ der Grundzustand
+wieder erreicht wird.
 
 Für verschiedene Werte von $\timestep$ und $\gausswidth$ habe ich Simulationen
 laufen lassen. Die gemeinsamen Parameter sind dabei $\iterations =
 \num{10000}$, $1/a_0 = \num{-1}$, $\timestep \timesites = T = \num{150}$,
-$\preiterations = \num{50}$, $\iterationsbetween = \num{2}$,
-$\initialrandomwidth = \num{0.632}$. Ebenfalls wurde immer $\margin = 2
+$\preiterations = \num{2000}$, $\iterationsbetween = \num{10}$,
+$\initialrandomwidth = \num{0}$. Ebenfalls wurde immer $\margin = 2
 \sqrt{\timestep}$ gesetzt. Die Daten aus den Simulationsdurchläufen sind in
 Abbildung~\ref{fig:mesh-e0} für einen Überblick zusammengefasst.
 
@@ -1153,32 +1154,18 @@ Abbildung~\ref{fig:mesh-e0} für einen Überblick zusammengefasst.
     \label{fig:mesh-e0}
 \end{figure}
 
-Für alle $\timestep$ ist zu erkennen, dass für große und kleine $\gausswidth$
-die Grundzustandsenergie $E_0$ gegen die $\num{0.5}$ des harmonischen
-Oszillators geht. Es ist jedoch verwunderlich, dass die Energiewerte, die dem
+Für alle $\timestep$ ist zu erkennen, dass für kleine $\gausswidth$ die
+Grundzustandsenergie $E_0$ gegen die $\num{0.5}$ des harmonischen Oszillators
+geht. Es ist jedoch verwunderlich, dass die Energiewerte, die dem
 Kontinuumswert von \num{1.08} am nächsten kommen, bei $\sigma \approx
 \num{0.3}$ liegen. Außerdem sinkt die Grundzustandsenergie mit kleinem
-$\timestep$ ebenfalls enorm, teilweise sogar unter \num{0.5}. Diesen Effekt
-konnte ich auch für den harmonischen Oszillator beobachten, es ist also
-unabhängig von der Störung.
+$\timestep$ ebenfalls. Diesen Effekt konnte ich auch für den harmonischen
+Oszillator beobachten, es ist also unabhängig von der Störung.
 
 Der Grenzwert $\timestep \to 0$ soll zuerst gebildet werden, daher betrachte
 ich die Daten zuerst als Scharen von $\gausswidth$, also
-${E_0}_\gausswidth(\timestep)$. In Abbildung~\ref{fig:minus1-grob} sind die
-großen Werte für $\gausswidth$ dargestellt.
-
-Für alle Werte von $\gausswidth$ ist der starke Abfall bei kleinen $\timestep$
-zu erkennen. An die Werte mit $\timestep \geq \num{0.05}$ habe ich eine
-Funktion zweiten Grades angepasst, um bis $\timestep = 0$ extrapolieren zu
-können. Je schmaler die Normalverteilung wird, desto größer wird die
-Grundzustandsenergie. Dies geht allerdings nur bis $\gausswidth = \num{0.4}$,
-danach sinken die Energien, zumindest für große $\timestep$, wieder.
-
-Die zweite Hälfte der Daten ist als Projektion in
-Abbildung~\ref{fig:minus1-fein} dargestellt. Hier ist der gleiche Abfall bei
-kleinen $\timestep$ zu erkennen. Bei $\timestep = \num{0.05}$ ist die Energie
-wieder am höchsten, bei größeren $\timestep$ jedoch deutlich kleiner. Auch an
-diese Daten wurden Funktionen zweiten Gerades angepasst.
+${E_0}_\gausswidth(\timestep)$. In Abbildung~\ref{fig:minus1-fein} sind die
+Scharen dargestellt.
 
 \begin{figure}[htbp]
     \centering
@@ -1245,11 +1232,22 @@ diese Daten wurden Funktionen zweiten Gerades angepasst.
     \end{tikzpicture}
     \caption{%
         Projektion der Daten aus Abbildung~\ref{fig:mesh-e0} mit
-        Anpassungsfunktionen. Es sind nur die kleinen Werte von $\gausswidth$
-        dargestellt.
+        Anpassungsfunktionen. Es sind zur Übersicht nur die kleinen Werte von
+        $\gausswidth$ dargestellt.
     }
     \label{fig:minus1-fein}
 \end{figure}
+
+Für alle Werte von $\gausswidth$ ist der Abfall bei kleinen $\timestep$ zu
+erkennen. Bei den mittleren Breiten ist bei $\timestep = \num{0.05}$ die Energie
+am höchsten, bei den kleineren Breiten auch bei kleineren Zeitschritten
+$\timestep$.
+
+An die Werte mit $\timestep \geq \num{0.01}$ habe ich eine Funktion zweiten
+Grades angepasst, um bis $\timestep = 0$ extrapolieren zu können. Zur
+Fehlerabschätzung habe ich aus den vorhandenen Datenpunkten mit der
+Bootstrapmethode (Anhang~\ref{sec:bootstrap}) Punkte ausgewählt und Anpassung
+und Extrapolation wiederholt.
 
 Die für $\timestep = 0$ extrapolierten Werte sollten den Grenzwert
 $\gausswidth \to 0$ ermöglichen. Die Punkte sind in
@@ -1303,19 +1301,24 @@ Abbildung~\ref{fig:minus1-meta} zusammengestellt.
     \end{tikzpicture}
     \caption{%
         Für $\timestep = 0$ extrapolierte Daten aus
-        Abbildungen~\ref{fig:minus1-grob} und \ref{fig:minus1-fein}.
+        Abbildung~\ref{fig:minus1-fein}.
     }
     \label{fig:minus1-meta}
 \end{figure}
 
 Im Grenzwert $\gausswidth \to 0$ sollte sich der Wert $E_0 = \num{1.08}$
-einstellen, dieser ist im Diagram bei $\gausswidth = 0$ eingezeichnet. Die
-rechte Flanke bei $\gausswidth \geq \num{0.3}$ ist jedoch zu steil. Die linke
-Flanke fällt jedoch zu schnell ab. Durch das Verhalten bei $\gausswidth <
-\num{0.1}$ lässt sich nicht genau sagen, wie zu extrapolieren ist.
+einstellen, dieser ist im Diagramm bei $\gausswidth = 0$ eingezeichnet. An
+diese Daten habe ich wieder mit der Bootstrapmethode quadratische Funktionen
+angepasst, um extrapolieren zu können. Der errechnete Wert ist mit \num{0.99 +-
+0.07} zu klein.
 
 \FloatBarrier
 \subsection{Angeregte Zustände}
+
+Auf die gleiche Weise sollten auch die angeregten Zustände für $1/a_0 = -1$ zu
+bestimmen sein. Jedoch streuen die Daten zu sehr, als dass der Unterschied
+zwischen \num{1.85} und \num{2} für den gestörten bzw. harmonischen Oszillator
+sichtbar wäre. Die Daten sind in Abbildung~\ref{fig:mesh-e2-e0} dargestellt.
 
 \begin{figure}[htbp]
     \centering
@@ -1339,7 +1342,7 @@ Flanke fällt jedoch zu schnell ab. Durch das Verhalten bei $\gausswidth <
     \caption{%
         Energiedifferenz des zweiten angeregten Zustands in Abhängigkeit von
         der Zeitauflösung $\timestep$ und der Breite $\gausswidth$ der
-        Normalverteilung.
+        Normalverteilung für eine Kopplungsstärke von $1/a_0 = -1$.
     }
     \label{fig:mesh-e2-e0}
 \end{figure}
@@ -1350,8 +1353,7 @@ Flanke fällt jedoch zu schnell ab. Durch das Verhalten bei $\gausswidth <
 
 \begin{appendix}
     \chapter{Bootstrap Methode}
-    % TODO Dies reicht für ein einzelnes Kapitel nicht aus, jedoch passt es
-    % auch irgendwie noch an keinen Ort so richtig.
+    \label{sec:bootstrap}
 
     Der Fehler zu einem statistischen Schätzwert ist in der Regel nicht einfach
     anzugeben. Für Größen wie den Mittelwert ist es unter Annahme einer
