@@ -9,6 +9,7 @@ import colorsys
 import matplotlib.pyplot as pl
 import mpl_toolkits.mplot3d.axes3d as p3
 import numpy as np
+import numpy.random
 import prettytable
 import scipy.optimize as op
 import unitprint
@@ -35,7 +36,26 @@ def quadratic(x, a, b, c):
 
 def make_col(data, col, ylabel, outfile, harmonic, anharmonic):
     group_by(data, col, r'$\sigma$', ylabel, 'sigma-'+outfile, harmonic, anharmonic, 1, 0, 'a', 0, 1000)
-    group_by(data, col, r'$a$', ylabel, 'a-'+outfile, harmonic, anharmonic, 0, 1, r'\sigma', 0.01, 0.2)
+    group_by(data, col, r'$a$', ylabel, 'a-'+outfile, harmonic, anharmonic, 0, 1, r'\sigma', 0.01, 1000)
+
+def bootstrap_fit(function, x, y, yerr):
+    origins = []
+
+    for sample_id in range(10):
+        boot_x = []
+        boot_y = []
+        boot_yerr = []
+        for idx in numpy.random.randint(0, len(x), len(x)):
+            boot_x.append(x[idx])
+            boot_y.append(y[idx])
+            boot_yerr.append(yerr[idx])
+
+        popt, pconv = op.curve_fit(function, np.array(boot_x),
+                                   np.array(boot_y), sigma=np.array(boot_yerr))
+
+        origins.append(function(0, *popt))
+
+    return np.mean(origins), np.std(origins)
 
 def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col, free_col, legend, fit_min, fit_max):
     time_groups = {}
@@ -76,8 +96,9 @@ def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col
             popt, pconv = op.curve_fit(quadratic, gauss_width[s], y_val[s], sigma=y_err[s])
             plot_x = np.linspace(0, np.max(gauss_width[s]), 1000)
             plot_y = quadratic(plot_x, *popt)
+            val0, err0 = bootstrap_fit(quadratic, gauss_width[s], y_val[s], y_err[s])
             meta_fit.append([
-                time_step, quadratic(0, *popt)
+                time_step, val0, err0,
             ])
 
             pl.plot(plot_x, plot_y, color=color, linestyle=options.fit_linestyle)
