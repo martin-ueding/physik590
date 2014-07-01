@@ -1167,73 +1167,6 @@ ich die Daten zuerst als Scharen von $\gausswidth$, also
 ${E_0}_\gausswidth(\timestep)$. In Abbildung~\ref{fig:minus1-grob} sind die
 großen Werte für $\gausswidth$ dargestellt.
 
-\begin{figure}[htbp]
-    \centering
-    \tikzsetnextfilename{minus1-grob}
-    \begin{tikzpicture}
-        \begin{axis}[
-                width=\linewidth,
-                height=0.6\linewidth,
-                xlabel={$a$},
-                ylabel={$E_0$},
-                grid=major,
-                legend entries={
-                    {$\sigma = \num{0.4}$},
-                    {$\sigma = \num{0.5}$},
-                    {$\sigma = \num{0.7}$},
-                    {$\sigma = \num{1.0}$},
-                },
-                legend pos=south east,
-                myerrorbar/.style={
-                    %dotted,
-                    %mark options=solid,
-                    only marks,
-                    error bars/y dir=both,
-                    error bars/y explicit,
-                    %error bars/error mark options=solid,
-                },
-                myfit/.style={
-                    solid,
-                },
-            ]
-
-            \addplot[
-                black!100!white,
-                mark=o,
-                myerrorbar,
-            ] table[y error index=2] {CSV/-1/a-E0-0.4.csv};
-            \addplot[
-                black!100!white,
-                mark=*,
-                myerrorbar,
-            ] table[y error index=2] {CSV/-1/a-E0-0.5.csv};
-            \addplot[
-                black!100!white,
-                myerrorbar,
-                mark=square,
-            ] table[y error index=2] {CSV/-1/a-E0-0.7.csv};
-            \addplot[
-                black!100!white,
-                myerrorbar,
-                mark=square*,
-            ] table[y error index=2] {CSV/-1/a-E0-1.0.csv};
-
-            % FIXME Graustufensequenz nehmen
-            \addplot[myfit, black!100!white] table {CSV/-1/a-E0-fit-0.4.csv};
-            \addplot[myfit, black!100!white] table {CSV/-1/a-E0-fit-0.5.csv};
-            \addplot[myfit, black!100!white] table {CSV/-1/a-E0-fit-0.7.csv};
-            \addplot[myfit, black!100!white] table {CSV/-1/a-E0-fit-1.0.csv};
-
-        \end{axis}
-    \end{tikzpicture}
-    \caption{%
-        Projektion der Daten aus Abbildung~\ref{fig:mesh-e0} mit
-        Anpassungsfunktionen. Es sind nur die großen Werte von $\gausswidth$
-        dargestellt.
-    }
-    \label{fig:minus1-grob}
-\end{figure}
-
 Für alle Werte von $\gausswidth$ ist der starke Abfall bei kleinen $\timestep$
 zu erkennen. An die Werte mit $\timestep \geq \num{0.05}$ habe ich eine
 Funktion zweiten Grades angepasst, um bis $\timestep = 0$ extrapolieren zu
@@ -1298,7 +1231,7 @@ diese Daten wurden Funktionen zweiten Gerades angepasst.
             \addplot[
                 black!100!white,
                 myerrorbar,
-                mark=|,
+                mark=triangle,
             ] table[y error index=2] {CSV/-1/a-E0-0.01.csv};
 
             % FIXME Graustufensequenz nehmen
@@ -1332,8 +1265,10 @@ Abbildung~\ref{fig:minus1-meta} zusammengestellt.
                 xlabel={$\gausswidth$},
                 ylabel={$E_0$},
                 grid=major,
+                legend pos=south east,
                 legend entries={
                     {Daten},
+                    {Extrapolation},
                     {Theorie},
                 },
             ]
@@ -1342,13 +1277,23 @@ Abbildung~\ref{fig:minus1-meta} zusammengestellt.
                 black!100!white,
                 only marks,
                 mark=*,
-                %error bars/.cd,
-                %y dir=both,
-                %y explicit
+                error bars/.cd,
+                y dir=both,
+                y explicit
             ] table[y error index=2] {CSV/-1/a-E0-meta-daten.csv};
 
             \addplot[
                 mark=o,
+                only marks,
+                error bars/.cd,
+                y dir=both,
+                y explicit,
+            ] table[y error index=2] {
+                0 0.99 0.07
+            };
+
+            \addplot[
+                mark=star,
                 only marks,
             ] table {
                 0 1.08389
