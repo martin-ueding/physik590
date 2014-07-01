@@ -34,10 +34,10 @@ def quadratic(x, a, b, c):
     return a + b * x + x**2 * c
 
 def make_col(data, col, ylabel, outfile, harmonic, anharmonic):
-    group_by(data, col, r'$\sigma$', ylabel, 'sigma-'+outfile, harmonic, anharmonic, 1, 0, 'a', 0)
-    group_by(data, col, r'$a$', ylabel, 'a-'+outfile, harmonic, anharmonic, 0, 1, '\sigma', 0.05)
+    group_by(data, col, r'$\sigma$', ylabel, 'sigma-'+outfile, harmonic, anharmonic, 1, 0, 'a', 0, 1000)
+    group_by(data, col, r'$a$', ylabel, 'a-'+outfile, harmonic, anharmonic, 0, 1, r'\sigma', 0.01, 0.2)
 
-def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col, free_col, legend, fit_min):
+def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col, free_col, legend, fit_min, fit_max):
     time_groups = {}
     data = data[data[:, free_col].argsort()]
     for row in range(len(data[:, group_col])):
@@ -71,8 +71,8 @@ def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col
         #i += 1
 
         # Fit a function to some of the data points
-        s = gauss_width >= fit_min
-        if len(gauss_width[s]) > 3:
+        s = np.logical_and(fit_min <= gauss_width, gauss_width <= fit_max)
+        if len(gauss_width[s]) >= 3:
             popt, pconv = op.curve_fit(quadratic, gauss_width[s], y_val[s], sigma=y_err[s])
             plot_x = np.linspace(0, np.max(gauss_width[s]), 1000)
             plot_y = quadratic(plot_x, *popt)
@@ -139,6 +139,7 @@ def _parse_args():
     parser.add_argument('filename')
     parser.add_argument('--linestyle', default='solid')
     parser.add_argument('--fit-linestyle', default='solid')
+    parser.add_argument('--low', type=float, default=0)
 
     options = parser.parse_args()
 
