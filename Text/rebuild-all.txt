@@ -1,0 +1,7 @@
+executable = /usr/bin/make
+arguments = -B
+log    = ID-$(Cluster).$(Process)-log.txt
+output = ID-$(Cluster).$(Process)-out.txt
+universe = vanilla
+request_cpus = 1
+queue
