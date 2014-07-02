@@ -36,7 +36,7 @@ def quadratic(x, a, b, c):
 
 def make_col(data, col, ylabel, outfile, harmonic, anharmonic, show=False):
     group_by(data, col, r'$\sigma$', ylabel, 'sigma-'+outfile, harmonic, anharmonic, 1, 0, 'a', 0, 1000, show)
-    group_by(data, col, r'$a$', ylabel, 'a-'+outfile, harmonic, anharmonic, 0, 1, r'\sigma', 0.01, 1000, show)
+    group_by(data, col, r'$a$', ylabel, 'a-'+outfile, harmonic, anharmonic, 0, 1, r'\sigma', 0., 0.05, show)
 
 def bootstrap_fit(function, x, y, yerr):
     origins = []
@@ -111,6 +111,7 @@ def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col
     pl.plot(x, ones * anharmonic, linestyle='--', color='black')
 
     meta_fit = np.array(meta_fit)
+    np.savetxt(outfile+'-meta-daten.csv', meta_fit)
     if len(meta_fit) > 0:
         val0, err0 = bootstrap_fit(quadratic, meta_fit[:, 0], meta_fit[:, 1], meta_fit[:, 2])
         print(outfile, unitprint.siunitx(val0, err0))
@@ -120,7 +121,7 @@ def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col
     pl.ylabel(ylabel)
     pl.grid(True)
     pl.margins(0.1)
-    pl.legend(loc='best', prop={'size': 6})
+    pl.legend(loc='best', prop={'size': 9})
     if show:
         pl.show()
     pl.savefig(outfile+'.pdf')
