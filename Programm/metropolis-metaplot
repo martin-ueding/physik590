@@ -34,9 +34,9 @@ def coloriter(n):
 def quadratic(x, a, b, c):
     return a + b * x + x**2 * c
 
-def make_col(data, col, ylabel, outfile, harmonic, anharmonic):
-    group_by(data, col, r'$\sigma$', ylabel, 'sigma-'+outfile, harmonic, anharmonic, 1, 0, 'a', 0, 1000)
-    group_by(data, col, r'$a$', ylabel, 'a-'+outfile, harmonic, anharmonic, 0, 1, r'\sigma', 0.01, 1000)
+def make_col(data, col, ylabel, outfile, harmonic, anharmonic, show=False):
+    group_by(data, col, r'$\sigma$', ylabel, 'sigma-'+outfile, harmonic, anharmonic, 1, 0, 'a', 0, 1000, show)
+    group_by(data, col, r'$a$', ylabel, 'a-'+outfile, harmonic, anharmonic, 0, 1, r'\sigma', 0.01, 1000, show)
 
 def bootstrap_fit(function, x, y, yerr):
     origins = []
@@ -57,7 +57,7 @@ def bootstrap_fit(function, x, y, yerr):
 
     return np.mean(origins), np.std(origins)
 
-def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col, free_col, legend, fit_min, fit_max):
+def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col, free_col, legend, fit_min, fit_max, show):
     time_groups = {}
     data = data[data[:, free_col].argsort()]
     for row in range(len(data[:, group_col])):
@@ -121,7 +121,8 @@ def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col
     pl.grid(True)
     pl.margins(0.1)
     pl.legend(loc='best', prop={'size': 6})
-    #pl.show()
+    if show:
+        pl.show()
     pl.savefig(outfile+'.pdf')
     pl.clf()
 
@@ -134,7 +135,7 @@ def main():
 
     data = np.loadtxt(options.filename)
 
-    make_col(data, 2, r'$E_0$', 'E0', 0.5, -1.94107)
+    make_col(data, 2, r'$E_0$', 'E0', 0.5, -1.94107, True)
     make_col(data, 4, r'$E_2$', 'E2', 2.5, 2.00491)
     make_col(data, 6, r'$E_4$', 'E4', 4.5, 4.11354)
     make_col(data, 8, r'$E_2 - E_0$', 'E2-E0', 2, 3.94598)
