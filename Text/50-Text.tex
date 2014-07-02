@@ -1312,6 +1312,36 @@ diese Daten habe ich wieder mit der Bootstrapmethode quadratische Funktionen
 angepasst, um extrapolieren zu können. Der errechnete Wert ist mit \num{0.99 +-
 0.07} zu klein.
 
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{mesh-e0+1}
+    \begin{tikzpicture}
+        \begin{axis}[
+                xlabel={$\gausswidth$},
+                ylabel={$\timestep$},
+                colormap name=whiteblack,
+                zlabel={$E_0$},
+                colorbar,
+                grid=major,
+                view={-15}{15},
+            ]
+            \addplot3[
+                mesh,
+                scatter,
+                mesh/ordering=y varies,
+            ]
+            table {CSV/+1/raw_data.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Energie des Grundzustands in Abhängigkeit von der Zeitauflösung
+        $\timestep$ und der Breite $\gausswidth$ der Normalverteilung.
+    }
+    \label{fig:mesh-e0+1}
+\end{figure}
+
+
 \FloatBarrier
 \subsection{Angeregte Zustände}
 
