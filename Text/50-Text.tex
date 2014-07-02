@@ -1036,7 +1036,6 @@ negative und positive Kopplungsstärke $1/a_0$.
     \label{fig:gausspotential}
 \end{figure}
 
-
 \subsection{Aufenthaltswahrscheinlichkeit}
 
 Mit dem veränderten Potential können alle vorherigen Rechnungen wiederholt
@@ -1117,6 +1116,8 @@ Normalverteilung beliebig schmal. Ist sie zu schmal, ist die
 Wahrscheinlichkeit, dass Zufallszahlen in ihrer Breite gezogen werden, zu
 klein. Daher erwarte ich, dass für extrem kleine $\gausswidth$ der Grundzustand
 wieder erreicht wird.
+
+\subsubsection{Negative Kopplungsstärke}
 
 Für verschiedene Werte von $\timestep$ und $\gausswidth$ habe ich Simulationen
 laufen lassen. Die gemeinsamen Parameter sind dabei $\iterations =
@@ -1312,35 +1313,183 @@ diese Daten habe ich wieder mit der Bootstrapmethode quadratische Funktionen
 angepasst, um extrapolieren zu können. Der errechnete Wert ist mit \num{0.99 +-
 0.07} zu klein.
 
+\FloatBarrier
+\subsubsection{Positive Kopplungsstärke}
+
+Mit $1/a_0 = +1$ und ansonsten gleichen Parametern lasse ich Simulationen für
+verschiedene $\timestep$ und $\gausswidth$ durchlaufen. Im Gegensatz zu den
+vorherigen Daten zur negativen Kopplungsstärke nähert sich hier bei sehr
+kleinen $\timestep$ der Energiewert an den theoretischen Wert an. Alle
+Datenpunkte sind in Abbildung Abbildung~\ref{fig:plus1-E0-a} auf der linken
+Seite gezeigt. Rechts ist eine Vergrößerung des interessanten Energiebereichs
+um $E_0 = \num{-1.94107}$ dargestellt. Für $\gausswidth = \num{0.01}$ und
+$\timestep = \num{0.005}$ ist dieser Kontinuumswert fast erreicht.
 
 \begin{figure}[htbp]
     \centering
-    \tikzsetnextfilename{mesh-e0+1}
+    \begin{minipage}{0.49\linewidth}
+        \tikzsetnextfilename{plus1-E0-a}
+        \begin{tikzpicture}
+            \begin{axis}[
+                    width=\linewidth,
+                    height=\linewidth,
+                    xlabel={$a$},
+                    ylabel={$E_0$},
+                    grid=major,
+                    legend entries={
+                        {$\gausswidth = \num{0.30}$},
+                        {$\gausswidth = \num{0.20}$},
+                        {$\gausswidth = \num{0.10}$},
+                        {$\gausswidth = \num{0.05}$},
+                        {$\gausswidth = \num{0.01}$},
+                    },
+                    legend pos=south east,
+                    myerrorbar/.style={
+                        only marks,
+                        error bars/y dir=both,
+                        error bars/y explicit,
+                    },
+                    myfit/.style={
+                        solid,
+                    },
+                ]
+
+                \addplot[
+                    black!100!white,
+                    myerrorbar,
+                    mark=triangle,
+                ] table[y error index=2] {CSV/+1/a-E0-0.3.csv};
+                \addplot[
+                    black!100!white,
+                    myerrorbar,
+                    mark=*,
+                ] table[y error index=2] {CSV/+1/a-E0-0.2.csv};
+                \addplot[
+                    black!100!white,
+                    myerrorbar,
+                    mark=o,
+                ] table[y error index=2] {CSV/+1/a-E0-0.1.csv};
+                \addplot[
+                    black!100!white,
+                    myerrorbar,
+                    mark=square*,
+                ] table[y error index=2] {CSV/+1/a-E0-0.05.csv};
+                \addplot[
+                    black!100!white,
+                    myerrorbar,
+                    mark=square,
+                ] table[y error index=2] {CSV/+1/a-E0-0.01.csv};
+
+            \end{axis}
+        \end{tikzpicture}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\linewidth}
+        \tikzsetnextfilename{plus1-E0-a-zoom}
+        \begin{tikzpicture}
+            \begin{axis}[
+                    width=\linewidth,
+                    height=\linewidth,
+                    xlabel={$a$},
+                    ylabel={$E_0$},
+                    ymin=-3,
+                    yticklabel pos=right,
+                    grid=major,
+                    myerrorbar/.style={
+                        only marks,
+                        error bars/y dir=both,
+                        error bars/y explicit,
+                    },
+                    myfit/.style={
+                        solid,
+                    },
+                ]
+
+                \addplot[
+                    black!100!white,
+                    myerrorbar,
+                    mark=triangle,
+                ] table[y error index=2] {CSV/+1/a-E0-0.3.csv};
+                \addplot[
+                    black!100!white,
+                    myerrorbar,
+                    mark=*,
+                ] table[y error index=2] {CSV/+1/a-E0-0.2.csv};
+                \addplot[
+                    black!100!white,
+                    myerrorbar,
+                    mark=o,
+                ] table[y error index=2] {CSV/+1/a-E0-0.1.csv};
+                \addplot[
+                    black!100!white,
+                    myerrorbar,
+                    mark=square*,
+                ] table[y error index=2] {CSV/+1/a-E0-0.05.csv};
+                \addplot[
+                    black!100!white,
+                    myerrorbar,
+                    mark=square,
+                ] table[y error index=2] {CSV/+1/a-E0-0.01.csv};
+
+            \end{axis}
+        \end{tikzpicture}
+    \end{minipage}
+    \caption{%
+        Daten aus den Simulationsdurchläufen für $1/a_0 = +1$ für verschiedene
+        $\timestep$ und $\gausswidth$. Links sind alle Daten dargestellt,
+        rechts nur der interessante Energiebereich.
+    }
+    \label{fig:plus1-E0-a}
+\end{figure}
+
+Die Daten aus den Durchläufen mit $\timestep = \num{0.005}$ liegen anscheinend
+sehr nahe am Kontinuum. Daher kann aus diesen Daten bereits der Kontinuumswert
+für $E_0$ recht gut extrapoliert werden. Diese Daten sind zusammen mit dem
+Theoriewert in Abbildung~\ref{fig:plus1-E0-sigma-0p005} gezeigt.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{plus1-E0-sigma-0p005}
     \begin{tikzpicture}
         \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
                 xlabel={$\gausswidth$},
-                ylabel={$\timestep$},
-                colormap name=whiteblack,
-                zlabel={$E_0$},
-                colorbar,
+                ylabel={$E_0$},
                 grid=major,
-                view={-15}{15},
+                legend pos=south east,
+                legend entries={
+                    {Daten $a = \num{0.005}$},
+                    {Theorie},
+                },
             ]
-            \addplot3[
-                mesh,
-                scatter,
-                mesh/ordering=y varies,
-            ]
-            table {CSV/+1/raw_data.csv};
+
+            \addplot[
+                black!100!white,
+                only marks,
+                mark=|,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {CSV/+1/sigma-E0-0.005.csv};
+
+            \addplot[
+                mark=star,
+                only marks,
+            ] table {
+                0 -1.94107
+            };
+
         \end{axis}
     \end{tikzpicture}
     \caption{%
-        Energie des Grundzustands in Abhängigkeit von der Zeitauflösung
-        $\timestep$ und der Breite $\gausswidth$ der Normalverteilung.
     }
-    \label{fig:mesh-e0+1}
+    \label{fig:plus1-E0-sigma-0p005}
 \end{figure}
 
+Je nach dem, wie man $\gausswidth \to 0$ extrapoliert, kommt man nahe an den
+Kontinuumswert. Die Extrapolation funktioniert hier deutlich besser als mit der
+negativen Kopplungsstärke.
 
 \FloatBarrier
 \subsection{Angeregte Zustände}
