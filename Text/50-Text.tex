@@ -30,13 +30,14 @@ Mein Programm ist freie Software und kann auf meiner Webseite
 
 \section{Einleitung}
 
-Feynmans Pfadintegralformalismus erlaubt es ein quantenmechanisches System mit
-$n$ Freiheitsgraden in ein klassisches System mit $n+1$ Freiheitsgraden zu
-überführen \parencite[§12.4]{Thijssen/Computational_Physics}. Dieses System
-kann dann mit Methoden ähnlich der statistischen Physik behandelt werden.
-Analog zur kanonischen Zustandssumme tritt hier eine Summe über alle
-Weltlinien, die zwischen festem Anfangs- und Endpunkt $x_\text A$ bzw. $x_\text
-E$ und einem Zeitinterval $T$ liegen, auf
+\textsc{Feynman}s Pfadintegralformalismus erlaubt es ein quantenmechanisches
+System mit $n$ Freiheitsgraden in ein klassisches System mit $n+1$
+Freiheitsgraden zu überführen
+\parencite[§12.4]{Thijssen/Computational_Physics}. Dieses System kann dann mit
+Methoden ähnlich der statistischen Physik behandelt werden. Analog zur
+kanonischen Zustandssumme tritt hier eine Summe über alle Weltlinien, die
+zwischen festem Anfangs- und Endpunkt $x_\text A$ bzw. $x_\text E$ und einem
+Zeitinterval $T$ liegen, auf
 \parencite[(2.7)]{Creutz/Statistical_Approach_QM}:\footnote {Ich wähle die
 Einheiten so, dass $\hbar = 1$ ist.}
 \[
@@ -45,8 +46,8 @@ Einheiten so, dass $\hbar = 1$ ist.}
 Die Phase mit der Wirkung\footnote{Für die Grundlagen der klassischen Mechanik
 siehe zum Beispiel \parencite{Kuypers/Mechanik}.} $S$ wird stark variieren, so
 dass es ab dieser Stelle hilfreich ist, imaginäre Zeit zu betrachten. Dazu wird
-$\tau := \iup t$ eingeführt, was man auch \emph{Wick-Rotation} nennt. Diese hat
-die Eigenschaft, ein quantenmechanisches System in ein Thermodynamisches zu
+$\tau := \iup t$ eingeführt, was man auch \textsc{Wick}-Rotation nennt. Diese
+hat die Eigenschaft, ein quantenmechanisches System in ein Thermodynamisches zu
 überführen \parencite[24]{Stetz/AQT}.
 
 Schreibt man $\int \funcmeasure$ für eine Integration über alle
@@ -61,7 +62,7 @@ der Nähe der minimalen Wirkung Beiträge liefern. Dies reduziert den Bereich de
 Phasenraums, über den integriert werden muss, derart, dass die Integration mit
 Monte Carlo Methoden gut möglich ist.
 
-Die Wirkung ist auch hier die Zeitintegration der Lagrangefunktion
+Die Wirkung ist auch hier die Zeitintegration der \textsc{Lagrange}funktion
 \parencite[(2.5)]{Creutz/Statistical_Approach_QM}:
 \[
     S = \int_0^T \dif \tau \, \sbr{\frac 12 m \sbr{\dpd x\tau(\tau)}^2 + V(x)}
@@ -86,9 +87,9 @@ Zeitgitters in Kombination mit imaginärer Zeit legitim. Im Grenzfall $\timestep
 \to 0$ erhält man den kontinuierlichen Fall zurück.
 
 Durch die diskrete Zeit wird in der Wirkung die Zeitableitung durch einen
-Differenzenquotient ersetzt. Die Lagrangefunktion hängt nur noch von zwei
-aufeinanderfolgenden Koordinaten ab. Die Wirkung einer Weltlinie $\vec x^{(k)}$
-wird dann gegeben durch
+Differenzenquotient ersetzt. Die \textsc{Lagrange}funktion hängt nur noch von
+zwei aufeinanderfolgenden Koordinaten ab. Die Wirkung einer Weltlinie $\vec
+x^{(k)}$ wird dann gegeben durch
 \parencite[(3.2)]{Creutz/Statistical_Approach_QM}:
 \[
     S\del{\vec x^{(k)}} = \timestep \sum_{j = 1}^\timesites L\del{x_j^{(k)},
@@ -102,9 +103,9 @@ Der Raum der möglichen diskreten Weltlinien hat $\timesites$ Dimensionen und
 ist unendlich groß. Aufgrund der hohen Dimension sind Monte Carlo Methoden zu
 bevorzugen. Der Bereich der Weltlinien, die einen nennenswerten Beitrag zum
 Integral liefern, ist jedoch aufgrund der exponentiellen Gewichtung recht
-klein. Der Algorithmus von Metropolis wählt die Weltlinien entsprechend dieser
-Gewichtung so aus, dass ein ungewichteter Mittelwert dieser Weltlinien einen
-Schätzwert für die gewünschte Größe gibt
+klein. Der Algorithmus von \textsc{Metropolis} wählt die Weltlinien
+entsprechend dieser Gewichtung so aus, dass ein ungewichteter Mittelwert dieser
+Weltlinien einen Schätzwert für die gewünschte Größe gibt
 \parencite[434]{Creutz/Statistical_Approach_QM}. Die Wahrscheinlichkeit, die
 Trajektorie $\vec x^{(k)}$ zu erhalten, wird durch
 \begin{equation}
@@ -114,19 +115,18 @@ Trajektorie $\vec x^{(k)}$ zu erhalten, wird durch
     \, \exp\del{-S(\vec x)}}
 \end{equation}
 gegeben \parencite[(3.6)]{Creutz/Statistical_Approach_QM}. Werden $\iterations$
-Weltlinien durch den Metropolisalgorithmus generiert, so ist der Schätzwert
-$\overline A$ für
-eine Größe $\bracket A$
+Weltlinien durch den \textsc{Metropolis}algorithmus generiert, so ist der
+Schätzwert $\overline A$ für eine Größe $\bracket A$
 \parencite[(3.7)]{Creutz/Statistical_Approach_QM}:
 \[
     \overline A := \frac1\iterations \sum_{k=1}^\iterations A\del{\vec x^{(k)}}.
 \]
 
-\subsection{Markovketten}
+\subsection{\textsc{Markov}ketten}
 
 Um die Weltlinien entsprechend gewichtet generieren zu können, kommt ein
-bestimmter Markovprozess zum Einsatz, der aus einer Weltlinie die Nächste
-generiert. Für $\iterations \to \infty$ nähert sich die Verteilung der
+bestimmter \textsc{Markov}prozess zum Einsatz, der aus einer Weltlinie die
+Nächste generiert. Für $\iterations \to \infty$ nähert sich die Verteilung der
 Benötigten an. \parencite[434]{Creutz/Statistical_Approach_QM}
 
 % Eigenschaften von Markovketten
@@ -217,10 +217,10 @@ Dieser Algorithmus wird „heat bath algorithm“ bezeichnet und hat den Nachtei
 dass es schwer ist, $x_j'$ entsprechend der Verteilung $\exp(-S(\ldots, x_j',
 \ldots))$ zu ziehen \parencite[438]{Creutz/Statistical_Approach_QM}.
 
-\subsection{Metropolis Algorithmus}
+\subsection{\textsc{Metropolis} Algorithmus}
 
-Der Algorithmus von Metropolis et al.\ umgeht dieses Problem, indem er nach
-einer einfach zu implementierenden Vorschrift, die $x_j'$ generiert
+Der Algorithmus von \textsc{Metropolis} et al.\ umgeht dieses Problem, indem er
+nach einer einfach zu implementierenden Vorschrift die $x_j'$ generiert
 \parencite[439]{Creutz/Statistical_Approach_QM}, siehe
 Algorithmus~\ref{alg:metropolis}.
 
@@ -243,8 +243,8 @@ Algorithmus~\ref{alg:metropolis}.
     \end{algorithmic}
     % XXX Die zweite Zeile der Unterschrift ist nicht eingerückt.
     \caption{%
-        Metropolisalgorithmus. Die Funktion $\textsc{Zufallzahl}(a, b)$ erzeugt
-        eine Zufallszahl im Interval $(a, b)$.
+        \textsc{Metropolis}algorithmus. Die Funktion $\textsc{Zufallzahl}(a,
+        b)$ erzeugt eine Zufallszahl im Intervall $(a, b)$.
     }
     \label{alg:metropolis}
 \end{algorithm}
@@ -303,10 +303,10 @@ einer Koordinate unterscheiden, schnell berechnen:
 \chapter{Energiewerte}
 
 Beim harmonischen Oszillator kann die Grundzustandsenergie über den Virialsatz
-bestimmt werden. Dieser besagt allgemein
-$\bracket{\vec F \vec r} + 2 \bracket{T} = 0$ \parencite[551]{Kuypers/Mechanik}. $\vec F \vec r$ kann auch als $-
-[\vnabla V] \vec r$ geschrieben werden. In einer Dimension
-ist das, wie in \parencite[(2.29)]{Creutz/Statistical_Approach_QM},
+bestimmt werden. Dieser besagt allgemein $\bracket{\vec F \vec r} + 2
+\bracket{T} = 0$ \parencite[551]{Kuypers/Mechanik}. $\vec F \vec r$ kann auch
+als $- [\vnabla V] \vec r$ geschrieben werden. In einer Dimension ist das, wie
+in \parencite[(2.29)]{Creutz/Statistical_Approach_QM},
 \[
     T = \frac12 m \bracket{v^2} = \frac12 \bracket{x V'(x)}.
 \]
@@ -440,15 +440,15 @@ definiert. Daher wird der größte gerade Eigenwert $\lambda_2$ für $\tau \to
 \infty$ nicht verschwinden. Dieser Eigenwert muss verworfen werden, $E_2$
 steckt somit in $\lambda_4$.
 
-\subsection{Lösung des GEVP durch Cholesky-Zerlegung}
+\subsection{Lösung des GEVP durch \textsc{Cholesky}-Zerlegung}
 
 Das generalisierte Eigenwertproblem $\tens A \vec v = \lambda \tens B \vec v$
 kann durch Multiplikation mit $\tens B^{-1}$ von links in ein normales
 Eigenwertproblem überführt werden, wobei jedoch Symmetrien von $\tens A$ und
 $\tens B$ verloren gehen. Um dies zu vermeiden, kann man das Problem mit der
-Cholesky-Zerlegung lösen. Diese zerlegt $\tens B$ in eine untere Dreiecksmatrix
-$\tens L$, so dass $\tens B = \tens L \tens L^\dagger$ gilt. Vorraussetzung
-ist, dass $\tens B$ positiv definit ist, was hier der Fall ist.
+\textsc{Cholesky}-Zerlegung lösen. Diese zerlegt $\tens B$ in eine untere
+Dreiecksmatrix $\tens L$, so dass $\tens B = \tens L \tens L^\dagger$ gilt.
+Vorraussetzung ist, dass $\tens B$ positiv definit ist, was hier der Fall ist.
 % TODO Warum ist die positiv definit?
 \parencite{MacKinnon/GEVP}
 
@@ -470,10 +470,11 @@ lässt sich dies als normale Eigenwertproblem mit gleichem Eigenwert schreiben
     \tilde{\tens A} \tilde{\vec x} = \lambda \tilde{\vec x}.
 \]
 
-Für die Implementierung der Cholesky-Zerlegung benutze ich die Funktion
-\texttt{MatrixBase::llt()} \parencite{Eigen/LLT} aus der C++ Bibliothek Eigen.
-Das normale Eigenwertproblem löse ich anschließend mit der Klasse
-\texttt{EigenSolver} \parencite{Eigen/EigenSolver}.
+% XXX Dieser Absatz ist nicht sonderlich wichtig.
+Für die Implementierung der \textsc{Cholesky}-Zerlegung benutze ich die
+Funktion \texttt{MatrixBase::llt()} \parencite{Eigen/LLT} aus der C++
+Bibliothek Eigen. Das normale Eigenwertproblem löse ich anschließend mit der
+Klasse \texttt{EigenSolver} \parencite{Eigen/EigenSolver}.
 
 \section{Eindimensionaler Oszillator mit \texorpdfstring{$\delta$}{delta}-Störung}
 
@@ -493,13 +494,14 @@ x_2) = - 2/a_0 \delta(x_1 - x_2)$ benutzt werden
 \parencite[Fußnote~20]{Busch/Two_Cold}.
 
 Ich beginne meine Herleitung nach der Separation von Schwerpunkts- und
-Relativbewegung analog zu \br2. Der Hamiltonoperator für den anharmonischen
-Oszillator ist
+Relativbewegung analog zu \br2. Der \textsc{Hamilton}operator für den
+anharmonischen Oszillator ist
 \[
     H_\text{rel} = \underbrace{- \frac12 \nabla_x^2 + \frac 12
     x^2}_{H_\text{osz}} - \frac2{a_0} \delta(x).
 \]
-Dieser Operator muss (analog zu \br3) die zeitunabhängige Schrödingergleichung
+Dieser Operator muss (analog zu \br3) die zeitunabhängige
+\textsc{Schrödinger}gleichung
 \begin{equation}
     \label{eq:Bus_3}
     \sbr{H_\text{osz} - \frac2{a_0} \delta(x)} \Psi(x) = E \Psi(x)
@@ -516,8 +518,8 @@ Im eindimensionalen Fall gibt es keinen Drehimpuls $l$. Aber $\phi_n$ mit
 ungeradem $n$ tragen nicht bei, da diese bei $x = 0$ einen Nulldurchgang haben.
 Somit bleiben in der Summe nur die geraden $n$.
 
-Dies setze ich (analog zu \br5) in die Schrödingergleichung \eqref{eq:Bus_3}
-ein:
+Dies setze ich (analog zu \br5) in die \textsc{Schrödinger}gleichung
+\eqref{eq:Bus_3} ein:
 \[
     \sbr{H_\text{osz} - E - \frac2{a_0} \delta(x)}
     \sum_{n=0}^\infty c_n \phi_n(x)
@@ -544,7 +546,7 @@ Mit der Orthogonalitätsrelation für die Eigenfunktionen
     \int_{-\infty}^\infty \dif x \phi_m^*(x) \phi_n(x) = \braket{m|n} =
     \delta_{mn}
 \]
-folgt für die Schrödingergleichung
+folgt für die \textsc{Schrödinger}gleichung
 \[
     (E_m - E) c_m - \frac2{a_0} \phi_m^*(0) \sum_{n=0}^\infty c_n \phi_n(0) =
     0.
@@ -568,7 +570,7 @@ $\phi_n$ eingesetzt. An der Stelle $x = 0$ verschwindet der Exponentialterm:
     E} = \frac{a_0}2
 \]
 
-Mit dem Wert der Hermitepolynome am Ursprung,
+Mit dem Wert der \textsc{Hermite}polynome am Ursprung,
 \[
     H_n(0) = \frac{2^n \sqrt\piup}{\Gamma\del{\frac{1-n}2}},
 \]
@@ -831,7 +833,8 @@ $x^{12}$ errechne ich die Eigenwerte bis $\tau = \num{6}$ aus. Diese ungeraden
 und geraden Eigenwerte sind in den Abbildungen
 \ref{fig:ED7AA2-eigenwerte-ungerade} bzw. \ref{fig:ED7AA2-eigenwerte-gerade}
 dargestellt. Mit dem Virialsatz erhalte ich $E_0 = \num{0.4989 +- 0.0002}$. Mit
-der einfachen Korrelation $C_{11}(t)$ erhalte ich $E_1 = \num{1.50390 +- 0.00069}$. Die Energiewerte aus der Anpassung des GEVP sind in
+der einfachen Korrelation $C_{11}(t)$ erhalte ich $E_1 = \num{1.50390 +-
+0.00069}$. Die Energiewerte aus der Anpassung des GEVP sind in
 Tabelle~\ref{tab:ED7AA2-eigenwerte} aufgelistet.
 
 \begin{figure}[htbp]
