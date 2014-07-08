@@ -637,30 +637,36 @@ Energiewerte $E_n = n + 1/2$ sind als Schnittpunkte zu erkennen.
 Die Energie kann aus den Daten wieder mit dem Virialsatz bestimmt werden,
 jedoch ist jetzt das Potential:
 \[
-    V(x) = \frac12 \mu^2 x^2 - \frac{2}{a_0} \frac1{\sqrt{2\piup}\sigma} \exp\del{-\frac{x^2}{\sigma^2}}.
+    V(x) = \frac12 \mu^2 x^2 - \frac{2}{a_0} \frac1{\sqrt{2\piup}\sigma}
+    \exp\del{-\frac{x^2}{\sigma^2}}.
 \]
 Somit sagt der Virialsatz aus:
 \[
-    \bracket T = \frac12 \mu^2 \bracket{x^2} + \frac{2}{a_0} \frac1{\sqrt{2\piup}\sigma^3} \Bracket{\exp\del{-\frac{x^2}{\sigma^2}} x^2}.
+    \bracket T = \frac12 \mu^2 \bracket{x^2} + \frac{2}{a_0}
+    \frac1{\sqrt{2\piup}\sigma^3} \Bracket{\exp\del{-\frac{x^2}{\sigma^2}}
+    x^2}.
 \]
 Zusammen mit dem zeitlichen Mittelwert der potentiellen Energie gibt dies die
 Gesamtenergie:
 \[
-    \bracket E = \mu^2 \bracket{x^2} + \frac{2}{a_0} \frac1{\sqrt{2\piup}\sigma} \sbr{\frac1{\sigma^2} \Bracket{\exp\del{-\frac{x^2}{\sigma^2}} x^2} - \Bracket{\exp\del{-\frac{x^2}{\sigma^2}}}}.
+    \bracket E = \mu^2 \bracket{x^2} + \frac{2}{a_0}
+    \frac1{\sqrt{2\piup}\sigma} \sbr{\frac1{\sigma^2}
+    \Bracket{\exp\del{-\frac{x^2}{\sigma^2}} x^2} -
+    \Bracket{\exp\del{-\frac{x^2}{\sigma^2}}}}.
 \]
 
 \chapter{Ergebnisse}
 
 Die in den vorhergehenden Kapiteln beschrieben Methoden habe ich in einem C++
 Programm umgesetzt. Mein Programm ist freie Software und kann auf meiner
-Webseite \url{http://martin-ueding.de/de/university/physik590/} heruntergeladen
-werden.
+Webseite\footnote{\url{http://martin-ueding.de/de/university/physik590/}}
+heruntergeladen werden.
 
 Die Weltlinie wird in der Regel anfangs mit zufälligen Werten für die $x_j$ aus
 dem Intervall $(-\initialrandomwidth, \initialrandomwidth)$ initialisiert.
 Bevor Werte aufgenommen werden, durchläuft das System $\preiterations$
-Monte-Carlo-Iterationen (meist \num{50}) zur Relaxation. Danach sieht die
-Weltlinie wie in Abbildung~\ref{fig:relaxiert} aus.
+Monte-Carlo-Iterationen (meist \numrange{50}{2000}) zur Relaxation. Danach
+sieht die Weltlinie wie in Abbildung~\ref{fig:relaxiert} aus.
 
 \begin{figure}[htbp]
     \centering

@@ -122,9 +122,9 @@ def group_by(data, col, xlabel, ylabel, outfile, harmonic, anharmonic, group_col
     pl.grid(True)
     pl.margins(0.1)
     pl.legend(loc='best', prop={'size': 9})
+    pl.savefig(outfile+'.pdf')
     if show:
         pl.show()
-    pl.savefig(outfile+'.pdf')
     pl.clf()
 
 def main():
@@ -136,7 +136,7 @@ def main():
 
     data = np.loadtxt(options.filename)
 
-    make_col(data, 2, r'$E_0$', 'E0', 0.5, -1.94107, True)
+    make_col(data, 2, r'$E_0$', 'E0', 0.5, -1.94107)
     make_col(data, 4, r'$E_2$', 'E2', 2.5, 2.00491)
     make_col(data, 6, r'$E_4$', 'E4', 4.5, 4.11354)
     make_col(data, 8, r'$E_2 - E_0$', 'E2-E0', 2, 3.94598)
