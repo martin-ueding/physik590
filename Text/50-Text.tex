@@ -782,7 +782,7 @@ weicht merklich von der Kontinuumslösung ab.
 In einem Simulationsdurchlauf mit $\timestep = \num{0.1}$, $\timesites =
 \num{10000}$ und $\iterations = \num{10000}$ erhalte ich gute Korrelationen bis
 $\tau \approx \num{7}$, siehe Abbildung~\ref{fig:84DAA2-correlation}. Aus der
-Anpassung an diese Daten erhalte ich $\Deltaup E_{0,1} = E_1 - E_0 = \num{0.995
+Anpassung an diese Daten errechne ich $\Deltaup E_{0,1} = E_1 - E_0 = \num{0.995
     +- 0.002}$. Dies passt gut mit der dem Kontinuumsfall von $\Deltaup E_{0,1}
     = \num{1}$ zusammen.
 
@@ -829,8 +829,8 @@ $\bootstrapsamples = \num{10000}$, $\mass = \num{1}$ und Korrelationen bis
 $x^{12}$ errechne ich die Eigenwerte bis $\tau = \num{6}$ aus. Diese ungeraden
 und geraden Eigenwerte sind in den Abbildungen
 \ref{fig:ED7AA2-eigenwerte-ungerade} bzw. \ref{fig:ED7AA2-eigenwerte-gerade}
-dargestellt. Mit dem Virialsatz erhalte ich $E_0 = \num{0.4989 +- 0.0002}$. Mit
-der einfachen Korrelation $C_{11}(t)$ erhalte ich $E_1 = \num{1.50390 +-
+dargestellt. Mit dem Virialsatz bestimme ich $E_0 = \num{0.4989 +- 0.0002}$.
+Mit der einfachen Korrelation $C_{11}(t)$ errechne ich $E_1 = \num{1.50390 +-
 0.00069}$. Die Energiewerte aus der Anpassung des GEVP sind in
 Tabelle~\ref{tab:ED7AA2-eigenwerte} aufgelistet.
 
@@ -974,12 +974,12 @@ bekommen, bräuchte es noch mehr Iterationen.
 \FloatBarrier
 \section{Oszillator mit Störung}
 
-Ab hier wird dem harmonischen Potential ein $\delta$-Potential überlagert. In
-der Simulation wird dies durch schmale Normalverteilungen angenähert. Deren
+Im Folgenden wird dem harmonischen Potential ein $\delta$-Potential überlagert.
+In der Simulation wird dies durch schmale Normalverteilungen angenähert. Deren
 Integral ist auf eins normiert und die Verteilungen haben eine Breite
 $\gausswidth$. Je nach Breite ergibt sich ein anderes Potential.
-Abbildung~\ref{fig:gausspotential} enthält das Potential für eine
-negative und positive Kopplungsstärke $1/a_0$.
+Abbildung~\ref{fig:gausspotential} enthält das Potential für eine negative und
+positive Kopplungsstärke $1/a_0$.
 
 \begin{figure}[htbp]
     \centering
@@ -1040,7 +1040,7 @@ negative und positive Kopplungsstärke $1/a_0$.
 
 Mit dem veränderten Potential können alle vorherigen Rechnungen wiederholt
 werden. Abbildung~\ref{fig:histogram_gauss} zeigt die
-Aufenthaltswahrscheinlichkeit.
+Aufenthaltswahrscheinlichkeit des Teilchens im Potential.
 
 \begin{figure}[htbp]
     \centering
@@ -1120,12 +1120,12 @@ wieder erreicht wird.
 \subsubsection{Negative Kopplungsstärke}
 
 Für verschiedene Werte von $\timestep$ und $\gausswidth$ habe ich Simulationen
-laufen lassen. Die gemeinsamen Parameter sind dabei $\iterations =
-\num{10000}$, $1/a_0 = \num{-1}$, $\timestep \timesites = T = \num{150}$,
-$\preiterations = \num{2000}$, $\iterationsbetween = \num{10}$,
-$\initialrandomwidth = \num{0}$. Ebenfalls wurde immer $\margin = 2
-\sqrt{\timestep}$ gesetzt. Die Daten aus den Simulationsdurchläufen sind in
-Abbildung~\ref{fig:mesh-e0} für einen Überblick zusammengefasst.
+durchgeführt. Die gemeinsamen Parameter sind dabei $\iterations = \num{10000}$,
+$1/a_0 = \num{-1}$, $\timestep \timesites = T = \num{150}$, $\preiterations =
+\num{2000}$, $\iterationsbetween = \num{10}$, $\initialrandomwidth = \num{0}$.
+Ebenfalls wurde immer $\margin = 2 \sqrt{\timestep}$ gesetzt. Die Daten aus den
+Simulationsdurchläufen sind in Abbildung~\ref{fig:mesh-e0} für einen Überblick
+zusammengefasst.
 
 \begin{figure}[htbp]
     \centering
@@ -1158,10 +1158,12 @@ Abbildung~\ref{fig:mesh-e0} für einen Überblick zusammengefasst.
 Für alle $\timestep$ ist zu erkennen, dass für kleine $\gausswidth$ die
 Grundzustandsenergie $E_0$ gegen die $\num{0.5}$ des harmonischen Oszillators
 geht. Es ist jedoch verwunderlich, dass die Energiewerte, die dem
-Kontinuumswert von \num{1.08} am nächsten kommen, bei $\sigma \approx
-\num{0.3}$ liegen. Außerdem sinkt die Grundzustandsenergie mit kleinem
-$\timestep$ ebenfalls. Diesen Effekt konnte ich auch für den harmonischen
-Oszillator beobachten, es ist also unabhängig von der Störung.
+Kontinuumswert von \num{1.08} am nächsten kommen, bei $\gausswidth \approx
+\num{0.3}$ liegen. Der Kontinuumswert sollte bei $\gausswidth \to 0$ erreicht
+werden. Außerdem sinkt die Grundzustandsenergie mit kleinem $\timestep$
+ebenfalls. Diesen Effekt konnte ich auch für den harmonischen Oszillator
+beobachten, es ist also unabhängig von der Störung. Der Grenzwert $\timestep
+\to 0$ sollte auf den Kontinuumswert führen.
 
 Der Grenzwert $\timestep \to 0$ soll zuerst gebildet werden, daher betrachte
 ich die Daten zuerst als Scharen von $\gausswidth$, also
