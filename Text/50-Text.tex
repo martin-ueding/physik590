@@ -508,16 +508,16 @@ lösen.
 
 Die Autoren entwickeln die unbekannte Wellenfunktion $\Psi$ nun nach den
 bekannten Wellenfunktionen des harmonischen Oszillators \br4:
-\[
+\begin{equation}
+    \label{eq:entwicklung}
     \Psi(x) = \sum_{n=0}^\infty c_n \phi_n(x).
-\]
-
+\end{equation}
 Im eindimensionalen Fall gibt es keinen Drehimpuls $l$. Aber $\phi_n$ mit
 ungeradem $n$ tragen nicht bei, da diese bei $x = 0$ einen Nulldurchgang haben.
 Somit bleiben in der Summe nur die geraden $n$.
 
-Dies setze ich (analog zu \br5) in die \textsc{Schrödinger}gleichung
-\eqref{eq:Bus_3} ein:
+Gleichung~\eqref{eq:entwicklung} setze ich (analog zu \br5) in die
+\textsc{Schrödinger}gleichung \eqref{eq:Bus_3} ein:
 \[
     \sbr{H_\text{osz} - E - \frac2{a_0} \delta(x)}
     \sum_{n=0}^\infty c_n \phi_n(x)
@@ -528,7 +528,6 @@ Dies setze ich (analog zu \br5) in die \textsc{Schrödinger}gleichung
     \sum_{n=0}^\infty c_n \phi_n(x)
     = 0.
 \]
-
 Dies wird nun auf $\phi_m^*$ projiziert, i.\,e.\ Multiplikation von rechts und
 Integration über $x$:
 \[
@@ -536,9 +535,8 @@ Integration über $x$:
     [E_n - E] c_n \phi_m^*(x) \phi_n(x)
     -
     \int_{-\infty}^\infty \dif x \,  \frac2{a_0} \phi_m^*(x) \delta(x)
-    \sum_{n=0}^\infty c_n \phi_n(x) = 0
+    \sum_{n=0}^\infty c_n \phi_n(x) = 0.
 \]
-
 Mit der Orthogonalitätsrelation für die Eigenfunktionen
 \[
     \int_{-\infty}^\infty \dif x \phi_m^*(x) \phi_n(x) = \braket{m|n} =
@@ -560,7 +558,6 @@ analog zu \br7. Diesen Ansatz setze ich in die Gleichung ein und erhalte:
 \[
     \sum_{n=0}^\infty \frac{\phi_n^*(0) \phi_n(0)}{E_n - E} = \frac{a_0}2.
 \]
-
 Als nächsten Schritt werden die Eigenfunktionen des harmonischen Oszillators
 $\phi_n$ eingesetzt. An der Stelle $x = 0$ verschwindet der Exponentialterm:
 \[
@@ -576,14 +573,12 @@ folgt:
     \sum_{n=0}^\infty \frac{2^n \sqrt\piup}{n!} \frac{1}{E_n -
     E} \Gamma\del{\frac{1-n}2}^{-2} = \frac{a_0}2.
 \]
-
 In die obige Gleichung setze ich die bekannten Energiewerte $E_n = n + 1/2$ für
 den harmonischen Oszillator ein:
 \[
     \sum_{n=0}^\infty \frac{2^n \sqrt\piup}{n!} \frac{1}{\frac 12 + n -
     E} \Gamma\del{\frac{1-n}2}^{-2} = \frac{a_0}2.
 \]
-
 Mit Mathematica lässt sich diese Summe berechnen, wenn man nur über die geraden
 $n$ summieren lässt:
 \[
