@@ -54,13 +54,13 @@ so kann die Summe umgeschrieben werden zu
 \]
 $S$ ist hier ein Funktional der Trajektorie $x$. Dieser Integrand wird nur in
 der Nähe der minimalen Wirkung Beiträge liefern. Dies reduziert den Bereich des
-Phasenraums, über den integriert werden muss, derart, dass die Integration mit
-Monte Carlo Methoden gut möglich ist.
+Phasenraums, über den integriert werden muss derart, dass die Integration mit
+Monte-Carlo-Methoden gut möglich ist.
 
 Die Wirkung ist auch hier die Zeitintegration der \textsc{Lagrange}funktion
 \parencite[(2.5)]{Creutz/Statistical_Approach_QM}:
 \[
-    S = \int_0^T \dif \tau \, \sbr{\frac 12 m \sbr{\dpd x\tau(\tau)}^2 + V(x)}
+    S = \int_0^T \dif \tau \, \sbr{\frac 12 m \sbr{\dpd x\tau(\tau)}^2 + V(x)}.
 \]
 
 Diskretisiert man die Weltlinien, so wird es möglich, die Integration über alle
@@ -94,8 +94,9 @@ wobei periodische Randbedingungen mit $x_{\timesites} = x_0$ festgesetzt wurden.
 
 \section{Integration über den Phasenraum}
 
+% http://www.duden.de/sprachwissen/rechtschreibregeln/namen#K134
 Der Raum der möglichen diskreten Weltlinien hat $\timesites$ Dimensionen und
-ist unendlich groß. Aufgrund der hohen Dimension sind Monte Carlo Methoden zu
+ist unendlich groß. Aufgrund der hohen Dimension sind Monte-Carlo-Methoden zu
 bevorzugen. Der Bereich der Weltlinien, die einen nennenswerten Beitrag zum
 Integral liefern, ist jedoch aufgrund der exponentiellen Gewichtung recht
 klein. Der Algorithmus von \textsc{Metropolis} wählt die Weltlinien
@@ -158,7 +159,7 @@ Rekursionsformel
 \[
     W^{(n)}\del{\vec x^{(i)}, \vec x^{(k)}} = \int \dif \vec x^{(j)} \,
     W^{(n-1)}\del{\vec x^{(i)},
-    \vec x^{(j)}} W\del{\vec x^{(j)}, \vec x^{(k)}},
+    \vec x^{(j)}} W\del{\vec x^{(j)}, \vec x^{(k)}}
 \]
 konstruieren \parencite[(3.10)]{Creutz/Statistical_Approach_QM}. Aufgrund der
 Eigenschaften von $W$ lässt sich zeigen\footnote{Siehe
@@ -189,9 +190,9 @@ Um die Bedingungen zu erfüllen, ist die Wahl von $W$ so, dass
 \]
 gilt, möglich \parencite[(3.23)]{Creutz/Statistical_Approach_QM}. In der Quelle
 wird die Relation „detailed balance condition“ genannt. Dieses
-\emph{detailiertes Gleichgewicht} sagt aus, dass es sich bei $p$ um einen
+\emph{detailierte Gleichgewicht} sagt aus, dass es sich bei $p$ um einen
 Gleichgewichtszustand handelt, da Anzahl der Übergänge von $\vec x^{(i)}$ nach
-$\vec x^{(j)}$ genauso groß sind wie in der Rückrichtung
+$\vec x^{(j)}$ genauso groß ist wie in der Rückrichtung
 \parencite[85]{Schwabl/Quantenmechanik_fuer_Fortgeschrittene}.
 
 Im Algorithmus geht nicht die ganze Trajektorie $\vec x$ in einem Schritt auf
@@ -209,8 +210,8 @@ geändert. Mit \eqref{eq:p_x_k} kann man daher die Beziehung
 herleiten, welche durch die Wahl $W(x_j, x_j') \propto \exp(-S(\ldots, x_j',
 \ldots))$ zu erfüllen ist \parencite[(3.27)]{Creutz/Statistical_Approach_QM}.
 Dieser Algorithmus wird „heat bath algorithm“ bezeichnet und hat den Nachteil,
-dass es schwer ist, $x_j'$ entsprechend der Verteilung $\exp(-S(\ldots, x_j',
-\ldots))$ zu ziehen \parencite[438]{Creutz/Statistical_Approach_QM}.
+dass es kompliziert ist, $x_j'$ entsprechend der Verteilung $\exp(-S(\ldots,
+x_j', \ldots))$ zu ziehen \parencite[438]{Creutz/Statistical_Approach_QM}.
 
 \subsection{\textsc{Metropolis} Algorithmus}
 
@@ -252,14 +253,15 @@ ist, ist die Wahrscheinlichkeit, dass der Wert übernommen wird, sehr gering.
 Daher ist es effizienter, $x_j'$ nicht aus dem Intervall $(-\infty, \infty)$ zu
 ziehen, sondern eine Breite $\Delta$ einzuführen
 \parencite[439]{Creutz/Statistical_Approach_QM}. Die Autoren schlagen eine
-Einheitsverteilung im Bereich $[x_j - \margin, x_j + \margin]$ vor. Ich benutze
-in meiner Implementierung eine Normalverteilung mit einer Standardabweichung
-$\margin$. Dies führt zu noch höheren Akzeptanzraten für neue Werte, die die
-Wirkung $S$ erhöhen. Um den Übergang zu einer neuen Konfiguration noch weiter
-zu beschleunigen, kann man das Ziehen eines neuen $x_j'$ mehrfach für das
-gleiche $j$ wiederholen. Dadurch ist es möglich, dass es sich stärker
-verändert, als in einem einzigen Schritt. Die Anzahl dieser Wiederholungen
-möchte ich mit $\rounds$ bezeichnen.
+Einheitsverteilung im Bereich $[x_j - \margin, x_j + \margin]$ vor.
+
+Ich benutze in meiner Implementierung eine Normalverteilung mit einer
+Standardabweichung $\margin$. Dies führt zu noch höheren Akzeptanzraten für
+neue Werte, die die Wirkung $S$ erhöhen. Um den Übergang zu einer neuen
+Konfiguration noch weiter zu beschleunigen, kann man das Ziehen eines neuen
+$x_j'$ mehrfach für das gleiche $j$ wiederholen. Dadurch ist es möglich, dass
+$x_j$ sich stärker verändert als in einem einzigen Schritt. Die Anzahl dieser
+Wiederholungen bezeichne ich mit $\rounds$.
 
 \citeauthor{Creutz/Statistical_Approach_QM} geben
 \[
@@ -279,15 +281,15 @@ Bedingungen erfüllt.
 
 Die Entropieänderung $\Deltaup S$ beim Übergang von $x_j$ zu $x_j'$ wird
 effizient dadurch berechnet, dass nur die Entropie der Schritte von $j-1$ zu
-$j$ und von $j$ zu $j+1$ berechnet werden. Dazu definiere ich die Entropie für
+$j$ und von $j$ zu $j+1$ berechnet wird. Dazu definiere ich die Entropie für
 einen Gitterschritt:
 \[
-    S_\text{Schritt}(x_j, x_j') :=
-    \frac{\timestep \mass}2 \sbr{ \frac{\sbr{x_j' - x_j}^2}{\timestep^2} + V(x_j)}
+    S_\text{Schritt}(x_j, x_j') := \frac{\timestep \mass}2 \sbr{
+    \frac{\sbr{x_j' - x_j}^2}{\timestep^2} + V(x_j)}.
 \]
 
 Damit kann ich die Entropieänderung zwischen zwei Weltlinien, die sich in nur
-einer Koordinate unterscheiden, schnell berechnen:
+einer Koordinate unterscheiden, effizient berechnen:
 \[
     \Deltaup S =
     \sbr{S_\text{Schritt}(x_{j-1}, x_{j}') + S_\text{Schritt}(x_{j}', x_{j+1})}
@@ -300,11 +302,12 @@ einer Koordinate unterscheiden, schnell berechnen:
 Beim harmonischen Oszillator kann die Grundzustandsenergie über den Virialsatz
 bestimmt werden. Dieser besagt allgemein $\bracket{\vec F \vec r} + 2
 \bracket{T} = 0$ \parencite[551]{Kuypers/Mechanik}. $\vec F \vec r$ kann auch
-als $- [\vnabla V] \vec r$ geschrieben werden. In einer Dimension ist das, wie
-in \parencite[(2.29)]{Creutz/Statistical_Approach_QM},
+als $- [\vnabla V] \vec r$ geschrieben werden. In einer Dimension reduziert
+sich dies auf
 \[
-    T = \frac12 m \bracket{v^2} = \frac12 \bracket{x V'(x)}.
+    T = \frac12 m \bracket{v^2} = \frac12 \bracket{x V'(x)}
 \]
+wie in \parencite[(2.29)]{Creutz/Statistical_Approach_QM}.
 Ist das Potential durch $V(x) = \mu^2 x^2/2$ wie beim harmonischen Oszillator
 gegeben, so gilt $2 \bracket T = \mu^2 \bracket{x^2}$. Da die komplette Energie
 $T + V$ ist, muss gelten:
@@ -313,7 +316,7 @@ $T + V$ ist, muss gelten:
     = \frac12 \mu^2 \bracket{x^2} + \frac12 \mu^2 \bracket{x^2}
     = \mu^2 \bracket{x^2},
 \]
-wie auch in \parencite[(4.13)]{Creutz/Statistical_Approach_QM} benutzt.
+wie bereits in \parencite[(4.13)]{Creutz/Statistical_Approach_QM} benutzt.
 
 Die Energie des ersten angeregten Zustands kann mit der Korrelation
 berechnet werden \parencite[(4.14)]{Creutz/Statistical_Approach_QM}:
@@ -342,8 +345,8 @@ Die Anpassungsfunktion ist somit gültig und darf anstelle des Grenzwertes
 benutzt werden. Auf diese Weise kann ich viele Messdaten in die Berechnung von
 $\Deltaup E_1$ einbeziehen.
 
-Mit $E_0$ aus dem Virialsatz $\Deltaup E_1$ aus den Korrelationen lässt sich
-$E_1$ bestimmen. Energien für noch höhere Zustände können mit dem
+Mit $E_0$ aus dem Virialsatz und $\Deltaup E_1$ aus den Korrelationen lässt
+sich $E_1$ bestimmen. Energien für noch höhere Zustände können mit dem
 \emph{generalisierten Eigenwertproblem} (GEVP) errechnet werden.
 
 \section{Generalisiertes Eigenwertproblem}
@@ -364,8 +367,8 @@ demnach Potenzen von $a$, womit die Matrixelemente $\braket{0|a^i|n} = 0$ sind,
 wenn $i < n$. Sie sind jedoch ebenfalls 0, wenn $i - n$ ungerade ist. Die
 größte Potenz von $a$ in $x^i$ ist $a^i$. Bei einer geraden Anzahl an Auf- und
 Absteigevorgängen kann es insgesamt keine ungerade Änderung der Quantenzahl $n$
-geben. Daher tragen für ein Matrixelement mit einer geraden Potenz von $x$ auch
-nur gerade Energieeigenzustände bei.
+geben. Daher tragen bei einem Matrixelement mit einer geraden Potenz von $x$
+auch nur gerade Energieeigenzustände bei.
 
 \subsection{Korrelationsfunktionen}
 
@@ -390,14 +393,14 @@ harmonischen Oszillator erfüllt.
 
 Da $\bracket{x} = 0$ aufgrund der Symmetrie des Potentials zu erwarten ist,
 werden die Mittelwerte über ungerade Größen, also mit $i + j$ ungerade,
-annähernd verschwinden. Es ist daher nicht sinnvoll, diese Größen überhaupt zu
-berechnen.
+annähernd verschwinden. Die Berechnung dieser Größen vernachlässige ich
+demnach.
 
 Um das System numerisch stabiler zu bekommen, wird die Korrelationsmatrix in
 einen nur geraden und einen nur ungeraden Teil zerlegt, also beide $i$ und $j$
 gerade bzw. ungerade. Da wie vorher beschrieben auch nur gerade bzw. ungerade
-Energieeigenzustände beitragen, kann man so sogar gerade und ungerade Zustände
-trennen.
+Energieeigenzustände beitragen, erreicht man so sogar eine Trennung der geraden
+und ungeraden Zustände.
 
 Das generalisierte Eigenwertproblem, aus dessen Eigenwerte die Energien
 extrahiert werde können, ist durch
@@ -425,8 +428,8 @@ Auch hier kann ich die Anpassungsfunktion
 benutzen, um die entsprechende Energie aus den berechneten Eigenwerten zu
 erhalten. Es muss $\tau > \tau_0$ gelten. Die Abweichungen vom Grenzwert werden
 besonders klein, wenn $\tau_0 \geq \tau/2$ gilt
-\parencite[5]{Blossier/Eigenvalue}. In meiner Implementierung hatte ich
-allerdings die besten Ergebnisse mit $t_0 = \timestep$ erhalten.
+\parencite[5]{Blossier/Eigenvalue}. In meiner Implementierung erreiche ich
+allerdings die besten Ergebnisse mit $t_0 = \timestep$.
 
 In jeder geraden Potenz von $x \propto a + a^\dagger$ steckt eine Kombination
 der Leiteroperatoren, so dass $\braket{0 | x^{2i} | 0} \neq 0$ gilt. Die
@@ -438,12 +441,13 @@ steckt somit in $\lambda_4$.
 \subsection{Lösung des GEVP durch \textsc{Cholesky}-Zerlegung}
 
 Das generalisierte Eigenwertproblem $\tens A \vec v = \lambda \tens B \vec v$
-kann durch Multiplikation mit $\tens B^{-1}$ von links in ein normales
+lässt durch Multiplikation mit $\tens B^{-1}$ von links in ein normales
 Eigenwertproblem überführt werden, wobei jedoch Symmetrien von $\tens A$ und
 $\tens B$ verloren gehen. Um dies zu vermeiden, kann man das Problem mit der
 \textsc{Cholesky}-Zerlegung lösen. Diese zerlegt $\tens B$ in eine untere
 Dreiecksmatrix $\tens L$, so dass $\tens B = \tens L \tens L^\dagger$ gilt.
-Vorraussetzung ist, dass $\tens B$ positiv definit ist, was hier der Fall ist.
+Vorraussetzung ist, dass $\tens B$ positiv definit ist, was hier auch der Fall
+ist.
 % TODO Warum ist die positiv definit?
 \parencite{MacKinnon/GEVP}
 
@@ -478,9 +482,8 @@ Klasse \texttt{EigenSolver} \parencite{Eigen/EigenSolver}.
 \newcommand\br[1]{\parencite[(#1)]{Busch/Two_Cold}}
 
 In \citetitle{Busch/Two_Cold} leiten die Autoren eine analytische Lösung für
-einen anharmonischen Oszillator her, bei welchem der Störterm eine
-Deltadistribution ist. Damit berechnen sie dann Wellenfunktionen und
-Energiewerte.
+einen Oszillator her, der durch eine Deltadistribution gestört ist. Damit
+berechnen die Autoren im Folgenden Wellenfunktionen und Energiewerte.
 
 Die Herleitung für den eindimensionalen Fall wird als analog zum
 dreidimensionalen Fall beschrieben. Anstelle des dreidimensionalen Potentials
@@ -523,10 +526,10 @@ Dies setze ich (analog zu \br5) in die \textsc{Schrödinger}gleichung
     \sum_{n=0}^\infty [E_n - E] c_n \phi_n(x)
     \frac2{a_0} \delta(x)
     \sum_{n=0}^\infty c_n \phi_n(x)
-    = 0
+    = 0.
 \]
 
-Dies wird nun auf $\phi_m^*$ projiziert, i.\,e. Multiplikation von rechts und
+Dies wird nun auf $\phi_m^*$ projiziert, i.\,e.\ Multiplikation von rechts und
 Integration über $x$:
 \[
     \int_{-\infty}^\infty \dif x \, \sum_{n=0}^\infty
@@ -562,9 +565,8 @@ Als nächsten Schritt werden die Eigenfunktionen des harmonischen Oszillators
 $\phi_n$ eingesetzt. An der Stelle $x = 0$ verschwindet der Exponentialterm:
 \[
     \sum_{n=0}^\infty \frac{1}{2^n n! \sqrt\piup} \frac{H_n^*(0) H_n(0)}{E_n -
-    E} = \frac{a_0}2
+    E} = \frac{a_0}2.
 \]
-
 Mit dem Wert der \textsc{Hermite}polynome am Ursprung,
 \[
     H_n(0) = \frac{2^n \sqrt\piup}{\Gamma\del{\frac{1-n}2}},
@@ -572,14 +574,14 @@ Mit dem Wert der \textsc{Hermite}polynome am Ursprung,
 folgt:
 \[
     \sum_{n=0}^\infty \frac{2^n \sqrt\piup}{n!} \frac{1}{E_n -
-    E} \Gamma\del{\frac{1-n}2}^{-2} = \frac{a_0}2
+    E} \Gamma\del{\frac{1-n}2}^{-2} = \frac{a_0}2.
 \]
 
 In die obige Gleichung setze ich die bekannten Energiewerte $E_n = n + 1/2$ für
 den harmonischen Oszillator ein:
 \[
     \sum_{n=0}^\infty \frac{2^n \sqrt\piup}{n!} \frac{1}{\frac 12 + n -
-    E} \Gamma\del{\frac{1-n}2}^{-2} = \frac{a_0}2
+    E} \Gamma\del{\frac{1-n}2}^{-2} = \frac{a_0}2.
 \]
 
 Mit Mathematica lässt sich diese Summe berechnen, wenn man nur über die geraden
@@ -624,7 +626,7 @@ Dies ist in Abbildung~\ref{fig:E_a0} dargestellt.
     \label{fig:E_a0}
 \end{figure}
 
-Mit \eqref{eq:Energie-Delta} lassen sich die zu zu erwartenden Energiewerte für
+Mit \eqref{eq:Energie-Delta} lassen sich die zu erwartenden Energiewerte für
 die geraden Zustände berechnen, indem die möglichen $E$, die die Gleichung bei
 einem bestimmten $1/a_0$ lösen, bestimmt werden. Diese sind $E_n$ für $n = 0,
 2, \ldots$. Bei $1/a_0 = 0$ tritt keine Störung auf, die ungestörten
@@ -660,10 +662,10 @@ Mein Programm ist freie Software und kann auf meiner Webseite
 \url{http://martin-ueding.de/de/university/physik590/} heruntergeladen werden.
 
 Die Weltlinie wird in der Regel anfangs mit zufälligen Werten für die $x_j$ aus
-dem Intervall $(-\initialrandomwidth, \initialrandomwidth)$ initialisiert. Bevor
-Werte aufgenommen werden, durchläuft das System $\preiterations$ Monte Carlo
-Iterationen (meist \num{50}) zur Relaxation. Danach sieht die Weltlinie wie in
-Abbildung~\ref{fig:relaxiert} aus.
+dem Intervall $(-\initialrandomwidth, \initialrandomwidth)$ initialisiert.
+Bevor Werte aufgenommen werden, durchläuft das System $\preiterations$
+Monte-Carlo-Iterationen (meist \num{50}) zur Relaxation. Danach sieht die
+Weltlinie wie in Abbildung~\ref{fig:relaxiert} aus.
 
 \begin{figure}[htbp]
     \centering
