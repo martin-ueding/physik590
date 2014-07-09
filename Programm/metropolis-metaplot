@@ -136,21 +136,21 @@ def main():
 
     data = np.loadtxt(options.filename)
 
-    make_col(data, 2, r'$E_0$', 'E0', 0.5, -1.94107)
-    make_col(data, 4, r'$E_2$', 'E2', 2.5, 2.00491)
-    make_col(data, 6, r'$E_4$', 'E4', 4.5, 4.11354)
-    make_col(data, 8, r'$E_2 - E_0$', 'E2-E0', 2, 3.94598)
-    make_col(data, 10, r'$E_4 - E_0$', 'E4-E0', 4, 6.05461)
-    make_col(data, 12, r'$E_4 - E_2$', 'E4-E2', 2, 2.10863)
+    if options.a == 1:
+        make_col(data, 2, r'$E_0$', 'E0', 0.5, -1.94107)
+        make_col(data, 4, r'$E_2$', 'E2', 2.5, 2.00491)
+        make_col(data, 6, r'$E_4$', 'E4', 4.5, 4.11354)
+        make_col(data, 8, r'$E_2 - E_0$', 'E2-E0', 2, 3.94598)
+        make_col(data, 10, r'$E_4 - E_0$', 'E4-E0', 4, 6.05461)
+        make_col(data, 12, r'$E_4 - E_2$', 'E4-E2', 2, 2.10863)
 
-    """
-    make_col(data, 2, r'$E_0$', 'E0', 0.5, 1.08389)
-    make_col(data, 4, r'$E_2$', 'E2', 2.5, 2.93722)
-    make_col(data, 6, r'$E_4$', 'E4', 4.5, 4.86274)
-    make_col(data, 8, r'$E_2 - E_0$', 'E2-E0', 2, 1.85333)
-    make_col(data, 10, r'$E_4 - E_0$', 'E4-E0', 4, 3.77885)
-    make_col(data, 12, r'$E_4 - E_2$', 'E4-E2', 2, 1.92552)
-    """
+    if options.a == -1:
+        make_col(data, 2, r'$E_0$', 'E0', 0.5, 1.08389)
+        make_col(data, 4, r'$E_2$', 'E2', 2.5, 2.93722)
+        make_col(data, 6, r'$E_4$', 'E4', 4.5, 4.86274)
+        make_col(data, 8, r'$E_2 - E_0$', 'E2-E0', 2, 1.85333)
+        make_col(data, 10, r'$E_4 - E_0$', 'E4-E0', 4, 3.77885)
+        make_col(data, 12, r'$E_4 - E_2$', 'E4-E2', 2, 1.92552)
 
 
 def _parse_args():
@@ -163,6 +163,7 @@ def _parse_args():
     parser = argparse.ArgumentParser(description="")
     parser.add_argument('filename')
     parser.add_argument('--linestyle', default='solid')
+    parser.add_argument('-a', type=int, default=1)
     parser.add_argument('--fit-linestyle', default='solid')
     parser.add_argument('--low', type=float, default=0)
 
