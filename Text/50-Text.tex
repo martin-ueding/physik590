@@ -1501,41 +1501,6 @@ Je nach dem, wie man $\gausswidth \to 0$ extrapoliert, kommt man nahe an den
 Kontinuumswert. Die Extrapolation funktioniert hier deutlich besser als mit der
 negativen Kopplungsstärke.
 
-\FloatBarrier
-\subsection{Angeregte Zustände}
-
-Auf die gleiche Weise sollten auch die angeregten Zustände für $1/a_0 = -1$ zu
-bestimmen sein. Jedoch streuen die Daten zu sehr, als dass der Unterschied
-zwischen \num{1.85} und \num{2} für den gestörten bzw. harmonischen Oszillator
-sichtbar wäre. Die Daten sind in Abbildung~\ref{fig:mesh-e2-e0} dargestellt.
-
-\begin{figure}[htbp]
-    \centering
-    \tikzsetnextfilename{mesh-e2-e0}
-    \begin{tikzpicture}
-        \begin{axis}[
-                xlabel={$\gausswidth$},
-                ylabel={$\timestep$},
-                zlabel={$E_2 - E_0$},
-                colorbar,
-                grid=major,
-                view={-15}{15},
-            ]
-            \addplot3[
-                surf,
-                mesh/ordering=y varies,
-            ]
-            table[z index=8] {CSV/raw_data_higher.csv};
-        \end{axis}
-    \end{tikzpicture}
-    \caption{%
-        Energiedifferenz des zweiten angeregten Zustands in Abhängigkeit von
-        der Zeitauflösung $\timestep$ und der Breite $\gausswidth$ der
-        Normalverteilung für eine Kopplungsstärke von $1/a_0 = -1$.
-    }
-    \label{fig:mesh-e2-e0}
-\end{figure}
-
 \chapter{Zusammenfassung}
 
 % TODO Zusammenfassung erstellen.
