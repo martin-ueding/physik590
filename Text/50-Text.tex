@@ -662,13 +662,13 @@ Programm umgesetzt. Mein Programm ist freie Software und kann auf meiner
 Webseite\footnote{\url{http://martin-ueding.de/de/university/physik590/}}
 heruntergeladen werden.
 
-Die Weltlinie wird in der Regel anfangs mit zufälligen Werten für die $x_j$
-aus dem Intervall $(-\initialrandomwidth, \initialrandomwidth)$ oder mit 0
+Die Weltlinie wird in der Regel anfangs mit zufälligen Werten für die $x_j$ aus
+dem Intervall $(-\initialrandomwidth, \initialrandomwidth)$ oder mit 0
 initialisiert. Bevor Werte aufgenommen werden, durchläuft das System
-$\preiterations$ Monte-Carlo-Iterationen (meist \numrange{50}{2000}) zur
-Relaxation. Danach sieht die Weltlinie wie in Abbildung~\ref{fig:relaxiert}
-aus. Für beide Arten der Initialisierung werden nach der Relaxation
-gleichartige Zustände erreicht.
+$\preiterations$ Monte-Carlo-Iterationen (\numrange{50}{2000}, je nach
+$\timestep$) zur Relaxation. Danach sieht die Weltlinie wie in
+Abbildung~\ref{fig:relaxiert} aus. Für beide Arten der Initialisierung werden
+nach der Relaxation gleichartige Zustände erreicht.
 
 \begin{figure}[htbp]
     \centering
@@ -1117,11 +1117,11 @@ Die Werte in der Tabelle~\ref{tab:E_a0} sind für das Kontinuum gültig, daher
 muss $\timestep \to 0$ und $\gausswidth \to 0$ vollzogen werden. Im Grenzfall
 $\timestep \to 0$ muss jedoch $\timesites \to \infty$ gehen, so dass $\timestep
 \timesites = T$ konstant bleibt. Andernfalls kommt es zu unerwünschten
-Korrelationen, die die Energiewerte verfälschen. Dadurch steigt die benötigte
-Rechenleistung an, es kann nur bis zu einem gewissen $\timestep$ gerechnet
-werden. Beim Grenzwert $\gausswidth \to 0$ wird die überlagerte
-Normalverteilung beliebig schmal. Ist sie zu schmal, ist die
-Wahrscheinlichkeit, dass Zufallszahlen in ihrer Breite gezogen werden, zu
+Korrelationen durch die periodischen Randbedingungen, die die Energiewerte
+verfälschen. Dadurch steigt die benötigte Rechenleistung an, es kann nur bis zu
+einem gewissen $\timestep$ gerechnet werden. Beim Grenzwert $\gausswidth \to 0$
+wird die überlagerte Normalverteilung beliebig schmal. Ist sie zu schmal, ist
+die Wahrscheinlichkeit, dass Zufallszahlen in ihrer Breite gezogen werden, zu
 klein. Daher erwarte ich, dass für extrem kleine $\gausswidth$ der Grundzustand
 wieder erreicht wird.
 
@@ -1163,15 +1163,18 @@ zusammengefasst.
     \label{fig:mesh-e0}
 \end{figure}
 
-Für alle $\timestep$ ist zu erkennen, dass für kleine $\gausswidth$ die
-Grundzustandsenergie $E_0$ gegen die $\num{0.5}$ des harmonischen Oszillators
-geht. Es ist jedoch verwunderlich, dass die Energiewerte, die dem
-Kontinuumswert von \num{1.08} am nächsten kommen, bei $\gausswidth \approx
-\num{0.3}$ liegen. Der Kontinuumswert sollte bei $\gausswidth \to 0$ erreicht
-werden. Außerdem sinkt die Grundzustandsenergie mit kleinem $\timestep$
-ebenfalls. Diesen Effekt konnte ich auch für den harmonischen Oszillator
-beobachten, es ist also unabhängig von der Störung. Der Grenzwert $\timestep
-\to 0$ sollte auf den Kontinuumswert führen.
+Für große und mittlere $\timestep$ ist zu erkennen, dass für sehr kleine
+$\gausswidth$ die Grundzustandsenergie $E_0$ gegen die $\num{0.5}$ des
+harmonischen Oszillators geht. Bei kleinen $\timestep$ sind die Energiewerte
+generell höher. Dies liegt wahrscheinlich daran, dass bei kleineren $\timestep$
+die Gitterauflösung steigt und eine schmalere Normalverteilung aufgelöst werden
+kann.
+
+Bei großen $\gausswidth$ führt ein sehr kleines $\timestep$ jedoch dazu, dass
+der Energiewert wieder sinkt. Dieser Effekt ist auch beim harmonischen
+Oszillator zu beobachten und liegt wahrscheinlich daran, dass Änderungen in den
+$x_j$ weniger wahrscheinlich werden und so eine Autokorrelation eintritt, die
+den Wert und vor allem dessen Fehler zu klein erscheinen lässt.
 
 Der Grenzwert $\timestep \to 0$ soll zuerst gebildet werden, daher betrachte
 ich die Daten zuerst als Scharen von $\gausswidth$, also
@@ -1258,10 +1261,8 @@ An die Werte mit $\timestep \geq \num{0.01}$ habe ich eine Funktion zweiten
 Grades angepasst, um bis $\timestep = 0$ extrapolieren zu können. Zur
 Fehlerabschätzung habe ich aus den vorhandenen Datenpunkten mit der
 Bootstrapmethode (Anhang~\ref{sec:bootstrap}) Punkte ausgewählt und Anpassung
-und Extrapolation wiederholt.
-
-Die für $\timestep = 0$ extrapolierten Werte sollten den Grenzwert
-$\gausswidth \to 0$ ermöglichen. Die Punkte sind in
+und Extrapolation wiederholt. Die für $\timestep = 0$ extrapolierten Werte
+sollten den Grenzwert $\gausswidth \to 0$ ermöglichen. Die Punkte sind in
 Abbildung~\ref{fig:minus1-meta} zusammengestellt.
 
 \begin{figure}[htbp]
@@ -1321,7 +1322,9 @@ Im Grenzwert $\gausswidth \to 0$ sollte sich der Wert $E_0 = \num{1.08}$
 einstellen, dieser ist im Diagramm bei $\gausswidth = 0$ eingezeichnet. An
 diese Daten habe ich wieder mit der Bootstrapmethode quadratische Funktionen
 angepasst, um extrapolieren zu können. Der errechnete Wert ist mit \num{0.99 +-
-0.07} zu klein.
+0.07} zu klein, ist aber mit dem erwarteten Wert vereinbar. Lässt man den Wert
+zum kleinsten $\gausswidth$ aus der Anpassung heraus, sind die restlichen Daten
+mit einem Wert von \num{1.08} vereinbar.
 
 \FloatBarrier
 \subsubsection{Positive Kopplungsstärke}
@@ -1330,9 +1333,9 @@ Mit $1/a_0 = +1$ und ansonsten gleichen Parametern lasse ich Simulationen für
 verschiedene $\timestep$ und $\gausswidth$ durchlaufen. Im Gegensatz zu den
 vorherigen Daten zur negativen Kopplungsstärke nähert sich hier bei sehr
 kleinen $\timestep$ der Energiewert an den theoretischen Wert an. Alle
-Datenpunkte sind in Abbildung Abbildung~\ref{fig:plus1-E0-a} auf der linken
+Datenpunkte sind in Abbildung~\ref{fig:plus1-E0-a} auf der linken
 Seite gezeigt. Rechts ist eine Vergrößerung des interessanten Energiebereichs
-um $E_0 = \num{-1.94107}$ dargestellt. Für $\gausswidth = \num{0.01}$ und
+um $E_0 = \num{-1.941}$ dargestellt. Für $\gausswidth = \num{0.01}$ und
 $\timestep = \num{0.005}$ ist dieser Kontinuumswert fast erreicht.
 
 \begin{figure}[htbp]
@@ -1452,9 +1455,9 @@ $\timestep = \num{0.005}$ ist dieser Kontinuumswert fast erreicht.
     \label{fig:plus1-E0-a}
 \end{figure}
 
-Die Daten aus den Durchläufen mit $\timestep = \num{0.005}$ liegen anscheinend
+Die Daten aus den Durchläufen mit $\timestep = \num{0.005}$ liegen 
 sehr nahe am Kontinuum. Daher kann aus diesen Daten bereits der Kontinuumswert
-für $E_0$ recht gut extrapoliert werden. Diese Daten sind zusammen mit dem
+für $E_0$ gut extrapoliert werden. Diese Daten sind zusammen mit dem
 Theoriewert in Abbildung~\ref{fig:plus1-E0-sigma-0p005} gezeigt.
 
 \begin{figure}[htbp]
