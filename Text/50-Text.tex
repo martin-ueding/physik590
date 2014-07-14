@@ -9,7 +9,7 @@ jedoch bei Theorien wie der Quantenchromodynamik (QCD), so dass nur noch
 numerische Methoden anwendbar sind \parencite{Wittig/Farbdynamik_Gitter}.
 
 Anhand des harmonischen Oszillators möchte ich in dieser Arbeit die Methoden
-von \citeauthor{Creutz/Statistical_Approach_QM} nachvollziehen und anwenden. Da
+von \textsc{Creutz} und \textsc{Freedman} nachvollziehen und anwenden. Da
 dieses System analytisch gelöst werden kann, können auf diese Weise die
 numerischen Ergebnisse mit den Analytischen verglichen werden. Danach betrachte
 ich einen harmonischen Oszillator mit $\delta$-Störung, bei dem ich die
@@ -41,7 +41,7 @@ Einheiten so, dass $\hbar = 1$ ist.}
 Die Phase mit der Wirkung\footnote{Für die Grundlagen der klassischen Mechanik
 siehe zum Beispiel \parencite{Kuypers/Mechanik}.} $S$ wird stark variieren, so
 dass es ab dieser Stelle hilfreich ist, imaginäre Zeit zu betrachten. Dazu wird
-$\tau := \iup t$ eingeführt, was man auch \textsc{Wick}-Rotation nennt. Diese
+$\tau := \iup t$ eingeführt, was man auch \textsc{Wick}rotation nennt. Diese
 hat die Eigenschaft, ein quantenmechanisches System in ein Thermodynamisches zu
 überführen \parencite[24]{Stetz/AQT}.
 
@@ -213,7 +213,7 @@ Dieser Algorithmus wird „heat bath algorithm“ bezeichnet und hat den Nachtei
 dass es kompliziert ist, $x_j'$ entsprechend der Verteilung $\exp(-S(\ldots,
 x_j', \ldots))$ zu ziehen \parencite[438]{Creutz/Statistical_Approach_QM}.
 
-\subsection{\textsc{Metropolis} Algorithmus}
+\subsection{\textsc{Metropolis}algorithmus}
 
 Der Algorithmus von \textsc{Metropolis} et al.\ umgeht dieses Problem, indem er
 nach einer einfach zu implementierenden Vorschrift die $x_j'$ generiert
@@ -358,8 +358,6 @@ Dazu werden Interpolationsfelder $O_i$ gewählt
 sinnvoll.
 % TODO Quellenangabe / Danksagung
 
-% TODO Erklärung, dass die Potenzen von x den Absteigeoperator enthalten und
-% somit nur die gewünschten Zustände dabei herauskommen.
 $x$ lässt sich durch die Ab- und Aufsteigeoperatoren $a$ bzw. $a^\dagger$
 ausdrücken: $x \propto a + a^\dagger$
 \parencite[(3.5a)]{Schwabl/Quantenmechanik}. Die Potenzen von $x$ enthalten
@@ -438,13 +436,13 @@ definiert. Daher wird der größte gerade Eigenwert $\lambda_2$ für $\tau \to
 \infty$ nicht verschwinden. Dieser Eigenwert muss verworfen werden, $E_2$
 steckt somit in $\lambda_4$.
 
-\subsection{Lösung des GEVP durch \textsc{Cholesky}-Zerlegung}
+\subsection{Lösung des GEVP durch \textsc{Cholesky}zerlegung}
 
 Das generalisierte Eigenwertproblem $\tens A \vec v = \lambda \tens B \vec v$
 lässt durch Multiplikation mit $\tens B^{-1}$ von links in ein normales
 Eigenwertproblem überführt werden, wobei jedoch Symmetrien von $\tens A$ und
 $\tens B$ verloren gehen. Um dies zu vermeiden, kann man das Problem mit der
-\textsc{Cholesky}-Zerlegung lösen. Diese zerlegt $\tens B$ in eine untere
+\textsc{Cholesky}zerlegung lösen. Diese zerlegt $\tens B$ in eine untere
 Dreiecksmatrix $\tens L$, so dass $\tens B = \tens L \tens L^\dagger$ gilt.
 Vorraussetzung ist, dass $\tens B$ positiv definit ist, was hier auch der Fall
 ist.
@@ -470,7 +468,7 @@ lässt sich dies als normale Eigenwertproblem mit gleichem Eigenwert schreiben
 \]
 
 % XXX Dieser Absatz ist nicht sonderlich wichtig.
-Für die Implementierung der \textsc{Cholesky}-Zerlegung benutze ich die
+Für die Implementierung der \textsc{Cholesky}zerlegung benutze ich die
 Funktion \texttt{MatrixBase::llt()} \parencite{Eigen/LLT} aus der C++
 Bibliothek Eigen. Das normale Eigenwertproblem löse ich anschließend mit der
 Klasse \texttt{EigenSolver} \parencite{Eigen/EigenSolver}.
@@ -1087,11 +1085,11 @@ Das gestörte Potential, das in der Mitte etwas höher ist
 (Abbildung~\ref{fig:gausspotential}, links), senkt die
 Aufenthaltswahrscheinlichkeit im Vergleich zum harmonischen Oszillator.
 
-\subsection{Grundzustand}
+\subsection{Energiewerte}
 
-Die Grundzustandsenergie verschiebt sich durch die Störung. Die Energiewerte
-lassen sich durch Lösung von Gleichung~\eqref{eq:Energie-Delta} berechnen oder
-aus Abbildung~\ref{fig:E_a0} ablesen. Für die hier betrachteten
+Die Grundzustandsenergie verschiebt sich durch die Störung. Die zu erwartenden
+Energiewerte lassen sich durch Lösung von Gleichung~\eqref{eq:Energie-Delta}
+berechnen oder aus Abbildung~\ref{fig:E_a0} ablesen. Für die hier betrachteten
 Kopplungsstärken habe ich die ersten geraden Energiewerte in
 Tabelle~\ref{tab:E_a0} zusammengestellt.
 
@@ -1163,23 +1161,22 @@ zusammengefasst.
     \label{fig:mesh-e0}
 \end{figure}
 
-Für große und mittlere $\timestep$ ist zu erkennen, dass für sehr kleine
-$\gausswidth$ die Grundzustandsenergie $E_0$ gegen die $\num{0.5}$ des
-harmonischen Oszillators geht. Bei kleinen $\timestep$ sind die Energiewerte
-generell höher. Dies liegt wahrscheinlich daran, dass bei kleineren $\timestep$
-die Gitterauflösung steigt und eine schmalere Normalverteilung aufgelöst werden
+Für große und mittlere $\timestep$ ist zu erkennen, dass für $\gausswidth \to
+0$ die Grundzustandsenergie $E_0$ gegen die $\num{0.5}$ des harmonischen
+Oszillators geht. Bei kleinen $\timestep$ sind die Energiewerte generell höher.
+Dies liegt wahrscheinlich daran, dass bei kleineren $\timestep$ die
+Gitterauflösung steigt und eine schmalere Normalverteilung aufgelöst werden
 kann.
 
-Bei großen $\gausswidth$ führt ein sehr kleines $\timestep$ jedoch dazu, dass
-der Energiewert wieder sinkt. Dieser Effekt ist auch beim harmonischen
-Oszillator zu beobachten und liegt wahrscheinlich daran, dass Änderungen in den
-$x_j$ weniger wahrscheinlich werden und so eine Autokorrelation eintritt, die
-den Wert und vor allem dessen Fehler zu klein erscheinen lässt.
+Bei großen $\gausswidth$ führt $\timestep \to 0$ jedoch dazu, dass der
+Energiewert wieder sinkt. Dieser Effekt ist auch beim harmonischen Oszillator
+zu beobachten und liegt wahrscheinlich daran, dass Änderungen in den $x_j$
+weniger wahrscheinlich werden und so eine Autokorrelation eintritt, die den
+Energiewert und vor allem dessen Fehler zu klein erscheinen lässt.
 
 Der Grenzwert $\timestep \to 0$ soll zuerst gebildet werden, daher betrachte
-ich die Daten zuerst als Scharen von $\gausswidth$, also
-${E_0}_\gausswidth(\timestep)$. In Abbildung~\ref{fig:minus1-fein} sind die
-Scharen dargestellt.
+ich die Daten zuerst als Scharen von $\gausswidth$, also $E_0(\timestep;
+\gausswidth)$. In Abbildung~\ref{fig:minus1-fein} sind die Scharen dargestellt.
 
 \begin{figure}[htbp]
     \centering
@@ -1331,12 +1328,12 @@ mit einem Wert von \num{1.08} vereinbar.
 
 Mit $1/a_0 = +1$ und ansonsten gleichen Parametern lasse ich Simulationen für
 verschiedene $\timestep$ und $\gausswidth$ durchlaufen. Im Gegensatz zu den
-vorherigen Daten zur negativen Kopplungsstärke nähert sich hier bei sehr
-kleinen $\timestep$ der Energiewert an den theoretischen Wert an. Alle
-Datenpunkte sind in Abbildung~\ref{fig:plus1-E0-a} auf der linken
-Seite gezeigt. Rechts ist eine Vergrößerung des interessanten Energiebereichs
-um $E_0 = \num{-1.941}$ dargestellt. Für $\gausswidth = \num{0.01}$ und
-$\timestep = \num{0.005}$ ist dieser Kontinuumswert fast erreicht.
+vorherigen Daten zur negativen Kopplungsstärke nähert sich hier bei $\timestep
+\to 0$ der Energiewert an den theoretischen Wert an. Alle Datenpunkte sind in
+Abbildung~\ref{fig:plus1-E0-a} auf der linken Seite gezeigt. Rechts ist eine
+Vergrößerung des interessanten Energiebereichs um $E_0 = \num{-1.941}$
+dargestellt. Für $\gausswidth = \num{0.01}$ und $\timestep = \num{0.005}$ ist
+dieser Kontinuumswert fast erreicht.
 
 \begin{figure}[htbp]
     \centering
@@ -1472,7 +1469,7 @@ Theoriewert in Abbildung~\ref{fig:plus1-E0-sigma-0p005} gezeigt.
                 grid=major,
                 legend pos=south east,
                 legend entries={
-                    {Daten $a = \num{0.005}$},
+                    {Daten $\timestep = \num{0.005}$},
                     {Theorie},
                 },
             ]
@@ -1496,6 +1493,8 @@ Theoriewert in Abbildung~\ref{fig:plus1-E0-sigma-0p005} gezeigt.
         \end{axis}
     \end{tikzpicture}
     \caption{%
+        Grundzustandsenergie für $1/a_0 = +1$ für Simulationen mit $\timestep =
+        \num{0.005}$. Der Stern markiert den Kontinuumswert von \num{-1.941}.
     }
     \label{fig:plus1-E0-sigma-0p005}
 \end{figure}
@@ -1504,9 +1503,103 @@ Je nach dem, wie man $\gausswidth \to 0$ extrapoliert, kommt man nahe an den
 Kontinuumswert. Die Extrapolation funktioniert hier deutlich besser als mit der
 negativen Kopplungsstärke.
 
+In Abbildung~\ref{fig:plus1-E0-E2-a-zoom} ist die Differenz $\Deltaup E_{2,0}$
+für kleine $\timestep$ dargestellt. Es ist wohl schwer möglich, aus diesen
+Daten den Theoriewert zu extrapolieren, jedoch ist dieser vereinbar mit den
+Daten. Der Unterschied zum harmonischen Oszillator mit $\Deltaup E_{2,0} = 2$
+ist deutlich zu erkennen.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzsetnextfilename{plus1-E0-E2-a-zoom}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.5\linewidth,
+                xlabel={$a$},
+                ylabel={$\Deltaup E_{2,0} = E_2 - E_0$},
+                xmax=0.02,
+                %yticklabel pos=right,
+                grid=major,
+                myerrorbar/.style={
+                    only marks,
+                    error bars/y dir=both,
+                    error bars/y explicit,
+                },
+                legend entries={
+                    {$\gausswidth = \num{0.30}$},
+                    {$\gausswidth = \num{0.20}$},
+                    {$\gausswidth = \num{0.10}$},
+                    {$\gausswidth = \num{0.05}$},
+                    {$\gausswidth = \num{0.01}$},
+                    Theorie,
+                },
+                myfit/.style={
+                    solid,
+                },
+            ]
+
+            \addplot[
+                black!100!white,
+                myerrorbar,
+                mark=triangle,
+            ] table[y error index=2] {CSV/+1/a-E2-E0-0.3.csv};
+            \addplot[
+                black!100!white,
+                myerrorbar,
+                mark=*,
+            ] table[y error index=2] {CSV/+1/a-E2-E0-0.2.csv};
+            \addplot[
+                black!100!white,
+                myerrorbar,
+                mark=o,
+            ] table[y error index=2] {CSV/+1/a-E2-E0-0.1.csv};
+            \addplot[
+                black!100!white,
+                myerrorbar,
+                mark=square*,
+            ] table[y error index=2] {CSV/+1/a-E2-E0-0.05.csv};
+            \addplot[
+                black!100!white,
+                myerrorbar,
+                mark=square,
+            ] table[y error index=2] {CSV/+1/a-E2-E0-0.01.csv};
+
+            \addplot[
+                mark=star,
+                only marks,
+            ] table {
+                0 3.94598
+            };
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{%
+        Differenz von $E_2$ und $E_0$, die mittels GEVP bestimmt worden sind.
+        Der Stern markiert den Kontinuumswert.
+    }
+    \label{fig:plus1-E0-E2-a-zoom}
+\end{figure}
+
 \chapter{Zusammenfassung}
 
-% TODO Zusammenfassung erstellen.
+Die Energiewerte des harmonischen Oszillators ließen sich gut bestimmen. Die
+ersten angeregten Zustände sind noch recht genau, die höheren haben recht große
+Fehler. Beim gestörten Oszillator ließ sich der Grundzustand für zwei
+Kopplungsstärken sinnvoll bestimmen. Der erste (ungerade) angeregte Zustand
+konnte nicht mehr extrapoliert werden, die Daten waren nur mit dem Theoriewert
+vereinbar. Höhere Zustände waren nicht aussagekräftig zu analysieren.
+
+Mit mehr Iterationen zwischen den Messungen, um die Autokorrelationen zu
+minimieren, ließen sich vielleicht bessere Abschätzungen für die angeregten
+Zustände erreichen. Darüber hinaus könnte sich gerade bei kleinen $\timestep$
+eine Fehlerabschätzung durch Bootstrap mit Blöcken als hilfreich herausstellen.
+
+Alles in allem ist dies eine gute Demonstration der Gitterfeldmethoden aus dem
+Paper von \textsc{Creutz} und \textsc{Freedman} sowie des
+\textsc{Metropolis}algorithmus. Hiervon ausgehen können weitere
+quantenmechanische Systeme, insbesondere analytisch nicht lösbare, betrachtet
+werden.
 
 \begin{appendix}
     \chapter{Bootstrap Methode}
