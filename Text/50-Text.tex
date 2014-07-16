@@ -584,7 +584,7 @@ Ausgedrückt mit der Kopplungsstärke $1/a_0$ ist die Relation
 
 Dies ist in Abbildung~\ref{fig:E_a0} dargestellt.
 
-\begin{figure}[htbp]
+\begin{comment}[htbp]
     \centering
     \tikzsetnextfilename{E_a0}
     \begin{tikzpicture}
@@ -609,7 +609,7 @@ Dies ist in Abbildung~\ref{fig:E_a0} dargestellt.
         Energie $E$ in Abhängigkeit von der Kopplungsstärke $1/a_0$.
     }
     \label{fig:E_a0}
-\end{figure}
+\end{comment}
 
 Mit \eqref{eq:Energie-Delta} lassen sich die zu erwartenden Energiewerte für
 die geraden Zustände berechnen, indem die möglichen $E$, die die Gleichung bei
@@ -662,7 +662,7 @@ werden nach der Relaxation gleichartige Zustände erreicht. Zwischen den
 Messwerten werden $\iterationsbetween$ Iterationen verworfen, um die
 Autokorrelation klein zu halten.
 
-\begin{figure}[htbp]
+\begin{comment}[htbp]
     \centering
     \tikzsetnextfilename{relaxiert}
     \begin{tikzpicture}
@@ -681,7 +681,7 @@ Autokorrelation klein zu halten.
         = \margin = \num{0.632456}$, und $\mu^2 = \num{1}$.
     }
     \label{fig:relaxiert}
-\end{figure}
+\end{comment}
 
 \section{Harmonischer Oszillator}
 
@@ -701,7 +701,7 @@ Aufenthaltswahrscheinlichkeit in Abbildung~\ref{fig:histogram_10} dargestellt.
 Die Datenpunkte aus der Simulation liegen überwiegend auf der erwarteten Kurve.
 Diese weicht merklich von der Kontinuumslösung ab.
 
-\begin{figure}[htbp]
+\begin{comment}[htbp]
     \centering
     \tikzsetnextfilename{histogram_01}
     \begin{tikzpicture}
@@ -737,9 +737,9 @@ Diese weicht merklich von der Kontinuumslösung ab.
         \num{1000}$, $\iterations = \num{1000}$, $\bootstrapsamples = \num{10000}$.
     }
     \label{fig:histogram_01}
-\end{figure}
+\end{comment}
 
-\begin{figure}[htbp]
+\begin{comment}[htbp]
     \centering
     \tikzsetnextfilename{histogram_10}
     \begin{tikzpicture}
@@ -775,7 +775,7 @@ Diese weicht merklich von der Kontinuumslösung ab.
         \num{1000}$, $\iterations = \num{5000}$, $\bootstrapsamples = \num{1000}$.
     }
     \label{fig:histogram_10}
-\end{figure}
+\end{comment}
 
 \subsection{Korrelationen}
 
@@ -786,7 +786,7 @@ Anpassung an diese Daten errechne ich $\Deltaup E_{0,1} = E_1 - E_0 =
 \num{0.995 +- 0.002}$. Dies passt mit der dem Kontinuumsfall von $\Deltaup
 E_{0,1} = \num{1}$ zusammen.
 
-\begin{figure}[htbp]
+\begin{comment}[htbp]
     \centering
     \tikzsetnextfilename{84DAA2-correlation}
     \begin{tikzpicture}
@@ -821,7 +821,7 @@ E_{0,1} = \num{1}$ zusammen.
         $\iterations = \num{10000}$ und $\bootstrapsamples = \num{1000}$.
     }
     \label{fig:84DAA2-correlation}
-\end{figure}
+\end{comment}
 
 In einem Simulationslauf mit $\timesites = \num{1000}$, $\timestep =
 \num{0.1}$, $\margin = \num{0.632456}$, $\iterations = \num{100000}$,
@@ -834,7 +834,7 @@ Mit der einfachen Korrelation $C_{11}(t)$ errechne ich $E_1 = \num{1.50390 +-
 0.00069}$. Die Energiewerte aus der Anpassung des GEVP sind in
 Tabelle~\ref{tab:ED7AA2-eigenwerte} aufgelistet.
 
-\begin{figure}[htbp]
+\begin{comment}[htbp]
     \centering
     \tikzsetnextfilename{ED7AA2-eigenwerte-ungerade}
     \begin{tikzpicture}
@@ -887,9 +887,9 @@ Tabelle~\ref{tab:ED7AA2-eigenwerte} aufgelistet.
         $\timesites = \num{1000}$, $\timestep = \num{0.1}$, $\mu = \num{1}$.
     }
     \label{fig:ED7AA2-eigenwerte-ungerade}
-\end{figure}
+\end{comment}
 
-\begin{figure}[htbp]
+\begin{comment}[htbp]
     \centering
     \tikzsetnextfilename{ED7AA2-eigenwerte-gerade}
     \begin{tikzpicture}
@@ -942,7 +942,7 @@ Tabelle~\ref{tab:ED7AA2-eigenwerte} aufgelistet.
         $\timesites = \num{1000}$, $\timestep = \num{0.1}$, $\mu = \num{1}$.
     }
     \label{fig:ED7AA2-eigenwerte-gerade}
-\end{figure}
+\end{comment}
 
 \begin{table}
     \centering
@@ -981,7 +981,7 @@ $\gausswidth$. Je nach Breite ergibt sich ein anderes Potential.
 Abbildung~\ref{fig:gausspotential} enthält das Potential für eine negative und
 eine positive Kopplungsstärke $1/a_0$.
 
-\begin{figure}[htbp]
+\begin{comment}[htbp]
     \centering
     \begin{minipage}{0.49\linewidth}
     \centering
@@ -1034,7 +1034,7 @@ eine positive Kopplungsstärke $1/a_0$.
         Links: $1/a_0 = \num{-1}$, rechts: $1/a_0 = \num{+1}$.
     }
     \label{fig:gausspotential}
-\end{figure}
+\end{comment}
 
 \subsection{Aufenthaltswahrscheinlichkeit}
 
@@ -1042,7 +1042,7 @@ Mit dem veränderten Potential können alle vorherigen Rechnungen wiederholt
 werden. Abbildung~\ref{fig:histogram_gauss} zeigt die
 Aufenthaltswahrscheinlichkeit des Teilchens im Potential.
 
-\begin{figure}[htbp]
+\begin{comment}[htbp]
     \centering
     \tikzsetnextfilename{histogram_gauss}
     \begin{tikzpicture}
@@ -1073,7 +1073,7 @@ Aufenthaltswahrscheinlichkeit des Teilchens im Potential.
         \num{-1}$, $\gausswidth = \num{0.1}$.
     }
     \label{fig:histogram_gauss}
-\end{figure}
+\end{comment}
 
 Das gestörte Potential, das in der Mitte etwas höher ist
 (Abbildung~\ref{fig:gausspotential}, links), senkt die
@@ -1127,7 +1127,7 @@ Ebenfalls wurde immer $\margin = 2 \sqrt{\timestep}$ gesetzt. Die Daten aus den
 Simulationsdurchläufen sind in Abbildung~\ref{fig:mesh-e0} für einen Überblick
 zusammengefasst.
 
-\begin{figure}[htbp]
+\begin{comment}[htbp]
     \centering
     \tikzsetnextfilename{mesh-e0}
     \begin{tikzpicture}
@@ -1153,7 +1153,7 @@ zusammengefasst.
         $\timestep$ und der Breite $\gausswidth$ der Normalverteilung.
     }
     \label{fig:mesh-e0}
-\end{figure}
+\end{comment}
 
 Für große und mittlere $\timestep$ ist zu erkennen, dass für $\gausswidth \to
 0$ die Grundzustandsenergie $E_0$ gegen die $\num{0.5}$ des harmonischen
@@ -1171,7 +1171,7 @@ Der Grenzwert $\timestep \to 0$ soll zuerst gebildet werden, daher betrachte
 ich die Daten als Scharen von $\gausswidth$, also $E_0(\timestep;
 \gausswidth)$. In Abbildung~\ref{fig:minus1-fein} sind die Scharen dargestellt.
 
-\begin{figure}[htbp]
+\begin{comment}[htbp]
     \centering
     \tikzsetnextfilename{minus1-fein}
     \begin{tikzpicture}
@@ -1240,7 +1240,7 @@ ich die Daten als Scharen von $\gausswidth$, also $E_0(\timestep;
         $\gausswidth$ dargestellt.
     }
     \label{fig:minus1-fein}
-\end{figure}
+\end{comment}
 
 Für alle Werte von $\gausswidth$ ist der Abfall bei kleinen $\timestep$ zu
 erkennen. Bei den mittleren Breiten ist bei $\timestep = \num{0.05}$ die Energie
@@ -1255,7 +1255,7 @@ und Extrapolation wiederholt. Die für $\timestep = 0$ extrapolierten Werte
 sollten den Grenzwert $\gausswidth \to 0$ ermöglichen. Die Punkte sind in
 Abbildung~\ref{fig:minus1-meta} zusammengestellt.
 
-\begin{figure}[htbp]
+\begin{comment}[htbp]
     \centering
     \tikzsetnextfilename{minus1-meta}
     \begin{tikzpicture}
@@ -1306,7 +1306,7 @@ Abbildung~\ref{fig:minus1-meta} zusammengestellt.
         Abbildung~\ref{fig:minus1-fein}.
     }
     \label{fig:minus1-meta}
-\end{figure}
+\end{comment}
 
 Im Grenzwert $\gausswidth \to 0$ sollte sich der Wert $E_0 = \num{1.08}$
 einstellen, dieser ist im Diagramm (Abbildung~\ref{fig:minus1-meta}) bei
@@ -1329,7 +1329,7 @@ Vergrößerung des interessanten Energiebereichs um $E_0 = \num{-1.941}$
 dargestellt. Für $\gausswidth = \num{0.01}$ und $\timestep = \num{0.005}$ ist
 dieser Kontinuumswert fast erreicht.
 
-\begin{figure}[htbp]
+\begin{comment}[htbp]
     \centering
     \begin{minipage}{0.49\linewidth}
         \tikzsetnextfilename{plus1-E0-a}
@@ -1444,14 +1444,14 @@ dieser Kontinuumswert fast erreicht.
         rechts nur der interessante Energiebereich.
     }
     \label{fig:plus1-E0-a}
-\end{figure}
+\end{comment}
 
 Die Daten aus den Durchläufen mit $\timestep = \num{0.005}$ liegen 
 sehr nahe am Kontinuum. Daher kann aus diesen Daten bereits der Kontinuumswert
 für $E_0$ gut extrapoliert werden. Diese Daten sind zusammen mit dem
 Theoriewert in Abbildung~\ref{fig:plus1-E0-sigma-0p005} gezeigt.
 
-\begin{figure}[htbp]
+\begin{comment}[htbp]
     \centering
     \tikzsetnextfilename{plus1-E0-sigma-0p005}
     \begin{tikzpicture}
@@ -1491,7 +1491,7 @@ Theoriewert in Abbildung~\ref{fig:plus1-E0-sigma-0p005} gezeigt.
         \num{0.005}$. Der Stern markiert den Kontinuumswert von \num{-1.941}.
     }
     \label{fig:plus1-E0-sigma-0p005}
-\end{figure}
+\end{comment}
 
 Je nach dem, wie man $\gausswidth \to 0$ extrapoliert, kommt man nahe an den
 Kontinuumswert. Die Extrapolation funktioniert hier deutlich besser als mit der
@@ -1505,7 +1505,7 @@ Daten den Theoriewert zu extrapolieren, jedoch ist dieser vereinbar mit den
 Daten. Der Unterschied zum harmonischen Oszillator mit $\Deltaup E_{2,0} = 2$
 ist deutlich zu erkennen.
 
-\begin{figure}[htbp]
+\begin{comment}[htbp]
     \centering
     \tikzsetnextfilename{plus1-E0-E2-a-zoom}
     \begin{tikzpicture}
@@ -1575,7 +1575,7 @@ ist deutlich zu erkennen.
         Der Stern markiert den Kontinuumswert.
     }
     \label{fig:plus1-E0-E2-a-zoom}
-\end{figure}
+\end{comment}
 
 \chapter{Zusammenfassung}
 
