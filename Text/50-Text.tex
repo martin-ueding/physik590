@@ -665,7 +665,9 @@ initialisiert. Bevor Werte aufgenommen werden, durchläuft das System
 $\preiterations$ Monte-Carlo-Iterationen (\numrange{50}{2000}, je nach
 $\timestep$) zur Relaxation. Danach sieht die Weltlinie wie in
 Abbildung~\ref{fig:relaxiert} aus. Für beide Arten der Initialisierung werden
-nach der Relaxation gleichartige Zustände erreicht.
+nach der Relaxation gleichartige Zustände erreicht. Zwischen den Messwerten
+werden $\iterationsbetween$ Iterationen verworfen, um die Autokorrelation klein
+zu halten.
 
 \begin{figure}[htbp]
     \centering
