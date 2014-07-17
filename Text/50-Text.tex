@@ -391,13 +391,9 @@ harmonischen Oszillator erfüllt.
 Da $\bracket{x} = 0$ aufgrund der Symmetrie des Potentials zu erwarten ist,
 werden die Mittelwerte über ungerade Größen, also mit $i + j$ ungerade,
 annähernd verschwinden. Die Berechnung dieser Größen vernachlässige ich
-demnach.
-
-Um das System numerisch stabiler zu bekommen, wird die Korrelationsmatrix in
-einen nur geraden und einen nur ungeraden Teil zerlegt, also beide $i$ und $j$
-gerade bzw. ungerade. Da wie vorher beschrieben auch nur gerade bzw. ungerade
-Energieeigenzustände beitragen, erreicht man so sogar eine Trennung der geraden
-und ungeraden Zustände.
+demnach. Die Korrelationsmatrix kann in zwei kleinere Matrizen, die jeweils
+nur gerade bzw. ungerade Potenzen von $x$ erhalten, aufgespalten werden. Auf
+diese Weise werden auch gerade und ungerade Energiezustände getrennt.
 
 Das generalisierte Eigenwertproblem, aus dessen Eigenwerte die Energien
 extrahiert werde können, ist durch
@@ -438,14 +434,11 @@ steckt somit in $\lambda_4$.
 \subsection{Lösung des GEVP durch \textsc{Cholesky}zerlegung}
 
 Das generalisierte Eigenwertproblem $\tens A \vec v = \lambda \tens B \vec v$
-lässt durch Multiplikation mit $\tens B^{-1}$ von links in ein normales
+kann durch Multiplikation mit $\tens B^{-1}$ von links in ein normales
 Eigenwertproblem überführt werden, wobei jedoch Symmetrien von $\tens A$ und
 $\tens B$ verloren gehen. Um dies zu vermeiden, kann man das Problem mit der
 \textsc{Cholesky}zerlegung lösen. Diese zerlegt $\tens B$ in eine untere
 Dreiecksmatrix $\tens L$, so dass $\tens B = \tens L \tens L^\dagger$ gilt.
-Vorraussetzung ist, dass $\tens B$ positiv definit ist, was hier auch der Fall
-ist.
-% TODO Warum ist die positiv definit?
 \parencite{MacKinnon/GEVP}
 
 Damit kann das Problem umgeformt werden zu \parencite[(3.31)]{MacKinnon/GEVP}
@@ -643,7 +636,7 @@ Somit sagt der Virialsatz aus:
     \frac1{\sqrt{2\piup}\sigma^3} \Bracket{\exp\del{-\frac{x^2}{\sigma^2}}
     x^2}.
 \]
-Zusammen mit dem zeitlichen Mittelwert der potentiellen Energie gibt dies die
+Zusammen mit dem zeitlichen Mittelwert der potentiellen Energie ergibt dies die
 Gesamtenergie:
 \[
     \bracket E = \mu^2 \bracket{x^2} + \frac{2}{a_0}
