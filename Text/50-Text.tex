@@ -11,7 +11,7 @@ numerische Methoden anwendbar sind \parencite{Wittig/Farbdynamik_Gitter}.
 Anhand des harmonischen Oszillators möchte ich in dieser Arbeit die Methoden
 von \textsc{Creutz} und \textsc{Freedman} nachvollziehen und anwenden. Da
 dieses System analytisch gelöst werden kann, können auf diese Weise die
-numerischen Ergebnisse mit den Analytischen verglichen werden. Danach betrachte
+numerischen Ergebnisse mit den analytischen verglichen werden. Danach betrachte
 ich einen harmonischen Oszillator mit $\delta$-Störung, bei dem ich die
 numerischen Resultate ebenfalls mit den analytischen Erwartungen vergleichen
 kann.
@@ -25,7 +25,7 @@ zitiert.
 
 \section{Einleitung}
 
-\textsc{Feynman}s Pfadintegralformalismus erlaubt es ein quantenmechanisches
+\textsc{Feynman}s Pfadintegralformalismus erlaubt, ein quantenmechanisches
 System mit $n$ Freiheitsgraden in ein klassisches System mit $n+1$
 Freiheitsgraden zu überführen
 \parencite[§12.4]{Thijssen/Computational_Physics}. Dieses System kann dann mit
@@ -41,9 +41,9 @@ Einheiten so, dass $\hbar = 1$ ist.}
 Die Phase mit der Wirkung\footnote{Für die Grundlagen der klassischen Mechanik
 siehe zum Beispiel \parencite{Kuypers/Mechanik}.} $S$ wird stark variieren, so
 dass es ab dieser Stelle hilfreich ist, imaginäre Zeit zu betrachten. Dazu wird
-$\tau := \iup t$ eingeführt, was man auch \textsc{Wick}rotation nennt. Diese
-hat die Eigenschaft, ein quantenmechanisches System in ein Thermodynamisches zu
-überführen \parencite[24]{Stetz/AQT}.
+$\tau := \iup t$ eingeführt, entsprechend einer sogenannten
+\textsc{Wick}rotation. Diese hat die Eigenschaft, ein quantenmechanisches
+System in ein Thermodynamisches zu überführen \parencite[24]{Stetz/AQT}.
 
 Schreibt man $\int \funcmeasure$ für eine Integration über alle
 Trajektorien $x(\tau)$, die $x(0) = x_\text A$ und $x(T) = x_\text E$ erfüllen,
@@ -52,8 +52,8 @@ so kann die Summe umgeschrieben werden zu
 \[
     \int \funcmeasure \, \exp\del{-S(x)}.
 \]
-$S$ ist hier ein Funktional der Trajektorie $x$. Dieser Integrand wird nur in
-der Nähe der minimalen Wirkung Beiträge liefern. Dies reduziert den Bereich des
+$S$ ist hier ein Funktional der Trajektorie $x$. Der Integrand wird nur in der
+Nähe der minimalen Wirkung Beiträge liefern. Dies reduziert den Bereich des
 Phasenraums, über den integriert werden muss derart, dass die Integration mit
 Monte-Carlo-Methoden gut möglich ist.
 
@@ -82,7 +82,7 @@ Zeitgitters in Kombination mit imaginärer Zeit legitim. Im Grenzfall $\timestep
 \to 0$ erhält man den kontinuierlichen Fall zurück.
 
 Durch die diskrete Zeit wird in der Wirkung die Zeitableitung durch einen
-Differenzenquotient ersetzt. Die \textsc{Lagrange}funktion hängt nur noch von
+Differenzenquotienten ersetzt. Die \textsc{Lagrange}funktion hängt nur noch von
 zwei aufeinanderfolgenden Koordinaten ab. Die Wirkung einer Weltlinie $\vec
 x^{(k)}$ wird dann gegeben durch
 \parencite[(3.2)]{Creutz/Statistical_Approach_QM}:
@@ -98,10 +98,10 @@ wobei periodische Randbedingungen mit $x_{\timesites} = x_0$ festgesetzt wurden.
 Der Raum der möglichen diskreten Weltlinien hat $\timesites$ Dimensionen und
 ist unendlich groß. Aufgrund der hohen Dimension sind Monte-Carlo-Methoden zu
 bevorzugen. Der Bereich der Weltlinien, die einen nennenswerten Beitrag zum
-Integral liefern, ist jedoch aufgrund der exponentiellen Gewichtung recht
-klein. Der Algorithmus von \textsc{Metropolis} wählt die Weltlinien
-entsprechend dieser Gewichtung so aus, dass ein ungewichteter Mittelwert dieser
-Weltlinien einen Schätzwert für die gewünschte Größe gibt
+Integral liefern, ist jedoch durch die exponentielle Gewichtung recht klein.
+Der Algorithmus von \textsc{Metropolis} wählt die Weltlinien entsprechend
+dieser Gewichtung so aus, dass ein ungewichteter Mittelwert dieser Weltlinien
+einen Schätzwert für die gewünschte Größe gibt
 \parencite[434]{Creutz/Statistical_Approach_QM}. Die Wahrscheinlichkeit, die
 Trajektorie $\vec x^{(k)}$ zu erhalten, wird durch
 \begin{equation}
@@ -122,8 +122,8 @@ Schätzwert $\overline A$ für eine Größe $\bracket A$
 
 Um die Weltlinien entsprechend gewichtet generieren zu können, kommt ein
 bestimmter \textsc{Markov}prozess zum Einsatz, der aus einer Weltlinie die
-Nächste generiert. Für $\iterations \to \infty$ nähert sich die Verteilung der
-Benötigten an. \parencite[434]{Creutz/Statistical_Approach_QM}
+Nächste generiert. Für $\iterations \to \infty$ nähert sich die Verteilung
+Gleichung \eqref{eq:p_x_k} an. \parencite[434]{Creutz/Statistical_Approach_QM}
 
 % Eigenschaften von Markovketten
 
@@ -132,16 +132,16 @@ $\{x_j\}$ bestehen, können auch als Koordinaten für $\timesites$ Teilchen
 interpretiert werden. Somit ist eine Trajektorie ein Zustand dieses
 Vielteilchensystems. Man kann nun eine Übergangsmatrix $W_{ij}$ definieren, die
 die Wahrscheinlichkeit angibt, dass das System vom Zustand $\vec x^{(i)}$ in
-den Zustand $\vec x^{(j)}$ wechselt. Aufgrund der diskreten Zeit entspricht ein
+den Zustand $\vec x^{(j)}$ wechselt. Durch die diskrete Zeit entspricht ein
 Zeitschritt einem Übergangsschritt.
 
 Die Matrixelemente müssen $W_{ij} \geq 0$ und $\sum_j W_{ij} = 1$ erfüllen, da
 jeder Zustand in einen nächsten (oder sich selbst) übergehen muss
 \parencite[(3.8)]{Creutz/Statistical_Approach_QM}. Da die $x_j$ aus $\R$
-stammen und somit die $\vec x^{(k)}$ aus $\R^N$ stammen, muss die
-Übergangsmatrix eine Wahrscheinlichkeitsdichte sein. Die analogen Bedingungen
-sind dann $W(\vec x^{(i)}, \vec x^{(j)}) \geq 0$ und $\int \dif \vec x^{(j)} \,
-W(\vec x^{(i)}, \vec x^{(j)}) = 1$ für alle $\vec x^{(i)}$
+stammen und somit die $\vec x^{(k)}$ aus $\R^N$, muss die Übergangsmatrix eine
+Wahrscheinlichkeitsdichte sein. Die analogen Bedingungen sind dann $W(\vec
+x^{(i)}, \vec x^{(j)}) \geq 0$ und $\int \dif \vec x^{(j)} \, W(\vec x^{(i)},
+\vec x^{(j)}) = 1$ für alle $\vec x^{(i)}$
 \parencite[(3.9)]{Creutz/Statistical_Approach_QM}.
 
 % Verkettung von Schritten
@@ -154,15 +154,15 @@ Integration über die Zwischenposition $x_j$,
     W^{(2)}\del{\vec x^{(i)}, \vec x^{(k)}} = \int \dif x^{(j)} \, W\del{\vec
     x^{(i)}, \vec x^{(j)}} W\del{\vec x^{(j)}, \vec x^{(k)}},
 \]
-ermittelt \parencite[(3.9)]{Creutz/Statistical_Approach_QM}. Daraus lässt die
+ermittelt \parencite[(3.9)]{Creutz/Statistical_Approach_QM}. Daraus kann die
 Rekursionsformel
 \[
     W^{(n)}\del{\vec x^{(i)}, \vec x^{(k)}} = \int \dif \vec x^{(j)} \,
     W^{(n-1)}\del{\vec x^{(i)},
     \vec x^{(j)}} W\del{\vec x^{(j)}, \vec x^{(k)}}
 \]
-konstruieren \parencite[(3.10)]{Creutz/Statistical_Approach_QM}. Aufgrund der
-Eigenschaften von $W$ lässt sich zeigen\footnote{Siehe
+konstruiert werden \parencite[(3.10)]{Creutz/Statistical_Approach_QM}. Anhand
+der Eigenschaften von $W$ lässt sich zeigen\footnote{Siehe
 \parencite[435]{Creutz/Statistical_Approach_QM} und
 \parencite[Anhang~B]{Creutz/Statistical_Approach_QM}.}, dass es eine
 Zustandsverteilungsdichte $P$ gibt, so dass sie linker Eigenvektor von
@@ -190,7 +190,7 @@ Um die Bedingungen zu erfüllen, ist die Wahl von $W$ so, dass
 \]
 gilt, möglich \parencite[(3.23)]{Creutz/Statistical_Approach_QM}. In der Quelle
 wird die Relation „detailed balance condition“ genannt. Dieses
-\emph{detailierte Gleichgewicht} sagt aus, dass es sich bei $p$ um einen
+\emph{detaillierte Gleichgewicht} sagt aus, dass es sich bei $p$ um einen
 Gleichgewichtszustand handelt, da Anzahl der Übergänge von $\vec x^{(i)}$ nach
 $\vec x^{(j)}$ genauso groß ist wie in der Rückrichtung
 \parencite[85]{Schwabl/Quantenmechanik_fuer_Fortgeschrittene}.
@@ -223,7 +223,7 @@ Algorithmus~\ref{alg:metropolis}.
 \begin{algorithm}
     \begin{algorithmic}
         \For{$j \gets 1, \ldots, \timesites$}
-            \State $x_j' \gets$ \Call{Zufallzahl}{$-\infty$, $\infty$}
+            \State $x_j' \gets$ \Call{Zufallszahl}{$-\infty$, $\infty$}
             \State $\Deltaup S \gets S(x_0, \ldots, x_{j-1}, x_j',
             x_{j+1}, \ldots, x_\timesites) - S(\{x_i\})$
 
@@ -239,15 +239,15 @@ Algorithmus~\ref{alg:metropolis}.
     \end{algorithmic}
     % XXX Die zweite Zeile der Unterschrift ist nicht eingerückt.
     \caption{%
-        \textsc{Metropolis}algorithmus. Die Funktion $\textsc{Zufallzahl}(a,
+        \textsc{Metropolis}algorithmus. Die Funktion $\textsc{Zufallszahl}(a,
         b)$ erzeugt eine Zufallszahl im Intervall $(a, b)$.
     }
     \label{alg:metropolis}
 \end{algorithm}
 
-Es werden also neue Werte für $x_j$, die $x_j'$, aus einer Verteilung gezogen.
-Ist die Änderung der Wirkung $\Deltaup S$ negativ, so wird der neue Wert
-übernommen. Andernfalls wird der Wert mit der Wahrscheinlichkeit
+Es werden also neue Werte für $x_j$, nämlich $x_j'$, aus einer Verteilung
+gezogen. Ist die Änderung der Wirkung $\Deltaup S$ negativ, so wird der neue
+Wert übernommen. Andernfalls wird der Wert mit der Wahrscheinlichkeit
 $\exp(-\Deltaup S)$ übernommen. Wenn der Abstand zwischen $x_j'$ und $x_j$ groß
 ist, ist die Wahrscheinlichkeit, dass der Wert übernommen wird, sehr gering.
 Daher ist es effizienter, $x_j'$ nicht aus dem Intervall $(-\infty, \infty)$ zu
@@ -263,7 +263,7 @@ $x_j'$ mehrfach für das gleiche $j$ wiederholen. Dadurch ist es möglich, dass
 $x_j$ sich stärker verändert als in einem einzigen Schritt. Die Anzahl dieser
 Wiederholungen bezeichne ich mit $\rounds$.
 
-\citeauthor{Creutz/Statistical_Approach_QM} geben
+\textsc{Creutz} und \textsc{Freedman} geben
 \[
     W(x_j, x_j') = \frac1{N_0} \del{
         \Theta(-\Deltaup S) + \exp(- \Deltaup S) \Theta(\Deltaup S)
@@ -340,8 +340,8 @@ erhalte ich:
     \del{\frac{f(\tau + \Deltaup \tau)}{f(\tau)}}
     = \Deltaup E_1.
 \]
-Die Anpassungsfunktion ist somit gültig und darf anstelle des Grenzwertes
-benutzt werden. Auf diese Weise kann ich viele Messdaten in die Berechnung von
+Die Anpassungsfunktion ist gültig und darf anstelle des Grenzwertes benutzt
+werden. Auf diese Weise kann ich viele Messdaten in die Berechnung von
 $\Deltaup E_1$ einbeziehen.
 
 Mit $E_0$ aus dem Virialsatz und $\Deltaup E_1$ aus den Korrelationen lässt
@@ -364,7 +364,7 @@ demnach Potenzen von $a$, womit die Matrixelemente $\braket{0|a^i|n} = 0$ sind,
 wenn $i < n$. Sie sind jedoch ebenfalls 0, wenn $i - n$ ungerade ist. Die
 größte Potenz von $a$ in $x^i$ ist $a^i$. Bei einer geraden Anzahl an Auf- und
 Absteigevorgängen kann es insgesamt keine ungerade Änderung der Quantenzahl $n$
-geben. Daher tragen bei einem Matrixelement mit einer geraden Potenz von $x$
+geben. Daher tragen zu einem Matrixelement mit einer geraden Potenz von $x$
 auch nur gerade Energieeigenzustände bei.
 
 \subsection{Korrelationsfunktionen}
@@ -375,8 +375,8 @@ Mit den Interpolationsfeldern $O_i$ lassen sich die Korrelationsfunktionen
     = \Bracket{x(0)^i \, x(\tau)^j}
 \]
 definieren \parencite[(2.1)]{Blossier/Eigenvalue}. Darüber hinaus lassen sich
-die Korrelationsfunktionen durch die Matrixelemente von den
-Interpolationsfeldern darstellen:
+die Korrelationsfunktionen durch die Matrixelemente der Interpolationsfelder
+darstellen:
 \[
     \Bracket{O_i(\tau) \, O_j^*(\tau)}
     = \sum_{n=1}^\infty \eup^{-E_n \tau} \psi_{ni} \psi_{nj}^*
