@@ -656,11 +656,11 @@ Die Weltlinie wird in der Regel anfangs mit zufälligen Werten für die $x_j$ au
 dem Intervall $(-\initialrandomwidth, \initialrandomwidth)$ oder mit 0
 initialisiert. Bevor Werte aufgenommen werden, durchläuft das System
 $\preiterations$ Monte-Carlo-Iterationen (\numrange{50}{2000}, je nach
-$\timestep$) zur Relaxation. Danach sieht die Weltlinie wie in
-Abbildung~\ref{fig:relaxiert} aus. Für beide Arten der Initialisierung werden
-nach der Relaxation gleichartige Zustände erreicht. Zwischen den Messwerten
-werden $\iterationsbetween$ Iterationen verworfen, um die Autokorrelation klein
-zu halten.
+$\timestep$) zur Relaxation. Eine typische Weltlinie ist in
+Abbildung~\ref{fig:relaxiert} gezeigt. Für beide Arten der Initialisierung
+werden nach der Relaxation gleichartige Zustände erreicht. Zwischen den
+Messwerten werden $\iterationsbetween$ Iterationen verworfen, um die
+Autokorrelation klein zu halten.
 
 \begin{figure}[htbp]
     \centering
@@ -690,16 +690,16 @@ zu halten.
 % TODO Beschreiben, wie die Aufenthaltswahrscheinlichkeit berechnet wird.
 
 In Abbildung~\ref{fig:histogram_01} ist die Aufenthaltswahrscheinlichkeit für
-eine recht feine Zeitauflösung $\timestep$ dargestellt. Die erwartete
+eine Zeitauflösung von $\timestep = \num{0.1}$ dargestellt. Die erwartete
 Verteilung unterscheidet sich kaum von der Kontinuumslösung. Am Maximum der
 Kurve ist noch am ehesten zu erkennen, dass das Kontinuum ein Bruchteil der
 Liniendicke unterhalb der Gitterlösung liegt.
 
-Bei einer geringeren Zeitauflösung $\timestep$ ist eine Normalverteilung mit
-geringerer Breite zu erwarten. Für $\timestep = \num{1}$ ist die
+Beim größeren Zeitschritt $\timestep$ ist eine Normalverteilung mit geringerer
+Breite zu erwarten. Für $\timestep = \num{1}$ ist die
 Aufenthaltswahrscheinlichkeit in Abbildung~\ref{fig:histogram_10} dargestellt.
-Die Datenpunkte aus der Simulation liegen gut auf der erwarteten Kurve. Diese
-weicht merklich von der Kontinuumslösung ab.
+Die Datenpunkte aus der Simulation liegen überwiegend auf der erwarteten Kurve.
+Diese weicht merklich von der Kontinuumslösung ab.
 
 \begin{figure}[htbp]
     \centering
@@ -782,9 +782,9 @@ weicht merklich von der Kontinuumslösung ab.
 In einem Simulationsdurchlauf mit $\timestep = \num{0.1}$, $\timesites =
 \num{10000}$ und $\iterations = \num{10000}$ erhalte ich gute Korrelationen bis
 $\tau \approx \num{7}$, siehe Abbildung~\ref{fig:84DAA2-correlation}. Aus der
-Anpassung an diese Daten errechne ich $\Deltaup E_{0,1} = E_1 - E_0 = \num{0.995
-    +- 0.002}$. Dies passt gut mit der dem Kontinuumsfall von $\Deltaup E_{0,1}
-    = \num{1}$ zusammen.
+Anpassung an diese Daten errechne ich $\Deltaup E_{0,1} = E_1 - E_0 =
+\num{0.995 +- 0.002}$. Dies passt mit der dem Kontinuumsfall von $\Deltaup
+E_{0,1} = \num{1}$ zusammen.
 
 \begin{figure}[htbp]
     \centering
@@ -826,7 +826,7 @@ Anpassung an diese Daten errechne ich $\Deltaup E_{0,1} = E_1 - E_0 = \num{0.995
 In einem Simulationslauf mit $\timesites = \num{1000}$, $\timestep =
 \num{0.1}$, $\margin = \num{0.632456}$, $\iterations = \num{100000}$,
 $\bootstrapsamples = \num{10000}$, $\mass = \num{1}$ und Korrelationen bis
-$x^{12}$ errechne ich die Eigenwerte bis $\tau = \num{6}$ aus. Diese ungeraden
+$x^{12}$ errechne ich die Eigenwerte bis $\tau = \num{6}$. Diese ungeraden
 und geraden Eigenwerte sind in den Abbildungen
 \ref{fig:ED7AA2-eigenwerte-ungerade} bzw. \ref{fig:ED7AA2-eigenwerte-gerade}
 dargestellt. Mit dem Virialsatz bestimme ich $E_0 = \num{0.4989 +- 0.0002}$.
@@ -979,7 +979,7 @@ In der Simulation wird dies durch schmale Normalverteilungen angenähert. Deren
 Integral ist auf eins normiert und die Verteilungen haben eine Breite
 $\gausswidth$. Je nach Breite ergibt sich ein anderes Potential.
 Abbildung~\ref{fig:gausspotential} enthält das Potential für eine negative und
-positive Kopplungsstärke $1/a_0$.
+eine positive Kopplungsstärke $1/a_0$.
 
 \begin{figure}[htbp]
     \centering
@@ -1082,7 +1082,7 @@ Aufenthaltswahrscheinlichkeit im Vergleich zum harmonischen Oszillator.
 \subsection{Energiewerte}
 
 Die Grundzustandsenergie verschiebt sich durch die Störung. Die zu erwartenden
-Energiewerte lassen sich durch Lösung von Gleichung~\eqref{eq:Energie-Delta}
+Energiewerte lassen sich durch Lösung der Gleichung~\eqref{eq:Energie-Delta}
 berechnen oder aus Abbildung~\ref{fig:E_a0} ablesen. Für die hier betrachteten
 Kopplungsstärken habe ich die ersten geraden Energiewerte in
 Tabelle~\ref{tab:E_a0} zusammengestellt.
@@ -1110,12 +1110,12 @@ muss $\timestep \to 0$ und $\gausswidth \to 0$ vollzogen werden. Im Grenzfall
 $\timestep \to 0$ muss jedoch $\timesites \to \infty$ gehen, so dass $\timestep
 \timesites = T$ konstant bleibt. Andernfalls kommt es zu unerwünschten
 Korrelationen durch die periodischen Randbedingungen, die die Energiewerte
-verfälschen. Dadurch steigt die benötigte Rechenleistung an, es kann nur bis zu
-einem gewissen $\timestep$ gerechnet werden. Beim Grenzwert $\gausswidth \to 0$
-wird die überlagerte Normalverteilung beliebig schmal. Ist sie zu schmal, ist
-die Wahrscheinlichkeit, dass Zufallszahlen in ihrer Breite gezogen werden, zu
-klein. Daher erwarte ich, dass für extrem kleine $\gausswidth$ der Grundzustand
-wieder erreicht wird.
+verfälschen. Durch $\timesites \to \infty$ steigt die benötigte Rechenleistung
+an, es kann nur bis zu einem gewissen $\timestep$ gerechnet werden. Beim
+Grenzwert $\gausswidth \to 0$ wird die überlagerte Normalverteilung beliebig
+schmal. Ist sie zu schmal, ist die Wahrscheinlichkeit, dass Zufallszahlen in
+ihrer Breite gezogen werden, zu klein. Daher erwarte ich, dass für extrem
+kleine $\gausswidth$ der Grundzustand wieder erreicht wird.
 
 \subsubsection{Negative Kopplungsstärke}
 
@@ -1158,18 +1158,17 @@ zusammengefasst.
 Für große und mittlere $\timestep$ ist zu erkennen, dass für $\gausswidth \to
 0$ die Grundzustandsenergie $E_0$ gegen die $\num{0.5}$ des harmonischen
 Oszillators geht. Bei kleinen $\timestep$ ist die Grundzustandsenergie generell
-höher. Dies liegt wahrscheinlich daran, dass bei kleineren $\timestep$ die
-Gitterauflösung steigt und eine schmalere Normalverteilung aufgelöst werden
-kann.
+höher. Bei kleineren $\timestep$ steigt die Gitterauflösung und eine schmalere
+Normalverteilung kann aufgelöst werden.
 
 Bei großen $\gausswidth$ führt $\timestep \to 0$ jedoch dazu, dass der
 Energiewert wieder sinkt. Dieser Effekt ist auch beim harmonischen Oszillator
-zu beobachten und liegt wahrscheinlich daran, dass Änderungen in den $x_j$
-weniger wahrscheinlich werden und so eine Autokorrelation eintritt, die den
-Energiewert und vor allem dessen Fehler zu klein erscheinen lässt.
+zu beobachten und erklärt sich dadurch, dass Änderungen in den $x_j$ weniger
+wahrscheinlich werden und so eine Autokorrelation eintritt, die den Energiewert
+und vor allem dessen Fehler zu klein erscheinen lässt.
 
 Der Grenzwert $\timestep \to 0$ soll zuerst gebildet werden, daher betrachte
-ich die Daten zuerst als Scharen von $\gausswidth$, also $E_0(\timestep;
+ich die Daten als Scharen von $\gausswidth$, also $E_0(\timestep;
 \gausswidth)$. In Abbildung~\ref{fig:minus1-fein} sind die Scharen dargestellt.
 
 \begin{figure}[htbp]
@@ -1310,12 +1309,13 @@ Abbildung~\ref{fig:minus1-meta} zusammengestellt.
 \end{figure}
 
 Im Grenzwert $\gausswidth \to 0$ sollte sich der Wert $E_0 = \num{1.08}$
-einstellen, dieser ist im Diagramm bei $\gausswidth = 0$ eingezeichnet. An
-diese Daten habe ich wieder mit der Bootstrapmethode quadratische Funktionen
-angepasst, um extrapolieren zu können. Der errechnete Wert ist mit \num{0.99 +-
-0.07} zu klein, ist aber mit dem erwarteten Wert vereinbar. Lässt man den Wert
-zum kleinsten $\gausswidth$ aus der Anpassung heraus, sind die restlichen Daten
-mit einem Wert von \num{1.08} vereinbar.
+einstellen, dieser ist im Diagramm (Abbildung~\ref{fig:minus1-meta}) bei
+$\gausswidth = 0$ eingezeichnet. An diese Daten habe ich wieder mit der
+Bootstrapmethode quadratische Funktionen angepasst, um extrapolieren zu können.
+Der errechnete Wert ist mit \num{0.99 +- 0.07} zu klein, ist aber mit dem
+erwarteten Wert vereinbar. Lässt man den Wert zum kleinsten $\gausswidth$ aus
+der Anpassung heraus, sind die restlichen Daten mit einem Wert von \num{1.08}
+vereinbar.
 
 \FloatBarrier
 \subsubsection{Positive Kopplungsstärke}
@@ -1580,20 +1580,21 @@ ist deutlich zu erkennen.
 \chapter{Zusammenfassung}
 
 Die Energiewerte des harmonischen Oszillators ließen sich gut bestimmen. Die
-ersten angeregten Zustände sind noch recht genau, die Höheren haben recht große
-Fehler. Beim gestörten Oszillator ließ sich der Grundzustand für zwei
+ersten angeregten Zustände sind noch recht genau, die Höheren zeigten recht
+große Fehler. Beim gestörten Oszillator ließ sich der Grundzustand für zwei
 Kopplungsstärken sinnvoll bestimmen. Der erste (gerade) angeregte Zustand
 konnte nicht mehr extrapoliert werden, die Daten waren nur mit dem Theoriewert
-vereinbar. Höhere Zustände waren nicht aussagekräftig zu analysieren.
+vereinbar. Höhere Zustände konnten nicht aussagekräftig analysiert werden.
 
-Mit mehr Iterationen zwischen den Messungen, um die Autokorrelationen zu
-minimieren, ließen sich vielleicht bessere Abschätzungen für die angeregten
-Zustände erreichen. Darüber hinaus könnte sich gerade bei kleinen $\timestep$
-eine Fehlerabschätzung durch Bootstrap mit Blöcken als hilfreich herausstellen.
+Mit mehr Iterationen zwischen den Messungen zur Minimierung der
+Autokorrelationen könnten vielleicht bessere Abschätzungen für die angeregten
+Zustände erreicht werden. Darüber hinaus könnte sich gerade bei kleinen
+$\timestep$ eine Fehlerabschätzung durch Bootstrap mit Blöcken als hilfreich
+herausstellen.
 
-Alles in allem ist dies eine gute Demonstration der Gitterfeldmethoden aus dem
-Paper von \textsc{Creutz} und \textsc{Freedman} sowie des
-\textsc{Metropolis}algorithmus. Hiervon ausgehen können weitere
+Insgesamt betrachtet ist dies eine gute Demonstration der Gitterfeldmethoden
+aus dem Paper von \textsc{Creutz} und \textsc{Freedman} sowie des
+\textsc{Metropolis}algorithmus. Hiervon ausgehend können weitere
 quantenmechanische Systeme, insbesondere analytisch nicht lösbare, betrachtet
 werden.
 
