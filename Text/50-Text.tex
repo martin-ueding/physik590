@@ -6,7 +6,7 @@ In der Physik gibt es zahlreiche Probleme, die nicht analytisch gelöst werden
 können. Bei einigen von ihnen lässt sich das Problem in einen analytisch
 lösbaren Teil und einen kleinen Störteil aufteilen. Die Störungstheorie versagt
 jedoch bei Theorien wie der Quantenchromodynamik (QCD), so dass vor allem
-numerische Methoden anwendbar sind \parencite{Wittig/Farbdynamik_Gitter}.
+numerische Methoden notwendig sind \parencite{Wittig/Farbdynamik_Gitter}.
 
 Anhand des harmonischen Oszillators möchte ich in dieser Arbeit die Methoden
 von \textsc{Creutz} und \textsc{Freedman} nachvollziehen und anwenden. Da
@@ -96,7 +96,7 @@ wobei periodische Randbedingungen mit $x_{\timesites} = x_0$ festgesetzt wurden.
 
 % http://www.duden.de/sprachwissen/rechtschreibregeln/namen#K134
 Der Raum der möglichen diskreten Weltlinien hat $\timesites$ Dimensionen und
-ist unendlich groß. Aufgrund der hohen Dimension sind Monte-Carlo-Methoden zu
+ist unbeschränkt. Aufgrund der hohen Dimension sind Monte-Carlo-Methoden zu
 bevorzugen. Der Bereich der Weltlinien, die einen nennenswerten Beitrag zum
 Integral liefern, ist jedoch durch die exponentielle Gewichtung recht klein.
 Der Algorithmus von \textsc{Metropolis} wählt die Weltlinien entsprechend
@@ -148,14 +148,14 @@ x^{(i)}, \vec x^{(j)}) \geq 0$ und $\int \dif \vec x^{(j)} \, W(\vec x^{(i)},
 % Eigenvektor, Wahrscheinlichkeitsdichte
 % Forderungen an W
 
-Die Übergangswahrscheinlichkeit über einen Zwischenschritt wird durch
-Integration über die Zwischenposition $x_j$,
+Die Übergangswahrscheinlichkeit mit Zwischenposition $x_j$ wird durch
+Integration über diese ermittelt
+\parencite[(3.9)]{Creutz/Statistical_Approach_QM}:
 \[
     W^{(2)}\del{\vec x^{(i)}, \vec x^{(k)}} = \int \dif x^{(j)} \, W\del{\vec
-    x^{(i)}, \vec x^{(j)}} W\del{\vec x^{(j)}, \vec x^{(k)}},
+    x^{(i)}, \vec x^{(j)}} W\del{\vec x^{(j)}, \vec x^{(k)}}.
 \]
-ermittelt \parencite[(3.9)]{Creutz/Statistical_Approach_QM}. Daraus kann die
-Rekursionsformel
+Daraus kann die Rekursionsformel
 \[
     W^{(n)}\del{\vec x^{(i)}, \vec x^{(k)}} = \int \dif \vec x^{(j)} \,
     W^{(n-1)}\del{\vec x^{(i)},
@@ -279,16 +279,16 @@ Heaviside Stufenfunktion und $N_0$ das Volumen des Konfigurationsraumes ist.
 Mit dieser Gleichung kann nachvollzogen werden, dass $W$ die geforderten
 Bedingungen erfüllt.
 
-Die Entropieänderung $\Deltaup S$ beim Übergang von $x_j$ zu $x_j'$ wird
-effizient dadurch berechnet, dass nur die Entropie der Schritte von $j-1$ zu
-$j$ und von $j$ zu $j+1$ berechnet wird. Dazu definiere ich die Entropie für
+Die Wirkungsänderung $\Deltaup S$ beim Übergang von $x_j$ zu $x_j'$ wird
+effizient dadurch berechnet, dass nur die Wirkung der Schritte von $j-1$ zu
+$j$ und von $j$ zu $j+1$ berechnet wird. Dazu definiere ich die Wirkung für
 einen Gitterschritt:
 \[
     S_\text{Schritt}(x_j, x_j') := \frac{\timestep \mass}2 \sbr{
     \frac{\sbr{x_j' - x_j}^2}{\timestep^2} + V(x_j)}.
 \]
 
-Damit kann ich die Entropieänderung zwischen zwei Weltlinien, die sich in nur
+Damit kann ich die Wirkungsänderung zwischen zwei Weltlinien, die sich in nur
 einer Koordinate unterscheiden, effizient berechnen:
 \[
     \Deltaup S =
@@ -352,7 +352,7 @@ sich $E_1$ bestimmen. Energien für noch höhere Zustände können mit dem
 
 \subsection{Interpolationsfelder}
 
-Dazu werden Interpolationsfelder $O_i$ gewählt
+Für das GEVP werden Interpolationsfelder $O_i$ gewählt
 \parencite[1]{Blossier/Eigenvalue}. In diesem Fall ist die Wahl $O_i(x) = x^i$
 sinnvoll.
 % TODO Quellenangabe / Danksagung
@@ -395,8 +395,8 @@ demnach. Die Korrelationsmatrix kann in zwei kleinere Matrizen, die jeweils
 nur gerade bzw. ungerade Potenzen von $x$ erhalten, aufgespalten werden. Auf
 diese Weise werden auch gerade und ungerade Energiezustände getrennt.
 
-Das generalisierte Eigenwertproblem, aus dessen Eigenwerte die Energien
-extrahiert werde können, ist durch
+Das generalisierte Eigenwertproblem, aus dessen Eigenwerten die Energien
+extrahiert werden können, ist durch
 \[
     \tens C(\tau) \, \vec v_n(\tau, \tau_0) = \lambda_n(\tau, \tau_0) \, \tens
     C(\tau_0) \, \vec v_n(\tau, \tau_0)
@@ -1578,6 +1578,12 @@ ist deutlich zu erkennen.
 \end{figure}
 
 \chapter{Zusammenfassung}
+
+In dieser Arbeit habe ich die harmonischen Oszillator, sowie einen Oszillator
+mit $\delta$-Störung, in der Pfadintegralformulierung untersucht. Dazu habe ich
+imaginäre und diskrete Zeit benutzt. Aus den mit dem
+\textsc{Metropolis}algorithmus generierten Daten bestimmte ich mit Virialsatz
+und Korrelationen die Energiewerte.
 
 Die Energiewerte des harmonischen Oszillators ließen sich gut bestimmen. Die
 ersten angeregten Zustände sind noch recht genau, die Höheren zeigten recht
