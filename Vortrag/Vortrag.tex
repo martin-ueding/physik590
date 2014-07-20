@@ -17,6 +17,8 @@
 \tikzexternalize[mode=list and make]
 \tikzsetexternalprefix{_build/Abbildung-}
 
+\usepackage{algpseudocode}
+
 \newcommand\bootstrapsamples{N_\text P}
 \newcommand\gausswidth{\sigma}
 \newcommand\initialrandomwidth{\tilde \Delta}
@@ -30,6 +32,8 @@
 
 \newcommand\funcmeasure{\mathcal D \vec x}
 
+\renewcommand\iup{\text i}
+\renewcommand\eup{\text e}
 
 \hypersetup{
     pdftitle={%
@@ -38,10 +42,14 @@
     }
 }
 
-
-\title{Gitterfeldtheoretische Behandlung des Harmonischen Oszillators in der Pfadintegralformulierung in Euklidischer Raum-Zeit}
+\title{%
+    Gitterfeldtheoretische Behandlung\\
+    des Harmonischen Oszillators\\
+    in der Pfadintegralformulierung\\
+    in Euklidischer Raum-Zeit
+}
 \subtitle{Präsentation zur Bachelorarbeit}
-\author{Martin Ueding \\ mu@martin-ueding.de}
+\author{Martin Ueding – mu@martin-ueding.de}
 \date{Juli 2014}
 
 \begin{document}
@@ -51,21 +59,241 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Einleitung}
+
+    Modelle in der Physik
+
+    \begin{itemize}
+        \item
+            analytisch lösbar
+        \item
+            Störungstheorie
+        \item
+            andere Näherungsverfahren
+        \item
+            Numerik
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
     \tableofcontents
 \end{frame}
 
 \section{Pfadintegrale}
 
+\subsection{Einleitung}
+
+\begin{frame}
+    \frametitle{Pfadintegral}
+
+    Betrachte Trajektorien mit $x(0) = x_\text A$ und $x(T) = x_\text E$.
+
+    Zustandssumme:
+    \[
+        Z(x_\text E, x_\text A) = \sum_{\text{Trajektorien $j$}} \exp(\iup S_j)
+    \]
+
+    Probleme:
+    \begin{itemize}
+        \item Summand oszilliert stark
+        \item Trajektorien sind kontinuierlich
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Imaginäre Zeit}
+
+    Wickrotation: $\tau := \iup t$
+
+    Wirkung des Oszillators:
+    \[
+        S = \int_0^T \dif \tau \, \sbr{\frac 12 m \dot x^2 + V(x)}.
+    \]
+\end{frame}
+
+\begin{frame}
+    \frametitle{Diskretisierung}
+
+    Summe muss Integral sein:
+    \(
+        \int \funcmeasure \, \exp\del{-S(x)}.
+    \)
+
+    Zeitgitter:
+    \begin{itemize}
+        \item
+            diskrete Zeit: $\tau_j = a j$, $T = aN$
+        \item
+            $x(\tau) \to x_j$ mit $j = 0, \ldots, N$
+        \item
+            ersetze $\dot x$ durch Differenzenquotient
+        \item
+            \(
+            \int \funcmeasure
+            \to
+            \prod_{j = 1}^{\timesites-1} \int_{-\infty}^\infty \dif x_j.
+            \)
+    \end{itemize}
+
+\end{frame}
+
+\subsection{Integration}
+
+\begin{frame}
+    \frametitle{Monte Carlo}
+
+    \begin{itemize}
+        \item 
+            Integral über $N \gg 100$ Dimensionen
+        \item
+            Monte-Carlo-Methoden effizient
+        \item
+            Integrationsgebiet durch Gewichtung klein
+    \end{itemize}
+
+    Ziel: Trajektorien entsprechend $\exp(-S)$ generieren
+\end{frame}
+
+\begin{frame}
+    \frametitle{Markovprozess}
+
+    Gewünschte Verteilung:
+    \[
+        p\del{\vec x^{(k)}} = \frac{\exp\del{-S\del{\vec x^{(k)}}}}{\int
+            \funcmeasure
+        \, \exp\del{-S(\vec x)}}
+    \]
+
+    detailiertes Gleichgewicht:
+    \[
+        \frac{W\del{\vec x^{(i)}, \vec x^{(j)}}}{W\del{\vec x^{(j)}, \vec x^{(i)}}}
+        = \frac{p\del{\vec x^{(j)}}}{p\del{\vec x^{(i)}}}
+    \]
+\end{frame}
+
+\begin{frame}
+    \frametitle{Metropolisalgorithmus}
+    
+    \begin{algorithmic}
+        \For{$j \gets 1, \ldots, \timesites$}
+            \State $x_j' \gets$ \Call{Zufallszahl}{$-\infty$, $\infty$}
+            \State $\Deltaup S \gets S(x_0, \ldots, x_{j-1}, x_j',
+            x_{j+1}, \ldots, x_\timesites) - S(\{x_i\})$
+
+            \If{$\Deltaup S \leq 0$}
+                \State $x_j \gets x_j'$
+            \Else
+                \State $r \gets$ \Call{Zufallszahl}{0, 1}
+                \If{$r < \exp(-\Deltaup S)$}
+                    \State $x_j \gets x_j'$
+                \EndIf
+            \EndIf
+        \EndFor
+    \end{algorithmic}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Modifikationen}
+
+    \begin{itemize}
+        \item
+            Ziehen aus Normalverteilung um $x_j$
+
+        \item
+            wiederholtes Ziehen
+
+        \item
+            Auslassen von Trajektorien
+
+        \item
+            $\Deltaup S$ effizient berechnen
+    \end{itemize}
+\end{frame}
+
 \section{Energiewerte}
 
+\begin{frame}
+    \frametitle{Virialsatz}
+
+    \begin{itemize}
+    
+        \item
+    Allgemein: $\bracket{\vec F \vec r} + 2 \bracket{T} = 0$
+
+\item
+    Mit $\vec F = - \vnabla V$ folgt $2 T = m \bracket{v^2} = \bracket{x V'(x)}$
+
+\item
+    Hier: $V(x) = \mu^2 x^2 /2$
+
+\item
+    $E_0$ aus verfügbaren Werten:
+    \[
+        \bracket E = \bracket T + \bracket V
+        = \frac12 \mu^2 \bracket{x^2} + \frac12 \mu^2 \bracket{x^2}
+        = \mu^2 \bracket{x^2}
+    \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Korrelationen}
+
+    $E_1$ durch Korrelationen und $E_0$:
+    \[
+        E_1 = \lim_{\tau \to \infty} \frac{-1}{\Deltaup \tau} \ln
+        \del{\frac{\Bracket{x(0) \, x(\tau + \Deltaup \tau)}}{\Bracket{x(0) \,
+        x(\tau)}}} + E_0
+    \]
+
+    Äquivalent zu
+    \[
+        f(\tau) := c_1 \exp\del{-\Deltaup E_1 \tau}.
+    \]
+\end{frame}
+
 \subsection{Generalisiertes Eigenwertproblem}
+
+\begin{frame}
+    Leer
+\end{frame}
+
+\begin{frame}
+    \frametitle{Choleskyzerlegung}
+
+    \begin{itemize}
+        \item
+            $A \vec x = \lambda B \vec x$
+
+        \item
+            Choleskyzerlegung $B = L L^\dagger$ 
+
+        \item
+            Umformungen
+            \[
+                L^{-1} A [L^\dagger]^{-1} \; L^\dagger \vec x
+                =
+                \lambda [L^\dagger \vec x].
+            \]
+            \[
+                \tilde{A} := L^{-1} A [L^\dagger]^{-1}
+                \eqnsep
+                \tilde{\vec x} := L^\dagger \vec x,
+            \]
+
+        \item
+            normales Eigenwertproblem
+            \[
+                \tilde{A} \tilde{\vec x} = \lambda \tilde{\vec x}.
+            \]
+    \end{itemize}
+\end{frame}
 
 \subsection{Eindimensionale Wellenfunktion mit $\delta$-Störung}
 
 \begin{frame}
     Leer
 \end{frame}
-
 
 \section{Ergebnisse}
 
