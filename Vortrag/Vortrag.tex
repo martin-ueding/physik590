@@ -109,6 +109,10 @@
     \[
         S = \int_0^T \dif \tau \, \sbr{\frac 12 m \dot x^2 + V(x)}.
     \]
+
+    \[
+        Z(x_\text E, x_\text A) = \sum_{\text{Trajektorien $j$}} \exp(- S_j)
+    \]
 \end{frame}
 
 \begin{frame}
@@ -255,6 +259,47 @@
 
 
 \begin{frame}
+    \frametitle{Methode von \cite{Blossier/Eigenvalue}}
+\[
+    C_{ij}(\tau) := \Bracket{O_i(\tau) \, O_j^*(0)}
+    = \Bracket{x(\tau)^i \, x(0)^j}
+\]
+    
+Matrixelemente der Interpolationsfelder
+\[
+    \Bracket{O_i(\tau) \, O_j^*(\tau)}
+    = \sum_{n=1}^\infty \eup^{-E_n \tau} \psi_{ni} \psi_{nj}^*
+    \eqnsep
+    i, j = 1, \ldots, N.
+\]
+$\psi_{ni} := (\psi_n)_i = \braket{0 | \hat O_i | n}$, wobei $E_n < E_{n+1}$
+\end{frame}
+
+\begin{frame}
+    \frametitle{Generalisiertes Eigenwertproblem}
+
+\[
+    C(\tau) \, \vec v_n(\tau, \tau_0) = \lambda_n(\tau, \tau_0) \, 
+    C(\tau_0) \, \vec v_n(\tau, \tau_0)
+    \eqnsep
+    n = 1, \ldots, N
+    \eqnsep
+    \tau > \tau_0
+\]
+
+\[
+    \Deltaup E_n^\text{eff}(\tau, \tau_0) = -
+    \frac 1\timestep \sbr{ \ln\del{\lambda_n(\tau+\timestep, \tau_0)} -
+    \ln\del{\lambda_n(\tau, \tau_0)} }
+\]
+
+$\lim_{\tau \to \infty} \Deltaup E_n^\text{eff}(\tau, \tau_0) = E_n - E_0$
+
+\end{frame}
+
+
+
+\begin{frame}
     \frametitle{Choleskyzerlegung}
 
     \begin{itemize}
@@ -278,7 +323,7 @@
             \]
 
         \item
-            normales Eigenwertproblem
+            normales Eigenwertproblem (gleiche Eigenwerte)
             \[
                 \tilde{A} \tilde{\vec x} = \lambda \tilde{\vec x}.
             \]
@@ -288,7 +333,67 @@
 \subsection{Eindimensionale Wellenfunktion mit $\delta$-Störung}
 
 \begin{frame}
-    Leer
+    \frametitle{Oszillator mit $\delta$-Störung}
+
+    Hamiltonoperator:
+    \[
+        H_\text{rel} = \underbrace{- \frac12 \nabla_x^2 + \frac 12
+        x^2}_{H_\text{Osz}} - \frac2{a_0} \delta(x).
+    \]
+
+    Schödingergleichung:
+    \[
+        \sbr{H_\text{Osz} - \frac2{a_0} \delta(x)} \Psi(x) = E \Psi(x)
+    \]
+
+    Analytische Lösung durch \cite{Busch/Two_Cold}
+\end{frame}
+
+\begin{frame}
+    \begin{itemize}
+        \item
+            Entwicklung in Eigenfunktionen $\phi_n$ des harmonischen Oszillators
+        \item
+            Projektion auf $\phi_m^*$
+        \item
+            Ausnutzen der Orthogonalitätsrelation und $\delta$-Distribution
+        \item
+            Ansatz für Entwicklungskoeffizienten $c_n \propto \phi_m(0)/[E_m - E]$
+        \item
+            Eigenfunktionen bei $x = 0$ einsetzen
+        \item
+            Summe ausführen
+        \item
+            nach $1/a_0$ auflösen ergibt:
+            \[
+                - \frac{[2E-1]\Gamma\del{\frac 14[3-2E]}}{4 \Gamma\del{\frac
+                14[5-2E]}} = \frac1{a_0}.
+            \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Energiewerte}
+    
+    \tikzsetnextfilename{E_a0}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xmin=-3,
+                xmax=3,
+                ymax=5.8,
+                xlabel=$1/a_0$,
+                ylabel=$E$,
+                xtick={-1,0,1},
+                ytick={-2.5,-1.5,...,9.5},
+                minor y tick num=1,
+                xmajorgrids=true,
+            ]
+            \addplot[black] table {../Text/_build/gamma_data.csv};
+        \end{axis}
+    \end{tikzpicture}
+
 \end{frame}
 
 \section{Ergebnisse}
@@ -301,7 +406,7 @@
     \begin{tikzpicture}
         \begin{semilogyaxis}[
                 width=\linewidth,
-                height=0.55\linewidth,
+                height=0.6\linewidth,
                 xlabel={$\tau$},
                 ylabel={$\lambda_n(\tau)$},
                 grid=major,
@@ -345,9 +450,17 @@
 
 \subsection{Anharmonischer Oszillator}
 
-%\begin{frame}
-%    \printbibliography
-%\end{frame}
+\begin{frame}
+
+    \frametitle{Literatur}
+
+    \printbibliography
+
+    \begin{small}
+    Zur Übersicht sind nicht alle Quellen angegeben, bitte schauen Sie in der
+    Bachelorarbeit selbst ins Quellenverzeichnis.
+    \end{small}
+\end{frame}
 
 \end{document}
 
