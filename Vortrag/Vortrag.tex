@@ -23,7 +23,14 @@
 \pgfplotsset{
     colormap={whiteblack}{gray=(0.95) gray=(0)},
     max space between ticks=50pt,
+    myerrorbar/.style={
+        only marks,
+        error bars/y dir=both,
+        error bars/y explicit,
+        mark options={scale=1, thick},
+    },
 }
+
 
 \usepackage{algpseudocode}
 
@@ -45,18 +52,24 @@
 
 \hypersetup{
     pdftitle={%
-        Harmonischer Oszillator in der Pfadintegralformulierung in Euklidischer
-        Raum-Zeit mit gitterfeldtheoretischen Methoden
+        Gitterfeldtheoretische Behandlung des harmonischen Oszillators in der
+        Pfadintegralformulierung in Euklidischer Raum-Zeit
     }
 }
 
-\definecolor{3ClassSet1_1}{rgb}{0.894118,0.101961,0.109804}
-\definecolor{3ClassSet1_2}{rgb}{0.215686,0.494118,0.721569}
-\definecolor{3ClassSet1_3}{rgb}{0.301961,0.686275,0.290196}
+\definecolor{Set1_1}{rgb}{0.894118,0.101961,0.109804}
+\definecolor{Set1_2}{rgb}{0.215686,0.494118,0.721569}
+\definecolor{Set1_3}{rgb}{0.301961,0.686275,0.290196}
+\definecolor{Set1_4}{rgb}{0.596078,0.305882,0.639216}
+\definecolor{Set1_5}{rgb}{1.0,0.498039,0.0}
+\definecolor{Set1_6}{rgb}{1.0,1.0,0.2}
+\definecolor{Set1_7}{rgb}{0.65098,0.337255,0.156863}
+\definecolor{Set1_8}{rgb}{0.968627,0.505882,0.74902}
+\definecolor{Set1_9}{rgb}{0.6,0.6,0.6}
 
 \title{%
     Gitterfeldtheoretische Behandlung\\
-    des Harmonischen Oszillators\\
+    des harmonischen Oszillators\\
     in der Pfadintegralformulierung\\
     in Euklidischer Raum-Zeit
 }
@@ -69,6 +82,8 @@
 \begin{frame}
     \titlepage
 \end{frame}
+
+\section*{Einleitung}
 
 \begin{frame}
     \frametitle{Einleitung}
@@ -92,6 +107,8 @@
 \end{frame}
 
 \section{Pfadintegrale}
+
+\frame\sectionpage
 
 \subsection{Einleitung}
 
@@ -122,6 +139,7 @@
         S = \int_0^T \dif \tau \, \sbr{\frac 12 m \dot x^2 + V(x)}.
     \]
 
+    Zustandssumme:
     \[
         Z(x_\text E, x_\text A) = \sum_{\text{Trajektorien $j$}} \exp(- S_j)
     \]
@@ -153,7 +171,7 @@
 
 \end{frame}
 
-\subsection{Integration}
+\subsection{Integration über den Phasenraum}
 
 \begin{frame}
     \frametitle{Monte Carlo}
@@ -227,7 +245,12 @@
 \end{frame}
 
 \section{Energiewerte}
+
+\frame\sectionpage
+
 \subsection{Virialsatz, Korrelationen und GEVP}
+
+\frame\subsectionpage
 
 \begin{frame}
     \frametitle{Virialsatz}
@@ -272,40 +295,43 @@
 
 \begin{frame}
     \frametitle{Methode von \cite{Blossier/Eigenvalue}}
-\[
-    C_{ij}(\tau) := \Bracket{O_i(\tau) \, O_j^*(0)}
-    = \Bracket{x(\tau)^i \, x(0)^j}
-\]
-    
-Matrixelemente der Interpolationsfelder
-\[
-    \Bracket{O_i(\tau) \, O_j^*(\tau)}
-    = \sum_{n=1}^\infty \eup^{-E_n \tau} \psi_{ni} \psi_{nj}^*
-    \eqnsep
-    i, j = 1, \ldots, N.
-\]
-$\psi_{ni} := (\psi_n)_i = \braket{0 | \hat O_i | n}$, wobei $E_n < E_{n+1}$
+
+    Korrelationsfunktionen:
+    \[
+        C_{ij}(\tau) := \Bracket{O_i(\tau) \, O_j^*(0)}
+        = \Bracket{x(\tau)^i \, x(0)^j}
+    \]
+
+    Matrixelemente der Interpolationsfelder:
+    \[
+        \Bracket{O_i(\tau) \, O_j^*(\tau)}
+        = \sum_{n=1}^\infty \eup^{-E_n \tau} \psi_{ni} \psi_{nj}^*
+        \eqnsep
+        i, j = 1, \ldots, N.
+    \]
+    $\psi_{ni} := (\psi_n)_i = \braket{0 | \hat O_i | n}$, wobei $E_n < E_{n+1}$
 \end{frame}
 
 \begin{frame}
     \frametitle{Generalisiertes Eigenwertproblem}
 
-\[
-    C(\tau) \, \vec v_n(\tau, \tau_0) = \lambda_n(\tau, \tau_0) \, 
-    C(\tau_0) \, \vec v_n(\tau, \tau_0)
-    \eqnsep
-    n = 1, \ldots, N
-    \eqnsep
-    \tau > \tau_0
-\]
+    GEVP mit $n = 1, \ldots, N$ und $\tau > \tau_0$:
+    \[
+        C(\tau) \, \vec v_n(\tau, \tau_0) = \lambda_n(\tau, \tau_0) \, 
+        C(\tau_0) \, \vec v_n(\tau, \tau_0)
+    \]
 
-\[
-    \Deltaup E_n^\text{eff}(\tau, \tau_0) = -
-    \frac 1\timestep \sbr{ \ln\del{\lambda_n(\tau+\timestep, \tau_0)} -
-    \ln\del{\lambda_n(\tau, \tau_0)} }
-\]
+    Effektive Energiewerte:
+    \[
+        \Deltaup E_n^\text{eff}(\tau, \tau_0) = -
+        \frac 1\timestep \sbr{ \ln\del{\lambda_n(\tau+\timestep, \tau_0)} -
+        \ln\del{\lambda_n(\tau, \tau_0)} }
+    \]
 
-$\lim_{\tau \to \infty} \Deltaup E_n^\text{eff}(\tau, \tau_0) = E_n - E_0$
+    Energiewerte:
+    \[
+        \lim_{\tau \to \infty} \Deltaup E_n^\text{eff}(\tau, \tau_0) = E_n - E_0
+    \]
 
 \end{frame}
 
@@ -343,6 +369,8 @@ $\lim_{\tau \to \infty} \Deltaup E_n^\text{eff}(\tau, \tau_0) = E_n - E_0$
 \end{frame}
 
 \subsection{Eindimensionale Wellenfunktion mit $\delta$-Störung}
+
+\frame\subsectionpage
 
 \begin{frame}
     \frametitle{Oszillator mit $\delta$-Störung}
@@ -409,7 +437,11 @@ $\lim_{\tau \to \infty} \Deltaup E_n^\text{eff}(\tau, \tau_0) = E_n - E_0$
 
 \section{Ergebnisse}
 
+\frame\sectionpage
+
 \subsection{Harmonischer Oszillator}
+
+\frame\subsectionpage
 
 \begin{frame}
     \frametitle{Trajektorie nach Relaxation}
@@ -428,7 +460,7 @@ $\lim_{\tau \to \infty} \Deltaup E_n^\text{eff}(\tau, \tau_0) = E_n - E_0$
 \end{frame}
 
 \begin{frame}
-    \frametitle{Aufenthaltswahrscheinlichkeit ($a = \num{1.0}$}
+    \frametitle{Aufenthaltswahrscheinlichkeit ($a = \num{1.0}$)}
 
     \tikzsetnextfilename{histogram_10}
     \begin{tikzpicture}
@@ -448,11 +480,8 @@ $\lim_{\tau \to \infty} \Deltaup E_n^\text{eff}(\tau, \tau_0) = E_n - E_0$
             ]
             \addplot[
                 black,
-                only marks,
                 mark=+,
-                error bars/.cd,
-                y dir=both,
-                y explicit
+                myerrorbar,
             ] table[y error index=2] {../Text/CSV/DC5256-histogram-position-resultset.csv};
             \addplot[black] table {../Text/_build/histogram_theory_1.csv};
             \addplot[black, dashed] table {../Text/_build/histogram_theory_continous.csv};
@@ -476,40 +505,31 @@ $\lim_{\tau \to \infty} \Deltaup E_n^\text{eff}(\tau, \tau_0) = E_n - E_0$
                     {$n = 5$},
                 },
             ]
-            \addplot[3ClassSet1_1] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-01-fit.csv};
-            \addplot[3ClassSet1_2] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-03-fit.csv};
-            \addplot[3ClassSet1_3] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-05-fit.csv};
             \addplot[
-                3ClassSet1_1,
-                only marks,
-                mark=|,
-                error bars/.cd,
-                y dir=both,
-                y explicit
+                Set1_1,
+                mark=+,
+                myerrorbar,
             ] table[y error index=2] {../Text/CSV/lambdas/ED7AA2-eigenvalue-01.csv};
 
             \addplot[
-                3ClassSet1_2,
-                only marks,
-                mark=|,
-                error bars/.cd,
-                y dir=both,
-                y explicit
+                Set1_2,
+                mark=+,
+                myerrorbar,
             ] table[y error index=2] {../Text/CSV/lambdas/ED7AA2-eigenvalue-03.csv};
             \addplot[
-                3ClassSet1_3,
-                only marks,
-                mark=|,
-                error bars/.cd,
-                y dir=both,
-                y explicit
+                Set1_3,
+                mark=+,
+                myerrorbar,
             ] table[y error index=2] {../Text/CSV/lambdas/ED7AA2-eigenvalue-05.csv};
+            \addplot[Set1_1] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-01-fit.csv};
+            \addplot[Set1_2] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-03-fit.csv};
+            \addplot[Set1_3] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-05-fit.csv};
         \end{semilogyaxis}
     \end{tikzpicture}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Energiewerte}
+    \frametitle{Errechnete Energiewerte aus Eigenwerten}
     \begin{tabular}{SS}
         {$n$} & {$E_n$} \\
         \midrule
@@ -527,9 +547,12 @@ $\lim_{\tau \to \infty} \Deltaup E_n^\text{eff}(\tau, \tau_0) = E_n - E_0$
     \end{tabular}
 \end{frame}
 
-\subsection{Anharmonischer Oszillator}
+\subsection{Oszillator mit Störung}
+
+\frame\subsectionpage
 
 \begin{frame}
+    \frametitle{Gestörtes Potential}
     \begin{minipage}{0.49\linewidth}
     \centering
     \tikzsetnextfilename{gausspotential-negativ}
@@ -570,7 +593,7 @@ $\lim_{\tau \to \infty} \Deltaup E_n^\text{eff}(\tau, \tau_0) = E_n - E_0$
 \end{frame}
 
 \begin{frame}
-    \frametitle{$E_0$ in Abhängigkeit von $\timestep$ und $\gausswidth$}
+    \frametitle{$E_0$ in Abhängigkeit von $\timestep$ und $\gausswidth$: $1/a_0 = \num{-1}$}
     \tikzsetnextfilename{mesh-e0}
     \begin{tikzpicture}
         \begin{axis}[
@@ -595,7 +618,265 @@ $\lim_{\tau \to \infty} \Deltaup E_n^\text{eff}(\tau, \tau_0) = E_n - E_0$
 \end{frame}
 
 \begin{frame}
+    \frametitle{$E_0$ in Abhängigkeit von $\timestep$: $1/a_0 = \num{-1}$}
+    \tikzsetnextfilename{minus1-fein}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel={$a$},
+                ylabel={$E_0$},
+                grid=major,
+                legend entries={
+                    {$\gausswidth = \num{0.30}$},
+                    {$\gausswidth = \num{0.20}$},
+                    {$\gausswidth = \num{0.10}$},
+                    {$\gausswidth = \num{0.05}$},
+                    {$\gausswidth = \num{0.01}$},
+                },
+                legend pos=south east,
+                myfit/.style={
+                    solid,
+                },
+            ]
 
+            \addplot[
+                Set1_1,
+                myerrorbar,
+                mark=+,
+            ] table[y error index=2] {../Text/CSV/-1/a-E0-0.3.csv};
+            \addplot[
+                Set1_2,
+                myerrorbar,
+                mark=+,
+            ] table[y error index=2] {../Text/CSV/-1/a-E0-0.2.csv};
+            \addplot[
+                Set1_3,
+                myerrorbar,
+                mark=+,
+            ] table[y error index=2] {../Text/CSV/-1/a-E0-0.1.csv};
+            \addplot[
+                Set1_4,
+                myerrorbar,
+                mark=+,
+            ] table[y error index=2] {../Text/CSV/-1/a-E0-0.05.csv};
+            \addplot[
+                Set1_5,
+                myerrorbar,
+                mark=+,
+            ] table[y error index=2] {../Text/CSV/-1/a-E0-0.01.csv};
+
+            \addplot[myfit, Set1_5] table {../Text/CSV/-1/a-E0-fit-0.01.csv};
+            \addplot[myfit, Set1_4] table {../Text/CSV/-1/a-E0-fit-0.05.csv};
+            \addplot[myfit, Set1_3] table {../Text/CSV/-1/a-E0-fit-0.1.csv};
+            \addplot[myfit, Set1_2] table {../Text/CSV/-1/a-E0-fit-0.2.csv};
+            \addplot[myfit, Set1_1] table {../Text/CSV/-1/a-E0-fit-0.3.csv};
+
+        \end{axis}
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+    \frametitle{$\lim_{\timestep \to 0} E_0$ in Abhängigkeit von $\gausswidth$}
+    \tikzsetnextfilename{minus1-meta}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel={$\gausswidth$},
+                ylabel={$E_0$},
+                grid=major,
+                legend pos=south east,
+                legend entries={
+                    {Daten},
+                    {Extrapolation},
+                    {Theorie},
+                },
+            ]
+
+            \addplot[
+                black,
+                mark=+,
+                myerrorbar,
+            ] table[y error index=2] {../Text/CSV/-1/a-E0-meta-daten.csv};
+
+            \addplot[
+                mark=o,
+                myerrorbar,
+            ] table[y error index=2] {table1-1.csv};
+
+            \addplot[
+                mark=star,
+                only marks,
+            ] table {table1-2.csv};
+
+        \end{axis}
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+    \frametitle{$E_0$ in Abhängigkeit von $\timestep$: $1/a_0 = \num{+1}$}
+    \tikzsetnextfilename{plus1-E0-a}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel={$a$},
+                ylabel={$E_0$},
+                grid=major,
+                legend entries={
+                    {$\gausswidth = \num{0.30}$},
+                    {$\gausswidth = \num{0.20}$},
+                    {$\gausswidth = \num{0.10}$},
+                    {$\gausswidth = \num{0.05}$},
+                    {$\gausswidth = \num{0.01}$},
+                },
+                legend pos=south east,
+                myfit/.style={
+                    solid,
+                },
+            ]
+
+            \addplot[
+                Set1_1,
+                myerrorbar,
+                mark=+,
+            ] table[y error index=2] {../Text/CSV/+1/a-E0-0.3.csv};
+            \addplot[
+                Set1_2,
+                myerrorbar,
+                mark=+,
+            ] table[y error index=2] {../Text/CSV/+1/a-E0-0.2.csv};
+            \addplot[
+                Set1_3,
+                myerrorbar,
+                mark=+,
+            ] table[y error index=2] {../Text/CSV/+1/a-E0-0.1.csv};
+            \addplot[
+                Set1_4,
+                myerrorbar,
+                mark=+,
+            ] table[y error index=2] {../Text/CSV/+1/a-E0-0.05.csv};
+            \addplot[
+                Set1_5,
+                myerrorbar,
+                mark=+,
+            ] table[y error index=2] {../Text/CSV/+1/a-E0-0.01.csv};
+
+        \end{axis}
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+    \frametitle{$E_0$ in Abhängigkeit von $\timestep$: $1/a_0 = \num{+1}$}
+    \tikzsetnextfilename{plus1-E0-a-zoom}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel={$a$},
+                ylabel={$E_0$},
+                ymin=-3,
+                legend pos=south east,
+                grid=major,
+                myfit/.style={
+                    solid,
+                },
+                legend entries={
+                    {$\gausswidth = \num{0.30}$},
+                    {$\gausswidth = \num{0.20}$},
+                    {$\gausswidth = \num{0.10}$},
+                    {$\gausswidth = \num{0.05}$},
+                    {$\gausswidth = \num{0.01}$},
+                },
+            ]
+
+            \addplot[
+                Set1_1,
+                myerrorbar,
+                mark=+,
+            ] table[y error index=2] {../Text/CSV/+1/a-E0-0.3.csv};
+            \addplot[
+                Set1_2,
+                myerrorbar,
+                mark=+,
+            ] table[y error index=2] {../Text/CSV/+1/a-E0-0.2.csv};
+            \addplot[
+                Set1_3,
+                myerrorbar,
+                mark=+,
+            ] table[y error index=2] {../Text/CSV/+1/a-E0-0.1.csv};
+            \addplot[
+                Set1_4,
+                myerrorbar,
+                mark=+,
+            ] table[y error index=2] {../Text/CSV/+1/a-E0-0.05.csv};
+            \addplot[
+                Set1_5,
+                myerrorbar,
+                mark=+,
+            ] table[y error index=2] {../Text/CSV/+1/a-E0-0.01.csv};
+
+        \end{axis}
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+    \frametitle{$E_0$ gegen $\gausswidth$: $1/a_0 = \num{+1}$}
+
+    \tikzsetnextfilename{plus1-E0-sigma-0p005}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel={$\gausswidth$},
+                ylabel={$E_0$},
+                grid=major,
+                legend pos=south east,
+                legend entries={
+                    {Daten $\timestep = \num{0.005}$},
+                    {Theorie},
+                },
+            ]
+
+            \addplot[
+                black!100!white,
+                only marks,
+                mark=+,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {../Text/CSV/+1/sigma-E0-0.005.csv};
+
+            \addplot[
+                mark=star,
+                only marks,
+            ] table {table2.csv};
+
+        \end{axis}
+    \end{tikzpicture}
+\end{frame}
+
+\section*{Zusammenfassung}
+
+\begin{frame}
+    \frametitle{Zusammenfassung}
+
+    \begin{itemize}
+        \item
+            harmonischer Oszillator
+        \item
+            Oszillator mit $\delta$-Störung
+        \item
+            Pfadintegrale
+        \item
+            \textsc{Metropolis}algorithmus
+        \item
+            Korrelationen und generalisiertes Eigenwertproblem
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
     \frametitle{Literatur}
 
     \printbibliography
