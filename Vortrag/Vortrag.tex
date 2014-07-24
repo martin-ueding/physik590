@@ -5,6 +5,8 @@
 
 \usepackage{header}
 
+\usepackage{booktabs}
+
 \usepackage{tikz}
 \usepackage{pgfplots}
 \pgfplotsset{
@@ -16,6 +18,12 @@
 \usepgfplotslibrary{external}
 \tikzexternalize[mode=list and make]
 \tikzsetexternalprefix{_build/Abbildung-}
+
+
+\pgfplotsset{
+    colormap={whiteblack}{gray=(0.95) gray=(0)},
+    max space between ticks=50pt,
+}
 
 \usepackage{algpseudocode}
 
@@ -41,6 +49,10 @@
         Raum-Zeit mit gitterfeldtheoretischen Methoden
     }
 }
+
+\definecolor{3ClassSet1_1}{rgb}{0.894118,0.101961,0.109804}
+\definecolor{3ClassSet1_2}{rgb}{0.215686,0.494118,0.721569}
+\definecolor{3ClassSet1_3}{rgb}{0.301961,0.686275,0.290196}
 
 \title{%
     Gitterfeldtheoretische Behandlung\\
@@ -393,12 +405,60 @@ $\lim_{\tau \to \infty} \Deltaup E_n^\text{eff}(\tau, \tau_0) = E_n - E_0$
             \addplot[black] table {../Text/_build/gamma_data.csv};
         \end{axis}
     \end{tikzpicture}
-
 \end{frame}
 
 \section{Ergebnisse}
 
 \subsection{Harmonischer Oszillator}
+
+\begin{frame}
+    \frametitle{Trajektorie nach Relaxation}
+
+    \tikzsetnextfilename{relaxiert}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.6\linewidth,
+                xlabel={$j = t/a$},
+                ylabel={$x_j = x(t/a)$},
+            ]
+            \addplot[black] table {../Text/CSV/11EA8F-trajectory-04-more_iterations.csv};
+        \end{axis}
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Aufenthaltswahrscheinlichkeit ($a = \num{1.0}$}
+
+    \tikzsetnextfilename{histogram_10}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=0.55\linewidth,
+                xlabel={$x$},
+                ylabel={$|\psi(x)|^2$},
+                grid=major,
+                xmin=-3,
+                xmax=3,
+                legend entries={
+                    {Simulation},
+                    {Theorie},
+                    Kontinuum,
+                },
+            ]
+            \addplot[
+                black,
+                only marks,
+                mark=+,
+                error bars/.cd,
+                y dir=both,
+                y explicit
+            ] table[y error index=2] {../Text/CSV/DC5256-histogram-position-resultset.csv};
+            \addplot[black] table {../Text/_build/histogram_theory_1.csv};
+            \addplot[black, dashed] table {../Text/_build/histogram_theory_continous.csv};
+        \end{axis}
+    \end{tikzpicture}
+\end{frame}
 
 \begin{frame}
     \frametitle{Ungerade Eigenwerte}
@@ -416,11 +476,11 @@ $\lim_{\tau \to \infty} \Deltaup E_n^\text{eff}(\tau, \tau_0) = E_n - E_0$
                     {$n = 5$},
                 },
             ]
-            \addplot[black!100!white] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-01-fit.csv};
-            \addplot[black!60!white] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-03-fit.csv};
-            \addplot[black!30!white] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-05-fit.csv};
+            \addplot[3ClassSet1_1] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-01-fit.csv};
+            \addplot[3ClassSet1_2] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-03-fit.csv};
+            \addplot[3ClassSet1_3] table {../Text/CSV/lambdas/ED7AA2-eigenvalue-05-fit.csv};
             \addplot[
-                black!100!white,
+                3ClassSet1_1,
                 only marks,
                 mark=|,
                 error bars/.cd,
@@ -429,7 +489,7 @@ $\lim_{\tau \to \infty} \Deltaup E_n^\text{eff}(\tau, \tau_0) = E_n - E_0$
             ] table[y error index=2] {../Text/CSV/lambdas/ED7AA2-eigenvalue-01.csv};
 
             \addplot[
-                black!60!white,
+                3ClassSet1_2,
                 only marks,
                 mark=|,
                 error bars/.cd,
@@ -437,7 +497,7 @@ $\lim_{\tau \to \infty} \Deltaup E_n^\text{eff}(\tau, \tau_0) = E_n - E_0$
                 y explicit
             ] table[y error index=2] {../Text/CSV/lambdas/ED7AA2-eigenvalue-03.csv};
             \addplot[
-                black!30!white,
+                3ClassSet1_3,
                 only marks,
                 mark=|,
                 error bars/.cd,
@@ -448,7 +508,91 @@ $\lim_{\tau \to \infty} \Deltaup E_n^\text{eff}(\tau, \tau_0) = E_n - E_0$
     \end{tikzpicture}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Energiewerte}
+    \begin{tabular}{SS}
+        {$n$} & {$E_n$} \\
+        \midrule
+         1 & 1.50331 +- 0.00075 \\
+         2 &   2.429 +- 0.020   \\
+         3 &   3.433 +- 0.027   \\
+         4 &   4.320 +- 0.064   \\
+         5 &   4.990 +- 0.095   \\
+         6 &    6.29 +- 0.14    \\
+         7 &   6.869 +- 0.100   \\
+         8 &    18.5 +- 8.1     \\
+         9 &    12.4 +- 1.5     \\
+        10 &    1.28 +- 0.11    \\
+        11 &   1.186 +- 0.060  
+    \end{tabular}
+\end{frame}
+
 \subsection{Anharmonischer Oszillator}
+
+\begin{frame}
+    \begin{minipage}{0.49\linewidth}
+    \centering
+    \tikzsetnextfilename{gausspotential-negativ}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=\linewidth,
+                xlabel={$x$},
+                ylabel={$V(x)$},
+                grid=major,
+            ]
+            \addplot[black] table {../Text/CSV/gauss-potential/pos/18B9E2-potential.csv}; % 1.00
+            \addplot[black] table {../Text/CSV/gauss-potential/pos/DF05AB-potential.csv}; % 0.800
+            \addplot[black] table {../Text/CSV/gauss-potential/pos/00C58F-potential.csv}; % 0.500
+            \addplot[black] table {../Text/CSV/gauss-potential/pos/53D7EB-potential.csv}; % 0.300
+            \addplot[black] table {../Text/CSV/gauss-potential/pos/6FC501-potential.csv}; % 0.100
+        \end{axis}
+    \end{tikzpicture}
+    \end{minipage}
+    \begin{minipage}{0.49\linewidth}
+    \centering
+    \tikzsetnextfilename{gausspotential-positiv}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=\linewidth,
+                height=\linewidth,
+                xlabel={$x$},
+                ylabel={$V(x)$},
+                grid=major,
+                yticklabel pos=right,
+            ]
+            \addplot[black] table {../Text/CSV/gauss-potential/neg/029833-potential.csv};
+            \addplot[black] table {../Text/CSV/gauss-potential/neg/156D90-potential.csv};
+            \addplot[black] table {../Text/CSV/gauss-potential/neg/4DD6F0-potential.csv};
+        \end{axis}
+    \end{tikzpicture}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}
+    \frametitle{$E_0$ in Abhängigkeit von $\timestep$ und $\gausswidth$}
+    \tikzsetnextfilename{mesh-e0}
+    \begin{tikzpicture}
+        \begin{axis}[
+                width=0.9\linewidth,
+                height=0.6\linewidth,
+                xlabel={$\gausswidth$},
+                ylabel={$\timestep$},
+                colormap/jet,
+                zlabel={$E_0$},
+                colorbar,
+                grid=major,
+                view={-15}{15},
+            ]
+            \addplot3[
+                mesh,
+                scatter,
+                mesh/ordering=y varies,
+            ]
+            table {../Text/CSV/raw_data.csv};
+        \end{axis}
+    \end{tikzpicture}
+\end{frame}
 
 \begin{frame}
 
