@@ -368,12 +368,12 @@
     \end{itemize}
 \end{frame}
 
-\subsection{Eindimensionale Wellenfunktion mit $\delta$-Störung}
+\subsection{Oszillator mit $\delta$-Störung}
 
 \frame\subsectionpage
 
 \begin{frame}
-    \frametitle{Oszillator mit $\delta$-Störung}
+    \frametitle{Definition des System}
 
     Hamiltonoperator:
     \[
@@ -553,43 +553,43 @@
 
 \begin{frame}
     \frametitle{Gestörtes Potential}
-    \begin{minipage}{0.49\linewidth}
-    \centering
-    \tikzsetnextfilename{gausspotential-negativ}
-    \begin{tikzpicture}
-        \begin{axis}[
-                width=\linewidth,
-                height=\linewidth,
-                xlabel={$x$},
-                ylabel={$V(x)$},
-                grid=major,
-            ]
-            \addplot[black] table {../Text/CSV/gauss-potential/pos/18B9E2-potential.csv}; % 1.00
-            \addplot[black] table {../Text/CSV/gauss-potential/pos/DF05AB-potential.csv}; % 0.800
-            \addplot[black] table {../Text/CSV/gauss-potential/pos/00C58F-potential.csv}; % 0.500
-            \addplot[black] table {../Text/CSV/gauss-potential/pos/53D7EB-potential.csv}; % 0.300
-            \addplot[black] table {../Text/CSV/gauss-potential/pos/6FC501-potential.csv}; % 0.100
-        \end{axis}
-    \end{tikzpicture}
-    \end{minipage}
-    \begin{minipage}{0.49\linewidth}
-    \centering
-    \tikzsetnextfilename{gausspotential-positiv}
-    \begin{tikzpicture}
-        \begin{axis}[
-                width=\linewidth,
-                height=\linewidth,
-                xlabel={$x$},
-                ylabel={$V(x)$},
-                grid=major,
-                yticklabel pos=right,
-            ]
-            \addplot[black] table {../Text/CSV/gauss-potential/neg/029833-potential.csv};
-            \addplot[black] table {../Text/CSV/gauss-potential/neg/156D90-potential.csv};
-            \addplot[black] table {../Text/CSV/gauss-potential/neg/4DD6F0-potential.csv};
-        \end{axis}
-    \end{tikzpicture}
-    \end{minipage}
+    \begin{columns}[T]
+        \begin{column}{.5\textwidth}
+            \tikzsetnextfilename{gausspotential-negativ}
+            \begin{tikzpicture}
+                \begin{axis}[
+                        width=\linewidth,
+                        height=\linewidth,
+                        xlabel={$x$},
+                        ylabel={$V(x)$},
+                        grid=major,
+                    ]
+                    \addplot[black] table {../Text/CSV/gauss-potential/pos/18B9E2-potential.csv}; % 1.00
+                    \addplot[black] table {../Text/CSV/gauss-potential/pos/DF05AB-potential.csv}; % 0.800
+                    \addplot[black] table {../Text/CSV/gauss-potential/pos/00C58F-potential.csv}; % 0.500
+                    \addplot[black] table {../Text/CSV/gauss-potential/pos/53D7EB-potential.csv}; % 0.300
+                    \addplot[black] table {../Text/CSV/gauss-potential/pos/6FC501-potential.csv}; % 0.100
+                \end{axis}
+            \end{tikzpicture}
+        \end{column}
+        \begin{column}{.5\textwidth}
+            \tikzsetnextfilename{gausspotential-positiv}
+            \begin{tikzpicture}
+                \begin{axis}[
+                        width=\linewidth,
+                        height=\linewidth,
+                        xlabel={$x$},
+                        ylabel={$V(x)$},
+                        grid=major,
+                        yticklabel pos=right,
+                    ]
+                    \addplot[black] table {../Text/CSV/gauss-potential/neg/029833-potential.csv};
+                    \addplot[black] table {../Text/CSV/gauss-potential/neg/156D90-potential.csv};
+                    \addplot[black] table {../Text/CSV/gauss-potential/neg/4DD6F0-potential.csv};
+                \end{axis}
+            \end{tikzpicture}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -874,6 +874,12 @@
         \item
             Korrelationen und generalisiertes Eigenwertproblem
     \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Fragen}
+
+    Haben Sie Fragen?
 \end{frame}
 
 \begin{frame}
