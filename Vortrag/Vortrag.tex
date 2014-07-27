@@ -182,7 +182,7 @@
         \item
             Monte-Carlo-Methoden effizient
         \item
-            Integrationsgebiet durch Gewichtung klein
+            Gebiet mit Beiträgen klein
     \end{itemize}
 
     Ziel: Trajektorien entsprechend $\exp(-S)$ generieren
@@ -210,7 +210,7 @@
     
     \begin{algorithmic}
         \For{$j \gets 1, \ldots, \timesites$}
-            \State $x_j' \gets$ \Call{Zufallszahl}{$-\infty$, $\infty$}
+            \State $x_j' \gets$ \Call{Zufallszahl}{$-\margin$, $\margin$}
             \State $\Deltaup S \gets S(x_0, \ldots, x_{j-1}, x_j',
             x_{j+1}, \ldots, x_\timesites) - S(\{x_i\})$
 
@@ -296,20 +296,20 @@
 \begin{frame}
     \frametitle{Methode von \cite{Blossier/Eigenvalue}}
 
+    
     Korrelationsfunktionen:
     \[
         C_{ij}(\tau) := \Bracket{O_i(\tau) \, O_j^*(0)}
         = \Bracket{x(\tau)^i \, x(0)^j}
     \]
 
-    Matrixelemente der Interpolationsfelder:
-    \[
-        \Bracket{O_i(\tau) \, O_j^*(\tau)}
-        = \sum_{n=1}^\infty \eup^{-E_n \tau} \psi_{ni} \psi_{nj}^*
-        \eqnsep
-        i, j = 1, \ldots, N.
-    \]
-    $\psi_{ni} := (\psi_n)_i = \braket{0 | \hat O_i | n}$, wobei $E_n < E_{n+1}$
+    Bedingungen:
+    \begin{itemize}
+        \item
+            $\braket{0 | O_i | 0}$ liefert keinen Beitrag
+        \item
+            $E_n < E_{n+1}$
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -701,13 +701,15 @@
             ] table[y error index=2] {../Text/CSV/-1/a-E0-meta-daten.csv};
 
             \addplot[
-                mark=o,
+                mark=+,
                 myerrorbar,
+                Set1_1,
             ] table[y error index=2] {table1-1.csv};
 
             \addplot[
-                mark=star,
+                mark=10-pointed star,
                 only marks,
+                Set1_2,
             ] table {table1-2.csv};
 
         \end{axis}
@@ -849,8 +851,9 @@
             ] table[y error index=2] {../Text/CSV/+1/sigma-E0-0.005.csv};
 
             \addplot[
-                mark=star,
+                mark=10-pointed star,
                 only marks,
+                Set1_2,
             ] table {table2.csv};
 
         \end{axis}
@@ -862,17 +865,24 @@
 \begin{frame}
     \frametitle{Zusammenfassung}
 
+    Methoden:
     \begin{itemize}
         \item
-            harmonischer Oszillator
-        \item
-            Oszillator mit $\delta$-Störung
+            harmonischer Oszillator und Oszillator mit $\delta$-Störung
         \item
             Pfadintegrale
         \item
             \textsc{Metropolis}algorithmus
         \item
             Korrelationen und generalisiertes Eigenwertproblem
+    \end{itemize}
+
+    Ergebnisse:
+    \begin{itemize}
+        \item
+            Aufenthaltswahrscheinlichkeit
+        \item
+            Energiewerte (harmonisch und mit Störung)
     \end{itemize}
 \end{frame}
 
