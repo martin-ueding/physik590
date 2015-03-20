@@ -3,19 +3,23 @@
 
 #include "BootstrapSample.hpp"
 
-BootstrapSample::BootstrapSample(BootstrapPool &pool, Settings &settings) : histogram {pool.histograms[0].get_min(), pool.histograms[0].get_max(), pool.histograms[0].size()} {
+BootstrapSample::BootstrapSample(BootstrapPool &pool, Settings &settings)
+    : histogram{pool.histograms[0].get_min(),
+                pool.histograms[0].get_max(),
+                pool.histograms[0].size()} {
 
-    Eigen::MatrixXd m {settings.correlation_size, settings.correlation_size};
+    Eigen::MatrixXd m{settings.correlation_size, settings.correlation_size};
     m.setZero();
     for (unsigned i = 0; i != settings.correlation_ts.size(); i++) {
         even.push_back(m);
         odd.push_back(m);
     }
 
-    std::uniform_int_distribution<size_t> dist {settings.bootstrap_min, pool.size() - 1};
+    std::uniform_int_distribution<size_t> dist{settings.bootstrap_min,
+                                               pool.size() - 1};
     unsigned count = pool.size() - settings.bootstrap_min;
 
-    for (unsigned index_id {0}; index_id < count; index_id++) {
+    for (unsigned index_id{0}; index_id < count; index_id++) {
         unsigned i = dist(pool.engine);
 
         for (unsigned j = 0; j != settings.correlation_ts.size(); j++) {

@@ -4,6 +4,5 @@
 #include "HistogramComputable.hpp"
 
 HistogramComputable::HistogramComputable(double min, double max, size_t bins)
-    :
-    BootstrappedHistogram {min, max, bins} {
+    : BootstrappedHistogram{min, max, bins} {
 }

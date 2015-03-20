@@ -8,8 +8,8 @@
 #include <random>
 #include <thread>
 
-ResultSet::ResultSet(BootstrapPool &pool) :
-    dens {PositionDensity{ -5, 5, pool.histograms[0].size()}}, pool {pool} {
+ResultSet::ResultSet(BootstrapPool &pool)
+    : dens{PositionDensity{-5, 5, pool.histograms[0].size()}}, pool{pool} {
 }
 
-//unsigned int cpu_count = std::thread::hardware_concurrency();
+// unsigned int cpu_count = std::thread::hardware_concurrency();

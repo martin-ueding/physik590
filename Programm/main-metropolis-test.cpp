@@ -11,4 +11,3 @@ int main() {
     runner.run();
     return 0;
 }
-

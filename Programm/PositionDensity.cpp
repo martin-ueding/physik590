@@ -4,8 +4,7 @@
 #include "PositionDensity.hpp"
 
 PositionDensity::PositionDensity(double min, double max, size_t bins)
-    :
-    HistogramComputable {min, max, bins} {
+    : HistogramComputable{min, max, bins} {
 }
 
 void PositionDensity::add_sample(BootstrapSample &sample) {

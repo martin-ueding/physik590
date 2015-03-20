@@ -20,17 +20,20 @@
 #include <regex>
 #include <sstream>
 
-#define JSON(var) root[ #var ] = (var);
+#define JSON(var) root[#var] = (var);
 
 void Settings::compute() {
-    unsigned step_size = std::max(static_cast<unsigned>((corr_tau_max / time_step) / corr_tau_count), 1u);
+    unsigned step_size = std::max(
+        static_cast<unsigned>((corr_tau_max / time_step) / corr_tau_count), 1u);
 
     // The 0 is needed to calculate <x^2> = C_11(0) and E_0.
     if (t_0 > 0) {
         correlation_ts.push_back(0);
     }
 
-    for (unsigned i = t_0; correlation_ts.size() < corr_tau_count && i < time_sites; i += step_size) {
+    for (unsigned i = t_0;
+         correlation_ts.size() < corr_tau_count && i < time_sites;
+         i += step_size) {
         correlation_ts.push_back(i);
     }
 
@@ -38,7 +41,7 @@ void Settings::compute() {
 }
 
 void Settings::store_json(std::string filename) {
-    std::ofstream os {filename};
+    std::ofstream os{filename};
     os << get_json_string();
 }
 
@@ -84,7 +87,7 @@ std::string Settings::get_json_string() {
 
 std::string Settings::generate_filename(std::string name) {
     std::ostringstream oss;
-    std::string computed_hash {hash()};
+    std::string computed_hash{hash()};
 
     oss << "out/";
     oss << computed_hash;
@@ -105,16 +108,19 @@ std::string Settings::report() {
 
 std::string Settings::hash() {
     std::string reported = get_json_string();
-    size_t digest_size {CryptoPP::SHA1{} .DigestSize()};
+    size_t digest_size{CryptoPP::SHA1{}.DigestSize()};
 
-    std::unique_ptr<byte> digest {new byte[digest_size]};
-    CryptoPP::SHA1 {} .CalculateDigest(digest.get(), reinterpret_cast<const byte *>(reported.data()), reported.length());
+    std::unique_ptr<byte> digest{new byte[digest_size]};
+    CryptoPP::SHA1{}.CalculateDigest(
+        digest.get(),
+        reinterpret_cast<const byte *>(reported.data()),
+        reported.length());
 
-    std::string digest_string {reinterpret_cast<const char *>(digest.get())};
+    std::string digest_string{reinterpret_cast<const char *>(digest.get())};
 
     CryptoPP::HexEncoder encoder;
     std::string output;
-    encoder.Attach(new CryptoPP::StringSink {output});
+    encoder.Attach(new CryptoPP::StringSink{output});
     encoder.Put(digest.get(), digest_size);
     encoder.MessageEnd();
 
@@ -131,7 +137,8 @@ unsigned Settings::matrix_to_state(unsigned i, bool even) {
 
 unsigned Settings::state_to_matrix(unsigned n) {
     if (n == 0) {
-        throw std::range_error {"Correlation C_00 is not contained in the matrix."};
+        throw std::range_error{
+            "Correlation C_00 is not contained in the matrix."};
     }
     return (n - 1) / 2;
 }
@@ -162,10 +169,13 @@ unsigned Settings::get_t_0_id(unsigned t_id) {
 }
 
 void Settings::estimate_memory_usage() {
-    size_t correlation_entries = 2 * correlation_ts.size() * std::pow(correlation_size, 2) * iterations;
+    size_t correlation_entries =
+        2 * correlation_ts.size() * std::pow(correlation_size, 2) * iterations;
     size_t total = correlation_entries;
 
     SizePrinter printer;
 
-    std::cout << "Estimated memory with " << total << " double: " << printer.format(total * sizeof(double)) << std::endl;
+    std::cout << "Estimated memory with " << total
+              << " double: " << printer.format(total * sizeof(double))
+              << std::endl;
 }

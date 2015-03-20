@@ -10,11 +10,9 @@ unsigned int Periodic::wrap(int number, unsigned int max) {
 
     if (number < 0) {
         result = number + max;
-    }
-    else if ((unsigned int) number >= max) {
+    } else if ((unsigned int)number >= max) {
         result = number % max;
-    }
-    else {
+    } else {
         result = number;
     }
 

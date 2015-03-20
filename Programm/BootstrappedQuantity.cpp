@@ -15,7 +15,7 @@ void BootstrappedQuantity::append(double point) {
         nans++;
         return;
     }
-    std::unique_lock<std::mutex> lock {append_mutex};
+    std::unique_lock<std::mutex> lock{append_mutex};
     data.push_back(point);
 }
 
@@ -25,26 +25,30 @@ double BootstrappedQuantity::mean() {
         oss << "No elements to calculate mean from";
         if (nans > 0) {
             oss << ", but " << nans << " NaNs.";
-        }
-        else {
+        } else {
             oss << ".";
         }
-        throw std::runtime_error {oss.str()};
+        throw std::runtime_error{oss.str()};
     }
-    double sum {std::accumulate(data.begin(), data.end(), 0.0)};
-    double mean {sum / data.size()};
+    double sum{std::accumulate(data.begin(), data.end(), 0.0)};
+    double mean{sum / data.size()};
 
     return mean;
 }
 
 double BootstrappedQuantity::stddev() {
     if (data.size() == 0) {
-        throw std::runtime_error {"No elements to calculate standard deviation from!"};
+        throw std::runtime_error{
+            "No elements to calculate standard deviation from!"};
     }
 
     std::vector<double> diff(data.size());
-    std::transform(data.begin(), data.end(), diff.begin(), std::bind2nd(std::minus<double>(), mean()));
-    double sq_sum = std::inner_product(diff.begin(), diff.end(), diff.begin(), 0.0);
+    std::transform(data.begin(),
+                   data.end(),
+                   diff.begin(),
+                   std::bind2nd(std::minus<double>(), mean()));
+    double sq_sum =
+        std::inner_product(diff.begin(), diff.end(), diff.begin(), 0.0);
     double stddev = std::sqrt(sq_sum / data.size());
 
     return stddev;

@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <iostream>
 
-ProgressBar::ProgressBar(std::string prefix, unsigned max) : max {max} {
+ProgressBar::ProgressBar(std::string prefix, unsigned max) : max{max} {
     step_size = std::max(1u, max / max_steps);
     std::cout << prefix << " …" << std::endl;
 
@@ -44,8 +44,10 @@ void ProgressBar::close() {
 
     std::cout << "]";
 
-    double time_in_seconds = std::chrono::duration_cast<std::chrono::milliseconds>
-                             (std::chrono::steady_clock::now() - start_time).count() / 1000.0;
+    double time_in_seconds =
+        std::chrono::duration_cast<std::chrono::milliseconds>(
+            std::chrono::steady_clock::now() - start_time).count() /
+        1000.0;
     std::cout << " " << time_in_seconds << " s";
 
     std::cout << std::endl;

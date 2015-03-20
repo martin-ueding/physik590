@@ -31,18 +31,19 @@ int main(int argc, char **argv) {
 
     settings.estimate_memory_usage();
 
-    ProgressBar driver_bar {"Creating thermalized state", settings.pre_iterations};
-    MetropolisDriver m_driver {settings};
+    ProgressBar driver_bar{"Creating thermalized state",
+                           settings.pre_iterations};
+    MetropolisDriver m_driver{settings};
     driver_bar.close();
 
     std::shared_ptr<BootstrapPool> pool;
 
     if (settings.load_filename == "") {
         std::cout << "ID of this run: " << settings.hash() << std::endl;
-        pool = std::unique_ptr<BootstrapPool> {new BootstrapPool {m_driver, settings}};
+        pool = std::unique_ptr<BootstrapPool>{
+            new BootstrapPool{m_driver, settings}};
         save_pool(pool, settings);
-    }
-    else {
+    } else {
         load_into_pool(pool, settings);
         std::cout << "ID of this analysis: " << settings.hash() << std::endl;
     }

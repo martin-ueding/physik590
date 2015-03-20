@@ -11,10 +11,8 @@
 Histogram::Histogram() {
 }
 
-Histogram::Histogram(double min, double max, size_t bins) :
-    min {min},
-    max {max},
-bins {std::vector<int>(bins)} {
+Histogram::Histogram(double min, double max, size_t bins)
+    : min{min}, max{max}, bins{std::vector<int>(bins)} {
 }
 
 void Histogram::operator()(double value) {
@@ -28,10 +26,11 @@ void Histogram::operator()(double value) {
 Histogram &Histogram::operator+=(Histogram &other) {
     if (bins.size() != other.bins.size()) {
         std::ostringstream oss;
-        oss << "Cannot add histograms of size " << bins.size() << " and " << other.bins.size() << ".";
+        oss << "Cannot add histograms of size " << bins.size() << " and "
+            << other.bins.size() << ".";
         throw std::runtime_error{oss.str()};
     }
-    for (unsigned i {0}; i < bins.size(); i++) {
+    for (unsigned i{0}; i < bins.size(); i++) {
         bins[i] += other.bins[i];
     }
     points_pushed += other.points_pushed;
@@ -45,7 +44,7 @@ void Histogram::save(std::string &filename) {
 
     for (size_t i = 0; i < bins.size(); i++) {
         double x = min + width / 2 + i * width;
-        double y = (double) bins[i] / points_pushed;
+        double y = (double)bins[i] / points_pushed;
         outfile << x << "\t" << y << "\t" << std::endl;
     }
 }

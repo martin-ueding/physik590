@@ -6,9 +6,10 @@
 #include <fstream>
 #include <functional>
 
-
-void VectorHelper::save_plot_file(std::vector<double> &list, std::string filename, std::string preamble) {
-    std::ofstream outfile {filename};
+void VectorHelper::save_plot_file(std::vector<double> &list,
+                                  std::string filename,
+                                  std::string preamble) {
+    std::ofstream outfile{filename};
     outfile << preamble;
     outfile << "# j \t x_j" << std::endl;
     for (unsigned int i = 0; i < list.size(); i++) {

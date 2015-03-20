@@ -8,10 +8,11 @@
 #include <cmath>
 
 MetropolisAlgorithm::MetropolisAlgorithm(Oscillator &s,
-        int position_seed, int accept_seed) :
-    system(s),
-    position_engine(std::mt19937 {position_seed}),
-accept_engine(std::mt19937 {accept_seed}) {
+                                         int position_seed,
+                                         int accept_seed)
+    : system(s),
+      position_engine(std::mt19937{position_seed}),
+      accept_engine(std::mt19937{accept_seed}) {
 }
 
 bool MetropolisAlgorithm::accept_action_difference(double action_difference) {
@@ -19,10 +20,9 @@ bool MetropolisAlgorithm::accept_action_difference(double action_difference) {
     if (action_difference < 0) {
         accepted_negative++;
         return true;
-    }
-    else {
+    } else {
         bool rval;
-        rval = std::exp(- action_difference) > zero_one_dist(accept_engine);
+        rval = std::exp(-action_difference) > zero_one_dist(accept_engine);
         if (rval) {
             accepted_exponential++;
         }
@@ -30,26 +30,26 @@ bool MetropolisAlgorithm::accept_action_difference(double action_difference) {
     }
 }
 
-void MetropolisAlgorithm::iteration(std::vector<double> &x, int rounds, double margin) {
-    for (unsigned int j {0}; j < x.size(); j++) {
+void MetropolisAlgorithm::iteration(std::vector<double> &x,
+                                    int rounds,
+                                    double margin) {
+    for (unsigned int j{0}; j < x.size(); j++) {
         // Wrap j around to create periodic boundary conditions.
-        unsigned int j_plus_one {Periodic::wrap(j + 1, x.size())};
-        unsigned int j_minus_one {Periodic::wrap(j - 1, x.size())};
+        unsigned int j_plus_one{Periodic::wrap(j + 1, x.size())};
+        unsigned int j_minus_one{Periodic::wrap(j - 1, x.size())};
 
-        for (int round {0}; round < rounds; round++) {
+        for (int round{0}; round < rounds; round++) {
             // Create a random number generator that will draw x_j' from a
             // normal distribution with mean = x_j and stddev = margin.
-            std::normal_distribution<double> distribution {x[j], margin};
+            std::normal_distribution<double> distribution{x[j], margin};
 
             // Generate a new random x_j'.
-            double new_x {distribution(position_engine)};
+            double new_x{distribution(position_engine)};
 
             // Compute the difference in action (ΔS) that will result from the
             // exchange x_j → x_j'.
-            double action_difference {
-                system.action_difference(x[j_minus_one], x[j], new_x,
-                x[j_plus_one])
-            };
+            double action_difference{system.action_difference(
+                x[j_minus_one], x[j], new_x, x[j_plus_one])};
 
             if (accept_action_difference(action_difference)) {
                 x[j] = new_x;
@@ -69,11 +69,11 @@ double MetropolisAlgorithm::get_accept_rate() {
 }
 
 double MetropolisAlgorithm::get_accept_rate_negative() {
-    return (double) accepted_negative / samples;
+    return (double)accepted_negative / samples;
 }
 
 double MetropolisAlgorithm::get_accept_rate_exponential() {
-    return (double) accepted_exponential / samples;
+    return (double)accepted_exponential / samples;
 }
 
 void MetropolisAlgorithm::re_seed(int seed) {
